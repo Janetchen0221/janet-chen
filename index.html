@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ── SEO Meta ── -->
+  <title>陳秀娟 Janet Chen | 保誠保險持牌代理 | 家庭資產規劃</title>
+  <meta name="description" content="陳秀娟 Janet Chen Xiujuan，保誠保險有限公司持牌保險代理人，持有香港保險業1、2、3、4、5號牌照（牌照號碼 IH5039）及強積金中介人資格（注冊號碼 139568），專長家庭資產梳理及規劃。" />
+  <meta name="keywords" content="陳秀娟,Janet Chen,Janet Chen Xiujuan,保誠保險,香港保險代理,家庭資產規劃,IH5039,139568,持牌保險中介人,強積金中介人" />
+  <meta name="author" content="Janet Chen Xiujuan" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://janetchen0221.github.io/janet-chen/" />
+
+  <!-- ── Open Graph ── -->
+  <meta property="og:type"        content="profile" />
+  <meta property="og:title"       content="陳秀娟 Janet Chen | 保誠保險持牌代理" />
+  <meta property="og:description" content="持有香港保險業1-5號全牌照，專長家庭資產梳理及規劃。" />
+  <meta property="og:url"         content="https://janetchen0221.github.io/janet-chen/" />
+  <meta property="profile:first_name" content="Janet" />
+  <meta property="profile:last_name"  content="Chen" />
+
+  <!-- ── Schema.org structured data (JSON-LD) ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "陳秀娟",
+    "alternateName": ["Janet Chen", "Janet Chen Xiujuan", "陈秀娟"],
+    "jobTitle": "持牌保險代理人 Licensed Insurance Agent",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "保誠保險有限公司",
+      "alternateName": "Prudential Hong Kong Limited",
+      "url": "https://www.prudential.com.hk"
+    },
+    "hasCredential": [
+      {
+        "@type": "EducationalOccupationalCredential",
+        "name": "香港保險業監管局持牌保險中介人",
+        "description": "持有1、2、3、4、5號牌照",
+        "credentialCategory": "license",
+        "identifier": "IH5039",
+        "recognizedBy": {
+          "@type": "Organization",
+          "name": "香港保險業監管局",
+          "alternateName": "Insurance Authority Hong Kong",
+          "url": "https://www.ia.org.hk"
+        }
+      },
+      {
+        "@type": "EducationalOccupationalCredential",
+        "name": "強積金中介人",
+        "description": "強積金中介人注冊號碼 139568",
+        "credentialCategory": "license",
+        "identifier": "139568",
+        "recognizedBy": {
+          "@type": "Organization",
+          "name": "積金局 MPFA",
+          "url": "https://www.mpfa.org.hk"
+        }
+      }
+    ],
+    "knowsAbout": [
+      "家庭資產梳理及規劃",
+      "人壽保險",
+      "危疾保障",
+      "儲蓄保險",
+      "強積金規劃",
+      "退休規劃",
+      "資產傳承",
+      "香港保險"
+    ],
+    "areaServed": "Hong Kong",
+    "email": "janet.chen0221@gmail.com",
+    "url": "https://janetchen0221.github.io/janet-chen/"
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f8f6f2;
+      --surface: #ffffff;
+      --border: #e8e4dc;
+      --text: #1c1a17;
+      --muted: #8a8680;
+      --gold: #b8860b;
+      --gold-light: #f9f4e8;
+      --red: #c0392b;
+      --radius: 16px;
+      --shadow: 0 2px 8px rgba(0,0,0,.06), 0 8px 32px rgba(0,0,0,.05);
+    }
+
+    body {
+      font-family: -apple-system, "PingFang HK", "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100dvh;
+      line-height: 1.7;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, #1c1a17 0%, #2d2a24 60%, #3a3528 100%);
+      color: #fff;
+      padding: 64px 24px 56px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      background: rgba(184,134,11,.2);
+      border: 1px solid rgba(184,134,11,.5);
+      border-radius: 999px;
+      font-size: 12px;
+      color: #d4a843;
+      letter-spacing: .06em;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 700;
+      letter-spacing: -.5px;
+      line-height: 1.2;
+    }
+    .hero h1 span { color: #d4a843; }
+    .hero-sub {
+      margin-top: 10px;
+      font-size: 16px;
+      color: rgba(255,255,255,.65);
+      letter-spacing: .02em;
+    }
+    .hero-company {
+      margin-top: 16px;
+      font-size: 13px;
+      color: rgba(255,255,255,.5);
+    }
+    .hero-cta {
+      margin-top: 32px;
+    }
+    .btn-cta {
+      display: inline-block;
+      padding: 12px 32px;
+      background: var(--gold);
+      color: #fff;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: .03em;
+      transition: opacity .15s, transform .15s;
+    }
+    .btn-cta:hover { opacity: .88; transform: translateY(-1px); }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .section {
+      padding: 48px 0;
+    }
+    .section + .section {
+      border-top: 1px solid var(--border);
+    }
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    /* ── License cards ── */
+    .license-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .license-card {
+      background: var(--gold-light);
+      border: 1px solid #e8d99a;
+      border-radius: var(--radius);
+      padding: 20px 22px;
+    }
+    .license-card h3 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .license-card .lic-num {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: .02em;
+      font-variant-numeric: tabular-nums;
+    }
+    .license-card .lic-desc {
+      margin-top: 8px;
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .license-card .verify-link {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 11.5px;
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .license-card .verify-link:hover { text-decoration: underline; }
+
+    /* ── Qualification badges ── */
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .badge {
+      padding: 6px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 12.5px;
+      color: var(--text);
+    }
+    .badge.highlight {
+      background: #fff8e6;
+      border-color: #e8d080;
+      color: #7a6000;
+      font-weight: 600;
+    }
+
+    /* ── Specialty ── */
+    .specialty-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+    }
+    .specialty-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .spec-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: var(--gold-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .spec-text h4 { font-size: 13.5px; font-weight: 600; }
+    .spec-text p  { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
+
+    /* ── About ── */
+    .about-text {
+      font-size: 15px;
+      color: #3a3530;
+      line-height: 1.9;
+      max-width: 680px;
+    }
+
+    /* ── Contact ── */
+    .contact-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      box-shadow: var(--shadow);
+    }
+    .contact-box h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .contact-box p  { font-size: 13px; color: var(--muted); }
+    .contact-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      background: var(--text);
+      color: #fff;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity .15s;
+    }
+    .contact-email:hover { opacity: .8; }
+
+    /* ── Footer ── */
+    footer {
+      background: #1c1a17;
+      color: rgba(255,255,255,.4);
+      text-align: center;
+      padding: 28px 20px;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+    footer a { color: rgba(255,255,255,.5); text-decoration: none; }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Hero ── -->
+<div class="hero">
+  <div class="hero-badge">保誠保險 · 持牌代理人</div>
+  <h1>陳秀娟<br><span>Janet Chen Xiujuan</span></h1>
+  <p class="hero-sub">香港保險業 1 · 2 · 3 · 4 · 5 號全牌照</p>
+  <p class="hero-company">保誠保險有限公司 Prudential Hong Kong Limited</p>
+  <div class="hero-cta">
+    <a href="mailto:janet.chen0221@gmail.com" class="btn-cta">聯絡我 Contact Me</a>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ── Licenses ── -->
+  <div class="section">
+    <div class="section-title">持牌資格 Licensed Credentials</div>
+    <div class="license-grid">
+
+      <div class="license-card">
+        <h3>保險業監管局 · 持牌保險中介人</h3>
+        <div class="lic-num">IH5039</div>
+        <div class="lic-desc">
+          持有第 1、2、3、4、5 號牌照<br>
+          個人保險代理人牌照
+        </div>
+        <a class="verify-link"
+           href="https://www.ia.org.hk/en/licensed_entities/register_of_licensed_insurance_intermediaries.html"
+           target="_blank" rel="noopener">
+          → 保監局官網查驗
+        </a>
+      </div>
+
+      <div class="license-card">
+        <h3>積金局 MPFA · 強積金中介人</h3>
+        <div class="lic-num">139568</div>
+        <div class="lic-desc">
+          強積金中介人注冊號碼<br>
+          具備強積金規劃專業資格
+        </div>
+        <a class="verify-link"
+           href="https://www.mpfa.org.hk/en/mpf-intermediaries/register-of-mpf-intermediaries"
+           target="_blank" rel="noopener">
+          → 積金局官網查驗
+        </a>
+      </div>
+
+    </div>
+
+    <div style="margin-top:20px;">
+      <div class="badge-row">
+        <span class="badge highlight">1號牌 — 長期保險</span>
+        <span class="badge highlight">2號牌 — 一般保險</span>
+        <span class="badge highlight">3號牌 — 一般保險（再保險）</span>
+        <span class="badge highlight">4號牌 — 長期保險（再保險）</span>
+        <span class="badge highlight">5號牌 — 強積金業務</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Specialty ── -->
+  <div class="section">
+    <div class="section-title">專長服務 Areas of Expertise</div>
+    <div class="specialty-grid">
+      <div class="specialty-item">
+        <div class="spec-icon">🏠</div>
+        <div class="spec-text">
+          <h4>家庭資產梳理</h4>
+          <p>全面梳理家庭財務結構，建立資產負債表與現金流分析</p>
+        </div>
+      </div>
+      <div class="specialty-item">
+        <div class="spec-icon">📊</div>
+        <div class="spec-text">
+          <h4>家庭財務規劃</h4>
+          <p>制定完整家庭財務報告，量身定制保障與儲蓄策略</p>
+        </div>
+      </div>
+      <div class="specialty-item">
+        <div class="spec-icon">🛡️</div>
+        <div class="spec-text">
+          <h4>人壽及危疾保障</h4>
+          <p>評估家庭保障缺口，推薦合適的人壽及危疾保險方案</p>
+        </div>
+      </div>
+      <div class="specialty-item">
+        <div class="spec-icon">💰</div>
+        <div class="spec-text">
+          <h4>儲蓄及退休規劃</h4>
+          <p>透過儲蓄保險及強積金優化，助客戶實現退休目標</p>
+        </div>
+      </div>
+      <div class="specialty-item">
+        <div class="spec-icon">🌏</div>
+        <div class="spec-text">
+          <h4>資產傳承安排</h4>
+          <p>協助家庭規劃財富傳承，確保資產有效轉移至下一代</p>
+        </div>
+      </div>
+      <div class="specialty-item">
+        <div class="spec-icon">📋</div>
+        <div class="spec-text">
+          <h4>強積金規劃</h4>
+          <p>提供強積金投資建議，協助僱員及自僱人士優化退休儲備</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── About ── -->
+  <div class="section">
+    <div class="section-title">關於我 About</div>
+    <p class="about-text">
+      我是陳秀娟（Janet Chen Xiujuan），現任職於保誠保險有限公司（Prudential Hong Kong Limited）的持牌保險代理人，持有香港保險業監管局頒發的第 1、2、3、4、5 號全牌照（牌照號碼：IH5039），同時持有積金局強積金中介人資格（注冊號碼：139568）。
+    </p>
+    <p class="about-text" style="margin-top:16px;">
+      多年來，我專注於家庭資產梳理及整體財務規劃，協助客戶建立清晰的資產負債表與現金流表，制定完整的家庭財務報告。我相信每個家庭都應擁有量身訂製的財務保障方案，讓每一位客戶在人生不同階段都能得到妥善的保障與財富積累。
+    </p>
+  </div>
+
+  <!-- ── Contact ── -->
+  <div class="section">
+    <div class="section-title">聯絡方式 Contact</div>
+    <div class="contact-box">
+      <div>
+        <h3>歡迎預約免費諮詢</h3>
+        <p>家庭資產規劃 · 保險需求分析 · 強積金建議</p>
+      </div>
+      <a href="mailto:janet.chen0221@gmail.com" class="contact-email">
+        ✉ janet.chen0221@gmail.com
+      </a>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- ── Footer ── -->
+<footer>
+  <p>陳秀娟 Janet Chen Xiujuan &nbsp;·&nbsp; 保誠保險有限公司持牌代理</p>
+  <p style="margin-top:6px;">
+    保監局牌照 IH5039 &nbsp;·&nbsp; 積金局注冊 139568
+  </p>
+  <p style="margin-top:10px;">
+    <a href="https://www.ia.org.hk" target="_blank">香港保險業監管局</a>
+    &nbsp;·&nbsp;
+    <a href="https://www.mpfa.org.hk" target="_blank">積金局 MPFA</a>
+    &nbsp;·&nbsp;
+    <a href="https://www.prudential.com.hk" target="_blank">保誠保險</a>
+  </p>
+  <p style="margin-top:10px; font-size:11px; opacity:.6;">
+    本網頁資料僅供參考，所有保險建議須經個人需求分析後方可提供。
+  </p>
+</footer>
+
+</body>
+</html>
