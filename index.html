@@ -59,7 +59,10 @@
     "knowsAbout": ["家庭資產梳理及規劃","人壽保險","危疾保障","儲蓄保險","強積金規劃","退休規劃","資產傳承","投資相連保險"],
     "areaServed": "Hong Kong",
     "email": "janet.chen0221@gmail.com",
-    "url": "https://janetchen0221.github.io/janet-chen/"
+    "url": "https://janetchen0221.github.io/janet-chen/",
+    "sameAs": [
+      "https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=gh_811996695df1"
+    ]
   }
   </script>
 
@@ -359,6 +362,66 @@
     .about-text + .about-text { margin-top: 20px; }
 
     /* ════════════════════════════════
+       SOCIAL
+    ════════════════════════════════ */
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .social-card {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      text-decoration: none;
+      transition: border-color .2s, background .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .social-card:hover { border-color: var(--border); background: var(--surface2); }
+    .social-card::after {
+      content: '↗';
+      position: absolute;
+      top: 14px; right: 16px;
+      font-size: .8rem;
+      color: var(--text2);
+      opacity: .4;
+    }
+    .social-logo {
+      width: 50px; height: 50px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .social-logo.xhs    { background: #ff2442; }
+    .social-logo.wechat { background: #07c160; }
+    .social-info { min-width: 0; }
+    .social-platform {
+      font-size: .68rem;
+      color: var(--text2);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-family: "Cormorant Garamond", serif;
+      margin-bottom: 5px;
+    }
+    .social-name {
+      font-size: .92rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .social-desc {
+      font-size: .73rem;
+      color: var(--text2);
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    /* ════════════════════════════════
        CONTACT
     ════════════════════════════════ */
     .contact-box {
@@ -544,6 +607,36 @@
     <p class="about-text">
       多年來，我專注於家庭資產梳理及整體財務規劃，協助客戶建立清晰的資產負債表與現金流表，制定完整的家庭財務報告。我相信每個家庭都應擁有量身訂製的財務保障方案，讓每一位客戶在人生不同階段都能得到妥善的保障與財富積累。
     </p>
+  </div>
+
+  <!-- ── Social ── -->
+  <div class="section">
+    <div class="section-title">社交媒體 · Social Media</div>
+    <div class="social-grid">
+
+      <a class="social-card"
+         href="https://www.xiaohongshu.com/user/search?keyword=%E7%A7%80%E5%A8%9F%E7%9A%84%E8%B5%84%E4%BA%A7%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97"
+         target="_blank" rel="noopener">
+        <div class="social-logo xhs">📕</div>
+        <div class="social-info">
+          <div class="social-platform">小紅書 Xiaohongshu</div>
+          <div class="social-name">秀娟的資產配置指南</div>
+          <div class="social-desc">家庭資產規劃 · 保險科普 · 財務知識分享</div>
+        </div>
+      </a>
+
+      <a class="social-card"
+         href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=gh_811996695df1"
+         target="_blank" rel="noopener">
+        <div class="social-logo wechat">💬</div>
+        <div class="social-info">
+          <div class="social-platform">微信公眾號 WeChat Official</div>
+          <div class="social-name">秀娟的資產配置指南</div>
+          <div class="social-desc">攼碼關注 · 獲取最新資產規劃資訊</div>
+        </div>
+      </a>
+
+    </div>
   </div>
 
   <!-- ── Contact ── -->
