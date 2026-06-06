@@ -489,6 +489,27 @@
       html { font-size: 16px; }
       .contact-box { padding: 24px 20px; }
     }
+    /* QR code */
+    .wechat-card { cursor: default; }
+    .wechat-card::after { display: none; }
+    .qr-wrap {
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .qr-img {
+      width: 96px; height: 96px;
+      border-radius: 8px;
+      border: 2px solid rgba(212,175,55,.25);
+      display: block;
+    }
+    .qr-hint {
+      font-size: .72rem;
+      color: var(--text2);
+      letter-spacing: .04em;
+      line-height: 1.5;
+    }
   </style>
 </head>
 <body>
@@ -673,3 +694,4 @@
 
 </body>
 </html>
+
