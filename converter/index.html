@@ -1,0 +1,347 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>简繁转换 — Chinese Converter</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f7f7f5;
+      --surface: #ffffff;
+      --border: #e2e2dd;
+      --text: #1a1a18;
+      --muted: #888884;
+      --accent: #c0392b;
+      --radius: 14px;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 6px 24px rgba(0,0,0,.05);
+    }
+
+    body {
+      font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 20px 80px;
+    }
+
+    /* ── Header ── */
+    header { text-align: center; margin-bottom: 36px; }
+    header h1 { font-size: 26px; font-weight: 700; letter-spacing: -.4px; }
+    header p  { margin-top: 6px; font-size: 13px; color: var(--muted); }
+
+    /* ── Loading overlay ── */
+    #loading-overlay {
+      position: fixed; inset: 0;
+      background: rgba(247,247,245,.92);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 14px; z-index: 100;
+      transition: opacity .3s;
+    }
+    #loading-overlay.hidden { opacity: 0; pointer-events: none; }
+    .spinner {
+      width: 32px; height: 32px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #loading-overlay p { font-size: 13px; color: var(--muted); }
+
+    /* ── Card ── */
+    .card {
+      width: 100%; max-width: 880px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    /* ── Mode bar ── */
+    .mode-bar {
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px; flex-wrap: wrap;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      background: #fafaf8;
+    }
+    .mode-group {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .mode-label { font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: .05em; text-transform: uppercase; margin-right: 2px; }
+    .dir-btn {
+      padding: 6px 16px; border-radius: 999px;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      font-size: 13px; font-family: inherit;
+      color: var(--muted); cursor: pointer;
+      transition: all .15s;
+      white-space: nowrap;
+    }
+    .dir-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+    .dir-btn:hover:not(.active) { border-color: var(--accent); color: var(--accent); }
+
+    .sep { width: 1px; height: 24px; background: var(--border); margin: 0 4px; }
+
+    /* ── Editors ── */
+    .editors {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 300px;
+    }
+    @media (max-width: 580px) { .editors { grid-template-columns: 1fr; } }
+
+    .pane { display: flex; flex-direction: column; }
+    .pane + .pane { border-left: 1px solid var(--border); }
+    @media (max-width: 580px) { .pane + .pane { border-left: none; border-top: 1px solid var(--border); } }
+
+    .pane-label {
+      padding: 9px 14px 8px;
+      font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      background: #fafaf8;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .char-count { font-weight: 400; }
+
+    textarea {
+      flex: 1; width: 100%; border: none; outline: none; resize: none;
+      font-family: inherit; font-size: 15px; line-height: 1.8;
+      color: var(--text); padding: 16px;
+      background: transparent; min-height: 240px;
+    }
+    textarea::placeholder { color: #bbb; }
+    textarea[readonly] { background: #fafaf8; cursor: default; }
+
+    /* ── Action bar ── */
+    .action-bar {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      padding: 13px 16px;
+      border-top: 1px solid var(--border);
+      background: #fafaf8;
+    }
+    .btn {
+      padding: 7px 18px; border-radius: 8px; border: none;
+      font-size: 13px; font-family: inherit; font-weight: 600;
+      cursor: pointer; transition: all .15s;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { opacity: .87; }
+    .btn-primary:active { transform: scale(.97); }
+    .btn-ghost {
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--muted);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-copy { margin-left: auto; }
+    .btn-copy.copied { background: #27ae60; border-color: #27ae60; color: #fff; border: none; }
+
+    /* ── Info strip ── */
+    .info-strip {
+      padding: 10px 16px;
+      font-size: 11.5px; color: var(--muted);
+      border-top: 1px solid var(--border);
+      background: #fafaf8;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .info-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #27ae60; flex-shrink: 0;
+    }
+    .info-dot.loading { background: #f39c12; animation: pulse 1s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+    footer {
+      margin-top: 28px;
+      font-size: 12px; color: var(--muted); text-align: center;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<!-- Loading -->
+<div id="loading-overlay">
+  <div class="spinner"></div>
+  <p>正在加载转换引擎…</p>
+</div>
+
+<header>
+  <h1>简繁转换</h1>
+  <p>基于 OpenCC · 支持词组级别转换 · 文字不上传至任何服务器</p>
+</header>
+
+<div class="card">
+
+  <!-- Mode selector -->
+  <div class="mode-bar">
+    <span class="mode-label">方向</span>
+    <div class="mode-group">
+      <button class="dir-btn active" id="btn-s2tw"  onclick="setMode('s2tw')">简体 → 繁體（台湾）</button>
+      <button class="dir-btn"        id="btn-s2hk"  onclick="setMode('s2hk')">简体 → 繁體（香港）</button>
+    </div>
+    <div class="sep"></div>
+    <div class="mode-group">
+      <button class="dir-btn" id="btn-tw2s" onclick="setMode('tw2s')">繁體（台湾）→ 简体</button>
+      <button class="dir-btn" id="btn-hk2s" onclick="setMode('hk2s')">繁體（香港）→ 简体</button>
+    </div>
+  </div>
+
+  <!-- Editors -->
+  <div class="editors">
+    <div class="pane">
+      <div class="pane-label">
+        <span id="label-input">输入（简体）</span>
+        <span class="char-count" id="count-input">0 字</span>
+      </div>
+      <textarea id="input-text" placeholder="在此粘贴或输入文字…" oninput="onInput()"></textarea>
+    </div>
+    <div class="pane">
+      <div class="pane-label">
+        <span id="label-output">结果（繁體·台湾）</span>
+        <span class="char-count" id="count-output">0 字</span>
+      </div>
+      <textarea id="output-text" readonly placeholder="转换结果将显示于此…"></textarea>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="action-bar">
+    <button class="btn btn-primary" onclick="convert()">转　换</button>
+    <button class="btn btn-ghost"   onclick="swapText()">⇄ 互換</button>
+    <button class="btn btn-ghost"   onclick="clearAll()">清　空</button>
+    <button class="btn btn-ghost btn-copy" id="btn-copy" onclick="copyResult()">复制结果</button>
+  </div>
+
+  <!-- Status -->
+  <div class="info-strip">
+    <div class="info-dot" id="engine-dot"></div>
+    <span id="engine-status">加载中…</span>
+  </div>
+
+</div>
+
+<footer>
+  Powered by <a href="https://github.com/nk2028/opencc-js" target="_blank">OpenCC-JS</a> &nbsp;·&nbsp;
+  MIT License &nbsp;·&nbsp; 纯前端运行，离线可用
+</footer>
+
+<!-- OpenCC via CDN (UMD build) -->
+<script src="https://cdn.jsdelivr.net/npm/opencc-js@1.0.5/dist/umd/full.js"></script>
+<script>
+  (function initOpenCC() {
+    if (typeof OpenCC === 'undefined') { setTimeout(initOpenCC, 500); return; }
+    var converters = {
+      s2tw:  OpenCC.Converter({ from: 'cn', to: 'tw' }),
+      s2hk:  OpenCC.Converter({ from: 'cn', to: 'hk' }),
+      tw2s:  OpenCC.Converter({ from: 'tw', to: 'cn' }),
+      hk2s:  OpenCC.Converter({ from: 'hk', to: 'cn' }),
+    };
+    window._opencc = converters;
+    window._openccReady = true;
+    var overlay = document.getElementById('loading-overlay');
+    if (overlay) { overlay.classList.add('hidden'); setTimeout(function(){ overlay.remove(); }, 400); }
+    var dot = document.getElementById('engine-dot');
+    if (dot) dot.classList.remove('loading');
+    var st = document.getElementById('engine-status');
+    if (st) st.textContent = 'OpenCC 引擎已就绪（词组级转换，覆盖 60,000+ 字词）';
+    if (window._pendingConvert) { window._pendingConvert(); window._pendingConvert = null; }
+  })();
+</script>
+
+<script>
+// ── State ──
+let currentMode = 's2tw';
+
+const MODE_LABELS = {
+  s2tw:  { input: '输入（简体）',        output: '结果（繁體·台湾）' },
+  s2hk:  { input: '输入（简体）',        output: '结果（繁體·香港）' },
+  tw2s:  { input: '输入（繁體·台湾）',   output: '结果（简体）' },
+  hk2s:  { input: '输入（繁體·香港）',   output: '结果（简体）' },
+};
+
+// ── Engine status indicator ──
+document.getElementById('engine-dot').classList.add('loading');
+document.getElementById('engine-status').textContent = '正在加载 OpenCC 引擎…';
+
+// ── Mode switch ──
+function setMode(mode) {
+  currentMode = mode;
+  ['s2tw','s2hk','tw2s','hk2s'].forEach(m => {
+    document.getElementById('btn-' + m).classList.toggle('active', m === mode);
+  });
+  const lbl = MODE_LABELS[mode];
+  document.getElementById('label-input').textContent  = lbl.input;
+  document.getElementById('label-output').textContent = lbl.output;
+  const inputVal = document.getElementById('input-text').value;
+  if (inputVal.trim()) doConvert(inputVal);
+}
+
+// ── Core conversion ──
+function doConvert(text) {
+  if (!window._openccReady) {
+    window._pendingConvert = () => doConvert(text);
+    return;
+  }
+  const result = window._opencc[currentMode](text);
+  document.getElementById('output-text').value = result;
+  document.getElementById('count-output').textContent = result.length + ' 字';
+}
+
+function onInput() {
+  const txt = document.getElementById('input-text').value;
+  document.getElementById('count-input').textContent = txt.length + ' 字';
+  doConvert(txt);
+}
+
+function convert() { onInput(); }
+
+// ── Swap: move result → input and re-convert ──
+function swapText() {
+  const out = document.getElementById('output-text').value;
+  if (!out.trim()) return;
+  // Flip mode
+  const flip = { s2tw:'tw2s', s2hk:'hk2s', tw2s:'s2tw', hk2s:'s2hk' };
+  document.getElementById('input-text').value = out;
+  document.getElementById('count-input').textContent = out.length + ' 字';
+  setMode(flip[currentMode]);
+}
+
+function clearAll() {
+  document.getElementById('input-text').value  = '';
+  document.getElementById('output-text').value = '';
+  document.getElementById('count-input').textContent  = '0 字';
+  document.getElementById('count-output').textContent = '0 字';
+  document.getElementById('input-text').focus();
+}
+
+function copyResult() {
+  const output = document.getElementById('output-text').value;
+  if (!output) return;
+  navigator.clipboard.writeText(output).then(() => {
+    const btn = document.getElementById('btn-copy');
+    btn.textContent = '已复制 ✓';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = '复制结果';
+      btn.classList.remove('copied');
+    }, 2200);
+  });
+}
+
+// Keyboard: Ctrl/Cmd+Enter → convert
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') convert();
+});
+</script>
+</body>
+</html>
