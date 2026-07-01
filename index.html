@@ -401,6 +401,92 @@
     .social-logo.xhs    { background: #ff2442; }
     .social-logo.wechat { background: #07c160; }
     .social-logo.tool   { background: linear-gradient(135deg, #3a6186, #89253e); }
+    .social-logo.finance { background: linear-gradient(135deg, #1a6b3a, #d4af37); }
+
+    /* ════════════════════════════════
+       FINANCE FEATURE CARD
+    ════════════════════════════════ */
+    .feature-card {
+      background: linear-gradient(135deg, rgba(26,107,58,.18) 0%, rgba(212,175,55,.10) 100%);
+      border: 1.5px solid rgba(212,175,55,.35);
+      border-radius: var(--radius);
+      padding: 28px 30px;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      text-decoration: none;
+      transition: border-color .2s, background .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .feature-card:hover {
+      border-color: var(--gold);
+      background: linear-gradient(135deg, rgba(26,107,58,.25) 0%, rgba(212,175,55,.16) 100%);
+    }
+    .feature-card::after {
+      content: '↗';
+      position: absolute;
+      top: 16px; right: 20px;
+      font-size: .9rem;
+      color: var(--gold);
+      opacity: .6;
+    }
+    .feature-logo {
+      width: 60px; height: 60px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #1a6b3a, #d4af37);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+      flex-shrink: 0;
+      box-shadow: 0 4px 16px rgba(212,175,55,.2);
+    }
+    .feature-info { min-width: 0; }
+    .feature-tag {
+      display: inline-block;
+      padding: 3px 10px;
+      background: rgba(212,175,55,.15);
+      border: 1px solid rgba(212,175,55,.3);
+      border-radius: 999px;
+      font-size: .65rem;
+      color: var(--gold);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-family: "Cormorant Garamond", serif;
+      margin-bottom: 8px;
+    }
+    .feature-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      font-family: "Noto Serif TC", serif;
+      margin-bottom: 6px;
+    }
+    .feature-desc {
+      font-size: .78rem;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+    .feature-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .feature-pill {
+      padding: 3px 10px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(212,175,55,.15);
+      border-radius: 4px;
+      font-size: .68rem;
+      color: var(--text2);
+      letter-spacing: .04em;
+    }
 
     /* ════════════════════════════════
        CONVERTER MODAL
@@ -779,6 +865,27 @@
       </a>
 
     </div>
+  </div>
+
+  <!-- ── Finance System Feature ── -->
+  <div class="section">
+    <div class="section-title">家庭財務系統 · Finance Planner</div>
+
+    <a class="feature-card" href="https://janetchen0221.github.io/janet-chen/finance/" target="_blank" rel="noopener">
+      <div class="feature-logo">📊</div>
+      <div class="feature-info">
+        <div class="feature-tag">Free Tool · 免費工具</div>
+        <div class="feature-name">家庭財務規劃報告系統</div>
+        <div class="feature-desc">輸入家庭資產負債與收支狀況，自動生成完整的家庭財務分析報告——包含資產負債表、現金流表及 12 項財務績效指標。</div>
+        <div class="feature-pills">
+          <span class="feature-pill">📊 資產負債表</span>
+          <span class="feature-pill">💰 現金流分析</span>
+          <span class="feature-pill">📈 12項財務指標</span>
+          <span class="feature-pill">🛡️ 保單檢視</span>
+          <span class="feature-pill">☁️ 純前端運行</span>
+        </div>
+      </div>
+    </a>
   </div>
 
   <!-- ── Tools ── -->
