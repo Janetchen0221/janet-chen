@@ -1050,6 +1050,79 @@ function genReport(){
       charts.bar=new Chart(barCtx.getContext('2d'),{type:'bar',data:{labels:['流动性资产','投资性资产','自用性资产','总负债'],datasets:[{label:'金额',data:[d.liquidTotal,d.investTotal,d.personalTotal,d.debtTotal],backgroundColor:['#4A6FA5','#6CB4A0','#D8A7B1','#E74C3C'],borderRadius:6}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(val)=>val>=1e6?(val/1e6).toFixed(1)+'M':val>=1e4?(val/1e4).toFixed(0)+'万':val}}}}});
     }
   },150);
+
+  // 自动保存到 Supabase 后台
+  saveToSupabase(d);
+}
+
+// ── Supabase 配置 ──
+const SUPA_URL = 'https://harfpcpncdgsseebfsku.supabase.co';
+const SUPA_KEY = 'sb_publishable_XU4HW7YIninAmvzGVbs2GA_ejscsrnu';
+
+async function saveToSupabase(d) {
+  // Create or get the status badge div
+  let statusEl = document.getElementById('supa-save-status');
+  if (!statusEl) {
+    statusEl = document.createElement('div');
+    statusEl.id = 'supa-save-status';
+    statusEl.style.cssText = 'margin:16px;padding:12px 20px;border-radius:10px;font-size:.95rem;background:#f0faf4;border:1.5px solid #a8d5b5;text-align:center;font-weight:700;';
+    const reportDiv = document.getElementById('report');
+    if (reportDiv) reportDiv.appendChild(statusEl);
+  }
+  statusEl.style.display = 'block';
+  statusEl.innerHTML = '⏳ 正在同步至顾问后台…';
+  statusEl.style.color = '#888';
+  try {
+    const payload = {
+      client_name:       d.name   || '',
+      client_age:        d.age    || null,
+      client_job:        d.job    || '',
+      family_structure:  d.family || '',
+      risk_level:        d.risk   || '',
+      goals:             d.goals  || '',
+      total_assets:      d.totalAssets     || 0,
+      total_liabilities: d.debtTotal       || 0,
+      net_assets:        d.netAssets       || 0,
+      total_income:      d.totalInc        || 0,
+      total_expense:     d.totalExp        || 0,
+      net_income:        d.netInc          || 0,
+      report_data:       d
+    };
+    const resp = await fetch(SUPA_URL + '/rest/v1/finance_reports', {
+      method:  'POST',
+      headers: {
+        'Content-Type':  'application/json',
+        'apikey':        SUPA_KEY,
+        'Authorization': 'Bearer ' + SUPA_KEY,
+        'Prefer':        'return=minimal'
+      },
+      body: JSON.stringify(payload)
+    });
+    const statusEl = document.getElementById('supa-save-status');
+    if (resp.ok || resp.status === 201) {
+      if (statusEl) {
+        statusEl.innerHTML = '✅ 报告已自动同步保存至顾问后台';
+        statusEl.style.color = '#1a7a3a';
+        statusEl.style.display = 'block';
+      }
+    } else {
+      const errText = await resp.text();
+      if (statusEl) {
+        statusEl.innerHTML = '⚠️ 同步失败（' + resp.status + '）';
+        statusEl.style.color = '#e74c3c';
+        statusEl.style.display = 'block';
+      }
+      console.error('Supabase error:', resp.status, errText);
+    }
+  } catch(e) {
+    console.error('Supabase save error:', e);
+    const statusEl = document.getElementById('supa-save-status');
+    if (statusEl) {
+      statusEl.innerHTML = '⚠️ 网络异常，未能同步至后台';
+      statusEl.style.color = '#e74c3c';
+      statusEl.style.display = 'block';
+    }
+  }
 }
 
 // ── 页面加载 ──
