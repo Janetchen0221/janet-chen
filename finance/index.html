@@ -1498,7 +1498,48 @@ function collectData(){
 
   };
 
-  return{name:document.getElementById('i_name')?.value||'客户',job:document.getElementById('i_job')?.value||'',age,cur_sym,family:document.getElementById('i_family')?.value||'',date:document.getElementById('i_date')?.value||'',risk:document.getElementById('i_risk')?.value||'',goals:document.getElementById('i_goals')?.value||'',liquidTotal,investTotal,personalTotal,totalAssets,debtTotal,netAssets,activeInc,passiveInc,totalInc,livingExp,finExp,totalExp,netInc,lifeCover,ciCover,totalPrem,assetCat,kpis,getG};
+  const details={
+    assets:{
+      cash_demand:v('a_cash_demand'),cash_fixed:v('a_cash_fixed'),cash_cd:v('a_cash_cd'),cash_usd:v('a_cash_usd'),
+      mf_money:v('a_mf_money'),mf_bond:v('a_mf_bond'),mf_bank:v('a_mf_bank'),
+      sv_self:v('a_sv_self'),sv_spouse:v('a_sv_spouse'),sv_kid:v('a_sv_kid'),
+      sec_ashare:v('a_sec_ashare'),sec_hkshare:v('a_sec_hkshare'),sec_usshare:v('a_sec_usshare'),sec_fund:v('a_sec_fund'),sec_pe:v('a_sec_pe'),sec_iul:v('a_sec_iul'),
+      ip_hk:v('a_ip_hk'),ip_cn1:v('a_ip_cn1'),ip_cn2:v('a_ip_cn2'),ip_cn3:v('a_ip_cn3'),ip_oversea:v('a_ip_oversea'),ip_comm:v('a_ip_comm'),ip_parking:v('a_ip_parking'),
+      alt_gold:v('a_alt_gold'),alt_crypto:v('a_alt_crypto'),alt_equity:v('a_alt_equity'),alt_art:v('a_alt_art'),
+      h_main:v('a_h_main'),h_second:v('a_h_second'),c_car1:v('a_c_car1'),c_car2:v('a_c_car2')
+    },
+    debts:{
+      m_home:v('d_m_home'),m_invest:v('d_m_invest'),m_comm:v('d_m_comm'),
+      c_car:v('d_c_car'),c_personal:v('d_c_personal'),c_cc:v('d_c_cc'),
+      annual_mortg:v('d_annual_mortg')
+    },
+    income:{
+      w_self_fix:v('inc_w_self_fix'),w_self_var:v('inc_w_self_var'),w_spouse:v('inc_w_spouse'),w_biz:v('inc_w_biz'),w_side:v('inc_w_side'),
+      p_hkrent:v('inc_p_hkrent'),p_cnrent:v('inc_p_cnrent'),p_commrent:v('inc_p_commrent'),p_div:v('inc_p_div'),p_int:v('inc_p_int'),p_pension:v('inc_p_pension'),p_annuity:v('inc_p_annuity'),p_other:v('inc_p_other')
+    },
+    expense:{
+      l_food:v('exp_l_food'),l_util:v('exp_l_util'),l_cloth:v('exp_l_cloth'),l_comm:v('exp_l_comm'),l_travel:v('exp_l_travel'),l_ent:v('exp_l_ent'),
+      e_tuition:v('exp_e_tuition'),e_extra:v('exp_e_extra'),e_living:v('exp_e_living'),
+      p_parents:v('exp_p_parents'),
+      f_mortg:v('exp_f_mortg'),f_carloan:v('exp_f_carloan'),f_ins:v('exp_f_ins'),f_sav:v('exp_f_sav'),
+      v_fuel:v('exp_v_fuel'),v_carins:v('exp_v_carins'),v_maint:v('exp_v_maint')
+    },
+    insurance:{
+      s_life_amt:v('ins_s_life_amt'),s_life_prem:v('ins_s_life_prem'),
+      s_ci_amt:v('ins_s_ci_amt'),s_ci_prem:v('ins_s_ci_prem'),
+      s_med_amt:v('ins_s_med_amt'),s_med_prem:v('ins_s_med_prem'),
+      s_sav_amt:v('ins_s_sav_amt'),s_sav_prem:v('ins_s_sav_prem'),
+      s_acc_amt:v('ins_s_acc_amt'),s_acc_prem:v('ins_s_acc_prem'),
+      p_life_amt:v('ins_p_life_amt'),p_life_prem:v('ins_p_life_prem'),
+      p_ci_amt:v('ins_p_ci_amt'),p_ci_prem:v('ins_p_ci_prem'),
+      p_med_amt:v('ins_p_med_amt'),p_med_prem:v('ins_p_med_prem'),
+      p_sav_amt:v('ins_p_sav_amt'),p_sav_prem:v('ins_p_sav_prem'),
+      k_edu_amt:v('ins_k_edu_amt'),k_edu_prem:v('ins_k_edu_prem'),
+      k_ci_amt:v('ins_k_ci_amt'),k_ci_prem:v('ins_k_ci_prem'),
+      k_med_amt:v('ins_k_med_amt'),k_med_prem:v('ins_k_med_prem')
+    }
+  };
+  return{name:document.getElementById('i_name')?.value||'客户',job:document.getElementById('i_job')?.value||'',age,cur_sym,family:document.getElementById('i_family')?.value||'',date:document.getElementById('i_date')?.value||'',risk:document.getElementById('i_risk')?.value||'',goals:document.getElementById('i_goals')?.value||'',liquidTotal,investTotal,personalTotal,totalAssets,debtTotal,netAssets,activeInc,passiveInc,totalInc,livingExp,finExp,totalExp,netInc,lifeCover,ciCover,totalPrem,assetCat,kpis,details,getG};
 
 }
 
