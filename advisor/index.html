@@ -164,34 +164,39 @@ async function loadData(){
 }
 function filterList(){
   const q=document.getElementById('srch').value.toLowerCase();
-  renderList(allRecords.filter(r=>(r.client_name||'').toLowerCase().includes(q)));
+  renderList(allRecords.filter(function(r){return (r.client_name||'').toLowerCase().includes(q);}));
 }
 function fmt(n,sym){
   sym=sym||'HKD';
   if(n===null||n===undefined||n==='')return 'N/A';
   return sym+' '+Number(n).toLocaleString('en-HK',{maximumFractionDigits:0});
 }
-function pct(n,dec){ if(n===null||n===undefined)return 'N/A'; return (n*100).toFixed(dec===undefined?1:dec)+'%'; }
+function pct(n,dec){
+  if(n===null||n===undefined)return 'N/A';
+  return (n*100).toFixed(dec===undefined?1:dec)+'%';
+}
 function renderList(records){
   const cl=document.getElementById('cl');
   if(!records.length){cl.innerHTML='<div style="padding:20px;text-align:center;color:#444;font-size:.75rem">無記錄</div>';return;}
-  cl.innerHTML=records.map(r=>{
+  cl.innerHTML=records.map(function(r){
     const d=r.report_data||{};
     const netVal=d.netAssets||r.net_assets||0;
     const dt=new Date(r.created_at);
     const dtStr=dt.getFullYear()+'-'+(dt.getMonth()+1).toString().padStart(2,'0')+'-'+dt.getDate().toString().padStart(2,'0');
     const netCol=netVal>=0?'#7ab88a':'#e74c3c';
     const sym=d.cur_sym||'HKD';
-    return '<div class="ci'+(r.id===activeId?' active':'')+'" onclick="showReport(''+r.id+'')">'+
+    const isActive=r.id===activeId?' active':'';
+    return '<div class="ci'+isActive+'" data-id="'+r.id+'">'+
       '<div class="ci-name">'+(r.client_name||d.name||'未命名')+'</div>'+
-      '<div class="ci-sub"><span class="ci-date">'+dtStr+'</span><span class="ci-net" style="color:'+netCol+'">'+sym+' '+Number(netVal).toLocaleString('en-HK',{maximumFractionDigits:0})+'</span></div>'+
+      '<div class="ci-sub"><span class="ci-date">'+dtStr+'</span>'+
+      '<span class="ci-net" style="color:'+netCol+'">'+sym+' '+Number(netVal).toLocaleString('en-HK',{maximumFractionDigits:0})+'</span></div>'+
       '</div>';
   }).join('');
 }
 function showReport(id){
   activeId=id;
   filterList();
-  const rec=allRecords.find(r=>r.id===id);
+  const rec=allRecords.find(function(r){return r.id===id;});
   if(!rec)return;
   const d=rec.report_data||{};
   const sym=d.cur_sym||'HKD';
@@ -205,7 +210,8 @@ function showReport(id){
   const ac=d.assetCat||{};
   const kpis=d.kpis||{};
 
-  const acHTML=Object.entries(ac).filter(([k,v])=>v>0).map(([k,v])=>{
+  const acHTML=Object.entries(ac).filter(function(e){return e[1]>0;}).map(function(e){
+    var k=e[0],v=e[1];
     const p=ta>0?Math.round(v/ta*100):0;
     return '<div class="abar"><div class="abar-lbl">'+k+'</div><div class="abar-val">'+fmt(v,sym)+'</div><div class="abar-pct">'+p+'%</div></div>';
   }).join('');
@@ -218,16 +224,16 @@ function showReport(id){
     return '<div class="kpi"><div class="kpi-nm">'+nm+'</div><div class="kpi-bottom"><div><div class="kpi-val" style="color:'+col+'">'+dv+'</div><div class="kpi-tgt">目標: '+tgtLabel+'</div></div>'+tag+'</div></div>';
   }
   const kpiHTML=[
-    kpiCard('累積備用金',kpis.emergMths,'≥6個月',v=>v>=6,v=>v===null?'N/A':v.toFixed(1)+'個月'),
-    kpiCard('年度儲蓄率',kpis.netSavR,'≥20%',v=>v>=0.2,v=>pct(v)),
-    kpiCard('債務收入比',kpis.debtR,'≤36%',v=>v<=0.36,v=>pct(v)),
-    kpiCard('債務負擔比',kpis.debtBurdenR,'≤40%',v=>v<=0.4,v=>pct(v)),
-    kpiCard('金融資產比',kpis.finAssetR,'≥30%',v=>v>=0.3,v=>pct(v)),
-    kpiCard('財富自由指數',kpis.wealthFreeR,'≥1.0',v=>v>=1,v=>v===null?'N/A':v.toFixed(2)),
-    kpiCard('絕對財富比',kpis.absoluteWR,'≥1.0',v=>v>=1,v=>v===null?'N/A':v.toFixed(2)),
-    kpiCard('静态資產增長比',kpis.netWorthGR,'≥5%',v=>v>=0.05,v=>pct(v)),
-    kpiCard('壽险保障倍數',kpis.lifeR,'≥10倍年收入',v=>v>=10,v=>v===null?'N/A':v.toFixed(1)+'x'),
-    kpiCard('重疾保障倍數',kpis.ciR,'≥5倍年收入',v=>v>=5,v=>v===null?'N/A':v.toFixed(1)+'x'),
+    kpiCard('緊急備用金',kpis.emergMths,'≥6個月',function(v){return v>=6;},function(v){return v===null?'N/A':v.toFixed(1)+'個月';}),
+    kpiCard('年度儲蓄率',kpis.netSavR,'≥20%',function(v){return v>=0.2;},pct),
+    kpiCard('債務收入比',kpis.debtR,'≤36%',function(v){return v<=0.36;},pct),
+    kpiCard('債務負擔比',kpis.debtBurdenR,'≤40%',function(v){return v<=0.4;},pct),
+    kpiCard('金融資產比',kpis.finAssetR,'≥30%',function(v){return v>=0.3;},pct),
+    kpiCard('財富自由指數',kpis.wealthFreeR,'≥1.0',function(v){return v>=1;},function(v){return v===null?'N/A':v.toFixed(2);}),
+    kpiCard('絕對財富比',kpis.absoluteWR,'≥1.0',function(v){return v>=1;},function(v){return v===null?'N/A':v.toFixed(2);}),
+    kpiCard('靜態資產增長比',kpis.netWorthGR,'≥5%',function(v){return v>=0.05;},pct),
+    kpiCard('壽險保障倍數',kpis.lifeR,'≥10倍年收入',function(v){return v>=10;},function(v){return v===null?'N/A':v.toFixed(1)+'x';}),
+    kpiCard('重疾保障倍數',kpis.ciR,'≥5倍年收入',function(v){return v>=5;},function(v){return v===null?'N/A':v.toFixed(1)+'x';}),
   ].join('');
 
   const noteKey='note_'+rec.id;
@@ -239,7 +245,7 @@ function showReport(id){
         '<div class="r-item"><label>年齡</label><value>'+(d.age||'N/A')+' 歲</value></div>'+
         '<div class="r-item"><label>職業</label><value>'+(d.job||'N/A')+'</value></div>'+
         '<div class="r-item"><label>家庭結構</label><value>'+(d.family||'N/A')+'</value></div>'+
-        '<div class="r-item"><label>風險偉好</label><value>'+(d.risk||'N/A')+'</value></div>'+
+        '<div class="r-item"><label>風險偏好</label><value>'+(d.risk||'N/A')+'</value></div>'+
         '<div class="r-item"><label>財務目標</label><value>'+(d.goals||'—')+'</value></div>'+
         '<div class="r-item"><label>報告日期</label><value>'+(d.date||'N/A')+'</value></div>'+
       '</div>'+
@@ -251,7 +257,7 @@ function showReport(id){
       '<div class="sc"><div class="sc-label">年度淨現金流</div><div class="sc-val '+(ni>=0?'pos':'neg')+'">'+fmt(ni,sym)+'</div></div>'+
     '</div>'+
     (acHTML?'<div class="r-sec"><div class="r-sec-title">資產構成</div><div class="asset-wrap">'+acHTML+'</div></div>':'')+
-    '<div class="r-sec"><div class="r-sec-title">収支分析</div>'+
+    '<div class="r-sec"><div class="r-sec-title">收支分析</div>'+
       '<div class="two-col">'+
         '<table class="ftbl">'+
           '<tr><td class="lbl">主動收入</td><td class="pos">'+fmt(d.activeInc,sym)+'</td></tr>'+
@@ -261,28 +267,41 @@ function showReport(id){
         '<table class="ftbl">'+
           '<tr><td class="lbl">生活開支</td><td class="neg">'+fmt(d.livingExp,sym)+'</td></tr>'+
           '<tr><td class="lbl">財務開支</td><td class="neg">'+fmt(d.finExp,sym)+'</td></tr>'+
-          '<tr><td class="lbl">保費保費</td><td class="neg">'+fmt(d.totalPrem,sym)+'</td></tr>'+
+          '<tr><td class="lbl">保險保費</td><td class="neg">'+fmt(d.totalPrem,sym)+'</td></tr>'+
           '<tr class="total"><td>總支出</td><td class="neg">'+fmt(te,sym)+'</td></tr>'+
         '</table>'+
       '</div>'+
     '</div>'+
     '<div class="r-sec"><div class="r-sec-title">財務健康指標 (10項)</div><div class="kpi-grid">'+kpiHTML+'</div></div>'+
-    '<div class="notes"><div class="r-sec-title">顧問備註</div>'+
+    '<div class="notes" data-rid="'+rec.id+'"><div class="r-sec-title">顧問備註</div>'+
       '<textarea id="note-ta" placeholder="輸入跟進備註、建議或重要信息…">'+savedNote+'</textarea>'+
       '<div class="notes-btns">'+
-        '<button class="btn-save" onclick="saveNote(''+rec.id+'')">儲存備註</button>'+
-        '<button class="btn-pdf" onclick="window.print()">🖨 列印 PDF</button>'+
+        '<button class="btn-save btn-save-btn">儲存備註</button>'+
+        '<button class="btn-pdf" id="btn-print">🖨 列印 PDF</button>'+
         '<span class="save-ok" id="save-ok">✓ 已儲存</span>'+
       '</div>'+
     '</div>';
 }
 function saveNote(id){
-  const v=document.getElementById('note-ta').value;
-  localStorage.setItem('note_'+id,v);
+  const ta=document.getElementById('note-ta');
+  if(!ta)return;
+  localStorage.setItem('note_'+id,ta.value);
   const ok=document.getElementById('save-ok');
-  ok.style.opacity='1';
-  setTimeout(()=>ok.style.opacity='0',2000);
+  if(ok){ok.style.opacity='1';setTimeout(function(){ok.style.opacity='0';},2000);}
 }
+
+// Event delegation - handles dynamically generated elements
+document.addEventListener('click',function(e){
+  var ci=e.target.closest('.ci');
+  if(ci&&ci.dataset.id){showReport(ci.dataset.id);return;}
+  var sb=e.target.closest('.btn-save-btn');
+  if(sb){var notes=sb.closest('.notes');if(notes&&notes.dataset.rid)saveNote(notes.dataset.rid);return;}
+  var pb=e.target.closest('.btn-pdf');
+  if(pb){window.print();return;}
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Enter'&&document.getElementById('pw-screen').style.display!=='none')checkPw();
+});
 </script>
 </body>
 </html>
