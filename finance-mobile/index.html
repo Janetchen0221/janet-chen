@@ -2427,72 +2427,38 @@ const SUPA_KEY = 'sb_publishable_XU4HW7YIninAmvzGVbs2GA_ejscsrnu';
 
 
 async function saveToSupabase(d) {
-  let banner = document.getElementById('supa-save-status');
-  if (!banner) {
-    banner = document.createElement('div');
-    banner.id = 'supa-save-status';
-    banner.style.cssText = [
-      'margin:16px 12px','padding:16px 18px','border-radius:14px',
-      'background:linear-gradient(135deg,#f0faf4,#e8f4fd)',
-      'border:1.5px solid #a8d5b5',
-      'box-shadow:0 2px 12px rgba(0,0,0,.07)'
-    ].join(';');
-    const r = document.getElementById('report') || document.body;
-    r.appendChild(banner);
-  }
-  banner.style.display = 'block';
-  banner._rd = d;
-  banner.innerHTML = `
-    <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px">
-      <span style="font-size:1.5rem;flex-shrink:0">&#128206;</span>
-      <div>
-        <div style="font-size:.95rem;font-weight:700;color:#1a4a2a">是否将报告发送给理财顾问？</div>
-        <div style="font-size:.78rem;color:#666;margin-top:3px">将您的家庭财务报告同步保存至顾问后台，方便获得专业建议</div>
-      </div>
-    </div>
-    <div style="display:flex;gap:10px">
-      <button onclick="supaConfirmSend()" style="flex:1;padding:11px;border-radius:10px;border:none;cursor:pointer;background:linear-gradient(135deg,#1a7a3a,#27ae60);color:#fff;font-size:.9rem;font-weight:700;box-shadow:0 2px 8px rgba(39,174,96,.3)">✅ 发送给顾问</button>
-      <button onclick="supaDeclineSend()" style="flex:0 0 80px;padding:11px;border-radius:10px;border:1.5px solid #ccc;cursor:pointer;background:#fff;color:#888;font-size:.88rem;font-weight:600">不需要</button>
-    </div>
-  `;
-}
-
-async function supaConfirmSend() {
-  const banner = document.getElementById('supa-save-status');
-  if (!banner) return;
-  const d = banner._rd;
-  banner.innerHTML = '<div style="text-align:center;padding:8px;color:#888;font-size:.9rem">&#9203; 正在发送至顾问后台…</div>';
   try {
     const payload = {
-      client_name: d.name||'', client_age: d.age||null, client_job: d.job||'',
-      family_structure: d.family||'', risk_level: d.risk||'', goals: d.goals||'',
-      total_assets: d.totalAssets||0, total_liabilities: d.debtTotal||0,
-      net_assets: d.netAssets||0, total_income: d.totalInc||0,
-      total_expense: d.totalExp||0, net_income: d.netInc||0, report_data: d
+      client_name:       d.name   || '',
+      client_age:        d.age    || null,
+      client_job:        d.job    || '',
+      family_structure:  d.family || '',
+      risk_level:        d.risk   || '',
+      goals:             d.goals  || '',
+      total_assets:      d.totalAssets     || 0,
+      total_liabilities: d.debtTotal       || 0,
+      net_assets:        d.netAssets       || 0,
+      total_income:      d.totalInc        || 0,
+      total_expense:     d.totalExp        || 0,
+      net_income:        d.netInc          || 0,
+      report_data:       d
     };
-    const resp = await fetch(SUPA_URL + '/rest/v1/finance_reports', {
+    await fetch('https://harfpcpncdgsseebfsku.supabase.co/rest/v1/finance_reports', {
       method: 'POST',
-      headers: {'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Prefer':'return=minimal'},
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': 'sb_publishable_XU4HW7YIninAmvzGVbs2GA_ejscsrnu',
+        'Authorization': 'Bearer sb_publishable_XU4HW7YIninAmvzGVbs2GA_ejscsrnu',
+        'Prefer': 'return=minimal'
+      },
       body: JSON.stringify(payload)
     });
-    if (resp.ok || resp.status === 201) {
-      banner.style.background = 'linear-gradient(135deg,#f0faf4,#e6f9ec)';
-      banner.style.borderColor = '#5cb85c';
-      banner.innerHTML = '<div style="text-align:center;padding:8px"><div style="font-size:1.4rem;margin-bottom:4px">&#9989;</div><div style="font-size:.92rem;font-weight:700;color:#1a7a3a">报告已成功发送给理财顾问</div><div style="font-size:.75rem;color:#555;margin-top:3px">顾问将尽快与您联系 &#128188;</div></div>';
-    } else {
-      banner.style.background = '#fff5f5'; banner.style.borderColor = '#f5a0a0';
-      banner.innerHTML = '<div style="text-align:center;padding:8px;font-size:.88rem;color:#c0392b;font-weight:700">&#9888; 发送失败，请稍后再试</div>';
-    }
   } catch(e) {
-    banner.style.background = '#fff5f5'; banner.style.borderColor = '#f5a0a0';
-    banner.innerHTML = '<div style="text-align:center;padding:8px;font-size:.88rem;color:#c0392b;font-weight:700">&#9888; 网络异常，请重试</div>';
+    console.error('Supabase save error:', e);
   }
 }
 
-function supaDeclineSend() {
-  const b = document.getElementById('supa-save-status');
-  if (b) b.style.display = 'none';
-}
+
 
 // ── 页面加载 ──
 
