@@ -80,6 +80,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .abar-pct{font-size:.62rem;color:#555;margin-top:2px}
 .abar-bar{height:3px;background:#2a2820;border-radius:2px;margin-top:4px;overflow:hidden}
 .abar-bar-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .4s}
+.lbl.grp2{color:#d4af37;font-weight:600;font-size:.68rem;padding-top:5px;padding-left:4px}.lbl.sub2{color:#aaa;padding-left:20px;font-size:.73rem}
 /* KPI grid */
 .kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
 .kpi{background:#141210;border:1px solid var(--border);border-radius:7px;padding:9px 10px}
@@ -229,6 +230,11 @@ function showReport(id){
   const ti=d.totalInc||rec.total_income||0;
   const te=d.totalExp||rec.total_expense||0;
   const kpis=d.kpis||{};
+  const dt=d.details&&d.details.assets?d.details.assets:{};
+  const dd=d.details&&d.details.debts?d.details.debts:{};
+  const di=d.details&&d.details.income?d.details.income:{};
+  const de=d.details&&d.details.expense?d.details.expense:{};
+  const dins=d.details&&d.details.insurance?d.details.insurance:{};
   const ac=d.assetCat||{};
   const det=document.getElementById('detail');
 
@@ -291,15 +297,12 @@ function showReport(id){
     +'<div class="two-col">'
       +'<table class="tbl">'
         +'<tr><td class="grp" colspan="2">年度收入</td></tr>'
-        +'<tr><td class="lbl sub">主動收入（工資/薪酬）</td><td class="pos">'+fmt(d.activeInc,sym)+'</td></tr>'
-        +'<tr><td class="lbl sub">被動收入（租金/股息等）</td><td class="pos">'+fmt(d.passiveInc,sym)+'</td></tr>'
+        +'<tr><td class="lbl grp2" colspan="2">主動收入</td></tr>'+(di.w_self_fix>0?'<tr><td class="lbl sub2">本人工資（固定）</td><td class="pos">'+fmt(di.w_self_fix,sym)+'</td></tr>':'')+(di.w_self_var>0?'<tr><td class="lbl sub2">本人獎金/佣金</td><td class="pos">'+fmt(di.w_self_var,sym)+'</td></tr>':'')+(di.w_spouse>0?'<tr><td class="lbl sub2">配偶工資/薪酬</td><td class="pos">'+fmt(di.w_spouse,sym)+'</td></tr>':'')+(di.w_biz>0?'<tr><td class="lbl sub2">經營/生意收入</td><td class="pos">'+fmt(di.w_biz,sym)+'</td></tr>':'')+(di.w_side>0?'<tr><td class="lbl sub2">兄職/自由職業</td><td class="pos">'+fmt(di.w_side,sym)+'</td></tr>':'')+'<tr><td class="lbl grp2" colspan="2">被動收入</td></tr>'+(di.p_hkrent>0?'<tr><td class="lbl sub2">香港房產租金</td><td class="pos">'+fmt(di.p_hkrent,sym)+'</td></tr>':'')+(di.p_cnrent>0?'<tr><td class="lbl sub2">內地房產租金</td><td class="pos">'+fmt(di.p_cnrent,sym)+'</td></tr>':'')+(di.p_commrent>0?'<tr><td class="lbl sub2">商業物業租金</td><td class="pos">'+fmt(di.p_commrent,sym)+'</td></tr>':'')+(di.p_div>0?'<tr><td class="lbl sub2">股票股息/基金分紅</td><td class="pos">'+fmt(di.p_div,sym)+'</td></tr>':'')+(di.p_int>0?'<tr><td class="lbl sub2">存款/債券利息</td><td class="pos">'+fmt(di.p_int,sym)+'</td></tr>':'')+(di.p_pension>0?'<tr><td class="lbl sub2">社保/退休金</td><td class="pos">'+fmt(di.p_pension,sym)+'</td></tr>':'')+(di.p_annuity>0?'<tr><td class="lbl sub2">商業年金</td><td class="pos">'+fmt(di.p_annuity,sym)+'</td></tr>':'')+(di.p_other>0?'<tr><td class="lbl sub2">其他被動收入</td><td class="pos">'+fmt(di.p_other,sym)+'</td></tr>':'')
         +'<tr class="tot"><td>年度總收入</td><td class="pos">'+fmt(ti,sym)+'</td></tr>'
       +'</table>'
       +'<table class="tbl">'
         +'<tr><td class="grp" colspan="2">年度支出</td></tr>'
-        +'<tr><td class="lbl sub">生活支出</td><td class="neg">'+fmt(d.livingExp,sym)+'</td></tr>'
-        +'<tr><td class="lbl sub">財務支出（供款/貸款）</td><td class="neg">'+fmt(d.finExp,sym)+'</td></tr>'
-        +'<tr><td class="lbl sub">保險保費</td><td class="neg">'+fmt(d.totalPrem,sym)+'</td></tr>'
+        +'<tr><td class="lbl grp2" colspan="2">日常生活</td></tr>'+(de.l_food>0?'<tr><td class="lbl sub2">家庭侙食/生活用品</td><td class="neg">'+fmt(de.l_food,sym)+'</td></tr>':'')+(de.l_util>0?'<tr><td class="lbl sub2">水電營/物業費</td><td class="neg">'+fmt(de.l_util,sym)+'</td></tr>':'')+(de.l_cloth>0?'<tr><td class="lbl sub2">服装/美容</td><td class="neg">'+fmt(de.l_cloth,sym)+'</td></tr>':'')+(de.l_comm>0?'<tr><td class="lbl sub2">交通通訊</td><td class="neg">'+fmt(de.l_comm,sym)+'</td></tr>':'')+(de.l_travel>0?'<tr><td class="lbl sub2">旅遊度假</td><td class="neg">'+fmt(de.l_travel,sym)+'</td></tr>':'')+(de.l_ent>0?'<tr><td class="lbl sub2">娛樂/社交/餐飲</td><td class="neg">'+fmt(de.l_ent,sym)+'</td></tr>':'')+(de.e_tuition>0?'<tr><td class="lbl sub2">赍間學費/托育費</td><td class="neg">'+fmt(de.e_tuition,sym)+'</td></tr>':'')+(de.e_extra>0?'<tr><td class="lbl sub2">課外補習/興趣班</td><td class="neg">'+fmt(de.e_extra,sym)+'</td></tr>':'')+(de.e_living>0?'<tr><td class="lbl sub2">子女日常生活費</td><td class="neg">'+fmt(de.e_living,sym)+'</td></tr>':'')+(de.p_parents>0?'<tr><td class="lbl sub2">赡養父母</td><td class="neg">'+fmt(de.p_parents,sym)+'</td></tr>':'')+'<tr><td class="lbl grp2" colspan="2">財務支出</td></tr>'+(de.f_mortg>0?'<tr><td class="lbl sub2">房貸月供×12</td><td class="neg">'+fmt(de.f_mortg,sym)+'</td></tr>':'')+(de.f_carloan>0?'<tr><td class="lbl sub2">車貸月供×12</td><td class="neg">'+fmt(de.f_carloan,sym)+'</td></tr>':'')+(de.f_ins>0?'<tr><td class="lbl sub2">人壽/重疾险保費</td><td class="neg">'+fmt(de.f_ins,sym)+'</td></tr>':'')+(de.f_sav>0?'<tr><td class="lbl sub2">儲蓄/教育险保費</td><td class="neg">'+fmt(de.f_sav,sym)+'</td></tr>':'')+(de.v_fuel>0?'<tr><td class="lbl sub2">加油/充電費</td><td class="neg">'+fmt(de.v_fuel,sym)+'</td></tr>':'')+(de.v_carins>0?'<tr><td class="lbl sub2">車輛保險</td><td class="neg">'+fmt(de.v_carins,sym)+'</td></tr>':'')+(de.v_maint>0?'<tr><td class="lbl sub2">維修保養</td><td class="neg">'+fmt(de.v_maint,sym)+'</td></tr>':'')
         +'<tr class="tot"><td>年度總支出</td><td class="neg">'+fmt(te,sym)+'</td></tr>'
       +'</table>'
     +'</div>'
@@ -309,14 +312,12 @@ function showReport(id){
     +'<div class="two-col">'
       +'<table class="tbl">'
         +'<tr><td class="grp" colspan="2">資產</td></tr>'
-        +'<tr><td class="lbl sub">流動資產（存款/保單/基金）</td><td class="pos">'+fmt(d.liquidTotal,sym)+'</td></tr>'
-        +'<tr><td class="lbl sub">投資資產（股票/房產/另類）</td><td class="pos">'+fmt(d.investTotal,sym)+'</td></tr>'
-        +'<tr><td class="lbl sub">自用資產（自住房/車）</td><td class="neu">'+fmt(d.personalTotal,sym)+'</td></tr>'
+        +'<tr><td class="lbl grp2" colspan="2">現金存款類</td></tr>'+(dt.cash_demand>0?'<tr><td class="lbl sub2">活期存款</td><td class="pos">'+fmt(dt.cash_demand,sym)+'</td></tr>':'')+(dt.cash_fixed>0?'<tr><td class="lbl sub2">定期存款</td><td class="pos">'+fmt(dt.cash_fixed,sym)+'</td></tr>':'')+(dt.cash_cd>0?'<tr><td class="lbl sub2">大額存單</td><td class="pos">'+fmt(dt.cash_cd,sym)+'</td></tr>':'')+(dt.cash_usd>0?'<tr><td class="lbl sub2">外幣存款</td><td class="pos">'+fmt(dt.cash_usd,sym)+'</td></tr>':'')+(dt.mf_money>0?'<tr><td class="lbl sub2">貨幣基金</td><td class="pos">'+fmt(dt.mf_money,sym)+'</td></tr>':'')+(dt.mf_bond>0?'<tr><td class="lbl sub2">国債（短期）</td><td class="pos">'+fmt(dt.mf_bond,sym)+'</td></tr>':'')+(dt.mf_bank>0?'<tr><td class="lbl sub2">銀行理財（短期）</td><td class="pos">'+fmt(dt.mf_bank,sym)+'</td></tr>':'')+'<tr><td class="lbl sub" style="padding-left:4px">小計</td><td class="pos">'+fmt(d.liquidTotal-(dt.sv_self+dt.sv_spouse+dt.sv_kid),sym)+'</td></tr>'+'<tr><td class="lbl grp2" colspan="2">儲蓄型保單</td></tr>'+(dt.sv_self>0?'<tr><td class="lbl sub2">儲蓄保單（本人）</td><td class="pos">'+fmt(dt.sv_self,sym)+'</td></tr>':'')+(dt.sv_spouse>0?'<tr><td class="lbl sub2">儲蓄保單（配偶）</td><td class="pos">'+fmt(dt.sv_spouse,sym)+'</td></tr>':'')+(dt.sv_kid>0?'<tr><td class="lbl sub2">子女教育保單</td><td class="pos">'+fmt(dt.sv_kid,sym)+'</td></tr>':'')+'<tr><td class="lbl grp2" colspan="2">證券投資</td></tr>'+(dt.sec_ashare>0?'<tr><td class="lbl sub2">A股股票</td><td class="pos">'+fmt(dt.sec_ashare,sym)+'</td></tr>':'')+(dt.sec_hkshare>0?'<tr><td class="lbl sub2">港股股票</td><td class="pos">'+fmt(dt.sec_hkshare,sym)+'</td></tr>':'')+(dt.sec_usshare>0?'<tr><td class="lbl sub2">美股/海外股票</td><td class="pos">'+fmt(dt.sec_usshare,sym)+'</td></tr>':'')+(dt.sec_fund>0?'<tr><td class="lbl sub2">公募基金</td><td class="pos">'+fmt(dt.sec_fund,sym)+'</td></tr>':'')+(dt.sec_pe>0?'<tr><td class="lbl sub2">私募基金</td><td class="pos">'+fmt(dt.sec_pe,sym)+'</td></tr>':'')+(dt.sec_iul>0?'<tr><td class="lbl sub2">投連險</td><td class="pos">'+fmt(dt.sec_iul,sym)+'</td></tr>':'')+'<tr><td class="lbl grp2" colspan="2">投資房產</td></tr>'+(dt.ip_hk>0?'<tr><td class="lbl sub2">香港投資房產</td><td class="pos">'+fmt(dt.ip_hk,sym)+'</td></tr>':'')+(dt.ip_cn1>0?'<tr><td class="lbl sub2">內地投資房（第1套）</td><td class="pos">'+fmt(dt.ip_cn1,sym)+'</td></tr>':'')+(dt.ip_cn2>0?'<tr><td class="lbl sub2">內地投資房（第2套）</td><td class="pos">'+fmt(dt.ip_cn2,sym)+'</td></tr>':'')+(dt.ip_cn3>0?'<tr><td class="lbl sub2">內地投資房（第3套以上）</td><td class="pos">'+fmt(dt.ip_cn3,sym)+'</td></tr>':'')+(dt.ip_oversea>0?'<tr><td class="lbl sub2">海外房產</td><td class="pos">'+fmt(dt.ip_oversea,sym)+'</td></tr>':'')+(dt.ip_comm>0?'<tr><td class="lbl sub2">商舖/辦公/厂房</td><td class="pos">'+fmt(dt.ip_comm,sym)+'</td></tr>':'')+(dt.ip_parking>0?'<tr><td class="lbl sub2">車位（投資）</td><td class="pos">'+fmt(dt.ip_parking,sym)+'</td></tr>':'')+'<tr><td class="lbl grp2" colspan="2">另類投資</td></tr>'+(dt.alt_gold>0?'<tr><td class="lbl sub2">黃金/貴金屬</td><td class="pos">'+fmt(dt.alt_gold,sym)+'</td></tr>':'')+(dt.alt_crypto>0?'<tr><td class="lbl sub2">虛擬貨幣</td><td class="pos">'+fmt(dt.alt_crypto,sym)+'</td></tr>':'')+(dt.alt_equity>0?'<tr><td class="lbl sub2">股權/公司股份</td><td class="pos">'+fmt(dt.alt_equity,sym)+'</td></tr>':'')+(dt.alt_art>0?'<tr><td class="lbl sub2">收藏品/艺術品</td><td class="pos">'+fmt(dt.alt_art,sym)+'</td></tr>':'')+'<tr><td class="lbl grp2" colspan="2">自用資產</td></tr>'+(dt.h_main>0?'<tr><td class="lbl sub2">自住主房</td><td class="pos">'+fmt(dt.h_main,sym)+'</td></tr>':'')+(dt.h_second>0?'<tr><td class="lbl sub2">自住第二套</td><td class="pos">'+fmt(dt.h_second,sym)+'</td></tr>':'')+(dt.c_car1>0?'<tr><td class="lbl sub2">自用車轆（第1輛）</td><td class="pos">'+fmt(dt.c_car1,sym)+'</td></tr>':'')+(dt.c_car2>0?'<tr><td class="lbl sub2">自用車轆（第2輛）</td><td class="pos">'+fmt(dt.c_car2,sym)+'</td></tr>':'')
         +'<tr class="tot"><td>總資產</td><td class="pos">'+fmt(ta,sym)+'</td></tr>'
       +'</table>'
       +'<table class="tbl">'
         +'<tr><td class="grp" colspan="2">負債</td></tr>'
-        +'<tr><td class="lbl sub">按揭/抵押貸款</td><td class="neg">'+fmt(tl,sym)+'</td></tr>'
+        +'<tr><td class="lbl grp2" colspan="2">按揭/貸款明細</td></tr>'+(dd.m_home>0?'<tr><td class="lbl sub2">自住房按揭餘額</td><td class="neg">'+fmt(dd.m_home,sym)+'</td></tr>':'')+(dd.m_invest>0?'<tr><td class="lbl sub2">投資房抵掼餘額</td><td class="neg">'+fmt(dd.m_invest,sym)+'</td></tr>':'')+(dd.m_comm>0?'<tr><td class="lbl sub2">商業物業貸款</td><td class="neg">'+fmt(dd.m_comm,sym)+'</td></tr>':'')+(dd.c_car>0?'<tr><td class="lbl sub2">車貸餘額</td><td class="neg">'+fmt(dd.c_car,sym)+'</td></tr>':'')+(dd.c_personal>0?'<tr><td class="lbl sub2">信用/個人貸款</td><td class="neg">'+fmt(dd.c_personal,sym)+'</td></tr>':'')+(dd.c_cc>0?'<tr><td class="lbl sub2">信用卡欠款</td><td class="neg">'+fmt(dd.c_cc,sym)+'</td></tr>':'')
         +'<tr class="tot"><td>總負債</td><td class="neg">'+fmt(tl,sym)+'</td></tr>'
         +'<tr class="tot" style="border-top:2px solid var(--gold)"><td>淨資產</td><td class="'+(na>=0?'pos':'neg')+'">'+fmt(na,sym)+'</td></tr>'
       +'</table>'
@@ -324,10 +325,503 @@ function showReport(id){
   +'</div>'
   // ── 6. 保障分析 ──
   +'<div class="sec"><div class="sec-title">保障分析</div>'
-    +'<div class="ins-grid">'
-      +'<div class="ins-card"><div class="ins-card-title">壽險保額</div><div class="ins-card-val">'+fmt(d.lifeCover,sym)+'</div><div class="ins-card-sub">年收入 '+fmt(ti,sym)+'</div></div>'
-      +'<div class="ins-card"><div class="ins-card-title">重疾保額</div><div class="ins-card-val">'+fmt(d.ciCover,sym)+'</div><div class="ins-card-sub">主動收入 '+fmt(d.activeInc,sym)+'</div></div>'
+    +'<table class="tbl ins-detail-tbl">'
+      +'<tr style="background:#141210"><td class="lbl" style="color:#d4af37;font-weight:700">保障類型</td><td style="text-align:right;color:#d4af37;font-weight:700">保額</td><td style="text-align:right;color:#d4af37;font-weight:700">年保費</td></tr>'
+      +(dins.s_life_amt>0||dins.s_life_prem>0?'<tr><td class="lbl sub2">壽险（本人）</td><td class="neu" style="text-align:right">'+fmt(dins.s_life_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.s_life_prem,sym)+'</td></tr>':'')
+      +(dins.s_ci_amt>0||dins.s_ci_prem>0?'<tr><td class="lbl sub2">重疾险（本人）</td><td class="neu" style="text-align:right">'+fmt(dins.s_ci_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.s_ci_prem,sym)+'</td></tr>':'')
+      +(dins.s_med_amt>0||dins.s_med_prem>0?'<tr><td class="lbl sub2">醫療险（本人）</td><td class="neu" style="text-align:right">'+fmt(dins.s_med_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.s_med_prem,sym)+'</td></tr>':'')
+      +(dins.s_sav_amt>0||dins.s_sav_prem>0?'<tr><td class="lbl sub2">儲蓄险（本人）</td><td class="pos" style="text-align:right">'+fmt(dins.s_sav_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.s_sav_prem,sym)+'</td></tr>':'')
+      +(dins.s_acc_amt>0||dins.s_acc_prem>0?'<tr><td class="lbl sub2">意外险（本人）</td><td class="neu" style="text-align:right">'+fmt(dins.s_acc_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.s_acc_prem,sym)+'</td></tr>':'')
+      +(dins.p_life_amt>0||dins.p_life_prem>0?'<tr><td class="lbl sub2">壽险（配偶）</td><td class="neu" style="text-align:right">'+fmt(dins.p_life_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.p_life_prem,sym)+'</td></tr>':'')
+      +(dins.p_ci_amt>0||dins.p_ci_prem>0?'<tr><td class="lbl sub2">重疾险（配偶）</td><td class="neu" style="text-align:right">'+fmt(dins.p_ci_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.p_ci_prem,sym)+'</td></tr>':'')
+      +(dins.p_med_amt>0||dins.p_med_prem>0?'<tr><td class="lbl sub2">醫療险（配偶）</td><td class="neu" style="text-align:right">'+fmt(dins.p_med_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.p_med_prem,sym)+'</td></tr>':'')
+      +(dins.k_edu_amt>0||dins.k_edu_prem>0?'<tr><td class="lbl sub2">子女教育险</td><td class="pos" style="text-align:right">'+fmt(dins.k_edu_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.k_edu_prem,sym)+'</td></tr>':'')
+      +(dins.k_ci_amt>0||dins.k_ci_prem>0?'<tr><td class="lbl sub2">子女重疾险</td><td class="neu" style="text-align:right">'+fmt(dins.k_ci_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.k_ci_prem,sym)+'</td></tr>':'')
+      +(dins.k_med_amt>0||dins.k_med_prem>0?'<tr><td class="lbl sub2">子女醫療险</td><td class="neu" style="text-align:right">'+fmt(dins.k_med_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.k_med_prem,sym)+'</td></tr>':'')
+      +'<tr class="tot"><td>合計保障</td><td style="text-align:right" class="pos">'+fmt(d.lifeCover+d.ciCover,sym)+'</td><td style="text-align:right" class="neg">'+fmt(d.totalPrem,sym)+'</td></tr>'
+    +'</table>'
+  +'</div>'
+  // ── 7. 10項健康指標 ──
+  +'<div class="sec"><div class="sec-title">財務健康指標（10項）</div><div class="kpi-grid">'+kpiHTML+'</div></div>'
+  // ── 8. 顧問備註 ──
+  +'<div class="sec notes-area" data-rid="'+rec.id+'"><div class="sec-title">顧問備註</div>'
+    +'<textarea id="note-ta" placeholder="輸入跟進備註、建議事項或重要信息…">'+savedNote+'</textarea>'
+    +'<div class="notes-btns">'
+      +'<button class="btn-save btn-save-btn">儲存備註</button>'
+      +'<button class="btn-pdf">🖨 列印 / PDF</button>'
+      +'<span class="save-ok" id="save-ok">✓ 已儲存</span>'
     +'</div>'
+  +'</div>'
+  +'</div>';
+}
+
+function saveNote(id){
+  const ta=document.getElementById('note-ta');
+  if(!ta)return;
+  localStorage.setItem('note_'+id,ta.value);
+  const ok=document.getElementById('save-ok');
+  if(ok){ok.style.opacity='1';setTimeout(()=>ok.style.opacity='0',2000);}
+}
+
+document.addEventListener('click',function(e){
+  const ci=e.target.closest('.ci');
+  if(ci&&ci.dataset.id){showReport(ci.dataset.id);return;}
+  const sb=e.target.closest('.btn-save-btn');
+  if(sb){const notes=sb.closest('.notes-area');if(notes&&notes.dataset.rid)saveNote(notes.dataset.rid);return;}
+  const pb=e.target.closest('.btn-pdf');
+  if(pb){window.print();return;}
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Enter'&&document.getElementById('pw-screen').style.display!=='none')checkPw();
+});
+</script>
+</body>
+</html>
+<script>
+const SUPA_URL='https://harfpcpncdgsseebfsku.supabase.co';
+const SUPA_KEY='sb_publishable_XU4HW7YIninAmvzGVbs2GA_ejscsrnu';
+const PW='janet2025';
+let allRecords=[], activeId=null;
+
+function checkPw(){
+  const v=document.getElementById('pw-inp').value;
+  if(v===PW){
+    document.getElementById('pw-screen').style.display='none';
+    document.getElementById('app').style.display='flex';
+    loadData();
+  }else{
+    document.getElementById('pw-err').textContent='密碼錯誤，請重試';
+    document.getElementById('pw-inp').value='';
+    document.getElementById('pw-inp').focus();
+  }
+}
+function logout(){
+  document.getElementById('app').style.display='none';
+  document.getElementById('pw-screen').style.display='flex';
+  document.getElementById('pw-inp').value='';
+}
+async function loadData(){
+  try{
+    const r=await fetch(SUPA_URL+'/rest/v1/finance_reports?select=*&order=created_at.desc',{
+      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
+    });
+    allRecords=await r.json();
+    document.getElementById('rec-count').textContent=allRecords.length+' 個客戶';
+    renderList(allRecords);
+  }catch(e){
+    document.getElementById('cl').innerHTML='<div style="padding:16px;color:#e74c3c">載入失敗: '+e.message+'</div>';
+  }
+}
+function filterList(){
+  const q=document.getElementById('srch').value.toLowerCase();
+  renderList(allRecords.filter(r=>(r.client_name||'').toLowerCase().includes(q)));
+}
+function fmt(n,sym){
+  sym=sym||'HKD';
+  if(n===null||n===undefined||n==='')return 'N/A';
+  return sym+' '+Number(n).toLocaleString('en-HK',{maximumFractionDigits:0});
+}
+function pct(n,dec){
+  if(n===null||n===undefined)return 'N/A';
+  return (n*100).toFixed(dec===undefined?1:dec)+'%';
+}
+function row2(l,v,cls){
+  cls=cls||'';
+  return '<tr><td class="lbl">'+l+'</td><td class="'+(cls||'')+'">'+v+'</td></tr>';
+}
+function renderList(records){
+  const cl=document.getElementById('cl');
+  if(!records.length){cl.innerHTML='<div style="padding:20px;text-align:center;color:#444;font-size:.75rem">無記錄</div>';return;}
+  cl.innerHTML=records.map(r=>{
+    const d=r.report_data||{};
+    const na=d.netAssets||r.net_assets||0;
+    const sym=d.cur_sym||'HKD';
+    const dt=new Date(r.created_at);
+    const ds=dt.getFullYear()+'-'+(dt.getMonth()+1).toString().padStart(2,'0')+'-'+dt.getDate().toString().padStart(2,'0');
+    const col=na>=0?'#7ab88a':'#e74c3c';
+    return '<div class="ci'+(r.id===activeId?' active':'')+'" data-id="'+r.id+'">'
+      +'<div class="ci-name">'+(r.client_name||d.name||'未命名')+'</div>'
+      +'<div class="ci-sub"><span class="ci-date">'+ds+'</span><span class="ci-net" style="color:'+col+'">'+sym+' '+Number(na).toLocaleString('en-HK',{maximumFractionDigits:0})+'</span></div>'
+      +'</div>';
+  }).join('');
+}
+
+function kpiCard(nm,val,tgt,pass,disp){
+  const ok=(val===null||val===undefined)?null:pass(val);
+  const col=ok===null?'#888':ok?'#27ae60':'#e74c3c';
+  const tag=ok===null?'<span class="kpi-tag na">數據不足</span>':ok?'<span class="kpi-tag ok">✓ 達標</span>':'<span class="kpi-tag fail">✗ 未達</span>';
+  const dv=disp?disp(val):(val===null||val===undefined?'N/A':val.toFixed(2));
+  return '<div class="kpi"><div class="kpi-nm">'+nm+'</div><div class="kpi-val" style="color:'+col+'">'+dv+'</div><div class="kpi-tgt">目標: '+tgt+'</div>'+tag+'</div>';
+}
+
+function showReport(id){
+  activeId=id;
+  renderList(allRecords.filter(r=>{
+    const q=document.getElementById('srch').value.toLowerCase();
+    return (r.client_name||'').toLowerCase().includes(q);
+  }));
+  const rec=allRecords.find(r=>r.id===id);
+  if(!rec)return;
+  const d=rec.report_data||{};
+  const sym=d.cur_sym||'HKD';
+  const ta=d.totalAssets||rec.total_assets||0;
+  const tl=d.debtTotal||rec.total_liabilities||0;
+  const na=d.netAssets||rec.net_assets||0;
+  const ni=d.netInc||rec.net_income||0;
+  const ti=d.totalInc||rec.total_income||0;
+  const te=d.totalExp||rec.total_expense||0;
+  const kpis=d.kpis||{};
+  const dt=d.details&&d.details.assets?d.details.assets:{};
+  const dd=d.details&&d.details.debts?d.details.debts:{};
+  const di=d.details&&d.details.income?d.details.income:{};
+  const de=d.details&&d.details.expense?d.details.expense:{};
+  const dins=d.details&&d.details.insurance?d.details.insurance:{};
+  const ac=d.assetCat||{};
+  const det=document.getElementById('detail');
+
+  // Asset breakdown
+  const acEntries=Object.entries(ac);
+  const acHTML=acEntries.map(([k,v])=>{
+    const pct=ta>0?Math.round(v/ta*100):0;
+    return '<div class="abar">'
+      +'<div class="abar-lbl">'+k+'</div>'
+      +'<div class="abar-val">'+fmt(v,sym)+'</div>'
+      +'<div class="abar-pct">'+pct+'% / 總資產</div>'
+      +'<div class="abar-bar"><div class="abar-bar-fill" style="width:'+Math.min(pct,100)+'%"></div></div>'
+      +'</div>';
+  }).join('');
+
+  // KPI section
+  const kpiHTML=[
+    kpiCard('緊急備用金',kpis.emergMths,'≥6個月',v=>v>=6,v=>v===null?'N/A':v.toFixed(1)+' 個月'),
+    kpiCard('年度儲蓄率',kpis.netSavR,'≥20%',v=>v>=0.2,pct),
+    kpiCard('債務收入比',kpis.debtR,'≤36%',v=>v<=0.36,pct),
+    kpiCard('債務負擔比',kpis.debtBurdenR,'≤40%',v=>v<=0.4,pct),
+    kpiCard('金融資產比',kpis.finAssetR,'≥30%',v=>v>=0.3,pct),
+    kpiCard('財富自由指數',kpis.wealthFreeR,'≥1.0',v=>v>=1,v=>v===null?'N/A':v.toFixed(2)),
+    kpiCard('絕對財富比',kpis.absoluteWR,'≥1.0',v=>v>=1,v=>v===null?'N/A':v.toFixed(2)),
+    kpiCard('靜態增長比',kpis.netWorthGR,'≥5%',v=>v>=0.05,pct),
+    kpiCard('壽險保障倍數',kpis.lifeR,'≥10x',v=>v>=10,v=>v===null?'N/A':v.toFixed(1)+'x'),
+    kpiCard('重疾保障倍數',kpis.ciR,'≥5x',v=>v>=5,v=>v===null?'N/A':v.toFixed(1)+'x'),
+  ].join('');
+
+  const savedNote=localStorage.getItem('note_'+rec.id)||'';
+
+  det.innerHTML=
+  '<div class="rpt">'
+  // ── 1. 基本資料 ──
+  +'<div class="sec">'
+    +'<div class="sec-title">客戶基本資料</div>'
+    +'<div class="r-name">'+(d.name||rec.client_name||'客戶')+' 家庭財務分析報告</div>'
+    +'<div class="info-grid">'
+      +'<div class="info-item"><label>姓名</label><value>'+(d.name||rec.client_name||'N/A')+'</value></div>'
+      +'<div class="info-item"><label>年齡</label><value>'+(d.age||'N/A')+' 歲</value></div>'
+      +'<div class="info-item"><label>職業</label><value>'+(d.job||'N/A')+'</value></div>'
+      +'<div class="info-item"><label>家庭結構</label><value>'+(d.family||'N/A')+'</value></div>'
+      +'<div class="info-item"><label>風險承受</label><value>'+(d.risk||'N/A')+'</value></div>'
+      +'<div class="info-item"><label>財務目標</label><value>'+(d.goals||'—')+'</value></div>'
+      +'<div class="info-item"><label>報告貨幣</label><value>'+(sym)+'</value></div>'
+      +'<div class="info-item"><label>報告日期</label><value>'+(d.date||new Date(rec.created_at).toLocaleDateString('zh-HK'))+'</value></div>'
+    +'</div>'
+  +'</div>'
+  // ── 2. 財務摘要 ──
+  +'<div class="sum4">'
+    +'<div class="scard"><div class="scard-lbl">總資產</div><div class="scard-val neu">'+fmt(ta,sym)+'</div></div>'
+    +'<div class="scard"><div class="scard-lbl">總負債</div><div class="scard-val '+(tl>0?'neg':'neu')+'">'+fmt(tl,sym)+'</div></div>'
+    +'<div class="scard"><div class="scard-lbl">淨資產</div><div class="scard-val '+(na>=0?'pos':'neg')+'">'+fmt(na,sym)+'</div></div>'
+    +'<div class="scard"><div class="scard-lbl">年度淨現金流</div><div class="scard-val '+(ni>=0?'pos':'neg')+'">'+fmt(ni,sym)+'</div></div>'
+  +'</div>'
+  // ── 3. 資產構成 ──
+  +(acHTML?'<div class="sec"><div class="sec-title">資產構成分析</div><div class="asset-grid">'+acHTML+'</div></div>':'')
+  // ── 4. 收支分析 ──
+  +'<div class="sec"><div class="sec-title">收支分析</div>'
+    +'<div class="two-col">'
+      +'<table class="tbl">'
+        +'<tr><td class="grp" colspan="2">年度收入</td></tr>'
+        +'<tr><td class="lbl grp2" colspan="2">主動收入</td></tr>'+(di.w_self_fix>0?'<tr><td class="lbl sub2">本人工資（固定）</td><td class="pos">'+fmt(di.w_self_fix,sym)+'</td></tr>':'')+(di.w_self_var>0?'<tr><td class="lbl sub2">本人獎金/佣金</td><td class="pos">'+fmt(di.w_self_var,sym)+'</td></tr>':'')+(di.w_spouse>0?'<tr><td class="lbl sub2">配偶工資/薪酬</td><td class="pos">'+fmt(di.w_spouse,sym)+'</td></tr>':'')+(di.w_biz>0?'<tr><td class="lbl sub2">經營/生意收入</td><td class="pos">'+fmt(di.w_biz,sym)+'</td></tr>':'')+(di.w_side>0?'<tr><td class="lbl sub2">兄職/自由職業</td><td class="pos">'+fmt(di.w_side,sym)+'</td></tr>':'')+'<tr><td class="lbl grp2" colspan="2">被動收入</td></tr>'+(di.p_hkrent>0?'<tr><td class="lbl sub2">香港房產租金</td><td class="pos">'+fmt(di.p_hkrent,sym)+'</td></tr>':'')+(di.p_cnrent>0?'<tr><td class="lbl sub2">內地房產租金</td><td class="pos">'+fmt(di.p_cnrent,sym)+'</td></tr>':'')+(di.p_commrent>0?'<tr><td class="lbl sub2">商業物業租金</td><td class="pos">'+fmt(di.p_commrent,sym)+'</td></tr>':'')+(di.p_div>0?'<tr><td class="lbl sub2">股票股息/基金分紅</td><td class="pos">'+fmt(di.p_div,sym)+'</td></tr>':'')+(di.p_int>0?'<tr><td class="lbl sub2">存款/債券利息</td><td class="pos">'+fmt(di.p_int,sym)+'</td></tr>':'')+(di.p_pension>0?'<tr><td class="lbl sub2">社保/退休金</td><td class="pos">'+fmt(di.p_pension,sym)+'</td></tr>':'')+(di.p_annuity>0?'<tr><td class="lbl sub2">商業年金</td><td class="pos">'+fmt(di.p_annuity,sym)+'</td></tr>':'')+(di.p_other>0?'<tr><td class="lbl sub2">其他被動收入</td><td class="pos">'+fmt(di.p_other,sym)+'</td></tr>':'')
+        +'<tr class="tot"><td>年度總收入</td><td class="pos">'+fmt(ti,sym)+'</td></tr>'
+      +'</table>'
+      +'<table class="tbl">'
+        +'<tr><td class="grp" colspan="2">年度支出</td></tr>'
+        +'<tr><td class="lbl grp2" colspan="2">日常生活</td></tr>'+(de.l_food>0?'<tr><td class="lbl sub2">家庭侙食/生活用品</td><td class="neg">'+fmt(de.l_food,sym)+'</td></tr>':'')+(de.l_util>0?'<tr><td class="lbl sub2">水電營/物業費</td><td class="neg">'+fmt(de.l_util,sym)+'</td></tr>':'')+(de.l_cloth>0?'<tr><td class="lbl sub2">服装/美容</td><td class="neg">'+fmt(de.l_cloth,sym)+'</td></tr>':'')+(de.l_comm>0?'<tr><td class="lbl sub2">交通通訊</td><td class="neg">'+fmt(de.l_comm,sym)+'</td></tr>':'')+(de.l_travel>0?'<tr><td class="lbl sub2">旅遊度假</td><td class="neg">'+fmt(de.l_travel,sym)+'</td></tr>':'')+(de.l_ent>0?'<tr><td class="lbl sub2">娛樂/社交/餐飲</td><td class="neg">'+fmt(de.l_ent,sym)+'</td></tr>':'')+(de.e_tuition>0?'<tr><td class="lbl sub2">赍間學費/托育費</td><td class="neg">'+fmt(de.e_tuition,sym)+'</td></tr>':'')+(de.e_extra>0?'<tr><td class="lbl sub2">課外補習/興趣班</td><td class="neg">'+fmt(de.e_extra,sym)+'</td></tr>':'')+(de.e_living>0?'<tr><td class="lbl sub2">子女日常生活費</td><td class="neg">'+fmt(de.e_living,sym)+'</td></tr>':'')+(de.p_parents>0?'<tr><td class="lbl sub2">赡養父母</td><td class="neg">'+fmt(de.p_parents,sym)+'</td></tr>':'')+'<tr><td class="lbl grp2" colspan="2">財務支出</td></tr>'+(de.f_mortg>0?'<tr><td class="lbl sub2">房貸月供×12</td><td class="neg">'+fmt(de.f_mortg,sym)+'</td></tr>':'')+(de.f_carloan>0?'<tr><td class="lbl sub2">車貸月供×12</td><td class="neg">'+fmt(de.f_carloan,sym)+'</td></tr>':'')+(de.f_ins>0?'<tr><td class="lbl sub2">人壽/重疾险保費</td><td class="neg">'+fmt(de.f_ins,sym)+'</td></tr>':'')+(de.f_sav>0?'<tr><td class="lbl sub2">儲蓄/教育险保費</td><td class="neg">'+fmt(de.f_sav,sym)+'</td></tr>':'')+(de.v_fuel>0?'<tr><td class="lbl sub2">加油/充電費</td><td class="neg">'+fmt(de.v_fuel,sym)+'</td></tr>':'')+(de.v_carins>0?'<tr><td class="lbl sub2">車輛保險</td><td class="neg">'+fmt(de.v_carins,sym)+'</td></tr>':'')+(de.v_maint>0?'<tr><td class="lbl sub2">維修保養</td><td class="neg">'+fmt(de.v_maint,sym)+'</td></tr>':'')
+        +'<tr class="tot"><td>年度總支出</td><td class="neg">'+fmt(te,sym)+'</td></tr>'
+      +'</table>'
+    +'</div>'
+  +'</div>'
+  // ── 5. 資產負債表 ──
+  +'<div class="sec"><div class="sec-title">資產負債表</div>'
+    +'<div class="two-col">'
+      +'<table class="tbl">'
+        +'<tr><td class="grp" colspan="2">資產</td></tr>'
+        +'<tr><td class="lbl grp2" colspan="2">現金存款類</td></tr>'+(dt.cash_demand>0?'<tr><td class="lbl sub2">活期存款</td><td class="pos">'+fmt(dt.cash_demand,sym)+'</td></tr>':'')+(dt.cash_fixed>0?'<tr><td class="lbl sub2">定期存款</td><td class="pos">'+fmt(dt.cash_fixed,sym)+'</td></tr>':'')+(dt.cash_cd>0?'<tr><td class="lbl sub2">大額存單</td><td class="pos">'+fmt(dt.cash_cd,sym)+'</td></tr>':'')+(dt.cash_usd>0?'<tr><td class="lbl sub2">外幣存款</td><td class="pos">'+fmt(dt.cash_usd,sym)+'</td></tr>':'')+(dt.mf_money>0?'<tr><td class="lbl sub2">貨幣基金</td><td class="pos">'+fmt(dt.mf_money,sym)+'</td></tr>':'')+(dt.mf_bond>0?'<tr><td class="lbl sub2">国債（短期）</td><td class="pos">'+fmt(dt.mf_bond,sym)+'</td></tr>':'')+(dt.mf_bank>0?'<tr><td class="lbl sub2">銀行理財（短期）</td><td class="pos">'+fmt(dt.mf_bank,sym)+'</td></tr>':'')+'<tr><td class="lbl sub" style="padding-left:4px">小計</td><td class="pos">'+fmt(d.liquidTotal-(dt.sv_self+dt.sv_spouse+dt.sv_kid),sym)+'</td></tr>'+'<tr><td class="lbl grp2" colspan="2">儲蓄型保單</td></tr>'+(dt.sv_self>0?'<tr><td class="lbl sub2">儲蓄保單（本人）</td><td class="pos">'+fmt(dt.sv_self,sym)+'</td></tr>':'')+(dt.sv_spouse>0?'<tr><td class="lbl sub2">儲蓄保單（配偶）</td><td class="pos">'+fmt(dt.sv_spouse,sym)+'</td></tr>':'')+(dt.sv_kid>0?'<tr><td class="lbl sub2">子女教育保單</td><td class="pos">'+fmt(dt.sv_kid,sym)+'</td></tr>':'')+'<tr><td class="lbl grp2" colspan="2">證券投資</td></tr>'+(dt.sec_ashare>0?'<tr><td class="lbl sub2">A股股票</td><td class="pos">'+fmt(dt.sec_ashare,sym)+'</td></tr>':'')+(dt.sec_hkshare>0?'<tr><td class="lbl sub2">港股股票</td><td class="pos">'+fmt(dt.sec_hkshare,sym)+'</td></tr>':'')+(dt.sec_usshare>0?'<tr><td class="lbl sub2">美股/海外股票</td><td class="pos">'+fmt(dt.sec_usshare,sym)+'</td></tr>':'')+(dt.sec_fund>0?'<tr><td class="lbl sub2">公募基金</td><td class="pos">'+fmt(dt.sec_fund,sym)+'</td></tr>':'')+(dt.sec_pe>0?'<tr><td class="lbl sub2">私募基金</td><td class="pos">'+fmt(dt.sec_pe,sym)+'</td></tr>':'')+(dt.sec_iul>0?'<tr><td class="lbl sub2">投連險</td><td class="pos">'+fmt(dt.sec_iul,sym)+'</td></tr>':'')+'<tr><td class="lbl grp2" colspan="2">投資房產</td></tr>'+(dt.ip_hk>0?'<tr><td class="lbl sub2">香港投資房產</td><td class="pos">'+fmt(dt.ip_hk,sym)+'</td></tr>':'')+(dt.ip_cn1>0?'<tr><td class="lbl sub2">內地投資房（第1套）</td><td class="pos">'+fmt(dt.ip_cn1,sym)+'</td></tr>':'')+(dt.ip_cn2>0?'<tr><td class="lbl sub2">內地投資房（第2套）</td><td class="pos">'+fmt(dt.ip_cn2,sym)+'</td></tr>':'')+(dt.ip_cn3>0?'<tr><td class="lbl sub2">內地投資房（第3套以上）</td><td class="pos">'+fmt(dt.ip_cn3,sym)+'</td></tr>':'')+(dt.ip_oversea>0?'<tr><td class="lbl sub2">海外房產</td><td class="pos">'+fmt(dt.ip_oversea,sym)+'</td></tr>':'')+(dt.ip_comm>0?'<tr><td class="lbl sub2">商舖/辦公/厂房</td><td class="pos">'+fmt(dt.ip_comm,sym)+'</td></tr>':'')+(dt.ip_parking>0?'<tr><td class="lbl sub2">車位（投資）</td><td class="pos">'+fmt(dt.ip_parking,sym)+'</td></tr>':'')+'<tr><td class="lbl grp2" colspan="2">另類投資</td></tr>'+(dt.alt_gold>0?'<tr><td class="lbl sub2">黃金/貴金屬</td><td class="pos">'+fmt(dt.alt_gold,sym)+'</td></tr>':'')+(dt.alt_crypto>0?'<tr><td class="lbl sub2">虛擬貨幣</td><td class="pos">'+fmt(dt.alt_crypto,sym)+'</td></tr>':'')+(dt.alt_equity>0?'<tr><td class="lbl sub2">股權/公司股份</td><td class="pos">'+fmt(dt.alt_equity,sym)+'</td></tr>':'')+(dt.alt_art>0?'<tr><td class="lbl sub2">收藏品/艺術品</td><td class="pos">'+fmt(dt.alt_art,sym)+'</td></tr>':'')+'<tr><td class="lbl grp2" colspan="2">自用資產</td></tr>'+(dt.h_main>0?'<tr><td class="lbl sub2">自住主房</td><td class="pos">'+fmt(dt.h_main,sym)+'</td></tr>':'')+(dt.h_second>0?'<tr><td class="lbl sub2">自住第二套</td><td class="pos">'+fmt(dt.h_second,sym)+'</td></tr>':'')+(dt.c_car1>0?'<tr><td class="lbl sub2">自用車轆（第1輛）</td><td class="pos">'+fmt(dt.c_car1,sym)+'</td></tr>':'')+(dt.c_car2>0?'<tr><td class="lbl sub2">自用車轆（第2輛）</td><td class="pos">'+fmt(dt.c_car2,sym)+'</td></tr>':'')
+        +'<tr class="tot"><td>總資產</td><td class="pos">'+fmt(ta,sym)+'</td></tr>'
+      +'</table>'
+      +'<table class="tbl">'
+        +'<tr><td class="grp" colspan="2">負債</td></tr>'
+        +'<tr><td class="lbl grp2" colspan="2">按揭/貸款明細</td></tr>'+(dd.m_home>0?'<tr><td class="lbl sub2">自住房按揭餘額</td><td class="neg">'+fmt(dd.m_home,sym)+'</td></tr>':'')+(dd.m_invest>0?'<tr><td class="lbl sub2">投資房抵掼餘額</td><td class="neg">'+fmt(dd.m_invest,sym)+'</td></tr>':'')+(dd.m_comm>0?'<tr><td class="lbl sub2">商業物業貸款</td><td class="neg">'+fmt(dd.m_comm,sym)+'</td></tr>':'')+(dd.c_car>0?'<tr><td class="lbl sub2">車貸餘額</td><td class="neg">'+fmt(dd.c_car,sym)+'</td></tr>':'')+(dd.c_personal>0?'<tr><td class="lbl sub2">信用/個人貸款</td><td class="neg">'+fmt(dd.c_personal,sym)+'</td></tr>':'')+(dd.c_cc>0?'<tr><td class="lbl sub2">信用卡欠款</td><td class="neg">'+fmt(dd.c_cc,sym)+'</td></tr>':'')
+        +'<tr class="tot"><td>總負債</td><td class="neg">'+fmt(tl,sym)+'</td></tr>'
+        +'<tr class="tot" style="border-top:2px solid var(--gold)"><td>淨資產</td><td class="'+(na>=0?'pos':'neg')+'">'+fmt(na,sym)+'</td></tr>'
+      +'</table>'
+    +'</div>'
+  +'</div>'
+  // ── 6. 保障分析 ──
+  +'<div class="sec"><div class="sec-title">保障分析</div>'
+    +'<table class="tbl ins-detail-tbl">'
+      +'<tr style="background:#141210"><td class="lbl" style="color:#d4af37;font-weight:700">保障類型</td><td style="text-align:right;color:#d4af37;font-weight:700">保額</td><td style="text-align:right;color:#d4af37;font-weight:700">年保費</td></tr>'
+      +(dins.s_life_amt>0||dins.s_life_prem>0?'<tr><td class="lbl sub2">壽险（本人）</td><td class="neu" style="text-align:right">'+fmt(dins.s_life_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.s_life_prem,sym)+'</td></tr>':'')
+      +(dins.s_ci_amt>0||dins.s_ci_prem>0?'<tr><td class="lbl sub2">重疾险（本人）</td><td class="neu" style="text-align:right">'+fmt(dins.s_ci_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.s_ci_prem,sym)+'</td></tr>':'')
+      +(dins.s_med_amt>0||dins.s_med_prem>0?'<tr><td class="lbl sub2">醫療险（本人）</td><td class="neu" style="text-align:right">'+fmt(dins.s_med_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.s_med_prem,sym)+'</td></tr>':'')
+      +(dins.s_sav_amt>0||dins.s_sav_prem>0?'<tr><td class="lbl sub2">儲蓄险（本人）</td><td class="pos" style="text-align:right">'+fmt(dins.s_sav_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.s_sav_prem,sym)+'</td></tr>':'')
+      +(dins.s_acc_amt>0||dins.s_acc_prem>0?'<tr><td class="lbl sub2">意外险（本人）</td><td class="neu" style="text-align:right">'+fmt(dins.s_acc_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.s_acc_prem,sym)+'</td></tr>':'')
+      +(dins.p_life_amt>0||dins.p_life_prem>0?'<tr><td class="lbl sub2">壽险（配偶）</td><td class="neu" style="text-align:right">'+fmt(dins.p_life_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.p_life_prem,sym)+'</td></tr>':'')
+      +(dins.p_ci_amt>0||dins.p_ci_prem>0?'<tr><td class="lbl sub2">重疾险（配偶）</td><td class="neu" style="text-align:right">'+fmt(dins.p_ci_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.p_ci_prem,sym)+'</td></tr>':'')
+      +(dins.p_med_amt>0||dins.p_med_prem>0?'<tr><td class="lbl sub2">醫療险（配偶）</td><td class="neu" style="text-align:right">'+fmt(dins.p_med_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.p_med_prem,sym)+'</td></tr>':'')
+      +(dins.k_edu_amt>0||dins.k_edu_prem>0?'<tr><td class="lbl sub2">子女教育险</td><td class="pos" style="text-align:right">'+fmt(dins.k_edu_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.k_edu_prem,sym)+'</td></tr>':'')
+      +(dins.k_ci_amt>0||dins.k_ci_prem>0?'<tr><td class="lbl sub2">子女重疾险</td><td class="neu" style="text-align:right">'+fmt(dins.k_ci_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.k_ci_prem,sym)+'</td></tr>':'')
+      +(dins.k_med_amt>0||dins.k_med_prem>0?'<tr><td class="lbl sub2">子女醫療险</td><td class="neu" style="text-align:right">'+fmt(dins.k_med_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.k_med_prem,sym)+'</td></tr>':'')
+      +'<tr class="tot"><td>合計保障</td><td style="text-align:right" class="pos">'+fmt(d.lifeCover+d.ciCover,sym)+'</td><td style="text-align:right" class="neg">'+fmt(d.totalPrem,sym)+'</td></tr>'
+    +'</table>'
+  +'</div>'
+  // ── 7. 10項健康指標 ──
+  +'<div class="sec"><div class="sec-title">財務健康指標（10項）</div><div class="kpi-grid">'+kpiHTML+'</div></div>'
+  // ── 8. 顧問備註 ──
+  +'<div class="sec notes-area" data-rid="'+rec.id+'"><div class="sec-title">顧問備註</div>'
+    +'<textarea id="note-ta" placeholder="輸入跟進備註、建議事項或重要信息…">'+savedNote+'</textarea>'
+    +'<div class="notes-btns">'
+      +'<button class="btn-save btn-save-btn">儲存備註</button>'
+      +'<button class="btn-pdf">🖨 列印 / PDF</button>'
+      +'<span class="save-ok" id="save-ok">✓ 已儲存</span>'
+    +'</div>'
+  +'</div>'
+  +'</div>';
+}
+
+function saveNote(id){
+  const ta=document.getElementById('note-ta');
+  if(!ta)return;
+  localStorage.setItem('note_'+id,ta.value);
+  const ok=document.getElementById('save-ok');
+  if(ok){ok.style.opacity='1';setTimeout(()=>ok.style.opacity='0',2000);}
+}
+
+document.addEventListener('click',function(e){
+  const ci=e.target.closest('.ci');
+  if(ci&&ci.dataset.id){showReport(ci.dataset.id);return;}
+  const sb=e.target.closest('.btn-save-btn');
+  if(sb){const notes=sb.closest('.notes-area');if(notes&&notes.dataset.rid)saveNote(notes.dataset.rid);return;}
+  const pb=e.target.closest('.btn-pdf');
+  if(pb){window.print();return;}
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Enter'&&document.getElementById('pw-screen').style.display!=='none')checkPw();
+});
+</script>
+</body>
+</html>
+<script>
+const SUPA_URL='https://harfpcpncdgsseebfsku.supabase.co';
+const SUPA_KEY='sb_publishable_XU4HW7YIninAmvzGVbs2GA_ejscsrnu';
+const PW='janet2025';
+let allRecords=[], activeId=null;
+
+function checkPw(){
+  const v=document.getElementById('pw-inp').value;
+  if(v===PW){
+    document.getElementById('pw-screen').style.display='none';
+    document.getElementById('app').style.display='flex';
+    loadData();
+  }else{
+    document.getElementById('pw-err').textContent='密碼錯誤，請重試';
+    document.getElementById('pw-inp').value='';
+    document.getElementById('pw-inp').focus();
+  }
+}
+function logout(){
+  document.getElementById('app').style.display='none';
+  document.getElementById('pw-screen').style.display='flex';
+  document.getElementById('pw-inp').value='';
+}
+async function loadData(){
+  try{
+    const r=await fetch(SUPA_URL+'/rest/v1/finance_reports?select=*&order=created_at.desc',{
+      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
+    });
+    allRecords=await r.json();
+    document.getElementById('rec-count').textContent=allRecords.length+' 個客戶';
+    renderList(allRecords);
+  }catch(e){
+    document.getElementById('cl').innerHTML='<div style="padding:16px;color:#e74c3c">載入失敗: '+e.message+'</div>';
+  }
+}
+function filterList(){
+  const q=document.getElementById('srch').value.toLowerCase();
+  renderList(allRecords.filter(r=>(r.client_name||'').toLowerCase().includes(q)));
+}
+function fmt(n,sym){
+  sym=sym||'HKD';
+  if(n===null||n===undefined||n==='')return 'N/A';
+  return sym+' '+Number(n).toLocaleString('en-HK',{maximumFractionDigits:0});
+}
+function pct(n,dec){
+  if(n===null||n===undefined)return 'N/A';
+  return (n*100).toFixed(dec===undefined?1:dec)+'%';
+}
+function row2(l,v,cls){
+  cls=cls||'';
+  return '<tr><td class="lbl">'+l+'</td><td class="'+(cls||'')+'">'+v+'</td></tr>';
+}
+function renderList(records){
+  const cl=document.getElementById('cl');
+  if(!records.length){cl.innerHTML='<div style="padding:20px;text-align:center;color:#444;font-size:.75rem">無記錄</div>';return;}
+  cl.innerHTML=records.map(r=>{
+    const d=r.report_data||{};
+    const na=d.netAssets||r.net_assets||0;
+    const sym=d.cur_sym||'HKD';
+    const dt=new Date(r.created_at);
+    const ds=dt.getFullYear()+'-'+(dt.getMonth()+1).toString().padStart(2,'0')+'-'+dt.getDate().toString().padStart(2,'0');
+    const col=na>=0?'#7ab88a':'#e74c3c';
+    return '<div class="ci'+(r.id===activeId?' active':'')+'" data-id="'+r.id+'">'
+      +'<div class="ci-name">'+(r.client_name||d.name||'未命名')+'</div>'
+      +'<div class="ci-sub"><span class="ci-date">'+ds+'</span><span class="ci-net" style="color:'+col+'">'+sym+' '+Number(na).toLocaleString('en-HK',{maximumFractionDigits:0})+'</span></div>'
+      +'</div>';
+  }).join('');
+}
+
+function kpiCard(nm,val,tgt,pass,disp){
+  const ok=(val===null||val===undefined)?null:pass(val);
+  const col=ok===null?'#888':ok?'#27ae60':'#e74c3c';
+  const tag=ok===null?'<span class="kpi-tag na">數據不足</span>':ok?'<span class="kpi-tag ok">✓ 達標</span>':'<span class="kpi-tag fail">✗ 未達</span>';
+  const dv=disp?disp(val):(val===null||val===undefined?'N/A':val.toFixed(2));
+  return '<div class="kpi"><div class="kpi-nm">'+nm+'</div><div class="kpi-val" style="color:'+col+'">'+dv+'</div><div class="kpi-tgt">目標: '+tgt+'</div>'+tag+'</div>';
+}
+
+function showReport(id){
+  activeId=id;
+  renderList(allRecords.filter(r=>{
+    const q=document.getElementById('srch').value.toLowerCase();
+    return (r.client_name||'').toLowerCase().includes(q);
+  }));
+  const rec=allRecords.find(r=>r.id===id);
+  if(!rec)return;
+  const d=rec.report_data||{};
+  const sym=d.cur_sym||'HKD';
+  const ta=d.totalAssets||rec.total_assets||0;
+  const tl=d.debtTotal||rec.total_liabilities||0;
+  const na=d.netAssets||rec.net_assets||0;
+  const ni=d.netInc||rec.net_income||0;
+  const ti=d.totalInc||rec.total_income||0;
+  const te=d.totalExp||rec.total_expense||0;
+  const kpis=d.kpis||{};
+  const dt=d.details&&d.details.assets?d.details.assets:{};
+  const dd=d.details&&d.details.debts?d.details.debts:{};
+  const di=d.details&&d.details.income?d.details.income:{};
+  const de=d.details&&d.details.expense?d.details.expense:{};
+  const dins=d.details&&d.details.insurance?d.details.insurance:{};
+  const ac=d.assetCat||{};
+  const det=document.getElementById('detail');
+
+  // Asset breakdown
+  const acEntries=Object.entries(ac);
+  const acHTML=acEntries.map(([k,v])=>{
+    const pct=ta>0?Math.round(v/ta*100):0;
+    return '<div class="abar">'
+      +'<div class="abar-lbl">'+k+'</div>'
+      +'<div class="abar-val">'+fmt(v,sym)+'</div>'
+      +'<div class="abar-pct">'+pct+'% / 總資產</div>'
+      +'<div class="abar-bar"><div class="abar-bar-fill" style="width:'+Math.min(pct,100)+'%"></div></div>'
+      +'</div>';
+  }).join('');
+
+  // KPI section
+  const kpiHTML=[
+    kpiCard('緊急備用金',kpis.emergMths,'≥6個月',v=>v>=6,v=>v===null?'N/A':v.toFixed(1)+' 個月'),
+    kpiCard('年度儲蓄率',kpis.netSavR,'≥20%',v=>v>=0.2,pct),
+    kpiCard('債務收入比',kpis.debtR,'≤36%',v=>v<=0.36,pct),
+    kpiCard('債務負擔比',kpis.debtBurdenR,'≤40%',v=>v<=0.4,pct),
+    kpiCard('金融資產比',kpis.finAssetR,'≥30%',v=>v>=0.3,pct),
+    kpiCard('財富自由指數',kpis.wealthFreeR,'≥1.0',v=>v>=1,v=>v===null?'N/A':v.toFixed(2)),
+    kpiCard('絕對財富比',kpis.absoluteWR,'≥1.0',v=>v>=1,v=>v===null?'N/A':v.toFixed(2)),
+    kpiCard('靜態增長比',kpis.netWorthGR,'≥5%',v=>v>=0.05,pct),
+    kpiCard('壽險保障倍數',kpis.lifeR,'≥10x',v=>v>=10,v=>v===null?'N/A':v.toFixed(1)+'x'),
+    kpiCard('重疾保障倍數',kpis.ciR,'≥5x',v=>v>=5,v=>v===null?'N/A':v.toFixed(1)+'x'),
+  ].join('');
+
+  const savedNote=localStorage.getItem('note_'+rec.id)||'';
+
+  det.innerHTML=
+  '<div class="rpt">'
+  // ── 1. 基本資料 ──
+  +'<div class="sec">'
+    +'<div class="sec-title">客戶基本資料</div>'
+    +'<div class="r-name">'+(d.name||rec.client_name||'客戶')+' 家庭財務分析報告</div>'
+    +'<div class="info-grid">'
+      +'<div class="info-item"><label>姓名</label><value>'+(d.name||rec.client_name||'N/A')+'</value></div>'
+      +'<div class="info-item"><label>年齡</label><value>'+(d.age||'N/A')+' 歲</value></div>'
+      +'<div class="info-item"><label>職業</label><value>'+(d.job||'N/A')+'</value></div>'
+      +'<div class="info-item"><label>家庭結構</label><value>'+(d.family||'N/A')+'</value></div>'
+      +'<div class="info-item"><label>風險承受</label><value>'+(d.risk||'N/A')+'</value></div>'
+      +'<div class="info-item"><label>財務目標</label><value>'+(d.goals||'—')+'</value></div>'
+      +'<div class="info-item"><label>報告貨幣</label><value>'+(sym)+'</value></div>'
+      +'<div class="info-item"><label>報告日期</label><value>'+(d.date||new Date(rec.created_at).toLocaleDateString('zh-HK'))+'</value></div>'
+    +'</div>'
+  +'</div>'
+  // ── 2. 財務摘要 ──
+  +'<div class="sum4">'
+    +'<div class="scard"><div class="scard-lbl">總資產</div><div class="scard-val neu">'+fmt(ta,sym)+'</div></div>'
+    +'<div class="scard"><div class="scard-lbl">總負債</div><div class="scard-val '+(tl>0?'neg':'neu')+'">'+fmt(tl,sym)+'</div></div>'
+    +'<div class="scard"><div class="scard-lbl">淨資產</div><div class="scard-val '+(na>=0?'pos':'neg')+'">'+fmt(na,sym)+'</div></div>'
+    +'<div class="scard"><div class="scard-lbl">年度淨現金流</div><div class="scard-val '+(ni>=0?'pos':'neg')+'">'+fmt(ni,sym)+'</div></div>'
+  +'</div>'
+  // ── 3. 資產構成 ──
+  +(acHTML?'<div class="sec"><div class="sec-title">資產構成分析</div><div class="asset-grid">'+acHTML+'</div></div>':'')
+  // ── 4. 收支分析 ──
+  +'<div class="sec"><div class="sec-title">收支分析</div>'
+    +'<div class="two-col">'
+      +'<table class="tbl">'
+        +'<tr><td class="grp" colspan="2">年度收入</td></tr>'
+        +'<tr><td class="lbl grp2" colspan="2">主動收入</td></tr>'+(di.w_self_fix>0?'<tr><td class="lbl sub2">本人工資（固定）</td><td class="pos">'+fmt(di.w_self_fix,sym)+'</td></tr>':'')+(di.w_self_var>0?'<tr><td class="lbl sub2">本人獎金/佣金</td><td class="pos">'+fmt(di.w_self_var,sym)+'</td></tr>':'')+(di.w_spouse>0?'<tr><td class="lbl sub2">配偶工資/薪酬</td><td class="pos">'+fmt(di.w_spouse,sym)+'</td></tr>':'')+(di.w_biz>0?'<tr><td class="lbl sub2">經營/生意收入</td><td class="pos">'+fmt(di.w_biz,sym)+'</td></tr>':'')+(di.w_side>0?'<tr><td class="lbl sub2">兄職/自由職業</td><td class="pos">'+fmt(di.w_side,sym)+'</td></tr>':'')+'<tr><td class="lbl grp2" colspan="2">被動收入</td></tr>'+(di.p_hkrent>0?'<tr><td class="lbl sub2">香港房產租金</td><td class="pos">'+fmt(di.p_hkrent,sym)+'</td></tr>':'')+(di.p_cnrent>0?'<tr><td class="lbl sub2">內地房產租金</td><td class="pos">'+fmt(di.p_cnrent,sym)+'</td></tr>':'')+(di.p_commrent>0?'<tr><td class="lbl sub2">商業物業租金</td><td class="pos">'+fmt(di.p_commrent,sym)+'</td></tr>':'')+(di.p_div>0?'<tr><td class="lbl sub2">股票股息/基金分紅</td><td class="pos">'+fmt(di.p_div,sym)+'</td></tr>':'')+(di.p_int>0?'<tr><td class="lbl sub2">存款/債券利息</td><td class="pos">'+fmt(di.p_int,sym)+'</td></tr>':'')+(di.p_pension>0?'<tr><td class="lbl sub2">社保/退休金</td><td class="pos">'+fmt(di.p_pension,sym)+'</td></tr>':'')+(di.p_annuity>0?'<tr><td class="lbl sub2">商業年金</td><td class="pos">'+fmt(di.p_annuity,sym)+'</td></tr>':'')+(di.p_other>0?'<tr><td class="lbl sub2">其他被動收入</td><td class="pos">'+fmt(di.p_other,sym)+'</td></tr>':'')
+        +'<tr class="tot"><td>年度總收入</td><td class="pos">'+fmt(ti,sym)+'</td></tr>'
+      +'</table>'
+      +'<table class="tbl">'
+        +'<tr><td class="grp" colspan="2">年度支出</td></tr>'
+        +'<tr><td class="lbl grp2" colspan="2">日常生活</td></tr>'+(de.l_food>0?'<tr><td class="lbl sub2">家庭侙食/生活用品</td><td class="neg">'+fmt(de.l_food,sym)+'</td></tr>':'')+(de.l_util>0?'<tr><td class="lbl sub2">水電營/物業費</td><td class="neg">'+fmt(de.l_util,sym)+'</td></tr>':'')+(de.l_cloth>0?'<tr><td class="lbl sub2">服装/美容</td><td class="neg">'+fmt(de.l_cloth,sym)+'</td></tr>':'')+(de.l_comm>0?'<tr><td class="lbl sub2">交通通訊</td><td class="neg">'+fmt(de.l_comm,sym)+'</td></tr>':'')+(de.l_travel>0?'<tr><td class="lbl sub2">旅遊度假</td><td class="neg">'+fmt(de.l_travel,sym)+'</td></tr>':'')+(de.l_ent>0?'<tr><td class="lbl sub2">娛樂/社交/餐飲</td><td class="neg">'+fmt(de.l_ent,sym)+'</td></tr>':'')+(de.e_tuition>0?'<tr><td class="lbl sub2">赍間學費/托育費</td><td class="neg">'+fmt(de.e_tuition,sym)+'</td></tr>':'')+(de.e_extra>0?'<tr><td class="lbl sub2">課外補習/興趣班</td><td class="neg">'+fmt(de.e_extra,sym)+'</td></tr>':'')+(de.e_living>0?'<tr><td class="lbl sub2">子女日常生活費</td><td class="neg">'+fmt(de.e_living,sym)+'</td></tr>':'')+(de.p_parents>0?'<tr><td class="lbl sub2">赡養父母</td><td class="neg">'+fmt(de.p_parents,sym)+'</td></tr>':'')+'<tr><td class="lbl grp2" colspan="2">財務支出</td></tr>'+(de.f_mortg>0?'<tr><td class="lbl sub2">房貸月供×12</td><td class="neg">'+fmt(de.f_mortg,sym)+'</td></tr>':'')+(de.f_carloan>0?'<tr><td class="lbl sub2">車貸月供×12</td><td class="neg">'+fmt(de.f_carloan,sym)+'</td></tr>':'')+(de.f_ins>0?'<tr><td class="lbl sub2">人壽/重疾险保費</td><td class="neg">'+fmt(de.f_ins,sym)+'</td></tr>':'')+(de.f_sav>0?'<tr><td class="lbl sub2">儲蓄/教育险保費</td><td class="neg">'+fmt(de.f_sav,sym)+'</td></tr>':'')+(de.v_fuel>0?'<tr><td class="lbl sub2">加油/充電費</td><td class="neg">'+fmt(de.v_fuel,sym)+'</td></tr>':'')+(de.v_carins>0?'<tr><td class="lbl sub2">車輛保險</td><td class="neg">'+fmt(de.v_carins,sym)+'</td></tr>':'')+(de.v_maint>0?'<tr><td class="lbl sub2">維修保養</td><td class="neg">'+fmt(de.v_maint,sym)+'</td></tr>':'')
+        +'<tr class="tot"><td>年度總支出</td><td class="neg">'+fmt(te,sym)+'</td></tr>'
+      +'</table>'
+    +'</div>'
+  +'</div>'
+  // ── 5. 資產負債表 ──
+  +'<div class="sec"><div class="sec-title">資產負債表</div>'
+    +'<div class="two-col">'
+      +'<table class="tbl">'
+        +'<tr><td class="grp" colspan="2">資產</td></tr>'
+        +'<tr><td class="lbl grp2" colspan="2">現金存款類</td></tr>'+(dt.cash_demand>0?'<tr><td class="lbl sub2">活期存款</td><td class="pos">'+fmt(dt.cash_demand,sym)+'</td></tr>':'')+(dt.cash_fixed>0?'<tr><td class="lbl sub2">定期存款</td><td class="pos">'+fmt(dt.cash_fixed,sym)+'</td></tr>':'')+(dt.cash_cd>0?'<tr><td class="lbl sub2">大額存單</td><td class="pos">'+fmt(dt.cash_cd,sym)+'</td></tr>':'')+(dt.cash_usd>0?'<tr><td class="lbl sub2">外幣存款</td><td class="pos">'+fmt(dt.cash_usd,sym)+'</td></tr>':'')+(dt.mf_money>0?'<tr><td class="lbl sub2">貨幣基金</td><td class="pos">'+fmt(dt.mf_money,sym)+'</td></tr>':'')+(dt.mf_bond>0?'<tr><td class="lbl sub2">国債（短期）</td><td class="pos">'+fmt(dt.mf_bond,sym)+'</td></tr>':'')+(dt.mf_bank>0?'<tr><td class="lbl sub2">銀行理財（短期）</td><td class="pos">'+fmt(dt.mf_bank,sym)+'</td></tr>':'')+'<tr><td class="lbl sub" style="padding-left:4px">小計</td><td class="pos">'+fmt(d.liquidTotal-(dt.sv_self+dt.sv_spouse+dt.sv_kid),sym)+'</td></tr>'+'<tr><td class="lbl grp2" colspan="2">儲蓄型保單</td></tr>'+(dt.sv_self>0?'<tr><td class="lbl sub2">儲蓄保單（本人）</td><td class="pos">'+fmt(dt.sv_self,sym)+'</td></tr>':'')+(dt.sv_spouse>0?'<tr><td class="lbl sub2">儲蓄保單（配偶）</td><td class="pos">'+fmt(dt.sv_spouse,sym)+'</td></tr>':'')+(dt.sv_kid>0?'<tr><td class="lbl sub2">子女教育保單</td><td class="pos">'+fmt(dt.sv_kid,sym)+'</td></tr>':'')+'<tr><td class="lbl grp2" colspan="2">證券投資</td></tr>'+(dt.sec_ashare>0?'<tr><td class="lbl sub2">A股股票</td><td class="pos">'+fmt(dt.sec_ashare,sym)+'</td></tr>':'')+(dt.sec_hkshare>0?'<tr><td class="lbl sub2">港股股票</td><td class="pos">'+fmt(dt.sec_hkshare,sym)+'</td></tr>':'')+(dt.sec_usshare>0?'<tr><td class="lbl sub2">美股/海外股票</td><td class="pos">'+fmt(dt.sec_usshare,sym)+'</td></tr>':'')+(dt.sec_fund>0?'<tr><td class="lbl sub2">公募基金</td><td class="pos">'+fmt(dt.sec_fund,sym)+'</td></tr>':'')+(dt.sec_pe>0?'<tr><td class="lbl sub2">私募基金</td><td class="pos">'+fmt(dt.sec_pe,sym)+'</td></tr>':'')+(dt.sec_iul>0?'<tr><td class="lbl sub2">投連險</td><td class="pos">'+fmt(dt.sec_iul,sym)+'</td></tr>':'')+'<tr><td class="lbl grp2" colspan="2">投資房產</td></tr>'+(dt.ip_hk>0?'<tr><td class="lbl sub2">香港投資房產</td><td class="pos">'+fmt(dt.ip_hk,sym)+'</td></tr>':'')+(dt.ip_cn1>0?'<tr><td class="lbl sub2">內地投資房（第1套）</td><td class="pos">'+fmt(dt.ip_cn1,sym)+'</td></tr>':'')+(dt.ip_cn2>0?'<tr><td class="lbl sub2">內地投資房（第2套）</td><td class="pos">'+fmt(dt.ip_cn2,sym)+'</td></tr>':'')+(dt.ip_cn3>0?'<tr><td class="lbl sub2">內地投資房（第3套以上）</td><td class="pos">'+fmt(dt.ip_cn3,sym)+'</td></tr>':'')+(dt.ip_oversea>0?'<tr><td class="lbl sub2">海外房產</td><td class="pos">'+fmt(dt.ip_oversea,sym)+'</td></tr>':'')+(dt.ip_comm>0?'<tr><td class="lbl sub2">商舖/辦公/厂房</td><td class="pos">'+fmt(dt.ip_comm,sym)+'</td></tr>':'')+(dt.ip_parking>0?'<tr><td class="lbl sub2">車位（投資）</td><td class="pos">'+fmt(dt.ip_parking,sym)+'</td></tr>':'')+'<tr><td class="lbl grp2" colspan="2">另類投資</td></tr>'+(dt.alt_gold>0?'<tr><td class="lbl sub2">黃金/貴金屬</td><td class="pos">'+fmt(dt.alt_gold,sym)+'</td></tr>':'')+(dt.alt_crypto>0?'<tr><td class="lbl sub2">虛擬貨幣</td><td class="pos">'+fmt(dt.alt_crypto,sym)+'</td></tr>':'')+(dt.alt_equity>0?'<tr><td class="lbl sub2">股權/公司股份</td><td class="pos">'+fmt(dt.alt_equity,sym)+'</td></tr>':'')+(dt.alt_art>0?'<tr><td class="lbl sub2">收藏品/艺術品</td><td class="pos">'+fmt(dt.alt_art,sym)+'</td></tr>':'')+'<tr><td class="lbl grp2" colspan="2">自用資產</td></tr>'+(dt.h_main>0?'<tr><td class="lbl sub2">自住主房</td><td class="pos">'+fmt(dt.h_main,sym)+'</td></tr>':'')+(dt.h_second>0?'<tr><td class="lbl sub2">自住第二套</td><td class="pos">'+fmt(dt.h_second,sym)+'</td></tr>':'')+(dt.c_car1>0?'<tr><td class="lbl sub2">自用車轆（第1輛）</td><td class="pos">'+fmt(dt.c_car1,sym)+'</td></tr>':'')+(dt.c_car2>0?'<tr><td class="lbl sub2">自用車轆（第2輛）</td><td class="pos">'+fmt(dt.c_car2,sym)+'</td></tr>':'')
+        +'<tr class="tot"><td>總資產</td><td class="pos">'+fmt(ta,sym)+'</td></tr>'
+      +'</table>'
+      +'<table class="tbl">'
+        +'<tr><td class="grp" colspan="2">負債</td></tr>'
+        +'<tr><td class="lbl grp2" colspan="2">按揭/貸款明細</td></tr>'+(dd.m_home>0?'<tr><td class="lbl sub2">自住房按揭餘額</td><td class="neg">'+fmt(dd.m_home,sym)+'</td></tr>':'')+(dd.m_invest>0?'<tr><td class="lbl sub2">投資房抵掼餘額</td><td class="neg">'+fmt(dd.m_invest,sym)+'</td></tr>':'')+(dd.m_comm>0?'<tr><td class="lbl sub2">商業物業貸款</td><td class="neg">'+fmt(dd.m_comm,sym)+'</td></tr>':'')+(dd.c_car>0?'<tr><td class="lbl sub2">車貸餘額</td><td class="neg">'+fmt(dd.c_car,sym)+'</td></tr>':'')+(dd.c_personal>0?'<tr><td class="lbl sub2">信用/個人貸款</td><td class="neg">'+fmt(dd.c_personal,sym)+'</td></tr>':'')+(dd.c_cc>0?'<tr><td class="lbl sub2">信用卡欠款</td><td class="neg">'+fmt(dd.c_cc,sym)+'</td></tr>':'')
+        +'<tr class="tot"><td>總負債</td><td class="neg">'+fmt(tl,sym)+'</td></tr>'
+        +'<tr class="tot" style="border-top:2px solid var(--gold)"><td>淨資產</td><td class="'+(na>=0?'pos':'neg')+'">'+fmt(na,sym)+'</td></tr>'
+      +'</table>'
+    +'</div>'
+  +'</div>'
+  // ── 6. 保障分析 ──
+  +'<div class="sec"><div class="sec-title">保障分析</div>'
+    +'<table class="tbl ins-detail-tbl">'
+      +'<tr style="background:#141210"><td class="lbl" style="color:#d4af37;font-weight:700">保障類型</td><td style="text-align:right;color:#d4af37;font-weight:700">保額</td><td style="text-align:right;color:#d4af37;font-weight:700">年保費</td></tr>'
+      +(dins.s_life_amt>0||dins.s_life_prem>0?'<tr><td class="lbl sub2">壽险（本人）</td><td class="neu" style="text-align:right">'+fmt(dins.s_life_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.s_life_prem,sym)+'</td></tr>':'')
+      +(dins.s_ci_amt>0||dins.s_ci_prem>0?'<tr><td class="lbl sub2">重疾险（本人）</td><td class="neu" style="text-align:right">'+fmt(dins.s_ci_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.s_ci_prem,sym)+'</td></tr>':'')
+      +(dins.s_med_amt>0||dins.s_med_prem>0?'<tr><td class="lbl sub2">醫療险（本人）</td><td class="neu" style="text-align:right">'+fmt(dins.s_med_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.s_med_prem,sym)+'</td></tr>':'')
+      +(dins.s_sav_amt>0||dins.s_sav_prem>0?'<tr><td class="lbl sub2">儲蓄险（本人）</td><td class="pos" style="text-align:right">'+fmt(dins.s_sav_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.s_sav_prem,sym)+'</td></tr>':'')
+      +(dins.s_acc_amt>0||dins.s_acc_prem>0?'<tr><td class="lbl sub2">意外险（本人）</td><td class="neu" style="text-align:right">'+fmt(dins.s_acc_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.s_acc_prem,sym)+'</td></tr>':'')
+      +(dins.p_life_amt>0||dins.p_life_prem>0?'<tr><td class="lbl sub2">壽险（配偶）</td><td class="neu" style="text-align:right">'+fmt(dins.p_life_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.p_life_prem,sym)+'</td></tr>':'')
+      +(dins.p_ci_amt>0||dins.p_ci_prem>0?'<tr><td class="lbl sub2">重疾险（配偶）</td><td class="neu" style="text-align:right">'+fmt(dins.p_ci_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.p_ci_prem,sym)+'</td></tr>':'')
+      +(dins.p_med_amt>0||dins.p_med_prem>0?'<tr><td class="lbl sub2">醫療险（配偶）</td><td class="neu" style="text-align:right">'+fmt(dins.p_med_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.p_med_prem,sym)+'</td></tr>':'')
+      +(dins.k_edu_amt>0||dins.k_edu_prem>0?'<tr><td class="lbl sub2">子女教育险</td><td class="pos" style="text-align:right">'+fmt(dins.k_edu_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.k_edu_prem,sym)+'</td></tr>':'')
+      +(dins.k_ci_amt>0||dins.k_ci_prem>0?'<tr><td class="lbl sub2">子女重疾险</td><td class="neu" style="text-align:right">'+fmt(dins.k_ci_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.k_ci_prem,sym)+'</td></tr>':'')
+      +(dins.k_med_amt>0||dins.k_med_prem>0?'<tr><td class="lbl sub2">子女醫療险</td><td class="neu" style="text-align:right">'+fmt(dins.k_med_amt,sym)+'</td><td class="neu" style="text-align:right;font-size:.7rem;color:#888">'+fmt(dins.k_med_prem,sym)+'</td></tr>':'')
+      +'<tr class="tot"><td>合計保障</td><td style="text-align:right" class="pos">'+fmt(d.lifeCover+d.ciCover,sym)+'</td><td style="text-align:right" class="neg">'+fmt(d.totalPrem,sym)+'</td></tr>'
+    +'</table>'
   +'</div>'
   // ── 7. 10項健康指標 ──
   +'<div class="sec"><div class="sec-title">財務健康指標（10項）</div><div class="kpi-grid">'+kpiHTML+'</div></div>'
