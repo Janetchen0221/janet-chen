@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://janetchen0221.github.io/janet-chen/sitemap.xml
