@@ -220,6 +220,204 @@ function kpiCard(nm,val,tgt,pass,disp){
   return '<div class="kpi"><div class="kpi-nm">'+nm+'</div><div class="kpi-val" style="color:'+col+'">'+dv+'</div><div class="kpi-tgt">目標: '+tgt+'</div>'+tag+'</div>';
 }
 
+
+// ── 生成「財務建議與行動計劃」HTML ──
+function genAdvisorActions(d, kpis, sym) {
+  const actions = [];
+  const suggestions = [];
+
+  // ── 緊急建議（紅色警示）──
+  if (kpis.emergMths !== null && kpis.emergMths < 3) {
+    actions.push({
+      priority: 'urgent',
+      icon: '🚨',
+      category: '緊急儲備',
+      action: '緊急建立應急備用金，目前僅 ' + (kpis.emergMths||0).toFixed(1) + ' 個月，需補足至6個月月支出（約' + fmt((d.livingExp||0)/2*6, sym) + '）',
+      timeline: '1個月內',
+      reason: '一旦收入中斷，家庭財務將面臨嚴重壓力'
+    });
+  } else if (kpis.emergMths !== null && kpis.emergMths < 6) {
+    actions.push({
+      priority: 'high',
+      icon: '⚠️',
+      category: '緊急儲備',
+      action: '補足應急備用金至6個月月支出，目前 ' + kpis.emergMths.toFixed(1) + ' 個月，差額約 ' + fmt(Math.max(0,(6-kpis.emergMths)*(d.livingExp||0)/12), sym),
+      timeline: '3個月內',
+      reason: '建議存入活期存款或貨幣基金，保持流動性'
+    });
+  }
+
+  // ── 壽險保障 ──
+  if (kpis.lifeR !== null && kpis.lifeR < 5) {
+    actions.push({
+      priority: 'urgent',
+      icon: '🚨',
+      category: '壽險保障',
+      action: '壽險嚴重不足（當前 ' + kpis.lifeR.toFixed(1) + 'x，標準≥10x），需立即補充定期壽險，建議保額不低於 ' + fmt((d.totalInc||0)*10, sym),
+      timeline: '1個月內',
+      reason: '家庭主要收入來源若發生意外，家人將面臨財務危機'
+    });
+  } else if (kpis.lifeR !== null && kpis.lifeR < 10) {
+    actions.push({
+      priority: 'high',
+      icon: '⚠️',
+      category: '壽險保障',
+      action: '壽險保障不足（當前 ' + kpis.lifeR.toFixed(1) + 'x，標準≥10x），建議補充定期壽險至年收入10倍',
+      timeline: '2個月內',
+      reason: '可考慮保誠定期壽險，保費低廉保障高'
+    });
+  } else if (kpis.lifeR !== null && kpis.lifeR >= 10) {
+    suggestions.push({ icon: '✅', category: '壽險保障', text: '壽險保障充足（' + kpis.lifeR.toFixed(1) + 'x），達標' });
+  }
+
+  // ── 重疾保障 ──
+  if (kpis.ciR !== null && kpis.ciR < 2) {
+    actions.push({
+      priority: 'urgent',
+      icon: '🚨',
+      category: '重疾保障',
+      action: '重疾保障嚴重不足（當前 ' + kpis.ciR.toFixed(1) + 'x，標準≥5x），需補充重疾險，目標保額 ' + fmt((d.totalInc||0)*5, sym),
+      timeline: '1個月內',
+      reason: '重疾治療費用高昂，保障不足將消耗大量積蓄'
+    });
+  } else if (kpis.ciR !== null && kpis.ciR < 5) {
+    actions.push({
+      priority: 'high',
+      icon: '⚠️',
+      category: '重疾保障',
+      action: '重疾保障不足（當前 ' + kpis.ciR.toFixed(1) + 'x，標準≥5x），建議補充至年收入300%-500%',
+      timeline: '2個月內',
+      reason: '可評估保誠危疾保障計劃，一次性賠付更靈活'
+    });
+  } else if (kpis.ciR !== null && kpis.ciR >= 5) {
+    suggestions.push({ icon: '✅', category: '重疾保障', text: '重疾保障充足（' + kpis.ciR.toFixed(1) + 'x），達標' });
+  }
+
+  // ── 債務管理 ──
+  if (kpis.debtR !== null && kpis.debtR > 0.5) {
+    actions.push({
+      priority: 'urgent',
+      icon: '🚨',
+      category: '債務管理',
+      action: '債務收入比過高（' + (kpis.debtR*100).toFixed(0) + '%，警戒線36%），需制定還款優先計劃，優先清還高息負債（信用卡、個人貸款）',
+      timeline: '立即執行',
+      reason: '高債務比率嚴重影響財務靈活性及抗風險能力'
+    });
+  } else if (kpis.debtR !== null && kpis.debtR > 0.36) {
+    actions.push({
+      priority: 'medium',
+      icon: '📋',
+      category: '債務管理',
+      action: '債務收入比偏高（' + (kpis.debtR*100).toFixed(0) + '%），建議制定還款計劃，逐步降低至36%以下',
+      timeline: '3-6個月',
+      reason: '建議優先還清信用卡欠款，再考慮投資增值'
+    });
+  } else if (kpis.debtR !== null) {
+    suggestions.push({ icon: '✅', category: '債務管理', text: '債務收入比健康（' + (kpis.debtR*100).toFixed(0) + '%），達標' });
+  }
+
+  // ── 儲蓄率 ──
+  if (kpis.netSavR !== null && kpis.netSavR < 0.05) {
+    actions.push({
+      priority: 'urgent',
+      icon: '🚨',
+      category: '儲蓄計劃',
+      action: '年度儲蓄率極低（' + (kpis.netSavR*100).toFixed(0) + '%），需立即審視支出結構，制定強制儲蓄計劃，目標每月自動轉存至少收入的10%',
+      timeline: '本月起執行',
+      reason: '儲蓄率過低將無法積累財富，難以應對未來財務目標'
+    });
+  } else if (kpis.netSavR !== null && kpis.netSavR < 0.2) {
+    actions.push({
+      priority: 'medium',
+      icon: '📋',
+      category: '儲蓄計劃',
+      action: '年度儲蓄率偏低（' + (kpis.netSavR*100).toFixed(0) + '%，目標≥20%），建議審視非必要支出，每月設置自動儲蓄轉賬',
+      timeline: '1個月內',
+      reason: '可嘗試「先儲後花」策略，設置自動扣賬'
+    });
+  } else if (kpis.netSavR !== null) {
+    suggestions.push({ icon: '✅', category: '儲蓄計劃', text: '年度儲蓄率良好（' + (kpis.netSavR*100).toFixed(0) + '%），達標' });
+  }
+
+  // ── 資產結構 ──
+  if (kpis.finAssetR !== null && kpis.finAssetR < 0.3) {
+    actions.push({
+      priority: 'medium',
+      icon: '📋',
+      category: '資產結構',
+      action: '金融資產佔比偏低（' + (kpis.finAssetR*100).toFixed(0) + '%，目標≥30%），資產過度集中於實物資產，建議逐步提高流動性金融資產比例',
+      timeline: '3-6個月',
+      reason: '實物資產流動性差，建議增加儲蓄保單、基金等金融資產配置'
+    });
+  }
+
+  // ── 財富自由 ──
+  if (kpis.wealthFreeR !== null && kpis.wealthFreeR < 0.3) {
+    actions.push({
+      priority: 'medium',
+      icon: '📋',
+      category: '被動收入',
+      action: '財富自由指數極低（' + kpis.wealthFreeR.toFixed(2) + '），被動收入遠不足以覆蓋生活支出，建議規劃被動收入來源（儲蓄保單、年金、投資物業）',
+      timeline: '6-12個月',
+      reason: '長期目標：被動收入≥生活支出，實現財務自由'
+    });
+  } else if (kpis.wealthFreeR !== null && kpis.wealthFreeR >= 1) {
+    suggestions.push({ icon: '🌟', category: '財富自由', text: '財富自由指數達標（' + kpis.wealthFreeR.toFixed(2) + '），被動收入已可覆蓋生活支出！' });
+  }
+
+  // ── 生成 HTML ──
+  const urgentActions = actions.filter(a => a.priority === 'urgent');
+  const highActions = actions.filter(a => a.priority === 'high');
+  const mediumActions = actions.filter(a => a.priority === 'medium');
+
+  const priorityColor = { urgent: '#e74c3c', high: '#e67e22', medium: '#3498db' };
+  const priorityBg = { urgent: 'rgba(231,76,60,0.08)', high: 'rgba(230,126,34,0.08)', medium: 'rgba(52,152,219,0.08)' };
+  const priorityLabel = { urgent: '緊急', high: '重要', medium: '建議' };
+
+  let html = '<div class="sec"><div class="sec-title">💡 財務建議與行動計劃</div>';
+
+  if (actions.length === 0 && suggestions.length === 0) {
+    html += '<div style="padding:16px;text-align:center;color:#888;font-size:.85rem">暫無數據生成建議，請確認報告數據已完整填寫</div>';
+  }
+
+  // 行動項目
+  if (actions.length > 0) {
+    html += '<div style="margin-bottom:12px;font-size:.78rem;color:#888">共 ' + actions.length + ' 項待處理事項</div>';
+    [...urgentActions, ...highActions, ...mediumActions].forEach((item, i) => {
+      html += '<div style="display:flex;gap:10px;padding:12px 14px;margin-bottom:8px;border-radius:10px;'
+        + 'background:' + priorityBg[item.priority] + ';'
+        + 'border-left:3px solid ' + priorityColor[item.priority] + '">'
+        + '<div style="font-size:1.2rem;flex-shrink:0;margin-top:1px">' + item.icon + '</div>'
+        + '<div style="flex:1">'
+          + '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">'
+            + '<span style="font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:10px;'
+              + 'background:' + priorityColor[item.priority] + ';color:#fff">' + priorityLabel[item.priority] + '</span>'
+            + '<span style="font-size:.72rem;color:#888;font-weight:600">' + item.category + '</span>'
+          + '</div>'
+          + '<div style="font-size:.83rem;line-height:1.6;color:#222;margin-bottom:4px">' + item.action + '</div>'
+          + '<div style="display:flex;gap:12px;font-size:.72rem;color:#888">'
+            + '<span>⏰ ' + item.timeline + '</span>'
+            + '<span>💬 ' + item.reason + '</span>'
+          + '</div>'
+        + '</div>'
+        + '</div>';
+    });
+  }
+
+  // 已達標項目
+  if (suggestions.length > 0) {
+    html += '<div style="margin-top:10px;padding:10px 14px;background:rgba(39,174,96,0.06);border-radius:10px;border:1px solid rgba(39,174,96,0.2)">'
+      + '<div style="font-size:.75rem;font-weight:700;color:#27ae60;margin-bottom:8px">✅ 已達標項目</div>'
+      + suggestions.map(s =>
+          '<div style="font-size:.78rem;color:#555;padding:3px 0">' + s.icon + ' <strong>' + s.category + '</strong>：' + s.text + '</div>'
+        ).join('')
+      + '</div>';
+  }
+
+  html += '</div>';
+  return html;
+}
+
 function showReport(id){
   activeId=id;
   renderList(allRecords.filter(r=>{
@@ -350,7 +548,9 @@ function showReport(id){
   +'</div>'
   // ── 7. 10項健康指標 ──
   +'<div class="sec"><div class="sec-title">財務健康指標（10項）</div><div class="kpi-grid">'+kpiHTML+'</div></div>'
-  // ── 8. 顧問備註 ──
+  // ── 8. 財務建議與行動計劃 ──
+  +genAdvisorActions(d,kpis,sym)
+  // ── 9. 顧問備註 ──
   +'<div class="sec notes-area" data-rid="'+rec.id+'"><div class="sec-title">顧問備註</div>'
     +'<textarea id="note-ta" placeholder="輸入跟進備註、建議事項或重要信息…">'+savedNote+'</textarea>'
     +'<div class="notes-btns">'
