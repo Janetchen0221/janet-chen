@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- 主页 / Homepage -->
+  <url>
+    <loc>https://janetchen0221.github.io/janet-chen/</loc>
+    <lastmod>2026-07-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="zh-HK" href="https://janetchen0221.github.io/janet-chen/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://janetchen0221.github.io/janet-chen/"/>
+  </url>
+
+  <!-- 家庭财务梳理工具（桌面版）/ Family Finance Tool (Desktop) -->
+  <url>
+    <loc>https://janetchen0221.github.io/janet-chen/finance/</loc>
+    <lastmod>2026-07-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://janetchen0221.github.io/janet-chen/finance/"/>
+  </url>
+
+  <!-- 家庭财务梳理工具（手机版）/ Family Finance Tool (Mobile) -->
+  <url>
+    <loc>https://janetchen0221.github.io/janet-chen/finance-mobile/</loc>
+    <lastmod>2026-07-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- 顾问后台 / Advisor Dashboard -->
+  <url>
+    <loc>https://janetchen0221.github.io/janet-chen/advisor/</loc>
+    <lastmod>2026-07-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- 单位换算工具 / Unit Converter -->
+  <url>
+    <loc>https://janetchen0221.github.io/janet-chen/converter/</loc>
+    <lastmod>2026-07-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+</urlset>
