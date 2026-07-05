@@ -1,582 +1,1164 @@
 <!DOCTYPE html>
 
+
+
 <html lang="zh-CN">
+
+
 
 <head>
 
+
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
+
 <!-- SEO Meta -->
+
 <title>家庭财务梳理工具 | 免费生成资产负债表 + 现金流报告</title>
+
 <meta name="description" content="免费家庭财务梳理工具——10分钟理清家庭资产、负债与现金流。自动生成资产负债表和现金流报告，发现财务问题，制定改善计划。适合任何想理顺家庭财务的个人和家庭使用。" />
+
 <meta name="keywords" content="家庭财务梳理,家庭财务规划,资产负债表生成,现金流分析,家庭理财工具,财务健康检查,家庭预算管理,家庭财务报告,家庭负债管理,个人理财规划,财务自由规划,家庭收支分析,family finance tool,household budget,balance sheet generator,cash flow report" />
+
 <meta name="author" content="Janet Chen Xiujuan" />
+
 <meta name="robots" content="index, follow" />
+
 <link rel="canonical" href="https://janetchen0221.github.io/janet-chen/finance/" />
 
+
+
 <!-- Open Graph -->
+
 <meta property="og:type" content="website" />
+
 <meta property="og:title" content="家庭财务梳理工具 | 免费生成资产负债表 + 现金流报告" />
+
 <meta property="og:description" content="财务一团乱？用这个免费工具，10分钟理清家庭资产、负债与现金流，自动生成专业财务报告。" />
+
 <meta property="og:url" content="https://janetchen0221.github.io/janet-chen/finance/" />
+
 <meta property="og:site_name" content="家庭财务梳理工具" />
 
+
+
 <!-- Twitter Card -->
+
 <meta name="twitter:card" content="summary_large_image" />
+
 <meta name="twitter:title" content="家庭财务梳理工具 | 免费生成资产负债表 + 现金流报告" />
+
 <meta name="twitter:description" content="10分钟理清家庭财务，自动生成资产负债表与现金流报告。" />
 
+
+
 <!-- Schema.org -->
+
 <script type="application/ld+json">
+
 {
+
   "@context": "https://schema.org",
+
   "@type": "WebApplication",
+
   "name": "家庭财务梳理工具",
+
   "alternateName": ["Family Finance Report Tool", "家庭財務規劃工具", "家庭财务规划报告系统"],
+
   "description": "免费在线家庭财务梳理工具，帮助家庭输入收入、支出、资产、负债后自动生成资产负债表与现金流报告，全面展示家庭财务健康状况。",
+
   "url": "https://janetchen0221.github.io/janet-chen/finance/",
+
   "applicationCategory": "FinanceApplication",
+
   "operatingSystem": "Web Browser",
+
   "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+
   "featureList": [
+
     "家庭收入分析", "家庭支出分析", "资产负债表自动生成", "现金流报告自动生成",
+
     "财务健康评分", "保险保障梳理", "负债分析与优化建议", "报告导出",
+
     "Family balance sheet", "Cash flow analysis", "Household financial health check",
+
     "家庭财务一键梳理", "适合财务混乱家庭使用", "免费在线财务工具"
+
   ],
+
   "author": {
+
     "@type": "Person",
+
     "name": "Janet Chen Xiujuan",
+
     "jobTitle": "家庭财务顾问",
+
     "url": "https://janetchen0221.github.io/janet-chen/"
+
   },
+
   "inLanguage": ["zh-CN", "zh-HK"],
+
   "keywords": "家庭财务梳理,家庭财务规划,资产负债表,现金流分析,家庭理财工具,财务健康检查,家庭资产管理,family finance,household budget,financial planning"
+
 }
+
 </script>
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
+
+
 <style>
+
+
 
 :root{--p:#4A6FA5;--a:#D8A7B1;--bg:#F5F5F0;--tx:#333;--bd:#E0E0E0;--w:#fff;--gn:#27AE60;--rd:#E74C3C;--yw:#F39C12;--gr:#888;--pg:#f0f4fa}
 
+
+
 *{box-sizing:border-box;margin:0;padding:0}
+
+
 
 body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
 
+
+
 .wrap{max-width:980px;margin:0 auto;padding:20px 14px}
+
+
 
 h1{font-size:1.75rem;color:var(--p);text-align:center;margin-bottom:6px}
 
+
+
 .sub{text-align:center;color:var(--gr);margin-bottom:10px;font-size:.88rem}
+
+
 
 .save-bar{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px;padding:9px 18px;background:rgba(39,174,96,.07);border-radius:10px;border:1px solid rgba(39,174,96,.25);flex-wrap:wrap}
 
+
+
 .save-bar .ss{font-size:.8rem;color:var(--gn);flex:1;min-width:160px}
+
+
 
 .sv-btn{padding:5px 14px;background:var(--gn);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:.8rem;font-weight:700}
 
+
+
 .cl-btn{padding:5px 14px;background:#fff;color:var(--rd);border:1.5px solid var(--rd);border-radius:8px;cursor:pointer;font-size:.8rem;font-weight:700}
+
+
 
 .step-nav{display:flex;gap:6px;margin-bottom:22px;overflow-x:auto;padding-bottom:4px;flex-wrap:wrap}
 
+
+
 .snav{flex:none;padding:7px 14px;border-radius:20px;border:2px solid var(--p);background:var(--w);color:var(--p);cursor:pointer;font-size:.78rem;font-weight:700;transition:all .2s}
+
+
 
 .snav.active{background:var(--p);color:#fff}.snav.done{background:var(--a);border-color:var(--a);color:#fff}
 
+
+
 .panel{display:none}.panel.active{display:block}
+
+
 
 .card{background:var(--w);border-radius:14px;padding:20px;margin-bottom:18px;box-shadow:0 2px 10px rgba(0,0,0,.06);border-left:4px solid var(--p)}
 
+
+
 .card h2{color:var(--p);font-size:1.05rem;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+
+
 
 .card .desc{font-size:.78rem;color:var(--gr);margin-bottom:14px;line-height:1.5}
 
+
+
 .fg{display:flex;flex-direction:column;gap:5px}
+
+
 
 .fg label{font-size:.82rem;font-weight:700;color:var(--tx)}
 
+
+
 .fg input,.fg select,.fg textarea{padding:9px 12px;border:1.5px solid var(--bd);border-radius:8px;font-size:.92rem;outline:none;transition:border-color .2s;background:var(--w)}
+
+
 
 .fg input:focus,.fg select:focus{border-color:var(--p)}
 
+
+
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+
 
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
 
+
+
 @media(max-width:620px){.g2{grid-template-columns:1fr}.g3{grid-template-columns:1fr 1fr}}
+
+
 
 .ptbl{width:100%;border-collapse:collapse;margin-bottom:4px}
 
+
+
 .ptbl th{background:var(--pg);color:var(--p);padding:8px 12px;font-size:.8rem;font-weight:700;text-align:left;border-bottom:2px solid var(--bd)}
+
+
 
 .ptbl td{padding:7px 10px;border-bottom:1px solid var(--bd);vertical-align:middle}
 
+
+
 .ptbl tr:hover td{background:var(--pg)}
+
+
 
 .ptbl .lbl{font-size:.87rem;font-weight:500;color:var(--tx);width:38%}
 
+
+
 .ptbl .hint{font-size:.73rem;color:var(--gr);width:28%}
+
+
 
 .ptbl .amt{width:34%}
 
+
+
 .ptbl .amt input{width:100%;padding:6px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff;transition:border-color .2s;text-align:right}
+
+
 
 .ptbl .amt input:focus{border-color:var(--p);background:#fff}
 
+
+
 .ptbl .amt input::placeholder{color:#ccc;font-weight:400;font-size:.82rem}
+
+
 
 .ptbl .amt input.has-val{background:rgba(74,111,165,.06);border-color:var(--p)}
 
+
+
 .sec-hd{background:linear-gradient(90deg,rgba(74,111,165,.12),rgba(216,167,177,.08));border-radius:8px;padding:7px 14px;font-size:.82rem;font-weight:700;color:var(--p);margin:14px 0 4px;display:flex;justify-content:space-between;align-items:center}
+
+
 
 .sec-hd .st{font-size:.8rem;color:var(--p);font-weight:700}
 
+
+
 .subtotal-bar{display:flex;justify-content:flex-end;align-items:center;gap:8px;padding:5px 10px;font-size:.82rem;color:var(--p);font-weight:700;background:rgba(74,111,165,.04);border-radius:0 0 8px 8px;margin-bottom:8px}
+
+
 
 .total-bar{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:linear-gradient(90deg,var(--p),#3a5f95);color:#fff;border-radius:10px;margin-top:10px;font-weight:700;font-size:.95rem}
 
+
+
 .btn-p{padding:11px 28px;background:var(--p);color:#fff;border:none;border-radius:11px;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .2s}
+
+
 
 .btn-p:hover{background:#3a5f95;transform:translateY(-1px)}
 
+
+
 .btn-s{padding:11px 28px;background:var(--a);color:#fff;border:none;border-radius:11px;font-size:.95rem;font-weight:700;cursor:pointer}
+
+
 
 .navrow{display:flex;justify-content:space-between;margin-top:20px;align-items:center}
 
+
+
 /* 去除所有 number input 上下箭头 */
+
+
 
 input[type=number]{-moz-appearance:textfield;appearance:textfield}
 
+
+
 input[type=number]::-webkit-outer-spin-button,
+
+
 
 input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 
+
+
 </style>
+
+
 
 </head>
 
+
+
 <body>
+
+
 
 <div class="wrap">
 
+
+
 <h1>🏠 家庭财务梳理报告</h1>
+
+
 
 <p class="sub">由您的专属AI理财顾问为您量身定制 · 所有数据完全保密，请如实填写</p>
 
+
+
 <div class="save-bar">
+
+
 
   <span>💾</span>
 
+
+
   <span class="ss" id="saveStatus">数据已自动保存到本地，关闭或刷新浏览器不会丢失</span>
+
+
 
   <button class="sv-btn" onclick="saveNow()">立即保存</button>
 
+
+
   <button class="cl-btn" onclick="clearAll()">清除全部数据</button>
 
+
+
 </div>
+
+
 
 <div class="step-nav">
 
+
+
   <button class="snav active" onclick="go(0)">① 基本信息</button>
+
+
 
   <button class="snav" onclick="go(1)">② 流动性资产</button>
 
+
+
   <button class="snav" onclick="go(2)">③ 自用性资产</button>
+
+
 
   <button class="snav" onclick="go(3)">④ 投资性资产</button>
 
+
+
   <button class="snav" onclick="go(4)">⑤ 负债</button>
+
+
 
   <button class="snav" onclick="go(5)">⑥ 收入</button>
 
+
+
   <button class="snav" onclick="go(6)">⑦ 支出</button>
+
+
 
   <button class="snav" onclick="go(7)">⑧ 保单检视</button>
 
+
+
   <button class="snav" style="background:var(--gn);border-color:var(--gn);color:#fff" onclick="genReport()">📊 生成报告</button>
 
+
+
 </div>
+
+
+
+
 
 
 
 <!-- ① 基本信息 -->
 
+
+
 <div class="panel active" id="p0">
+
+
 
 <div class="card">
 
+
+
   <h2>👤 个人 &amp; 家庭基本信息</h2>
+
+
 
   <p class="desc">填写您的基本信息，将显示在报告封面。带 * 为必填项。</p>
 
+
+
   <div class="g2" style="margin-bottom:14px">
+
+
 
     <div class="fg"><label>姓名 *</label><input id="i_name" placeholder="例：Emily" oninput="autoSave()"></div>
 
+
+
     <div class="fg"><label>职业</label><input id="i_job" placeholder="例：美学导师" oninput="autoSave()"></div>
+
+
 
     <div class="fg"><label>年龄 *</label><input type="number" id="i_age" placeholder="例：44" min="18" max="100" oninput="autoSave()"></div>
 
+
+
     <div class="fg"><label>家庭结构</label>
+
+
 
       <select id="i_family" onchange="autoSave()">
 
+
+
         <option value="1人">单身（1人）</option>
+
+
 
         <option value="2+0">夫妻（2人，无子女）</option>
 
+
+
         <option value="2+1" selected>夫妻 + 1个孩子</option>
+
+
 
         <option value="2+2">夫妻 + 2个孩子</option>
 
+
+
         <option value="2+3">夫妻 + 3个孩子</option>
+
+
 
         <option value="其他">其他</option>
 
+
+
       </select>
 
+
+
     </div>
+
+
 
     <div class="fg"><label>报告日期</label><input type="date" id="i_date" oninput="autoSave()"></div>
 
+
+
     <div class="fg"><label>主要货币单位</label>
+
+
 
       <select id="i_cur" onchange="autoSave()">
 
+
+
         <option value="HKD">港币（HKD）</option>
+
+
 
         <option value="CNY" selected>人民币（CNY）</option>
 
+
+
         <option value="USD">美元（USD）</option>
+
+
 
       </select>
 
+
+
     </div>
+
+
 
     <div class="fg"><label>风险承受度</label>
 
+
+
       <select id="i_risk" onchange="autoSave()">
+
+
 
         <option value="低（保守型）">低（保守型）</option>
 
+
+
         <option value="中（稳健型）" selected>中（稳健型）</option>
+
+
 
         <option value="高（积极型）">高（积极型）</option>
 
+
+
       </select>
+
+
 
     </div>
 
+
+
   </div>
+
+
 
   <div class="fg"><label>财务目标（每行写一个，例：① 子女教育规划 ② 养老金储备 ③ 获取被动收入）</label>
 
+
+
     <textarea id="i_goals" rows="4" placeholder="请输入您的主要财务目标..." oninput="autoSave()" style="resize:vertical"></textarea>
+
+
 
   </div>
 
+
+
 </div>
+
+
 
 <div class="navrow"><span></span><button class="btn-p" onclick="go(1)">下一步：流动性资产 →</button></div>
 
+
+
 </div>
+
+
+
+
 
 
 
 <!-- ② 流动性资产 -->
 
+
+
 <div class="panel" id="p1">
+
+
 
 <div class="card">
 
+
+
   <h2>💰 流动性资产</h2>
+
+
 
   <p class="desc">指可快速变现的现金类资产（通常7天内可变现）。不清楚的项目可留空，系统自动跳过。</p>
 
 
 
+
+
+
+
   <div class="sec-hd">🏦 银行存款 <span class="st" id="st_bank">小计：0</span></div>
+
+
 
   <table class="ptbl">
 
+
+
     <thead><tr><th>类别</th><th>备注说明</th><th>年末金额（元）</th></tr></thead>
+
+
 
     <tbody>
 
+
+
       <tr><td class="lbl">活期存款</td><td class="hint">随时可取，灵活性最高</td><td class="amt"><input type="number" id="a_cash_demand" placeholder="0" oninput="calcSub('bank');autoSave()"></td></tr>
+
+
 
       <tr><td class="lbl">定期存款</td><td class="hint">1年内到期的银行定存</td><td class="amt"><input type="number" id="a_cash_fixed" placeholder="0" oninput="calcSub('bank');autoSave()"></td></tr>
 
+
+
       <tr><td class="lbl">大额存单</td><td class="hint">银行大额存单</td><td class="amt"><input type="number" id="a_cash_cd" placeholder="0" oninput="calcSub('bank');autoSave()"></td></tr>
+
+
 
       <tr><td class="lbl">外币存款</td><td class="hint">港币/美元/其他外币存款（折算为主货币）</td><td class="amt"><input type="number" id="a_cash_usd" placeholder="0" oninput="calcSub('bank');autoSave()"></td></tr>
 
+
+
     </tbody>
 
+
+
   </table>
+
+
 
   <div class="subtotal-bar">银行存款小计：<span id="sub_bank" style="font-size:1rem">0</span></div>
 
 
 
+
+
+
+
   <div class="sec-hd">📊 货币基金 &amp; 国债 <span class="st" id="st_mf">小计：0</span></div>
+
+
 
   <table class="ptbl">
 
+
+
     <tbody>
+
+
 
       <tr><td class="lbl">货币基金</td><td class="hint">余额宝、微信零钱通等</td><td class="amt"><input type="number" id="a_mf_money" placeholder="0" oninput="calcSub('mf');autoSave()"></td></tr>
 
+
+
       <tr><td class="lbl">国债（短期）</td><td class="hint">1年内到期的国债</td><td class="amt"><input type="number" id="a_mf_bond" placeholder="0" oninput="calcSub('mf');autoSave()"></td></tr>
+
+
 
       <tr><td class="lbl">银行理财（短期）</td><td class="hint">3-12个月期银行理财产品</td><td class="amt"><input type="number" id="a_mf_bank" placeholder="0" oninput="calcSub('mf');autoSave()"></td></tr>
 
+
+
     </tbody>
 
+
+
   </table>
+
+
 
   <div class="subtotal-bar">货币基金&amp;国债小计：<span id="sub_mf" style="font-size:1rem">0</span></div>
 
 
 
+
+
+
+
   <div class="sec-hd">🔐 储蓄型保单（可提取现金价值）<span class="st" id="st_sv">小计：0</span></div>
+
+
 
   <table class="ptbl">
 
+
+
     <tbody>
+
+
 
       <tr><td class="lbl">储蓄保单（本人）</td><td class="hint">寿险储蓄险现金价值</td><td class="amt"><input type="number" id="a_sv_self" placeholder="0" oninput="calcSub('sv');autoSave()"></td></tr>
 
+
+
       <tr><td class="lbl">储蓄保单（配偶）</td><td class="hint">配偶储蓄险现金价值</td><td class="amt"><input type="number" id="a_sv_spouse" placeholder="0" oninput="calcSub('sv');autoSave()"></td></tr>
+
+
 
       <tr><td class="lbl">子女教育保单</td><td class="hint">为子女购买的教育储蓄险</td><td class="amt"><input type="number" id="a_sv_kid" placeholder="0" oninput="calcSub('sv');autoSave()"></td></tr>
 
+
+
     </tbody>
 
+
+
   </table>
+
+
 
   <div class="subtotal-bar">储蓄保单小计：<span id="sub_sv" style="font-size:1rem">0</span></div>
 
 
 
+
+
+
+
   <div class="total-bar"><span>💰 流动性资产合计</span><span id="total_liquid" style="font-size:1.1rem">0</span></div>
 
+
+
 </div>
+
+
 
 <div class="navrow"><button class="btn-s" onclick="go(0)">← 上一步</button><button class="btn-p" onclick="go(2)">下一步：投资性资产 →</button></div>
 
+
+
 </div>
+
+
+
+
 
 
 
 <!-- ③ 自用性资产 (now step2) -->
 
+
+
 <div class="panel" id="p2">
+
+
 
 <div class="card">
 
+
+
   <h2>🏡 自用性资产</h2>
+
+
 
   <p class="desc">以自用为目的的实物资产，包括自住房产和自用车辆等。填写当前市场估值。</p>
 
 
 
+
+
+
+
   <div class="sec-hd">🏠 自住房产 <span class="st" id="st_home">小计：0</span></div>
+
+
 
   <table class="ptbl">
 
+
+
     <tbody>
+
+
 
       <tr><td class="lbl">自住主房（市场价）</td><td class="hint">当前市场估值（非买入价）</td><td class="amt"><input type="number" id="a_h_main" placeholder="0" oninput="calcSub('home');autoSave()"></td></tr>
 
+
+
       <tr><td class="lbl">自住第二套（度假/父母）</td><td class="hint">偶尔居住的第二套房</td><td class="amt"><input type="number" id="a_h_second" placeholder="0" oninput="calcSub('home');autoSave()"></td></tr>
+
+
 
     </tbody>
 
+
+
   </table>
+
+
 
   <div class="subtotal-bar">自住房产小计：<span id="sub_home" style="font-size:1rem">0</span></div>
 
 
 
+
+
+
+
   <div class="sec-hd">🚗 自用车辆 <span class="st" id="st_car">小计：0</span></div>
+
+
 
   <table class="ptbl">
 
+
+
     <tbody>
+
+
 
       <tr><td class="lbl">自用车辆（第1辆）</td><td class="hint">当前二手市场估值</td><td class="amt"><input type="number" id="a_c_car1" placeholder="0" oninput="calcSub('car');autoSave()"></td></tr>
 
+
+
       <tr><td class="lbl">自用车辆（第2辆）</td><td class="hint">当前二手市场估值</td><td class="amt"><input type="number" id="a_c_car2" placeholder="0" oninput="calcSub('car');autoSave()"></td></tr>
+
+
 
     </tbody>
 
+
+
   </table>
+
+
 
   <div class="subtotal-bar">自用车辆小计：<span id="sub_car" style="font-size:1rem">0</span></div>
 
 
 
+
+
+
+
   <div class="total-bar"><span>🏡 自用性资产合计</span><span id="total_personal" style="font-size:1.1rem">0</span></div>
 
+
+
 </div>
+
+
 
 <div class="navrow"><button class="btn-s" onclick="go(1)">← 上一步</button><button class="btn-p" onclick="go(3)">下一步：投资性资产 →</button></div>
 
+
+
 </div>
+
+
+
+
 
 
 
 <!-- ④ 投资性资产 (now step3) -->
 
+
+
 <div class="panel" id="p3">
+
+
 
 <div class="card">
 
+
+
   <h2>📈 投资性资产</h2>
+
+
 
   <p class="desc">以增值为目的的资产，包括证券投资、投资性房产等。填写当前市场估值。</p>
 
 
 
+
+
+
+
   <div class="sec-hd">📉 证券投资 <span class="st" id="st_sec">小计：0</span></div>
+
+
 
   <table class="ptbl">
 
+
+
     <tbody>
+
+
 
       <tr><td class="lbl">A股股票</td><td class="hint">沪深股市持仓市值</td><td class="amt"><input type="number" id="a_sec_ashare" placeholder="0" oninput="calcSub('sec');autoSave()"></td></tr>
 
+
+
       <tr><td class="lbl">港股股票</td><td class="hint">香港联交所持仓市值</td><td class="amt"><input type="number" id="a_sec_hkshare" placeholder="0" oninput="calcSub('sec');autoSave()"></td></tr>
+
+
 
       <tr><td class="lbl">美股/海外股票</td><td class="hint">美股或其他海外市场持仓</td><td class="amt"><input type="number" id="a_sec_usshare" placeholder="0" oninput="calcSub('sec');autoSave()"></td></tr>
 
+
+
       <tr><td class="lbl">公募基金</td><td class="hint">股票型/混合型/指数基金</td><td class="amt"><input type="number" id="a_sec_fund" placeholder="0" oninput="calcSub('sec');autoSave()"></td></tr>
+
+
 
       <tr><td class="lbl">私募基金</td><td class="hint">私募股权、对冲基金等</td><td class="amt"><input type="number" id="a_sec_pe" placeholder="0" oninput="calcSub('sec');autoSave()"></td></tr>
 
+
+
       <tr><td class="lbl">投连险（分红）</td><td class="hint">投资连结型保险账户价值</td><td class="amt"><input type="number" id="a_sec_iul" placeholder="0" oninput="calcSub('sec');autoSave()"></td></tr>
+
+
 
     </tbody>
 
+
+
   </table>
+
+
 
   <div class="subtotal-bar">证券投资小计：<span id="sub_sec" style="font-size:1rem">0</span></div>
 
 
 
+
+
+
+
   <div class="sec-hd">🏘️ 投资性房产 <span class="st" id="st_iprop">小计：0</span></div>
+
+
 
   <table class="ptbl">
 
+
+
     <tbody>
+
+
 
       <tr><td class="lbl">香港投资房产</td><td class="hint">当前市场估值（港币折算）</td><td class="amt"><input type="number" id="a_ip_hk" placeholder="0" oninput="calcSub('iprop');autoSave()"></td></tr>
 
+
+
       <tr><td class="lbl">内地投资房产（第1套）</td><td class="hint">当前市场估值</td><td class="amt"><input type="number" id="a_ip_cn1" placeholder="0" oninput="calcSub('iprop');autoSave()"></td></tr>
+
+
 
       <tr><td class="lbl">内地投资房产（第2套）</td><td class="hint">当前市场估值</td><td class="amt"><input type="number" id="a_ip_cn2" placeholder="0" oninput="calcSub('iprop');autoSave()"></td></tr>
 
+
+
       <tr><td class="lbl">内地投资房产（第3套及以上）</td><td class="hint">多套合计市场估值</td><td class="amt"><input type="number" id="a_ip_cn3" placeholder="0" oninput="calcSub('iprop');autoSave()"></td></tr>
+
+
 
       <tr><td class="lbl">海外房产</td><td class="hint">其他国家/地区房产估值</td><td class="amt"><input type="number" id="a_ip_oversea" placeholder="0" oninput="calcSub('iprop');autoSave()"></td></tr>
 
+
+
       <tr><td class="lbl">商铺/办公室/厂房</td><td class="hint">商业类投资物业</td><td class="amt"><input type="number" id="a_ip_comm" placeholder="0" oninput="calcSub('iprop');autoSave()"></td></tr>
+
+
 
       <tr><td class="lbl">车位（投资）</td><td class="hint">用于出租的车位</td><td class="amt"><input type="number" id="a_ip_parking" placeholder="0" oninput="calcSub('iprop');autoSave()"></td></tr>
 
+
+
     </tbody>
 
+
+
   </table>
+
+
 
   <div class="subtotal-bar">投资性房产小计：<span id="sub_iprop" style="font-size:1rem">0</span></div>
 
 
 
+
+
+
+
   <div class="sec-hd">🥇 另类投资 <span class="st" id="st_alt">小计：0</span></div>
+
+
 
   <table class="ptbl">
 
+
+
     <tbody>
+
+
 
       <tr><td class="lbl">黄金/贵金属</td><td class="hint">实物黄金、黄金ETF等</td><td class="amt"><input type="number" id="a_alt_gold" placeholder="0" oninput="calcSub('alt');autoSave()"></td></tr>
 
+
+
       <tr><td class="lbl">虚拟货币</td><td class="hint">比特币、以太坊等（当前市值）</td><td class="amt"><input type="number" id="a_alt_crypto" placeholder="0" oninput="calcSub('alt');autoSave()"></td></tr>
+
+
 
       <tr><td class="lbl">股权/公司股份</td><td class="hint">私人公司股权估值</td><td class="amt"><input type="number" id="a_alt_equity" placeholder="0" oninput="calcSub('alt');autoSave()"></td></tr>
 
+
+
       <tr><td class="lbl">收藏品/艺术品</td><td class="hint">名画、古玩、珠宝等</td><td class="amt"><input type="number" id="a_alt_art" placeholder="0" oninput="calcSub('alt');autoSave()"></td></tr>
+
+
 
     </tbody>
 
+
+
   </table>
+
+
 
   <div class="subtotal-bar">另类投资小计：<span id="sub_alt" style="font-size:1rem">0</span></div>
 
 
 
+
+
+
+
   <div class="total-bar"><span>📈 投资性资产合计</span><span id="total_invest" style="font-size:1.1rem">0</span></div>
 
+
+
 </div>
+
+
 
 <div class="navrow"><button class="btn-s" onclick="go(2)">← 上一步</button><button class="btn-p" onclick="go(4)">下一步：负债 →</button></div>
 
+
+
 </div>
+
+
+
+
 
 
 
 <!-- ⑤ 负债 -->
 
+
+
 <div class="panel" id="p4">
+
+
 
 <div class="card">
 
+
+
   <h2>📋 家庭负债</h2>
+
+
 
   <p class="desc">填写当前的各类贷款余额。如已还清或无负债，可直接填 0 或留空。</p>
 
 
 
+
+
+
+
   <div class="sec-hd">🏠 房产抵押贷款 <span class="st" id="st_mortg">小计：0</span></div>
+
+
 
   <table class="ptbl">
 
+
+
     <tbody>
+
+
 
       <tr><td class="lbl">自住房按揭贷款余额</td><td class="hint">当前未还贷款本金</td><td class="amt"><input type="number" id="d_m_home" placeholder="0" oninput="calcSub('mortg');autoSave()"></td></tr>
 
+
+
       <tr><td class="lbl">投资房抵押贷款余额</td><td class="hint">投资性房产贷款余额</td><td class="amt"><input type="number" id="d_m_invest" placeholder="0" oninput="calcSub('mortg');autoSave()"></td></tr>
+
+
 
       <tr><td class="lbl">商业物业贷款余额</td><td class="hint">商铺/办公室贷款余额</td><td class="amt"><input type="number" id="d_m_comm" placeholder="0" oninput="calcSub('mortg');autoSave()"></td></tr>
 
+
+
     </tbody>
 
+
+
   </table>
+
+
 
   <div class="subtotal-bar">房产贷款小计：<span id="sub_mortg" style="font-size:1rem">0</span></div>
 
 
 
+
+
+
+
   <div class="sec-hd">🚗 汽车及消费贷款 <span class="st" id="st_cons">小计：0</span></div>
+
+
 
   <table class="ptbl">
 
+
+
     <tbody>
+
+
 
       <tr><td class="lbl">车贷余额</td><td class="hint">汽车分期贷款未还金额</td><td class="amt"><input type="number" id="d_c_car" placeholder="0" oninput="calcSub('cons');autoSave()"></td></tr>
 
+
+
       <tr><td class="lbl">信用贷款/个人贷款</td><td class="hint">银行信贷、消费贷款</td><td class="amt"><input type="number" id="d_c_personal" placeholder="0" oninput="calcSub('cons');autoSave()"></td></tr>
+
+
 
       <tr><td class="lbl">信用卡欠款</td><td class="hint">各卡未偿还总额</td><td class="amt"><input type="number" id="d_c_cc" placeholder="0" oninput="calcSub('cons');autoSave()"></td></tr>
 
+
+
     </tbody>
+
+
 
   </table>
 
+
+
   <div class="subtotal-bar">消费贷款小计：<span id="sub_cons" style="font-size:1rem">0</span></div>
+
+
+
+
 
 
 
@@ -584,643 +1166,1287 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 
 
 
+
+
+
+
   <div style="margin-top:14px;padding:14px;background:var(--pg);border-radius:10px">
+
+
 
     <div style="font-size:.85rem;font-weight:700;color:var(--p);margin-bottom:10px">📝 月还款明细（用于计算财务负担率）</div>
 
+
+
     <div class="g2">
+
+
 
       <div class="fg">
 
+
+
         <label>月还款总额（元/月）</label>
+
+
 
         <input type="number" id="d_monthly_mortg" placeholder="例：45000" oninput="calcAnnualMortg();autoSave()">
 
+
+
         <span style="font-size:.78rem;color:var(--gr);margin-top:3px">年还款额（自动计算）：<strong id="d_annual_mortg_display" style="color:var(--p)">0 元</strong></span>
+
+
 
         <input type="hidden" id="d_annual_mortg" value="0">
 
+
+
       </div>
+
+
 
       <div class="fg"><label>主要房贷利率（%）</label><input type="number" id="d_rate" placeholder="例：4.25" step="0.01" oninput="autoSave()"></div>
 
+
+
     </div>
+
+
 
   </div>
 
+
+
 </div>
+
+
 
 <div class="navrow"><button class="btn-s" onclick="go(3)">← 上一步</button><button class="btn-p" onclick="go(5)">下一步：收入 →</button></div>
 
+
+
 </div>
+
+
+
+
 
 
 
 <!-- ⑥ 收入 -->
 
+
+
 <div class="panel" id="p5">
+
+
 
 <div class="card">
 
+
+
   <h2>💵 家庭收入</h2>
+
+
 
   <p class="desc">月收入和年收入任意填写一项，系统自动换算（年=月×12）。</p>
 
+
+
   <div style="display:flex;gap:12px;margin-bottom:10px;font-size:.78rem;color:var(--gr)">
+
+
 
     <span style="background:rgba(74,111,165,.1);padding:3px 10px;border-radius:6px;color:var(--p);font-weight:700">蓝色列：月收入</span>
 
+
+
     <span style="background:rgba(216,167,177,.15);padding:3px 10px;border-radius:6px;color:#a06080;font-weight:700">粉色列：年收入</span>
 
+
+
   </div>
+
+
+
+
 
 
 
   <div class="sec-hd">💼 主动收入（工作/经营）<span class="st" id="st_ainc">小计：0</span></div>
 
+
+
   <table class="ptbl">
+
+
 
     <thead><tr><th style="width:34%">类别</th><th style="width:33%;text-align:right">月收入（元）</th><th style="width:33%;text-align:right">年收入（元）</th></tr></thead>
 
+
+
     <tbody>
 
+
+
       <tr>
+
+
 
         <td class="lbl">本人工资/薪酬（固定）<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">税后固定月薪</span></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_w_self_fix_m" placeholder="填月收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_w_self_fix_m','inc_w_self_fix','m');calcSub('ainc');autoSave()"></td>
+
+
 
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_w_self_fix" placeholder="填年收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_w_self_fix','inc_w_self_fix_m','y');calcSub('ainc');autoSave()"></td>
 
+
+
       </tr>
 
+
+
       <tr>
+
+
 
         <td class="lbl">本人奖金/佣金（浮动）<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">年度奖金、绩效、提成</span></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_w_self_var_m" placeholder="填月收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_w_self_var_m','inc_w_self_var','m');calcSub('ainc');autoSave()"></td>
+
+
 
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_w_self_var" placeholder="填年收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_w_self_var','inc_w_self_var_m','y');calcSub('ainc');autoSave()"></td>
 
+
+
       </tr>
 
+
+
       <tr>
+
+
 
         <td class="lbl">配偶工资/薪酬<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">配偶税后月薪</span></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_w_spouse_m" placeholder="填月收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_w_spouse_m','inc_w_spouse','m');calcSub('ainc');autoSave()"></td>
+
+
 
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_w_spouse" placeholder="填年收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_w_spouse','inc_w_spouse_m','y');calcSub('ainc');autoSave()"></td>
 
+
+
       </tr>
 
+
+
       <tr>
+
+
 
         <td class="lbl">经营/生意收入<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">自营业务、门店净收入</span></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_w_biz_m" placeholder="填月收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_w_biz_m','inc_w_biz','m');calcSub('ainc');autoSave()"></td>
+
+
 
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_w_biz" placeholder="填年收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_w_biz','inc_w_biz_m','y');calcSub('ainc');autoSave()"></td>
 
+
+
       </tr>
+
+
 
       <tr>
 
+
+
         <td class="lbl">兼职/自由职业收入<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">副业、顾问、项目收入</span></td>
+
+
 
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_w_side_m" placeholder="填月收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_w_side_m','inc_w_side','m');calcSub('ainc');autoSave()"></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_w_side" placeholder="填年收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_w_side','inc_w_side_m','y');calcSub('ainc');autoSave()"></td>
+
+
 
       </tr>
 
+
+
     </tbody>
 
+
+
   </table>
+
+
 
   <div class="subtotal-bar">主动收入小计（年）：<span id="sub_ainc" style="font-size:1rem">0</span></div>
 
 
 
+
+
+
+
   <div class="sec-hd">🏦 被动收入（租金/投资/养老）<span class="st" id="st_pinc">小计：0</span></div>
+
+
 
   <table class="ptbl">
 
+
+
     <thead><tr><th style="width:34%">类别</th><th style="width:33%;text-align:right">月收入（元）</th><th style="width:33%;text-align:right">年收入（元）</th></tr></thead>
+
+
 
     <tbody>
 
+
+
       <tr>
+
+
 
         <td class="lbl">香港房产租金收入<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">港币月租×12（折算主货币）</span></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_hkrent_m" placeholder="填月收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_p_hkrent_m','inc_p_hkrent','m');calcSub('pinc');autoSave()"></td>
+
+
 
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_hkrent" placeholder="填年收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_p_hkrent','inc_p_hkrent_m','y');calcSub('pinc');autoSave()"></td>
 
+
+
       </tr>
 
+
+
       <tr>
+
+
 
         <td class="lbl">内地房产租金收入<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">各套房租金年度合计</span></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_cnrent_m" placeholder="填月收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_p_cnrent_m','inc_p_cnrent','m');calcSub('pinc');autoSave()"></td>
+
+
 
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_cnrent" placeholder="填年收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_p_cnrent','inc_p_cnrent_m','y');calcSub('pinc');autoSave()"></td>
 
+
+
       </tr>
 
+
+
       <tr>
+
+
 
         <td class="lbl">商业物业租金收入<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">商铺/车位年度租金</span></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_commrent_m" placeholder="填月收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_p_commrent_m','inc_p_commrent','m');calcSub('pinc');autoSave()"></td>
+
+
 
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_commrent" placeholder="填年收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_p_commrent','inc_p_commrent_m','y');calcSub('pinc');autoSave()"></td>
 
+
+
       </tr>
 
+
+
       <tr>
+
+
 
         <td class="lbl">股票股息/基金分红<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">A股、港股、基金年度派息</span></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_div_m" placeholder="填月收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_p_div_m','inc_p_div','m');calcSub('pinc');autoSave()"></td>
+
+
 
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_div" placeholder="填年收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_p_div','inc_p_div_m','y');calcSub('pinc');autoSave()"></td>
 
+
+
       </tr>
 
+
+
       <tr>
+
+
 
         <td class="lbl">存款/债券利息<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">银行存款、国债年度利息</span></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_int_m" placeholder="填月收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_p_int_m','inc_p_int','m');calcSub('pinc');autoSave()"></td>
+
+
 
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_int" placeholder="填年收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_p_int','inc_p_int_m','y');calcSub('pinc');autoSave()"></td>
 
+
+
       </tr>
 
+
+
       <tr>
+
+
 
         <td class="lbl">社保/退休金<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">退休后每月领取金额</span></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_pension_m" placeholder="填月收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_p_pension_m','inc_p_pension','m');calcSub('pinc');autoSave()"></td>
+
+
 
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_pension" placeholder="填年收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_p_pension','inc_p_pension_m','y');calcSub('pinc');autoSave()"></td>
 
+
+
       </tr>
 
+
+
       <tr>
+
+
 
         <td class="lbl">保险年金收入<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">商业年金每月给付金额</span></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_annuity_m" placeholder="填月收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_p_annuity_m','inc_p_annuity','m');calcSub('pinc');autoSave()"></td>
+
+
 
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_annuity" placeholder="填年收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_p_annuity','inc_p_annuity_m','y');calcSub('pinc');autoSave()"></td>
 
+
+
       </tr>
+
+
 
       <tr>
 
+
+
         <td class="lbl">其他被动收入<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">版税、授权费等</span></td>
+
+
 
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_other_m" placeholder="填月收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_p_other_m','inc_p_other','m');calcSub('pinc');autoSave()"></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_other" placeholder="填年收入" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_p_other','inc_p_other_m','y');calcSub('pinc');autoSave()"></td>
+
+
 
       </tr>
 
+
+
     </tbody>
 
+
+
   </table>
+
+
 
   <div class="subtotal-bar">被动收入小计（年）：<span id="sub_pinc" style="font-size:1rem">0</span></div>
 
 
 
+
+
+
+
   <div class="total-bar"><span>💵 年度收入总计</span><span id="total_income" style="font-size:1.1rem">0</span></div>
 
+
+
 </div>
+
+
 
 <div class="navrow"><button class="btn-s" onclick="go(4)">← 上一步</button><button class="btn-p" onclick="go(6)">下一步：支出 →</button></div>
 
+
+
 </div>
+
+
+
+
 
 
 
 <!-- ⑦ 支出 -->
 
+
+
 <div class="panel" id="p6">
+
+
 
 <div class="card">
 
+
+
   <h2>🛒 家庭支出</h2>
+
+
 
   <p class="desc">月支出和年支出任意填写一项，系统自动换算（年=月×12）。</p>
 
+
+
   <div style="display:flex;gap:12px;margin-bottom:10px;font-size:.78rem;color:var(--gr)">
+
+
 
     <span style="background:rgba(74,111,165,.1);padding:3px 10px;border-radius:6px;color:var(--p);font-weight:700">蓝色列：月支出</span>
 
+
+
     <span style="background:rgba(216,167,177,.15);padding:3px 10px;border-radius:6px;color:#a06080;font-weight:700">粉色列：年支出</span>
 
+
+
   </div>
+
+
+
+
 
 
 
   <div class="sec-hd">🏠 生活支出 <span class="st" id="st_lexp">小计：0</span></div>
 
+
+
   <table class="ptbl">
+
+
 
     <thead><tr><th style="width:34%">类别</th><th style="width:33%;text-align:right">月支出（元）</th><th style="width:33%;text-align:right">年支出（元）</th></tr></thead>
 
+
+
     <tbody>
 
+
+
       <tr>
+
+
 
         <td class="lbl">日常家庭伙食/生活用品<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">买菜、超市、外卖等</span></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_food_m" placeholder="填月支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_l_food_m','exp_l_food','m');calcSub('lexp');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_food" placeholder="填年支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_l_food','exp_l_food_m','y');calcSub('lexp');autoSave()"></td>
+
+
 
       </tr>
 
+
+
       <tr>
+
+
 
         <td class="lbl">水电煤气/物业管理费<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">水电煤、物管费</span></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_util_m" placeholder="填月支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_l_util_m','exp_l_util','m');calcSub('lexp');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_util" placeholder="填年支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_l_util','exp_l_util_m','y');calcSub('lexp');autoSave()"></td>
+
+
 
       </tr>
 
+
+
       <tr>
+
+
 
         <td class="lbl">服装/置装/美容<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">服装、美妆费用</span></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_cloth_m" placeholder="填月支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_l_cloth_m','exp_l_cloth','m');calcSub('lexp');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_cloth" placeholder="填年支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_l_cloth','exp_l_cloth_m','y');calcSub('lexp');autoSave()"></td>
+
+
 
       </tr>
 
+
+
       <tr>
+
+
 
         <td class="lbl">交通通讯（不含车贷）<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">手机费、交通、停车</span></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_comm_m" placeholder="填月支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_l_comm_m','exp_l_comm','m');calcSub('lexp');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_comm" placeholder="填年支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_l_comm','exp_l_comm_m','y');calcSub('lexp');autoSave()"></td>
+
+
 
       </tr>
 
+
+
       <tr>
+
+
 
         <td class="lbl">旅游度假<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">年度旅游合计花费</span></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_travel_m" placeholder="填月支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_l_travel_m','exp_l_travel','m');calcSub('lexp');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_travel" placeholder="填年支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_l_travel','exp_l_travel_m','y');calcSub('lexp');autoSave()"></td>
 
+
+
       </tr>
+
+
 
       <tr>
 
+
+
         <td class="lbl">娱乐/社交/餐饮<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">聚餐、礼品、娱乐</span></td>
+
+
 
         <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_ent_m" placeholder="填月支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_l_ent_m','exp_l_ent','m');calcSub('lexp');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_ent" placeholder="填年支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_l_ent','exp_l_ent_m','y');calcSub('lexp');autoSave()"></td>
 
+
+
       </tr>
+
+
 
     </tbody>
 
+
+
   </table>
+
+
 
   <div class="subtotal-bar">生活支出小计（年）：<span id="sub_lexp" style="font-size:1rem">0</span></div>
 
 
 
+
+
+
+
   <div class="sec-hd">👨‍👩‍👧 子女教育支出 <span class="st" id="st_edu">小计：0</span></div>
+
+
 
   <table class="ptbl">
 
+
+
     <thead><tr><th style="width:34%">类别</th><th style="width:33%;text-align:right">月支出（元）</th><th style="width:33%;text-align:right">年支出（元）</th></tr></thead>
+
+
 
     <tbody>
 
+
+
       <tr>
+
+
 
         <td class="lbl">子女学费/托育费<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">学校学费</span></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_e_tuition_m" placeholder="填月支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_e_tuition_m','exp_e_tuition','m');calcSub('edu');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_e_tuition" placeholder="填年支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_e_tuition','exp_e_tuition_m','y');calcSub('edu');autoSave()"></td>
+
+
 
       </tr>
 
+
+
       <tr>
+
+
 
         <td class="lbl">课外补习/兴趣班<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">补习班、才艺班</span></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_e_extra_m" placeholder="填月支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_e_extra_m','exp_e_extra','m');calcSub('edu');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_e_extra" placeholder="填年支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_e_extra','exp_e_extra_m','y');calcSub('edu');autoSave()"></td>
 
+
+
       </tr>
+
+
 
       <tr>
 
+
+
         <td class="lbl">子女日常零花/生活费<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">子女生活补贴</span></td>
+
+
 
         <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_e_living_m" placeholder="填月支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_e_living_m','exp_e_living','m');calcSub('edu');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_e_living" placeholder="填年支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_e_living','exp_e_living_m','y');calcSub('edu');autoSave()"></td>
 
+
+
       </tr>
+
+
 
     </tbody>
 
+
+
   </table>
+
+
 
   <div class="subtotal-bar">子女教育小计（年）：<span id="sub_edu" style="font-size:1rem">0</span></div>
 
 
 
+
+
+
+
   <div class="sec-hd">👴 赡养父母支出 <span class="st" id="st_par">小计：0</span></div>
+
+
 
   <table class="ptbl">
 
+
+
     <thead><tr><th style="width:34%">类别</th><th style="width:33%;text-align:right">月支出（元）</th><th style="width:33%;text-align:right">年支出（元）</th></tr></thead>
+
+
 
     <tbody>
 
+
+
       <tr>
+
+
 
         <td class="lbl">赡养父母月费<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">每月给父母生活费</span></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_p_parents_m" placeholder="填月支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_p_parents_m','exp_p_parents','m');calcSub('par');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_p_parents" placeholder="填年支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_p_parents','exp_p_parents_m','y');calcSub('par');autoSave()"></td>
+
+
 
       </tr>
 
+
+
     </tbody>
 
+
+
   </table>
+
+
 
   <div class="subtotal-bar">赡养父母小计（年）：<span id="sub_par" style="font-size:1rem">0</span></div>
 
 
 
+
+
+
+
   <div class="sec-hd">🔒 财务支出（还款 &amp; 保险）<span class="st" id="st_fexp">小计：0</span></div>
+
+
 
   <table class="ptbl">
 
+
+
     <thead><tr><th style="width:34%">类别</th><th style="width:33%;text-align:right">月支出（元）</th><th style="width:33%;text-align:right">年支出（元）</th></tr></thead>
+
+
 
     <tbody>
 
+
+
       <tr>
+
+
 
         <td class="lbl">房贷月供<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">月供金额</span></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_f_mortg_m" placeholder="填月支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_f_mortg_m','exp_f_mortg','m');calcSub('fexp');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_f_mortg" placeholder="填年支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_f_mortg','exp_f_mortg_m','y');calcSub('fexp');autoSave()"></td>
+
+
 
       </tr>
 
+
+
       <tr>
+
+
 
         <td class="lbl">车贷月供<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">月供金额</span></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_f_carloan_m" placeholder="填月支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_f_carloan_m','exp_f_carloan','m');calcSub('fexp');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_f_carloan" placeholder="填年支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_f_carloan','exp_f_carloan_m','y');calcSub('fexp');autoSave()"></td>
+
+
 
       </tr>
 
+
+
       <tr>
+
+
 
         <td class="lbl">人寿/重疾险保费<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">保障类保险年缴保费</span></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_f_ins_m" placeholder="填月支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_f_ins_m','exp_f_ins','m');calcSub('fexp');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_f_ins" placeholder="填年支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_f_ins','exp_f_ins_m','y');calcSub('fexp');autoSave()"></td>
 
+
+
       </tr>
+
+
 
       <tr>
 
+
+
         <td class="lbl">储蓄/教育险年缴保费<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">储蓄型保险年缴保费</span></td>
+
+
 
         <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_f_sav_m" placeholder="填月支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_f_sav_m','exp_f_sav','m');calcSub('fexp');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_f_sav" placeholder="填年支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_f_sav','exp_f_sav_m','y');calcSub('fexp');autoSave()"></td>
 
+
+
       </tr>
+
+
 
     </tbody>
 
+
+
   </table>
+
+
 
   <div class="subtotal-bar">财务支出小计（年）：<span id="sub_fexp" style="font-size:1rem">0</span></div>
 
 
 
+
+
+
+
   <div class="sec-hd">🚗 汽车相关费用 <span class="st" id="st_veh">小计：0</span></div>
+
+
 
   <table class="ptbl">
 
+
+
     <thead><tr><th style="width:34%">类别</th><th style="width:33%;text-align:right">月支出（元）</th><th style="width:33%;text-align:right">年支出（元）</th></tr></thead>
+
+
 
     <tbody>
 
+
+
       <tr>
+
+
 
         <td class="lbl">加油费/充电费<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">年度燃料费用</span></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_v_fuel_m" placeholder="填月支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_v_fuel_m','exp_v_fuel','m');calcSub('veh');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_v_fuel" placeholder="填年支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_v_fuel','exp_v_fuel_m','y');calcSub('veh');autoSave()"></td>
+
+
 
       </tr>
 
+
+
       <tr>
+
+
 
         <td class="lbl">车辆保险费<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">年度车险保费</span></td>
 
+
+
         <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_v_carins_m" placeholder="填月支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_v_carins_m','exp_v_carins','m');calcSub('veh');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_v_carins" placeholder="填年支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_v_carins','exp_v_carins_m','y');calcSub('veh');autoSave()"></td>
 
+
+
       </tr>
+
+
 
       <tr>
 
+
+
         <td class="lbl">维修保养<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">年度维修保养</span></td>
+
+
 
         <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_v_maint_m" placeholder="填月支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_v_maint_m','exp_v_maint','m');calcSub('veh');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_v_maint" placeholder="填年支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_v_maint','exp_v_maint_m','y');calcSub('veh');autoSave()"></td>
 
+
+
       </tr>
+
+
 
     </tbody>
 
+
+
   </table>
+
+
 
   <div class="subtotal-bar">汽车费用小计（年）：<span id="sub_veh" style="font-size:1rem">0</span></div>
 
 
 
+
+
+
+
   <div class="total-bar"><span>🛒 年度支出总计</span><span id="total_exp" style="font-size:1.1rem">0</span></div>
 
+
+
 </div>
+
+
 
 <div class="navrow"><button class="btn-s" onclick="go(5)">← 上一步</button><button class="btn-p" onclick="go(7)">下一步：保单检视 →</button></div>
 
+
+
 </div>
+
+
+
+
 
 
 
 <!-- ⑧ 保单检视 -->
 
+
+
 <div class="panel" id="p7">
+
+
 
 <div class="card">
 
+
+
   <h2>🛡️ 保单检视</h2>
+
+
 
   <p class="desc">请填写家庭成员的现有保险配置，系统将自动计算保障充足度。</p>
 
 
 
+
+
+
+
   <div class="sec-hd">👤 本人保单</div>
+
+
 
   <table class="ptbl">
 
+
+
     <thead><tr><th style="width:24%">保险类型</th><th style="width:22%">保额（万元）</th><th style="width:32%">年保费（元）</th><th style="width:22%">缴费年期</th></tr></thead>
+
+
 
     <tbody>
 
+
+
       <tr>
+
+
 
         <td class="lbl">人寿险<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">身故赔偿</span></td>
 
+
+
         <td class="amt"><input type="number" id="ins_s_life_amt" placeholder="例：100" oninput="autoSave()"></td>
+
+
 
         <td class="amt"><input type="number" id="ins_s_life_prem" placeholder="0" style="width:100%;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.95rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="calcTotalPremium();autoSave()"></td>
 
+
+
         <td><input type="text" id="ins_s_life_yr" placeholder="例：20年" style="padding:6px 8px;border:1.5px solid var(--bd);border-radius:6px;font-size:.82rem;width:80px" oninput="autoSave()"></td>
+
+
 
       </tr>
 
+
+
       <tr>
+
+
 
         <td class="lbl">重疾险<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">重大疾病赔偿</span></td>
 
+
+
         <td class="amt"><input type="number" id="ins_s_ci_amt" placeholder="例：100" oninput="autoSave()"></td>
+
+
 
         <td class="amt"><input type="number" id="ins_s_ci_prem" placeholder="0" style="width:100%;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.95rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="calcTotalPremium();autoSave()"></td>
 
+
+
         <td><input type="text" id="ins_s_ci_yr" placeholder="例：至60岁" style="padding:6px 8px;border:1.5px solid var(--bd);border-radius:6px;font-size:.82rem;width:80px" oninput="autoSave()"></td>
+
+
 
       </tr>
 
+
+
       <tr>
+
+
 
         <td class="lbl">医疗险<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">住院/手术报销</span></td>
 
+
+
         <td class="amt"><input type="number" id="ins_s_med_amt" placeholder="例：100" oninput="autoSave()"></td>
+
+
 
         <td class="amt"><input type="number" id="ins_s_med_prem" placeholder="0" style="width:100%;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.95rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="calcTotalPremium();autoSave()"></td>
 
+
+
         <td><input type="text" id="ins_s_med_yr" placeholder="例：至80岁" style="padding:6px 8px;border:1.5px solid var(--bd);border-radius:6px;font-size:.82rem;width:80px" oninput="autoSave()"></td>
+
+
 
       </tr>
 
+
+
       <tr>
+
+
 
         <td class="lbl">储蓄/养老险<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">退休后年金收入</span></td>
 
+
+
         <td class="amt"><input type="number" id="ins_s_sav_amt" placeholder="例：100" oninput="autoSave()"></td>
+
+
 
         <td class="amt"><input type="number" id="ins_s_sav_prem" placeholder="0" style="width:100%;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.95rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="calcTotalPremium();autoSave()"></td>
 
+
+
         <td><input type="text" id="ins_s_sav_yr" placeholder="例：20年" style="padding:6px 8px;border:1.5px solid var(--bd);border-radius:6px;font-size:.82rem;width:80px" oninput="autoSave()"></td>
+
+
 
       </tr>
 
+
+
       <tr>
+
+
 
         <td class="lbl">意外险<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">意外伤亡赔偿</span></td>
 
+
+
         <td class="amt"><input type="number" id="ins_s_acc_amt" placeholder="例：100" oninput="autoSave()"></td>
+
+
 
         <td class="amt"><input type="number" id="ins_s_acc_prem" placeholder="0" style="width:100%;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.95rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="calcTotalPremium();autoSave()"></td>
 
+
+
         <td><input type="text" id="ins_s_acc_yr" placeholder="例：年续" style="padding:6px 8px;border:1.5px solid var(--bd);border-radius:6px;font-size:.82rem;width:80px" oninput="autoSave()"></td>
 
+
+
       </tr>
+
+
 
       <tr>
 
+
+
         <td class="lbl">社保（本人）</td>
+
+
 
         <td class="amt" colspan="2"><select id="ins_s_social" onchange="autoSave()" style="padding:6px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.88rem;width:100%"><option value="有">有</option><option value="无">无</option></select></td>
 
+
+
         <td></td>
+
+
 
       </tr>
 
+
+
     </tbody>
 
+
+
   </table>
+
+
+
+
 
 
 
   <div class="sec-hd" style="margin-top:18px">👫 配偶保单</div>
 
+
+
   <table class="ptbl">
+
+
 
     <thead><tr><th style="width:24%">保险类型</th><th style="width:22%">保额（万元）</th><th style="width:32%">年保费（元）</th><th style="width:22%">缴费年期</th></tr></thead>
 
+
+
     <tbody>
+
+
 
       <tr><td class="lbl">人寿险</td><td class="amt"><input type="number" id="ins_p_life_amt" placeholder="例：100" oninput="autoSave()"></td><td class="amt"><input type="number" id="ins_p_life_prem" placeholder="0" style="width:100%;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.95rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="calcTotalPremium();autoSave()"></td><td><input type="text" id="ins_p_life_yr" placeholder="年期" style="padding:6px 8px;border:1.5px solid var(--bd);border-radius:6px;font-size:.82rem;width:80px" oninput="autoSave()"></td></tr>
 
+
+
       <tr><td class="lbl">重疾险</td><td class="amt"><input type="number" id="ins_p_ci_amt" placeholder="例：100" oninput="autoSave()"></td><td class="amt"><input type="number" id="ins_p_ci_prem" placeholder="0" style="width:100%;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.95rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="calcTotalPremium();autoSave()"></td><td><input type="text" id="ins_p_ci_yr" placeholder="年期" style="padding:6px 8px;border:1.5px solid var(--bd);border-radius:6px;font-size:.82rem;width:80px" oninput="autoSave()"></td></tr>
+
+
 
       <tr><td class="lbl">医疗险</td><td class="amt"><input type="number" id="ins_p_med_amt" placeholder="例：100" oninput="autoSave()"></td><td class="amt"><input type="number" id="ins_p_med_prem" placeholder="0" style="width:100%;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.95rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="calcTotalPremium();autoSave()"></td><td><input type="text" id="ins_p_med_yr" placeholder="年期" style="padding:6px 8px;border:1.5px solid var(--bd);border-radius:6px;font-size:.82rem;width:80px" oninput="autoSave()"></td></tr>
 
+
+
       <tr><td class="lbl">储蓄/养老险</td><td class="amt"><input type="number" id="ins_p_sav_amt" placeholder="例：100" oninput="autoSave()"></td><td class="amt"><input type="number" id="ins_p_sav_prem" placeholder="0" style="width:100%;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.95rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="calcTotalPremium();autoSave()"></td><td><input type="text" id="ins_p_sav_yr" placeholder="年期" style="padding:6px 8px;border:1.5px solid var(--bd);border-radius:6px;font-size:.82rem;width:80px" oninput="autoSave()"></td></tr>
+
+
 
       <tr><td class="lbl">社保（配偶）</td><td class="amt" colspan="2"><select id="ins_p_social" onchange="autoSave()" style="padding:6px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.88rem;width:100%"><option value="有">有</option><option value="无">无</option></select></td><td></td></tr>
 
+
+
     </tbody>
 
+
+
   </table>
+
+
+
+
 
 
 
   <div class="sec-hd" style="margin-top:18px">👶 子女保单（适用时填写）</div>
 
+
+
   <table class="ptbl">
+
+
 
     <thead><tr><th style="width:24%">保险类型</th><th style="width:22%">保额（万元）</th><th style="width:32%">年保费（元）</th><th style="width:22%">缴费年期</th></tr></thead>
 
+
+
     <tbody>
+
+
 
       <tr><td class="lbl">子女教育储蓄险</td><td class="amt"><input type="number" id="ins_k_edu_amt" placeholder="例：100" oninput="autoSave()"></td><td class="amt"><input type="number" id="ins_k_edu_prem" placeholder="0" style="width:100%;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.95rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="calcTotalPremium();autoSave()"></td><td><input type="text" id="ins_k_edu_yr" placeholder="年期" style="padding:6px 8px;border:1.5px solid var(--bd);border-radius:6px;font-size:.82rem;width:80px" oninput="autoSave()"></td></tr>
 
+
+
       <tr><td class="lbl">子女重疾险</td><td class="amt"><input type="number" id="ins_k_ci_amt" placeholder="例：100" oninput="autoSave()"></td><td class="amt"><input type="number" id="ins_k_ci_prem" placeholder="0" style="width:100%;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.95rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="calcTotalPremium();autoSave()"></td><td><input type="text" id="ins_k_ci_yr" placeholder="年期" style="padding:6px 8px;border:1.5px solid var(--bd);border-radius:6px;font-size:.82rem;width:80px" oninput="autoSave()"></td></tr>
+
+
 
       <tr><td class="lbl">子女医疗险</td><td class="amt"><input type="number" id="ins_k_med_amt" placeholder="例：100" oninput="autoSave()"></td><td class="amt"><input type="number" id="ins_k_med_prem" placeholder="0" style="width:100%;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.95rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="calcTotalPremium();autoSave()"></td><td><input type="text" id="ins_k_med_yr" placeholder="年期" style="padding:6px 8px;border:1.5px solid var(--bd);border-radius:6px;font-size:.82rem;width:80px" oninput="autoSave()"></td></tr>
 
+
+
     </tbody>
+
+
 
   </table>
 
 
 
+
+
+
+
   <div style="margin-top:14px;padding:10px 14px;background:rgba(74,111,165,.06);border-radius:8px;font-size:.85rem;font-weight:700;color:var(--p);display:flex;justify-content:space-between">
+
+
 
     <span>🛡️ 家庭年保费合计（自动计算）</span>
 
+
+
     <span id="ins_total_prem" style="font-size:1.05rem">0 元</span>
+
+
 
   </div>
 
+
+
 </div>
+
+
 
 <div class="navrow"><button class="btn-s" onclick="go(6)">← 上一步</button><button class="btn-p" onclick="genReport()" style="background:var(--gn);border-color:var(--gn)">📊 生成家庭财务报告</button></div>
 
+
+
 </div>
+
+
+
+
 
 
 
 <!-- Report Panel -->
 
+
+
 <div class="panel" id="p8">
+
+
 
   <div id="report_out"></div>
 
+
+
   <button onclick="window.print()" style="position:fixed;bottom:24px;right:24px;padding:13px 22px;background:var(--a);color:#fff;border:none;border-radius:50px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(216,167,177,.5);font-size:.9rem;z-index:100">🖨️ 打印 / 保存PDF</button>
+
+
 
   <div class="navrow" style="margin-top:0"><button class="btn-s" onclick="go(7)">← 返回修改</button></div>
 
+
+
 </div>
+
+
+
+
 
 
 
@@ -1230,610 +2456,1223 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 
 
 
+
+
+
+
+
+
 <script>
+
+
+
+
 
 
 
 const SKEY='hfr_v2';
 
+
+
 let autoTimer=null, charts={};
+
+
+
+
 
 
 
 // ── 自动保存 ──
 
+
+
 function autoSave(){clearTimeout(autoTimer);autoTimer=setTimeout(saveNow,500);}
+
+
 
 // ── 月/年支出换算 ──
 
+
+
 function syncExp(srcId, dstId, srcType){
+
+
 
   const src = parseFloat(document.getElementById(srcId)?.value)||0;
 
+
+
   const dst = document.getElementById(dstId);
+
+
 
   if(!dst)return;
 
+
+
   if(srcType==='m'){ dst.value = src>0 ? (src*12).toFixed(0) : ''; }
+
+
 
   else { dst.value = src>0 ? (src/12).toFixed(0) : ''; }
 
+
+
 }
+
+
+
+
 
 
 
 // ── 月还款 -> 年还款显示 ──
 
+
+
 function calcAnnualMortg(){
+
+
 
   const monthly = parseFloat(document.getElementById('d_monthly_mortg')?.value)||0;
 
+
+
   const annual = monthly * 12;
+
+
 
   const disp = document.getElementById('d_annual_mortg_display');
 
+
+
   const hidden = document.getElementById('d_annual_mortg');
+
+
 
   if(disp) disp.textContent = annual > 0 ? annual.toLocaleString('zh-CN') + ' 元' : '0 元';
 
+
+
   if(hidden) hidden.value = annual;
 
+
+
 }
+
+
 
 function saveNow(){
 
+
+
   const data={};
+
+
 
   document.querySelectorAll('input[id],select[id],textarea[id]').forEach(el=>{if(el.id)data[el.id]=el.value;});
 
+
+
   localStorage.setItem(SKEY,JSON.stringify(data));
+
+
 
   const ss=document.getElementById('saveStatus');
 
+
+
   const now=new Date();
+
+
 
   const ts=`${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}:${now.getSeconds().toString().padStart(2,'0')}`;
 
+
+
   if(ss)ss.textContent=`✅ 已保存于 ${ts}，关闭浏览器后数据不会丢失`;
 
+
+
 }
+
+
 
 function loadSaved(){
 
+
+
   const raw=localStorage.getItem(SKEY);
+
+
 
   if(!raw)return;
 
+
+
   try{
+
+
 
     const data=JSON.parse(raw);
 
+
+
     Object.keys(data).forEach(id=>{const el=document.getElementById(id);if(el)el.value=data[id];});
+
+
 
     ['bank','mf','sv','sec','iprop','alt','home','car','mortg','cons','ainc','pinc','lexp','edu','par','fexp','veh'].forEach(calcSub);
 
+
+
     calcTotalPremium();
+
+
 
     calcAnnualMortg();
 
+
+
     const ss=document.getElementById('saveStatus');
+
+
 
     if(ss)ss.textContent='✅ 已恢复上次保存的数据，继续填写吧';
 
+
+
   }catch(e){}
 
+
+
 }
+
+
 
 function clearAll(){
 
+
+
   if(!confirm('确定要清除所有已填写的数据吗？此操作不可撤销。'))return;
+
+
 
   localStorage.removeItem(SKEY);
 
+
+
   document.querySelectorAll('input[id],select[id],textarea[id]').forEach(el=>{if(el.tagName==='SELECT')el.selectedIndex=0;else el.value='';});
+
+
 
   ['bank','mf','sv','sec','iprop','alt','home','car','mortg','cons','ainc','pinc','lexp','edu','par','fexp','veh'].forEach(calcSub);
 
+
+
   calcTotalPremium();
+
+
 
   document.getElementById('saveStatus').textContent='数据已清除，请重新填写';
 
+
+
 }
+
+
+
+
 
 
 
 // ── 步骤导航 ──
 
+
+
 let curStep=0;
+
+
 
 function go(n){
 
+
+
   document.querySelectorAll('.panel').forEach((p,i)=>p.classList.toggle('active',i===n));
+
+
 
   document.querySelectorAll('.snav').forEach((b,i)=>{
 
+
+
     b.classList.remove('active','done');
+
+
 
     if(i===n&&i<8)b.classList.add('active');
 
+
+
     else if(i<n)b.classList.add('done');
+
+
 
   });
 
+
+
   curStep=n;window.scrollTo(0,0);saveNow();
 
+
+
 }
+
+
+
+
 
 
 
 // ── 字段分组 ──
 
+
+
 const GROUPS={
+
+
 
   bank:['a_cash_demand','a_cash_fixed','a_cash_cd','a_cash_usd'],
 
+
+
   mf:['a_mf_money','a_mf_bond','a_mf_bank'],
+
+
 
   sv:['a_sv_self','a_sv_spouse','a_sv_kid'],
 
+
+
   sec:['a_sec_ashare','a_sec_hkshare','a_sec_usshare','a_sec_fund','a_sec_pe','a_sec_iul'],
+
+
 
   iprop:['a_ip_hk','a_ip_cn1','a_ip_cn2','a_ip_cn3','a_ip_oversea','a_ip_comm','a_ip_parking'],
 
+
+
   alt:['a_alt_gold','a_alt_crypto','a_alt_equity','a_alt_art'],
+
+
 
   home:['a_h_main','a_h_second'],
 
+
+
   car:['a_c_car1','a_c_car2'],
+
+
 
   mortg:['d_m_home','d_m_invest','d_m_comm'],
 
+
+
   cons:['d_c_car','d_c_personal','d_c_cc'],
+
+
 
   ainc:['inc_w_self_fix','inc_w_self_var','inc_w_spouse','inc_w_biz','inc_w_side'],
 
+
+
   pinc:['inc_p_hkrent','inc_p_cnrent','inc_p_commrent','inc_p_div','inc_p_int','inc_p_pension','inc_p_annuity','inc_p_other'],
+
+
 
   lexp:['exp_l_food','exp_l_util','exp_l_cloth','exp_l_comm','exp_l_travel','exp_l_ent'],
 
+
+
   edu:['exp_e_tuition','exp_e_extra','exp_e_living'],
+
+
 
   par:['exp_p_parents'],
 
+
+
   fexp:['exp_f_mortg','exp_f_carloan','exp_f_ins','exp_f_sav'],
 
+
+
   veh:['exp_v_fuel','exp_v_carins','exp_v_maint']
+
+
 
 };
 
 
 
+
+
+
+
 function v(id){return parseFloat(document.getElementById(id)?.value)||0;}
 
+
+
 function fmt(n){return Number(n).toLocaleString('zh-CN');}
+
+
 
 function fmtPct(n){return(isNaN(n)||!isFinite(n))?'—':((n*100).toFixed(2)+'%');}
 
 
 
+
+
+
+
 const subCache={};
+
+
 
 function calcSub(grp){
 
+
+
   const ids=GROUPS[grp];if(!ids)return;
+
+
 
   const sum=ids.reduce((a,id)=>a+v(id),0);
 
+
+
   subCache[grp]=sum;
+
+
 
   const el=document.getElementById('sub_'+grp);if(el)el.textContent=fmt(sum);
 
+
+
   const st=document.getElementById('st_'+grp);if(st)st.textContent='小计：'+fmt(sum);
+
+
 
   const totMap={liquid:['bank','mf','sv'],invest:['sec','iprop','alt'],personal:['home','car'],debt:['mortg','cons'],income:['ainc','pinc'],exp:['lexp','edu','par','fexp','veh']};
 
+
+
   const totIds={liquid:'total_liquid',invest:'total_invest',personal:'total_personal',debt:'total_debt',income:'total_income',exp:'total_exp'};
+
+
 
   Object.keys(totMap).forEach(tot=>{
 
+
+
     if(totMap[tot].includes(grp)){
+
+
 
       const total=totMap[tot].reduce((a,g)=>a+(subCache[g]||0),0);
 
+
+
       const tel=document.getElementById(totIds[tot]);if(tel)tel.textContent=fmt(total);
+
+
 
     }
 
+
+
   });
 
+
+
 }
+
+
 
 function calcTotalPremium(){
 
+
+
   const ids=['ins_s_life_prem','ins_s_ci_prem','ins_s_med_prem','ins_s_sav_prem','ins_s_acc_prem','ins_p_life_prem','ins_p_ci_prem','ins_p_med_prem','ins_p_sav_prem','ins_k_edu_prem','ins_k_ci_prem','ins_k_med_prem'];
+
+
 
   const total=ids.reduce((a,id)=>a+v(id),0);
 
+
+
   const el=document.getElementById('ins_total_prem');if(el)el.textContent=fmt(total)+' 元';
 
+
+
 }
+
+
+
+
 
 
 
 // ── 收集数据 ──
 
+
+
 function collectData(){
+
+
 
   const cur_sym=document.getElementById('i_cur')?.value||'CNY';
 
+
+
   const age=parseInt(document.getElementById('i_age')?.value)||0;
+
+
 
   const getG=g=>(GROUPS[g]||[]).reduce((a,id)=>a+v(id),0);
 
+
+
   const liquidTotal=['bank','mf','sv'].reduce((a,g)=>a+getG(g),0);
+
+
 
   const investTotal=['sec','iprop','alt'].reduce((a,g)=>a+getG(g),0);
 
+
+
   const personalTotal=['home','car'].reduce((a,g)=>a+getG(g),0);
+
+
 
   const totalAssets=liquidTotal+investTotal+personalTotal;
 
+
+
   const debtTotal=['mortg','cons'].reduce((a,g)=>a+getG(g),0);
+
+
 
   const netAssets=totalAssets-debtTotal;
 
+
+
   const activeInc=getG('ainc'), passiveInc=getG('pinc'), totalInc=activeInc+passiveInc;
+
+
 
   const livingExp=['lexp','edu','par'].reduce((a,g)=>a+getG(g),0);
 
+
+
   const finExp=['fexp','veh'].reduce((a,g)=>a+getG(g),0);
+
+
 
   const totalExp=livingExp+finExp;
 
+
+
   const netInc=totalInc-totalExp;
+
+
 
   const annualMortg=v('d_annual_mortg')||getG('fexp');
 
+
+
   const lifeCover=(v('ins_s_life_amt')+v('ins_p_life_amt'))*10000;
+
+
 
   const ciCover=(v('ins_s_ci_amt')+v('ins_p_ci_amt')+v('ins_k_ci_amt'))*10000;
 
+
+
   const premIds=['ins_s_life_prem','ins_s_ci_prem','ins_s_med_prem','ins_s_sav_prem','ins_s_acc_prem','ins_p_life_prem','ins_p_ci_prem','ins_p_med_prem','ins_p_sav_prem','ins_k_edu_prem','ins_k_ci_prem','ins_k_med_prem'];
+
+
 
   const totalPrem=premIds.reduce((a,id)=>a+v(id),0);
 
+
+
   const assetCat={
+
+
 
     '财富保值（现金存款）':getG('bank')+getG('mf'),
 
+
+
     '财富保值（储蓄保单）':getG('sv'),
+
+
 
     '财富增值（证券投资）':getG('sec'),
 
+
+
     '另类投资（投资房产）':getG('iprop'),
+
+
 
     '另类投资（其他）':getG('alt'),
 
+
+
     '自用性资产':getG('home')+getG('car')
 
+
+
   };
+
+
 
   const remain=Math.max(85-age,1);
 
+
+
   const kpis={
+
+
 
     absoluteWR:livingExp>0?netAssets/(livingExp*remain):null,
 
+
+
     wealthFreeR:livingExp>0?passiveInc/livingExp:null,
+
+
 
     finAssetR:totalAssets>0?liquidTotal/totalAssets:null,
 
+
+
     debtR:totalAssets>0?debtTotal/totalAssets:0,
+
+
 
     emergMths:livingExp>0?(getG('bank')+getG('mf'))/(livingExp/12):null,
 
+
+
     lifeR:(activeInc+passiveInc*0.5)>0?lifeCover/(activeInc+passiveInc*0.5):null,
+
+
 
     ciR:activeInc>0?ciCover/activeInc:null,
 
+
+
     debtBurdenR:totalInc>0?annualMortg/totalInc:null,
+
+
 
     netSavR:totalInc>0?netInc/totalInc:null,
 
+
+
     netWorthGR:netAssets>0?netInc/netAssets:null
 
+
+
   };
+
+
 
   const details={
+
     assets:{
+
       cash_demand:v('a_cash_demand'),cash_fixed:v('a_cash_fixed'),cash_cd:v('a_cash_cd'),cash_usd:v('a_cash_usd'),
+
       mf_money:v('a_mf_money'),mf_bond:v('a_mf_bond'),mf_bank:v('a_mf_bank'),
+
       sv_self:v('a_sv_self'),sv_spouse:v('a_sv_spouse'),sv_kid:v('a_sv_kid'),
+
       sec_ashare:v('a_sec_ashare'),sec_hkshare:v('a_sec_hkshare'),sec_usshare:v('a_sec_usshare'),sec_fund:v('a_sec_fund'),sec_pe:v('a_sec_pe'),sec_iul:v('a_sec_iul'),
+
       ip_hk:v('a_ip_hk'),ip_cn1:v('a_ip_cn1'),ip_cn2:v('a_ip_cn2'),ip_cn3:v('a_ip_cn3'),ip_oversea:v('a_ip_oversea'),ip_comm:v('a_ip_comm'),ip_parking:v('a_ip_parking'),
+
       alt_gold:v('a_alt_gold'),alt_crypto:v('a_alt_crypto'),alt_equity:v('a_alt_equity'),alt_art:v('a_alt_art'),
+
       h_main:v('a_h_main'),h_second:v('a_h_second'),c_car1:v('a_c_car1'),c_car2:v('a_c_car2')
+
     },
+
     debts:{
+
       m_home:v('d_m_home'),m_invest:v('d_m_invest'),m_comm:v('d_m_comm'),
+
       c_car:v('d_c_car'),c_personal:v('d_c_personal'),c_cc:v('d_c_cc'),
+
       annual_mortg:v('d_annual_mortg')
+
     },
+
     income:{
+
       w_self_fix:v('inc_w_self_fix'),w_self_var:v('inc_w_self_var'),w_spouse:v('inc_w_spouse'),w_biz:v('inc_w_biz'),w_side:v('inc_w_side'),
+
       p_hkrent:v('inc_p_hkrent'),p_cnrent:v('inc_p_cnrent'),p_commrent:v('inc_p_commrent'),p_div:v('inc_p_div'),p_int:v('inc_p_int'),p_pension:v('inc_p_pension'),p_annuity:v('inc_p_annuity'),p_other:v('inc_p_other')
+
     },
+
     expense:{
+
       l_food:v('exp_l_food'),l_util:v('exp_l_util'),l_cloth:v('exp_l_cloth'),l_comm:v('exp_l_comm'),l_travel:v('exp_l_travel'),l_ent:v('exp_l_ent'),
+
       e_tuition:v('exp_e_tuition'),e_extra:v('exp_e_extra'),e_living:v('exp_e_living'),
+
       p_parents:v('exp_p_parents'),
+
       f_mortg:v('exp_f_mortg'),f_carloan:v('exp_f_carloan'),f_ins:v('exp_f_ins'),f_sav:v('exp_f_sav'),
+
       v_fuel:v('exp_v_fuel'),v_carins:v('exp_v_carins'),v_maint:v('exp_v_maint')
+
     },
+
     insurance:{
+
       s_life_amt:v('ins_s_life_amt'),s_life_prem:v('ins_s_life_prem'),
+
       s_ci_amt:v('ins_s_ci_amt'),s_ci_prem:v('ins_s_ci_prem'),
+
       s_med_amt:v('ins_s_med_amt'),s_med_prem:v('ins_s_med_prem'),
+
       s_sav_amt:v('ins_s_sav_amt'),s_sav_prem:v('ins_s_sav_prem'),
+
       s_acc_amt:v('ins_s_acc_amt'),s_acc_prem:v('ins_s_acc_prem'),
+
       p_life_amt:v('ins_p_life_amt'),p_life_prem:v('ins_p_life_prem'),
+
       p_ci_amt:v('ins_p_ci_amt'),p_ci_prem:v('ins_p_ci_prem'),
+
       p_med_amt:v('ins_p_med_amt'),p_med_prem:v('ins_p_med_prem'),
+
       p_sav_amt:v('ins_p_sav_amt'),p_sav_prem:v('ins_p_sav_prem'),
+
       k_edu_amt:v('ins_k_edu_amt'),k_edu_prem:v('ins_k_edu_prem'),
+
       k_ci_amt:v('ins_k_ci_amt'),k_ci_prem:v('ins_k_ci_prem'),
+
       k_med_amt:v('ins_k_med_amt'),k_med_prem:v('ins_k_med_prem')
+
     }
+
   };
+
   return{name:document.getElementById('i_name')?.value||'客户',job:document.getElementById('i_job')?.value||'',age,cur_sym,family:document.getElementById('i_family')?.value||'',date:document.getElementById('i_date')?.value||'',risk:document.getElementById('i_risk')?.value||'',goals:document.getElementById('i_goals')?.value||'',liquidTotal,investTotal,personalTotal,totalAssets,debtTotal,netAssets,activeInc,passiveInc,totalInc,livingExp,finExp,totalExp,netInc,lifeCover,ciCover,totalPrem,assetCat,kpis,details,getG};
 
+
+
 }
+
+
+
+
 
 
 
 // ── KPI评级 ──
 
+
+
 function kpiStatus(key,val){
+
+
 
   if(val===null||isNaN(val)||!isFinite(val))return{cls:'kpi-w',badge:'badge-yw',label:'数据不足'};
 
+
+
   const ok=(a,b)=>val>=a&&val<=b,hi=a=>val>a,lo=a=>val<a;
 
+
+
   switch(key){
+
+
 
     case 'absoluteWR': return hi(1)?{cls:'kpi-ok',badge:'badge-gn',label:'良好'}:{cls:'kpi-bd',badge:'badge-rd',label:'不足'};
 
+
+
     case 'wealthFreeR': return hi(1)?{cls:'kpi-ok',badge:'badge-gn',label:'已实现'}:val>=0.8?{cls:'kpi-w',badge:'badge-yw',label:'接近'}:{cls:'kpi-bd',badge:'badge-rd',label:'不足'};
+
+
 
     case 'finAssetR': return ok(0.5,0.75)?{cls:'kpi-ok',badge:'badge-gn',label:'合理'}:lo(0.5)?{cls:'kpi-bd',badge:'badge-rd',label:'偏低'}:{cls:'kpi-w',badge:'badge-yw',label:'偏高'};
 
+
+
     case 'debtR': return val<=0.5?{cls:'kpi-ok',badge:'badge-gn',label:'健康'}:val<=0.7?{cls:'kpi-w',badge:'badge-yw',label:'偏高'}:{cls:'kpi-bd',badge:'badge-rd',label:'危险'};
+
+
 
     case 'emergMths': return ok(6,12)?{cls:'kpi-ok',badge:'badge-gn',label:'合理'}:lo(6)?{cls:'kpi-bd',badge:'badge-rd',label:'不足'}:{cls:'kpi-w',badge:'badge-yw',label:'偏高'};
 
+
+
     case 'lifeR': return ok(10,30)?{cls:'kpi-ok',badge:'badge-gn',label:'合理'}:lo(10)?{cls:'kpi-bd',badge:'badge-rd',label:'不足'}:{cls:'kpi-w',badge:'badge-yw',label:'偏高'};
+
+
 
     case 'ciR': return ok(3,5)?{cls:'kpi-ok',badge:'badge-gn',label:'合理'}:lo(3)?{cls:'kpi-bd',badge:'badge-rd',label:'不足'}:{cls:'kpi-w',badge:'badge-yw',label:'偏高'};
 
+
+
     case 'debtBurdenR': return val<=0.4?{cls:'kpi-ok',badge:'badge-gn',label:'健康'}:val<=0.5?{cls:'kpi-w',badge:'badge-yw',label:'偏高'}:{cls:'kpi-bd',badge:'badge-rd',label:'危险'};
+
+
 
     case 'netSavR': return ok(0.3,0.6)?{cls:'kpi-ok',badge:'badge-gn',label:'良好'}:lo(0.3)?{cls:'kpi-bd',badge:'badge-rd',label:'偏低'}:{cls:'kpi-w',badge:'badge-yw',label:'偏高'};
 
+
+
     case 'netWorthGR': return ok(0.05,0.1)?{cls:'kpi-ok',badge:'badge-gn',label:'良好'}:lo(0.05)?{cls:'kpi-bd',badge:'badge-rd',label:'偏低'}:{cls:'kpi-w',badge:'badge-yw',label:'偏高'};
+
+
 
     default:return{cls:'kpi-w',badge:'badge-yw',label:'—'};
 
+
+
   }
 
+
+
 }
+
+
 
 function kpiAnalysis(key,val,d){
 
+
+
   if(val===null||isNaN(val)||!isFinite(val))return'请补充相关数据后重新生成。';
+
+
 
   const pct=(val*100).toFixed(1)+'%';
 
+
+
   switch(key){
+
+
 
     case 'absoluteWR':return val>=1?`净资产是未来${85-d.age}年生活支出总量的${val.toFixed(1)}倍，财富基础稳固。`:`净资产尚不足以覆盖未来${85-d.age}年生活支出，建议加速积累。`;
 
+
+
     case 'wealthFreeR':return val>=1?'被动收入已完全覆盖生活支出，恭喜实现财富自由！':val>=0.8?`被动收入覆盖生活支出${pct}，距财富自由仅一步之遥！`:`被动收入仅覆盖生活支出${pct}，建议增加投资性收入来源。`;
+
+
 
     case 'finAssetR':return val<0.5?`流动金融资产仅占总资产${pct}，低于50%标准，建议适当提高流动性。`:`流动资产占比${pct}，处于合理区间。`;
 
+
+
     case 'debtR':return val===0?'家庭无负债，财务安全，可考虑适度善用财务杠杆提升效率。':`家庭负债率${pct}，${val<=0.5?'处于健康范围。':'建议控制负债总量。'}`;
+
+
 
     case 'emergMths':return val>=6&&val<=12?`应急储备${val.toFixed(0)}个月，充裕合理。`:val<6?`应急储备仅${val.toFixed(0)}个月，建议提升至6-12个月。`:`应急储备${val.toFixed(0)}个月，现金留存偏多，可考虑更高效配置。`;
 
+
+
     case 'lifeR':return val<10?`寿险保额为年收入${val.toFixed(1)}倍，保障不足，建议提高至10-30倍。`:`寿险保额为年收入${val.toFixed(1)}倍，家庭保障充足。`;
+
+
 
     case 'ciR':return val<3?`重疾保额仅为年收入${pct}，建议提升至300%-500%。`:`重疾保额为年收入${pct}，保障水平良好。`;
 
+
+
     case 'debtBurdenR':return `年还款额占收入${pct}，${val<=0.4?'还款压力适中，财务稳健。':'还款压力偏大，建议减少负债或提高收入。'}`;
+
+
 
     case 'netSavR':return `净储蓄率${pct}，${val>=0.3&&val<=0.6?'储蓄率良好，收支平衡健康。':val<0.3?'储蓄率偏低，建议优化支出结构。':'储蓄率较高，可将部分结余投入增值资产。'}`;
 
+
+
     case 'netWorthGR':return `净值年增长率${pct}，${val>=0.05?'资产增值态势良好。':'资产增长率偏低，建议优化资产配置以提升回报率。'}`;
+
+
 
     default:return'';
 
+
+
   }
 
+
+
 }
+
+
+
+
 
 
 
 const lcData=[{n:'单身期',r:'18-30岁',ic:'👤'},{n:'形成期',r:'25-35岁',ic:'👫'},{n:'成长期',r:'30-55岁',ic:'👨‍👩‍👧'},{n:'成熟期',r:'50-65岁',ic:'🏠'},{n:'养老期',r:'60-100岁',ic:'🌅'}];
 
+
+
 const lcSummary=['处于财务起步期，重点：建立应急储备、获取基本保障、开始养老储蓄，避免过度消费。','家庭初建期，经济压力最大，重点：完善保险保障体系，控制负债，建立子女教育专项储蓄。','财富积累黄金期，重点：子女教育基金规划、投资组合多元化、完善养老储备、保险充足达标。','临近退休，重点：确保养老金充足，逐步清偿所有债务，适当降低风险资产比例，规划财富传承。','养老生活期，重点：医疗险为首位，维持稳定被动收入覆盖支出，控制支出节奏，享受生活。'];
+
+
 
 function getLcIdx(age){if(age<25)return 0;if(age<35)return 1;if(age<55)return 2;if(age<65)return 3;return 4;}
 
 
 
+
+
+
+
 // ── 报告样式 ──
+
+
 
 function injectReportCss(){
 
+
+
   if(document.getElementById('report-css'))return;
+
+
 
   const s=document.createElement('style');
 
+
+
   s.id='report-css';
+
+
 
   s.textContent=`.rs{background:#fff;border-radius:14px;padding:24px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
 
+
+
 .rs h2{color:var(--p);font-size:1.1rem;margin-bottom:18px;padding-bottom:9px;border-bottom:2px solid var(--bd);display:flex;align-items:center;gap:6px}
+
+
 
 .rt{width:100%;border-collapse:collapse;font-size:.88rem}
 
+
+
 .rt th{background:var(--p);color:#fff;padding:9px 12px;text-align:left;font-weight:700}
+
+
 
 .rt td{padding:8px 12px;border-bottom:1px solid var(--bd)}
 
+
+
 .rt tr:nth-child(even) td{background:rgba(74,111,165,.04)}
+
+
 
 .rt .tr td{background:rgba(74,111,165,.1);font-weight:700;color:var(--p)}
 
+
+
 .rt .sr td{background:rgba(216,167,177,.1);font-weight:700}
+
+
 
 .rt .gr td{background:linear-gradient(90deg,rgba(74,111,165,.12),rgba(216,167,177,.08));font-weight:700}
 
+
+
 .kgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+
+
 
 @media(max-width:640px){.kgrid{grid-template-columns:1fr 1fr}}
 
+
+
 .kc{background:var(--bg);border-radius:11px;padding:14px;text-align:center;border:1.5px solid var(--bd)}
+
+
 
 .kc .kn{font-size:.75rem;color:var(--gr);margin-bottom:5px;line-height:1.4}
 
+
+
 .kc .kv{font-size:1.35rem;font-weight:700;margin-bottom:3px}
+
+
 
 .kc .kr{font-size:.7rem;color:var(--gr)}
 
+
+
 .kc .ka{font-size:.72rem;line-height:1.4;margin-top:5px;text-align:left;color:var(--tx)}
+
+
 
 .kpi-ok{color:var(--gn)}.kpi-w{color:var(--yw)}.kpi-bd{color:var(--rd)}
 
+
+
 .badge-gn{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:700;background:rgba(39,174,96,.15);color:var(--gn)}
+
+
 
 .badge-rd{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:700;background:rgba(231,76,60,.15);color:var(--rd)}
 
+
+
 .badge-yw{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:700;background:rgba(243,156,18,.15);color:var(--yw)}
+
+
 
 .sum-box{background:linear-gradient(135deg,var(--p),#3a5f95);color:#fff;border-radius:14px;padding:22px;margin-bottom:20px}
 
+
+
 .sum-box h2{color:#fff;margin-bottom:14px}
+
+
 
 .sng{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 
+
+
 @media(max-width:600px){.sng{grid-template-columns:1fr 1fr}}
+
+
 
 .sni{background:rgba(255,255,255,.15);border-radius:9px;padding:11px;text-align:center}
 
+
+
 .sni .snl{font-size:.74rem;opacity:.85;margin-bottom:3px}.sni .snv{font-size:1.25rem;font-weight:700}
+
+
 
 .lc-row{display:flex;justify-content:center;margin:8px 0 18px;gap:0}
 
+
+
 .lci{flex:1;text-align:center;padding:10px 2px;position:relative}
+
+
 
 .lci:not(:last-child)::after{content:"→";position:absolute;right:-5px;top:42%;color:var(--bd);font-size:1rem}
 
+
+
 .lcc{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 5px;font-size:1.4rem;border:2.5px solid var(--bd)}
+
+
 
 .lci.active .lcc{border-color:var(--a);background:var(--a);color:#fff}
 
+
+
 .lci .lcl{font-size:.73rem;font-weight:700}.lci .lca{font-size:.66rem;color:var(--gr)}
+
+
 
 .act-item{display:flex;gap:10px;align-items:flex-start;padding:11px;background:var(--bg);border-radius:9px;margin-bottom:7px}
 
+
+
 .act-num{background:var(--p);color:#fff;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;font-size:.8rem}
+
+
 
 .cht-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:16px}
 
+
+
 @media(max-width:580px){.cht-row{grid-template-columns:1fr}}
+
+
 
 .cht-box{background:var(--bg);border-radius:10px;padding:14px}
 
+
+
 .cht-box h3{font-size:.85rem;color:var(--p);margin-bottom:10px;text-align:center}
+
+
 
 @media print{.step-nav,.save-bar,.navrow,button{display:none!important}.panel{display:block!important}.rs{break-inside:avoid}}`;
 
+
+
   document.head.appendChild(s);
+
+
 
 }
 
 
 
+
+
+
+
 // ── 主报告生成函数 ──
+
+
 
 function genReport(){
 
+
+
   const d=collectData();
+
+
 
   injectReportCss();
 
+
+
   Object.values(charts).forEach(c=>{try{c.destroy();}catch(e){}});
+
+
 
   charts={};
 
+
+
   const cur=d.cur_sym;
+
+
 
   const lcIdx=getLcIdx(d.age);
 
 
 
+
+
+
+
   const nameMap={bank:'银行存款',mf:'货币基金&国债',sv:'储蓄型保单',sec:'证券投资',iprop:'投资性房产',alt:'另类投资',home:'自住房产',car:'自用车辆',mortg:'房产抵押贷款',cons:'汽车/消费贷款'};
+
+
 
   const subLabels={
 
+
+
     a_cash_demand:'活期存款',a_cash_fixed:'定期存款',a_cash_cd:'大额存单',a_cash_usd:'外币存款',
+
+
 
     a_mf_money:'货币基金',a_mf_bond:'国债（短期）',a_mf_bank:'银行理财（短期）',
 
+
+
     a_sv_self:'储蓄保单（本人）',a_sv_spouse:'储蓄保单（配偶）',a_sv_kid:'子女教育保单',
+
+
 
     a_sec_ashare:'A股股票',a_sec_hkshare:'港股股票',a_sec_usshare:'美股/海外股票',a_sec_fund:'公募基金',a_sec_pe:'私募基金',a_sec_iul:'投连险',
 
+
+
     a_ip_hk:'香港投资房产',a_ip_cn1:'内地投资房（第1套）',a_ip_cn2:'内地投资房（第2套）',a_ip_cn3:'内地投资房（第3套及以上）',a_ip_oversea:'海外房产',a_ip_comm:'商铺/办公/厂房',a_ip_parking:'车位（投资）',
+
+
 
     a_alt_gold:'黄金/贵金属',a_alt_crypto:'虚拟货币',a_alt_equity:'股权/公司股份',a_alt_art:'收藏品/艺术品',
 
+
+
     a_h_main:'自住主房',a_h_second:'自住第二套',a_c_car1:'自用车辆（第1辆）',a_c_car2:'自用车辆（第2辆）',
+
+
 
     d_m_home:'自住房按揭余额',d_m_invest:'投资房抵押余额',d_m_comm:'商业物业贷款余额',d_c_car:'车贷余额',d_c_personal:'信用/个人贷款',d_c_cc:'信用卡欠款'
 
+
+
   };
 
+
+
   const incLabels={inc_w_self_fix:'本人工资（固定）',inc_w_self_var:'本人奖金/佣金',inc_w_spouse:'配偶工资/薪酬',inc_w_biz:'经营/生意收入',inc_w_side:'兼职/自由职业',inc_p_hkrent:'香港房产租金',inc_p_cnrent:'内地房产租金',inc_p_commrent:'商业物业租金',inc_p_div:'股票股息/基金分红',inc_p_int:'存款/债券利息',inc_p_pension:'社保/退休金',inc_p_annuity:'商业年金',inc_p_other:'其他被动收入'};
+
+
 
   const expLabels={exp_l_food:'家庭伙食/生活用品',exp_l_util:'水电煤/物业费',exp_l_cloth:'服装/美容',exp_l_comm:'交通通讯',exp_l_travel:'旅游度假',exp_l_ent:'娱乐/社交/餐饮',exp_e_tuition:'子女学费/托育费',exp_e_extra:'课外补习/兴趣班',exp_e_living:'子女日常生活费',exp_p_parents:'赡养父母',exp_f_mortg:'房贷月供×12',exp_f_carloan:'车贷月供×12',exp_f_ins:'人寿/重疾险保费',exp_f_sav:'储蓄/教育险保费',exp_v_fuel:'加油/充电费',exp_v_carins:'车辆保险',exp_v_maint:'维修保养'};
 
 
 
+
+
+
+
   const kpiDefs=[
+
+
 
     {key:'absoluteWR',name:'绝对财富率',formula:'净资产÷(生活支出×余年)',range:'>100%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'},
 
+
+
     {key:'wealthFreeR',name:'财富自由率',formula:'被动收入÷生活支出',range:'>100%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'},
+
+
 
     {key:'finAssetR',name:'金融资产率',formula:'流动资产÷总资产',range:'50%-75%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'},
 
+
+
     {key:'debtR',name:'家庭负债率',formula:'总负债÷总资产',range:'0%-50%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'},
+
+
 
     {key:'emergMths',name:'应急能力值',formula:'活期存款÷月均支出',range:'6-12个月',fmtV:v=>v!==null&&isFinite(v)?(v.toFixed(0)+'个月'):'—'},
 
+
+
     {key:'lifeR',name:'寿险覆盖率',formula:'寿险保额÷年总收入',range:'10-30倍',fmtV:v=>v!==null&&isFinite(v)?(v.toFixed(1)+'倍'):'—'},
+
+
 
     {key:'ciR',name:'重疾储备率',formula:'重疾保额÷年主动收入',range:'300%-500%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(0)+'%'):'—'},
 
+
+
     {key:'debtBurdenR',name:'财务负担率',formula:'年还款÷年总收入',range:'20%-40%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'},
+
+
 
     {key:'netSavR',name:'净储蓄率',formula:'年净结余÷年总收入',range:'30%-60%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'},
 
+
+
     {key:'netWorthGR',name:'净值增长率',formula:'年净结余÷净资产',range:'5%-10%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'}
 
+
+
   ];
+
+
+
+
 
 
 
@@ -1841,411 +3680,867 @@ function genReport(){
 
 
 
+
+
+
+
   // ── 封面摘要 ──
+
+
 
   html+=`<div class="sum-box">
 
+
+
     <h2>📋 ${d.name} 家庭财务规划报告</h2>
+
+
 
     <p style="opacity:.85;font-size:.88rem;margin-bottom:12px">${d.job?d.job+' · ':''}${d.age}岁 · ${d.family} · ${d.date||'—'} · 风险承受度：${d.risk}</p>
 
+
+
     ${d.goals?`<p style="opacity:.85;font-size:.83rem;margin-bottom:14px">📌 财务目标：${d.goals.split('\n').join(' | ')}</p>`:''}
+
+
 
     <div class="sng">
 
+
+
       <div class="sni"><div class="snl">总资产</div><div class="snv">${cur} ${fmt(d.totalAssets)}</div></div>
+
+
 
       <div class="sni"><div class="snl">净资产</div><div class="snv">${cur} ${fmt(d.netAssets)}</div></div>
 
+
+
       <div class="sni"><div class="snl">年度总收入</div><div class="snv">${cur} ${fmt(d.totalInc)}</div></div>
+
+
 
       <div class="sni"><div class="snl">年度总支出</div><div class="snv">${cur} ${fmt(d.totalExp)}</div></div>
 
+
+
       <div class="sni"><div class="snl">年净结余</div><div class="snv" style="color:${d.netInc>=0?'#a8e6c0':'#ffb3b3'}">${cur} ${fmt(d.netInc)}</div></div>
+
+
 
       <div class="sni"><div class="snl">总负债</div><div class="snv">${cur} ${fmt(d.debtTotal)}</div></div>
 
+
+
     </div>
+
+
 
   </div>`;
 
 
 
+
+
+
+
   // ── 一、资产负债表 ──
+
+
 
   const makeAssetRows=(grpKeys,totLabel,totVal)=>{
 
+
+
     let rows='';
+
+
 
     grpKeys.forEach(grp=>{
 
+
+
       const ids=GROUPS[grp];
+
+
 
       const grpSum=ids.reduce((a,id)=>a+v(id),0);
 
+
+
       if(grpSum===0)return;
+
+
 
       rows+=`<tr class="sr"><td colspan="2">${nameMap[grp]||grp}</td><td style="text-align:right">${fmt(grpSum)}</td><td style="text-align:right">${d.totalAssets>0?fmtPct(grpSum/d.totalAssets):'—'}</td></tr>`;
 
+
+
     });
+
+
 
     rows+=`<tr class="tr"><td colspan="2">${totLabel}</td><td style="text-align:right;font-size:1rem">${fmt(totVal)}</td><td style="text-align:right">${d.totalAssets>0?fmtPct(totVal/d.totalAssets):'—'}</td></tr>`;
 
+
+
     return rows;
+
+
 
   };
 
+
+
   html+=`<div class="rs"><h2>📊 一、家庭资产负债表</h2>
+
+
 
     <table class="rt"><thead><tr><th>资产类别</th><th style="text-align:right">金额（${cur}）</th><th style="text-align:right">占总资产比</th></tr></thead>
 
+
+
     <tbody>${makeAssetRows(['bank','mf','sv'],'✅ 流动性资产合计',d.liquidTotal)}
+
+
 
     ${makeAssetRows(['sec','iprop','alt'],'✅ 投资性资产合计',d.investTotal)}
 
+
+
     ${makeAssetRows(['home','car'],'✅ 自用性资产合计',d.personalTotal)}
+
+
 
     <tr class="gr"><td colspan="2" style="font-size:.95rem">💎 总资产合计</td><td style="text-align:right;font-size:1rem">${fmt(d.totalAssets)}</td><td style="text-align:right">100%</td></tr>
 
+
+
     </tbody></table><br>
+
+
 
     <table class="rt"><thead><tr><th>负债类别</th><th style="text-align:right">金额（${cur}）</th><th style="text-align:right">占总资产比</th></tr></thead><tbody>`;
 
+
+
   const debtGrpMap={mortg:'房产抵押贷款',cons:'汽车/消费贷款'};
+
+
 
   let hasDebt=false;
 
+
+
   ['mortg','cons'].forEach(grp=>{const gs=GROUPS[grp].reduce((a,id)=>a+v(id),0);if(gs>0){html+=`<tr class="sr"><td>${debtGrpMap[grp]}</td><td style="text-align:right">${fmt(gs)}</td><td style="text-align:right">${d.totalAssets>0?fmtPct(gs/d.totalAssets):'—'}</td></tr>`;hasDebt=true;}});
+
+
 
   if(!hasDebt)html+=`<tr><td colspan="3" style="text-align:center;color:var(--gr)">暂无负债记录</td></tr>`;
 
+
+
   html+=`<tr class="tr"><td colspan="2">📍 总负债合计</td><td style="text-align:right">${fmt(d.debtTotal)}</td><td style="text-align:right">${d.totalAssets>0?fmtPct(d.debtTotal/d.totalAssets):'—'}</td></tr>
+
+
 
     <tr class="gr"><td colspan="2" style="font-size:.95rem">💚 净资产（总资产 - 总负债）</td><td style="text-align:right;font-size:1rem">${fmt(d.netAssets)}</td><td style="text-align:right">${d.totalAssets>0?fmtPct(d.netAssets/d.totalAssets):'—'}</td></tr>
 
+
+
     </tbody></table></div>`;
+
+
+
+
 
 
 
   // ── 二、现金流表（小计版）──
 
+
+
   html+=`<div class="rs"><h2>💳 二、家庭现金流及收支表</h2>
+
+
 
     <table class="rt"><thead><tr><th>收入类别</th><th style="text-align:right">年度金额（${cur}）</th><th style="text-align:right">占总收入比</th></tr></thead><tbody>`;
 
+
+
   [{grp:'ainc',label:'主动收入（工资/经营）'},{grp:'pinc',label:'被动收入（租金/投资）'}].forEach(({grp,label})=>{
 
+
+
     const gs=GROUPS[grp].reduce((a,id)=>a+v(id),0);
+
+
 
     if(gs>0) html+=`<tr class="sr"><td>${label}</td><td style="text-align:right">${fmt(gs)}</td><td style="text-align:right">${d.totalInc>0?fmtPct(gs/d.totalInc):'—'}</td></tr>`;
 
+
+
   });
+
+
 
   html+=`<tr class="tr"><td>✅ 年度收入总计</td><td style="text-align:right">${fmt(d.totalInc)}</td><td style="text-align:right">100%</td></tr></tbody></table><br>
 
+
+
     <table class="rt"><thead><tr><th>支出类别</th><th style="text-align:right">年度金额（${cur}）</th><th style="text-align:right">占总支出比</th></tr></thead><tbody>`;
+
+
 
   [{grp:'lexp',l:'生活支出'},{grp:'edu',l:'子女教育'},{grp:'par',l:'赡养父母'},{grp:'fexp',l:'财务支出（还款/保费）'},{grp:'veh',l:'汽车费用'}].forEach(({grp,l})=>{
 
+
+
     const gs=GROUPS[grp].reduce((a,id)=>a+v(id),0);
+
+
 
     if(gs>0) html+=`<tr class="sr"><td>${l}</td><td style="text-align:right">${fmt(gs)}</td><td style="text-align:right">${d.totalExp>0?fmtPct(gs/d.totalExp):'—'}</td></tr>`;
 
+
+
   });
+
+
 
   html+=`<tr class="tr"><td>📍 年度支出总计</td><td style="text-align:right">${fmt(d.totalExp)}</td><td style="text-align:right">100%</td></tr>
 
+
+
     <tr class="gr"><td>💰 年净结余（收入 - 支出）</td><td style="text-align:right;font-size:1rem;color:${d.netInc>=0?'var(--gn)':'var(--rd)'}">${fmt(d.netInc)}</td><td style="text-align:right">${d.totalInc>0?fmtPct(d.netInc/d.totalInc):'—'}</td></tr>
+
+
 
     </tbody></table></div>`;
 
 
 
+
+
+
+
   // ── 三、资产分类图表 ──
+
+
 
   const catEntries=Object.entries(d.assetCat).filter(([k,val])=>val>0);
 
+
+
   const catTotal=Object.values(d.assetCat).reduce((a,b)=>a+b,0)||1;
+
+
 
   html+=`<div class="rs"><h2>📈 三、资产分类及分布</h2>
 
+
+
     <div class="cht-row">
+
+
 
       <div class="cht-box"><h3>资产类型分布</h3><canvas id="cPie" height="240"></canvas></div>
 
+
+
       <div class="cht-box"><h3>流动 / 投资 / 自用 对比</h3><canvas id="cBar" height="240"></canvas></div>
+
+
 
     </div>
 
+
+
     <table class="rt"><thead><tr><th>资产类别</th><th style="text-align:right">金额（${cur}）</th><th style="text-align:right">占比</th></tr></thead><tbody>`;
+
+
 
   catEntries.forEach(([k,val])=>html+=`<tr><td>${k}</td><td style="text-align:right">${fmt(val)}</td><td style="text-align:right">${fmtPct(val/catTotal)}</td></tr>`);
 
+
+
   html+=`<tr class="tr"><td>合计</td><td style="text-align:right">${fmt(catTotal)}</td><td style="text-align:right">100%</td></tr></tbody></table>
+
+
 
     <div style="margin-top:12px;padding:12px;background:rgba(74,111,165,.06);border-radius:9px;font-size:.85rem;line-height:1.7">
 
+
+
       <strong style="color:var(--p)">📌 资产配置诊断：</strong>
 
+
+
       ${(d.investTotal+d.personalTotal)/d.totalAssets>0.85?'资产高度集中于不动产，建议适当分散至金融资产，提升流动性与收益稳定性。':'资产配置基本合理，建议持续关注各类资产占比，保持流动性与收益平衡。'}
+
+
 
     </div></div>`;
 
 
 
+
+
+
+
   // ── 四、保险保单 ──
+
+
 
   if(d.totalPrem>0||(d.lifeCover>0)||(d.ciCover>0)){
 
+
+
   html+=`<div class="rs"><h2>🛡️ 四、保险保单检视</h2>`;
+
+
 
   const insMembers=[
 
+
+
     {label:'本人',keys:{life:{a:'ins_s_life_amt',p:'ins_s_life_prem',y:'ins_s_life_yr'},ci:{a:'ins_s_ci_amt',p:'ins_s_ci_prem',y:'ins_s_ci_yr'},med:{a:'ins_s_med_amt',p:'ins_s_med_prem',y:'ins_s_med_yr'},sav:{a:'ins_s_sav_amt',p:'ins_s_sav_prem',y:'ins_s_sav_yr'},acc:{a:'ins_s_acc_amt',p:'ins_s_acc_prem',y:'ins_s_acc_yr'},social:'ins_s_social'}},
+
+
 
     {label:'配偶',keys:{life:{a:'ins_p_life_amt',p:'ins_p_life_prem',y:'ins_p_life_yr'},ci:{a:'ins_p_ci_amt',p:'ins_p_ci_prem',y:'ins_p_ci_yr'},med:{a:'ins_p_med_amt',p:'ins_p_med_prem',y:'ins_p_med_yr'},sav:{a:'ins_p_sav_amt',p:'ins_p_sav_prem',y:'ins_p_sav_yr'},social:'ins_p_social'}},
 
+
+
     {label:'子女',keys:{edu:{a:'ins_k_edu_amt',p:'ins_k_edu_prem',y:'ins_k_edu_yr'},ci:{a:'ins_k_ci_amt',p:'ins_k_ci_prem',y:'ins_k_ci_yr'},med:{a:'ins_k_med_amt',p:'ins_k_med_prem',y:'ins_k_med_yr'}}}
+
+
 
   ];
 
+
+
   const tlbl={life:'人寿险',ci:'重疾险',med:'医疗险',sav:'储蓄/养老险',acc:'意外险',edu:'教育储蓄险'};
+
+
 
   insMembers.forEach(m=>{
 
+
+
     const mp=Object.keys(m.keys).filter(k=>k!=='social').reduce((a,k)=>a+(v(m.keys[k].p)||0),0);
+
+
 
     const mAmt=Object.keys(m.keys).filter(k=>k!=='social').reduce((a,k)=>a+(v(m.keys[k].a)||0),0);
 
+
+
     if(mp===0&&mAmt===0)return;
+
+
 
     html+=`<div style="margin-bottom:18px"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><strong style="color:var(--p)">${m.label}</strong><span style="font-size:.8rem;color:var(--gr)">年保费：${cur} ${fmt(mp)}</span></div>
 
+
+
     <table class="rt"><thead><tr><th>保险类型</th><th style="text-align:right">保额</th><th style="text-align:right">年保费</th><th>缴费年期</th><th>状态</th></tr></thead><tbody>`;
+
+
 
     Object.keys(m.keys).forEach(k=>{
 
+
+
       if(k==='social'){const sv=document.getElementById(m.keys.social)?.value||'';html+=`<tr><td>社保</td><td colspan="2" style="text-align:center">—</td><td>—</td><td><span class="${sv==='有'?'badge-gn':'badge-yw'}">${sv}</span></td></tr>`;}
+
+
 
       else{const amt=v(m.keys[k].a),prem=v(m.keys[k].p),yr=document.getElementById(m.keys[k].y)?.value||'';
 
+
+
         if(amt===0&&prem===0)return;
+
+
 
         html+=`<tr><td>${tlbl[k]||k}</td><td style="text-align:right">${amt>0?amt.toFixed(2)+'万':'—'}</td><td style="text-align:right">${prem>0?fmt(prem):'—'}</td><td>${yr||'—'}</td><td><span class="badge-gn">已配置</span></td></tr>`;}
 
+
+
     });
+
+
 
     html+=`</tbody></table></div>`;
 
+
+
   });
+
+
 
   html+=`<div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(74,111,165,.07);border-radius:8px;font-weight:700">
 
+
+
     <span style="color:var(--p)">🛡️ 家庭年保费合计</span><span style="color:var(--p)">${cur} ${fmt(d.totalPrem)}</span></div>`;
+
+
 
   if(d.lifeCover===0||d.ciCover===0||(d.kpis.lifeR!==null&&d.kpis.lifeR<10&&d.lifeCover>0)||(d.kpis.ciR!==null&&d.kpis.ciR<3&&d.ciCover>0)){
 
+
+
     html+=`<div style="margin-top:10px;padding:11px;background:rgba(231,76,60,.05);border-radius:8px;font-size:.85rem;line-height:1.8;border-left:3px solid var(--rd)">`;
+
+
 
     if(d.lifeCover===0)html+=`⚠️ <strong>人寿险：</strong>尚未配置，建议保额不低于年总收入10倍。<br>`;
 
+
+
     if(d.ciCover===0)html+=`⚠️ <strong>重疾险：</strong>尚未配置，建议保额达到年主动收入300%-500%。<br>`;
+
+
 
     if(d.kpis.lifeR!==null&&d.kpis.lifeR<10&&d.lifeCover>0)html+=`⚠️ <strong>寿险保额不足：</strong>当前为年收入${d.kpis.lifeR.toFixed(1)}倍，建议提升至10-30倍。<br>`;
 
+
+
     if(d.kpis.ciR!==null&&d.kpis.ciR<3&&d.ciCover>0)html+=`⚠️ <strong>重疾保额不足：</strong>当前为年收入${(d.kpis.ciR*100).toFixed(0)}%，建议提升至300%-500%。<br>`;
+
+
 
     html+=`</div>`;
 
+
+
   }
+
+
 
   html+=`</div>`;
 
+
+
   }
+
+
+
+
 
 
 
   // ── 五、生命周期 ──
 
+
+
   html+=`<div class="rs"><h2>🌱 五、家庭生命周期分析</h2><div class="lc-row">`;
+
+
 
   lcData.forEach((lc,i)=>html+=`<div class="lci${i===lcIdx?' active':''}"><div class="lcc">${lc.ic}</div><div class="lcl">${lc.n}</div><div class="lca">${lc.r}</div></div>`);
 
+
+
   html+=`</div><div style="padding:14px;background:linear-gradient(135deg,rgba(74,111,165,.07),rgba(216,167,177,.07));border-radius:11px">
+
+
 
     <strong style="color:var(--p)">📍 当前阶段：${lcData[lcIdx].n}（${lcData[lcIdx].r}）</strong>
 
+
+
     <p style="margin-top:7px;font-size:.88rem;line-height:1.7">${lcSummary[lcIdx]}</p>
 
+
+
   </div></div>`;
+
+
+
+
 
 
 
   // ── 六、KPI绩效指标 ──
 
+
+
   html+=`<div class="rs"><h2>📐 六、家庭财务绩效指标分析</h2><div class="kgrid">`;
+
+
 
   kpiDefs.forEach(def=>{
 
+
+
     const val=d.kpis[def.key];const st=kpiStatus(def.key,val);
+
+
 
     html+=`<div class="kc"><div class="kn">${def.name}</div><div class="kv ${st.cls}">${def.fmtV(val)}</div><div class="kr">合理范围：${def.range}</div><div class="ka">${kpiAnalysis(def.key,val,d)}</div></div>`;
 
+
+
   });
+
+
 
   html+=`</div></div>`;
 
 
 
+
+
+
+
   // ── 七、诊断建议 ──
+
+
 
   const issues=[],sugg=[];
 
+
+
   if(d.kpis.finAssetR!==null&&d.kpis.finAssetR<0.5){issues.push('流动金融资产比例偏低（'+fmtPct(d.kpis.finAssetR)+'），低于50%标准，资产灵活性不足');sugg.push({c:'提升流动资产',cur:fmtPct(d.kpis.finAssetR),tgt:'50%-75%',act:'增加活期存款、货币基金及短期债券配置'});}
+
+
 
   if(d.kpis.wealthFreeR!==null&&d.kpis.wealthFreeR<1){issues.push('被动收入（'+fmt(d.passiveInc)+'）未完全覆盖生活支出（'+fmt(d.livingExp)+'），距财富自由仍有差距');sugg.push({c:'提升被动收入',cur:fmtPct(d.kpis.wealthFreeR),tgt:'≥100%',act:'增加投资性资产，提升租金、股息等被动收入'});}
 
+
+
   if(d.kpis.lifeR!==null&&d.kpis.lifeR<10){issues.push('寿险保额（'+(d.lifeCover/10000).toFixed(0)+'万）仅为年收入'+d.kpis.lifeR.toFixed(1)+'倍，家庭保障不足');sugg.push({c:'提高寿险保障',cur:d.kpis.lifeR.toFixed(1)+'倍',tgt:'10-30倍',act:'增加定期寿险或终身寿险保额至年收入10倍以上'});}
+
+
 
   if(d.kpis.ciR!==null&&d.kpis.ciR<3){issues.push('重疾险保额（'+(d.ciCover/10000).toFixed(0)+'万）不足年收入3倍，个人健康风险敞口大');sugg.push({c:'提高重疾保障',cur:fmtPct(d.kpis.ciR),tgt:'300%-500%',act:'补充重疾险保额至年主动收入3-5倍'});}
 
+
+
   if(d.kpis.emergMths!==null&&d.kpis.emergMths<6){issues.push('应急储备金不足6个月生活支出，抗风险能力偏弱');sugg.push({c:'补足应急储备',cur:d.kpis.emergMths.toFixed(0)+'个月',tgt:'6-12个月',act:'优先将活期存款提升至6个月月支出水平'});}
+
+
 
   if(d.kpis.netWorthGR!==null&&d.kpis.netWorthGR<0.05){issues.push('净资产年增长率偏低（'+fmtPct(d.kpis.netWorthGR)+'），财富增值效率有待提升');sugg.push({c:'提高资产回报率',cur:fmtPct(d.kpis.netWorthGR),tgt:'5%-10%',act:'优化资产配置，增加收益型资产比例'});}
 
+
+
   html+=`<div class="rs"><h2>🔍 七、资产配置诊断及优化建议</h2>`;
+
+
 
   if(issues.length>0){
 
+
+
     html+=`<div style="margin-bottom:14px"><strong style="color:var(--rd)">⚠️ 诊断发现以下问题：</strong><ul style="margin-top:8px;padding-left:18px">`;
+
+
 
     issues.forEach(iss=>html+=`<li style="margin-bottom:6px;font-size:.88rem;line-height:1.6">${iss}</li>`);
 
+
+
     html+=`</ul></div><strong style="color:var(--p)">✅ 优化建议：</strong>
+
+
 
     <table class="rt" style="margin-top:8px"><thead><tr><th>优化方向</th><th>当前水平</th><th>建议目标</th><th>具体行动</th></tr></thead><tbody>`;
 
+
+
     sugg.forEach(s=>html+=`<tr><td><strong>${s.c}</strong></td><td style="color:var(--rd)">${s.cur}</td><td style="color:var(--gn)">${s.tgt}</td><td style="font-size:.83rem">${s.act}</td></tr>`);
+
+
 
     html+=`</tbody></table>`;
 
+
+
   }else{html+=`<div style="padding:14px;background:rgba(39,174,96,.07);border-radius:10px;border-left:3px solid var(--gn)"><strong style="color:var(--gn)">✅ 整体财务状况良好！</strong>各项指标均在合理范围，继续保持良好的财务习惯。</div>`;}
+
+
 
   html+=`</div>`;
 
 
 
+
+
+
+
   // ── 八、行动计划 ──
 
-  const actions=[];
+  // 统一优先级标准（与顾问后台一致）
+  const actItems=[];
 
-  if(d.kpis.emergMths!==null&&d.kpis.emergMths<6)actions.push({a:'补足应急储备金至6个月月支出（约'+fmt(Math.ceil(d.livingExp/2))+'元），存入活期或货币基金',t:'1个月内'});
+  // 应急备用金
+  if(d.kpis.emergMths!==null&&d.kpis.emergMths<3)
+    actItems.push({p:'urgent',icon:'🚨',cat:'应急备用金',a:'应急备用金严重不足（当前'+d.kpis.emergMths.toFixed(1)+'个月），需立即补足至6个月月支出（约'+fmt(Math.ceil(d.livingExp/2*6))+'元），存入活期或货币基金',t:'1个月内'});
+  else if(d.kpis.emergMths!==null&&d.kpis.emergMths<6)
+    actItems.push({p:'high',icon:'⚠️',cat:'应急备用金',a:'应急备用金不足（当前'+d.kpis.emergMths.toFixed(1)+'个月），需补足至6个月月支出，差额约'+fmt(Math.max(0,(6-d.kpis.emergMths)*d.livingExp/12))+'元',t:'3个月内'});
+  else if(d.kpis.emergMths!==null)
+    actItems.push({p:'ok',icon:'✅',cat:'应急备用金',a:'应急备用金充足（'+d.kpis.emergMths.toFixed(1)+'个月），达标',t:''});
 
-  if(d.kpis.lifeR!==null&&d.kpis.lifeR<10)actions.push({a:'联系理财顾问，补充定期寿险，保额不低于年总收入10倍',t:'1个月内'});
+  // 寿险
+  if(d.kpis.lifeR!==null&&d.kpis.lifeR<5)
+    actItems.push({p:'urgent',icon:'🚨',cat:'寿险保障',a:'寿险严重不足（当前'+d.kpis.lifeR.toFixed(1)+'x，标准≥10x），需立即补充定期寿险，建议保额不低于'+fmt(d.totalInc*10)+'元',t:'1个月内'});
+  else if(d.kpis.lifeR!==null&&d.kpis.lifeR<10)
+    actItems.push({p:'high',icon:'⚠️',cat:'寿险保障',a:'寿险保障不足（当前'+d.kpis.lifeR.toFixed(1)+'x，标准≥10x），建议补充定期寿险至年收入10倍',t:'2个月内'});
+  else if(d.kpis.lifeR!==null)
+    actItems.push({p:'ok',icon:'✅',cat:'寿险保障',a:'寿险保障充足（'+d.kpis.lifeR.toFixed(1)+'x），达标',t:''});
 
-  if(d.kpis.ciR!==null&&d.kpis.ciR<3)actions.push({a:'评估重疾险缺口，补充重疾保障至年收入300%-500%',t:'2个月内'});
+  // 重疾
+  if(d.kpis.ciR!==null&&d.kpis.ciR<2)
+    actItems.push({p:'urgent',icon:'🚨',cat:'重疾保障',a:'重疾保障严重不足（当前'+d.kpis.ciR.toFixed(1)+'x，标准≥5x），需立即补充重疾险，建议保额'+fmt(d.totalInc*5)+'元',t:'1个月内'});
+  else if(d.kpis.ciR!==null&&d.kpis.ciR<5)
+    actItems.push({p:'high',icon:'⚠️',cat:'重疾保障',a:'重疾保障不足（当前'+d.kpis.ciR.toFixed(1)+'x，标准≥5x），建议补充重疾保障至年收入300%-500%',t:'2个月内'});
+  else if(d.kpis.ciR!==null)
+    actItems.push({p:'ok',icon:'✅',cat:'重疾保障',a:'重疾保障充足（'+d.kpis.ciR.toFixed(1)+'x），达标',t:''});
 
-  if(d.kpis.wealthFreeR!==null&&d.kpis.wealthFreeR<1)actions.push({a:'制定被动收入提升计划，目标被动收入覆盖100%生活支出',t:'3个月内'});
+  // 债务
+  if(d.kpis.debtR!==null&&d.kpis.debtR>0.5)
+    actItems.push({p:'urgent',icon:'🚨',cat:'债务管理',a:'债务收入比过高（'+(d.kpis.debtR*100).toFixed(0)+'%，警戒线36%），需制定还款优先计划，优先清还高息负债（信用卡、个人贷款）',t:'立即执行'});
+  else if(d.kpis.debtR!==null&&d.kpis.debtR>0.36)
+    actItems.push({p:'high',icon:'⚠️',cat:'债务管理',a:'债务收入比偏高（'+(d.kpis.debtR*100).toFixed(0)+'%），建议制定还款计划，逐步降低至36%以下',t:'3-6个月'});
+  else if(d.kpis.debtR!==null&&d.kpis.debtR>0)
+    actItems.push({p:'ok',icon:'✅',cat:'债务管理',a:'债务收入比健康（'+(d.kpis.debtR*100).toFixed(0)+'%），达标',t:''});
 
-  if(d.kpis.finAssetR!==null&&d.kpis.finAssetR<0.5)actions.push({a:'审视资产结构，评估可变现资产，适当提高金融资产占比',t:'3-6个月'});
+  // 储蓄率
+  if(d.kpis.netSavR!==null&&d.kpis.netSavR<0.05)
+    actItems.push({p:'urgent',icon:'🚨',cat:'储蓄计划',a:'年度储蓄率极低（'+(d.kpis.netSavR*100).toFixed(0)+'%），需立即审视支出结构，建立强制储蓄，目标每月自动转存收入的10%',t:'本月起执行'});
+  else if(d.kpis.netSavR!==null&&d.kpis.netSavR<0.2)
+    actItems.push({p:'high',icon:'⚠️',cat:'储蓄计划',a:'年度储蓄率偏低（'+(d.kpis.netSavR*100).toFixed(0)+'%，目标≥20%），建议审视非必要支出，设置自动储蓄转账',t:'1个月内'});
+  else if(d.kpis.netSavR!==null)
+    actItems.push({p:'ok',icon:'✅',cat:'储蓄计划',a:'年度储蓄率良好（'+(d.kpis.netSavR*100).toFixed(0)+'%），达标',t:''});
 
-  actions.push({a:'建立投资收益记录表，每季度检视资产净值变动及投资回报率',t:'持续执行'});
+  // 金融资产比
+  if(d.kpis.finAssetR!==null&&d.kpis.finAssetR<0.3)
+    actItems.push({p:'medium',icon:'📋',cat:'资产结构',a:'金融资产占比偏低（'+(d.kpis.finAssetR*100).toFixed(0)+'%，目标≥30%），资产过度集中于实物资产，建议逐步提高金融资产比例',t:'3-6个月'});
+
+  // 财富自由
+  if(d.kpis.wealthFreeR!==null&&d.kpis.wealthFreeR<0.3)
+    actItems.push({p:'medium',icon:'📋',cat:'被动收入',a:'财富自由指数极低（'+d.kpis.wealthFreeR.toFixed(2)+'），建议规划被动收入来源（储蓄保单、年金、投资物业），长期目标：被动收入≥生活支出',t:'6-12个月'});
+  else if(d.kpis.wealthFreeR!==null&&d.kpis.wealthFreeR<1)
+    actItems.push({p:'medium',icon:'📋',cat:'被动收入',a:'财富自由指数'+d.kpis.wealthFreeR.toFixed(2)+'，继续提升被动收入，目标覆盖100%生活支出',t:'3-6个月'});
+  else if(d.kpis.wealthFreeR!==null&&d.kpis.wealthFreeR>=1)
+    actItems.push({p:'ok',icon:'🌟',cat:'财富自由',a:'财富自由指数达标（'+d.kpis.wealthFreeR.toFixed(2)+'），被动收入已可覆盖生活支出！',t:''});
+
+  // 固定项
+  actItems.push({p:'medium',icon:'📋',cat:'持续追踪',a:'建立投资收益记录表，每季度检视资产净值变动及投资回报率，与理财顾问共同追踪财务进展',t:'持续执行'});
+
+  // 颜色配置
+  const pColor={urgent:'#e74c3c',high:'#e67e22',medium:'#3498db',ok:'#27ae60'};
+  const pBg={urgent:'rgba(231,76,60,0.07)',high:'rgba(230,126,34,0.07)',medium:'rgba(52,152,219,0.07)',ok:'rgba(39,174,96,0.06)'};
+  const pLabel={urgent:'紧急',high:'重要',medium:'建议',ok:'达标'};
+
+  const urgentList=actItems.filter(a=>a.p==='urgent');
+  const highList=actItems.filter(a=>a.p==='high');
+  const mediumList=actItems.filter(a=>a.p==='medium');
+  const okList=actItems.filter(a=>a.p==='ok');
+  const actionList=[...urgentList,...highList,...mediumList];
+  const totalActions=actionList.length;
 
   html+=`<div class="rs"><h2>🎯 八、行动计划</h2>`;
+  if(totalActions>0)html+=`<div style="margin-bottom:10px;font-size:.78rem;color:var(--gr)">共 ${totalActions} 项待处理事项</div>`;
 
-  actions.forEach((item,i)=>html+=`<div class="act-item"><div class="act-num">${i+1}</div><div style="flex:1"><div style="font-size:.88rem;line-height:1.6">${item.a}</div><div style="font-size:.76rem;color:var(--gr);margin-top:3px">⏰ 建议完成时间：${item.t}</div></div></div>`);
+  actionList.forEach(item=>{
+    html+=`<div style="display:flex;gap:10px;padding:11px 13px;margin-bottom:8px;border-radius:10px;background:${pBg[item.p]};border-left:3px solid ${pColor[item.p]}">
+      <div style="font-size:1.1rem;flex-shrink:0">${item.icon}</div>
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span style="font-size:.62rem;font-weight:700;padding:2px 6px;border-radius:8px;background:${pColor[item.p]};color:#fff">${pLabel[item.p]}</span>
+          <span style="font-size:.7rem;color:var(--gr);font-weight:600">${item.cat}</span>
+        </div>
+        <div style="font-size:.84rem;line-height:1.6;color:var(--tx)">${item.a}</div>
+        ${item.t?`<div style="font-size:.72rem;color:var(--gr);margin-top:3px">⏰ 建议完成时间：${item.t}</div>`:''}
+      </div>
+    </div>`;
+  });
+
+  if(okList.length>0){
+    html+=`<div style="margin-top:8px;padding:10px 14px;background:rgba(39,174,96,0.06);border-radius:10px;border:1px solid rgba(39,174,96,0.18)">
+      <div style="font-size:.73rem;font-weight:700;color:#27ae60;margin-bottom:6px">✅ 已达标项目</div>`;
+    okList.forEach(item=>html+=`<div style="font-size:.77rem;color:var(--gr);padding:2px 0">${item.icon} <strong>${item.cat}</strong>：${item.a}</div>`);
+    html+=`</div>`;
+  }
 
   html+=`<div style="margin-top:12px;padding:10px 14px;background:var(--pg);border-radius:8px;font-size:.78rem;color:var(--gr);line-height:1.7">
-
     📌 本报告基于您填写的数据自动生成，仅供参考，不构成投资建议。建议每季度更新数据，与理财顾问共同追踪财务进展。
-
   </div></div>`;
-
-
 
   // ── 渲染 & 图表 ──
 
+
+
   document.getElementById('report_out').innerHTML=html;
+
+
 
   go(8);
 
+
+
   setTimeout(()=>{
+
+
 
     const pieCtx=document.getElementById('cPie');
 
+
+
     const barCtx=document.getElementById('cBar');
+
+
 
     if(pieCtx&&catEntries.length>0){
 
+
+
       charts.pie=new Chart(pieCtx.getContext('2d'),{type:'doughnut',data:{labels:catEntries.map(e=>e[0]),datasets:[{data:catEntries.map(e=>e[1]),backgroundColor:['#4A6FA5','#6CB4A0','#D8A7B1','#C4A882','#8B9DC3','#B5C4D7'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{font:{size:10},padding:8}}}}});
 
+
+
     }
+
+
 
     if(barCtx){
 
+
+
       charts.bar=new Chart(barCtx.getContext('2d'),{type:'bar',data:{labels:['流动性资产','投资性资产','自用性资产','总负债'],datasets:[{label:'金额',data:[d.liquidTotal,d.investTotal,d.personalTotal,d.debtTotal],backgroundColor:['#4A6FA5','#6CB4A0','#D8A7B1','#E74C3C'],borderRadius:6}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(val)=>val>=1e6?(val/1e6).toFixed(1)+'M':val>=1e4?(val/1e4).toFixed(0)+'万':val}}}}});
+
+
 
     }
 
+
+
   },150);
 
+
+
   // 生成报告后显示发送提示
+
   saveToSupabase(d);
+
 }
+
+
 
 // ── Supabase 配置 ──
+
 const SUPA_URL = 'https://harfpcpncdgsseebfsku.supabase.co';
+
 const SUPA_KEY = 'sb_publishable_XU4HW7YIninAmvzGVbs2GA_ejscsrnu';
 
+
+
 async function saveToSupabase(d) {
+
   try {
+
     const payload = {
+
       client_name:       d.name   || '',
+
       client_age:        d.age    || null,
+
       client_job:        d.job    || '',
+
       family_structure:  d.family || '',
+
       risk_level:        d.risk   || '',
+
       goals:             d.goals  || '',
+
       total_assets:      d.totalAssets     || 0,
+
       total_liabilities: d.debtTotal       || 0,
+
       net_assets:        d.netAssets       || 0,
+
       total_income:      d.totalInc        || 0,
+
       total_expense:     d.totalExp        || 0,
+
       net_income:        d.netInc          || 0,
+
       report_data:       d
+
     };
+
     await fetch('https://harfpcpncdgsseebfsku.supabase.co/rest/v1/finance_reports', {
+
       method: 'POST',
+
       headers: {
+
         'Content-Type': 'application/json',
+
         'apikey': 'sb_publishable_XU4HW7YIninAmvzGVbs2GA_ejscsrnu',
+
         'Authorization': 'Bearer sb_publishable_XU4HW7YIninAmvzGVbs2GA_ejscsrnu',
+
         'Prefer': 'return=minimal'
+
       },
+
       body: JSON.stringify(payload)
+
     });
+
   } catch(e) {
+
     console.error('Supabase save error:', e);
+
   }
+
 }
+
+
+
+
 
 
 
 // ── 页面加载 ──
 
+
+
 document.addEventListener('DOMContentLoaded',()=>{
+
+
 
   document.getElementById('i_date').value=new Date().toISOString().split('T')[0];
 
+
+
   loadSaved();
+
+
 
 });
 
 
 
+
+
+
+
 </script>
+
+
 
 </body>
 
+
+
 </html>
+
+
 
