@@ -2466,7 +2466,10 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 
 
 
-<div class="navrow"><button class="btn-s" onclick="go(6)">← 上一步</button><button class="btn-p" onclick="genReport()" style="background:var(--gn);border-color:var(--gn)">📊 生成家庭财务报告</button></div>
+<div class="navrow"><button class="btn-s" onclick="go(6)">← 上一步</button><button class="btn-p" onclick="genReport()" style="background:var(--gn);border-color:var(--gn)">📊 生成家庭财务报告</button>
+
+  <div class="advisor-hint-bar" style="margin-top:20px;padding:12px 16px;background:linear-gradient(90deg,#fffbf0,#fff7e0);border:1px solid #f0d080;border-radius:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.1rem">💡</span><span style="font-size:.85rem;color:#7a5000;font-weight:600">不懂如何填写？专业理财顾问帮你 <strong>1对1 指导</strong></span></div><span style="font-size:.82rem;background:#d4a017;color:#fff;border-radius:50px;padding:5px 14px;font-weight:700;white-space:nowrap">💬 微信：hamigua221</span></div>
+</div>
 
 
 
@@ -2496,8 +2499,2125 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 
   <div class="navrow" style="margin-top:0"><button class="btn-s" onclick="go(7)">← 返回修改</button>
 
-  <div class="advisor-hint-bar" style="margin-top:20px;padding:12px 16px;background:linear-gradient(90deg,#fffbf0,#fff7e0);border:1px solid #f0d080;border-radius:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.1rem">💡</span><span style="font-size:.85rem;color:#7a5000;font-weight:600">不懂如何填写？专业理财顾问帮你 <strong>1对1 指导</strong></span></div><span style="font-size:.82rem;background:#d4a017;color:#fff;border-radius:50px;padding:5px 14px;font-weight:700;white-space:nowrap">💬 微信：hamigua221</span></div>
+  <span style="font-size:.82rem;background:#d4a017;color:#fff;border-radius:50px;padding:5px 14px;font-weight:700;white-space:nowrap">💬 微信：hamigua221</span></div>
 </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+</div><!-- end .wrap -->
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+
+
+
+
+
+
+const SKEY='hfr_v2';
+
+
+
+let autoTimer=null, charts={};
+
+
+
+
+
+
+
+// ── 自动保存 ──
+
+
+
+function autoSave(){clearTimeout(autoTimer);autoTimer=setTimeout(saveNow,500);}
+
+
+
+// ── 月/年支出换算 ──
+
+
+
+function syncExp(srcId, dstId, srcType){
+
+
+
+  const src = parseFloat(document.getElementById(srcId)?.value)||0;
+
+
+
+  const dst = document.getElementById(dstId);
+
+
+
+  if(!dst)return;
+
+
+
+  if(srcType==='m'){ dst.value = src>0 ? (src*12).toFixed(0) : ''; }
+
+
+
+  else { dst.value = src>0 ? (src/12).toFixed(0) : ''; }
+
+
+
+}
+
+
+
+
+
+
+
+// ── 月还款 -> 年还款显示 ──
+
+
+
+function calcAnnualMortg(){
+
+
+
+  const monthly = parseFloat(document.getElementById('d_monthly_mortg')?.value)||0;
+
+
+
+  const annual = monthly * 12;
+
+
+
+  const disp = document.getElementById('d_annual_mortg_display');
+
+
+
+  const hidden = document.getElementById('d_annual_mortg');
+
+
+
+  if(disp) disp.textContent = annual > 0 ? annual.toLocaleString('zh-CN') + ' 元' : '0 元';
+
+
+
+  if(hidden) hidden.value = annual;
+
+
+
+}
+
+
+
+function saveNow(){
+
+
+
+  const data={};
+
+
+
+  document.querySelectorAll('input[id],select[id],textarea[id]').forEach(el=>{if(el.id)data[el.id]=el.value;});
+
+
+
+  localStorage.setItem(SKEY,JSON.stringify(data));
+
+
+
+  const ss=document.getElementById('saveStatus');
+
+
+
+  const now=new Date();
+
+
+
+  const ts=`${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}:${now.getSeconds().toString().padStart(2,'0')}`;
+
+
+
+  if(ss)ss.textContent=`✅ 已保存于 ${ts}，关闭浏览器后数据不会丢失`;
+
+
+
+}
+
+
+
+function loadSaved(){
+
+
+
+  const raw=localStorage.getItem(SKEY);
+
+
+
+  if(!raw)return;
+
+
+
+  try{
+
+
+
+    const data=JSON.parse(raw);
+
+
+
+    Object.keys(data).forEach(id=>{const el=document.getElementById(id);if(el)el.value=data[id];});
+
+
+
+    ['bank','mf','sv','sec','iprop','alt','home','car','mortg','cons','ainc','pinc','lexp','edu','par','fexp','veh'].forEach(calcSub);
+
+
+
+    calcTotalPremium();
+
+
+
+    calcAnnualMortg();
+
+
+
+    const ss=document.getElementById('saveStatus');
+
+
+
+    if(ss)ss.textContent='✅ 已恢复上次保存的数据，继续填写吧';
+
+
+
+  }catch(e){}
+
+
+
+}
+
+
+
+function clearAll(){
+
+
+
+  if(!confirm('确定要清除所有已填写的数据吗？此操作不可撤销。'))return;
+
+
+
+  localStorage.removeItem(SKEY);
+
+
+
+  document.querySelectorAll('input[id],select[id],textarea[id]').forEach(el=>{if(el.tagName==='SELECT')el.selectedIndex=0;else el.value='';});
+
+
+
+  ['bank','mf','sv','sec','iprop','alt','home','car','mortg','cons','ainc','pinc','lexp','edu','par','fexp','veh'].forEach(calcSub);
+
+
+
+  calcTotalPremium();
+
+
+
+  document.getElementById('saveStatus').textContent='数据已清除，请重新填写';
+
+
+
+}
+
+
+
+
+
+
+
+// ── 步骤导航 ──
+
+
+
+let curStep=0;
+
+
+
+function go(n){
+
+
+
+  document.querySelectorAll('.panel').forEach((p,i)=>p.classList.toggle('active',i===n));
+
+
+
+  document.querySelectorAll('.snav').forEach((b,i)=>{
+
+
+
+    b.classList.remove('active','done');
+
+
+
+    if(i===n&&i<8)b.classList.add('active');
+
+
+
+    else if(i<n)b.classList.add('done');
+
+
+
+  });
+
+
+
+  curStep=n;window.scrollTo(0,0);saveNow();
+
+
+
+}
+
+
+
+
+
+
+
+// ── 字段分组 ──
+
+
+
+const GROUPS={
+
+
+
+  bank:['a_cash_demand','a_cash_fixed','a_cash_cd','a_cash_usd'],
+
+
+
+  mf:['a_mf_money','a_mf_bond','a_mf_bank'],
+
+
+
+  sv:['a_sv_self','a_sv_spouse','a_sv_kid'],
+
+
+
+  sec:['a_sec_ashare','a_sec_hkshare','a_sec_usshare','a_sec_fund','a_sec_pe','a_sec_iul'],
+
+
+
+  iprop:['a_ip_hk','a_ip_cn1','a_ip_cn2','a_ip_cn3','a_ip_oversea','a_ip_comm','a_ip_parking'],
+
+
+
+  alt:['a_alt_gold','a_alt_crypto','a_alt_equity','a_alt_art'],
+
+
+
+  home:['a_h_main','a_h_second'],
+
+
+
+  car:['a_c_car1','a_c_car2'],
+
+
+
+  mortg:['d_m_home','d_m_invest','d_m_comm'],
+
+
+
+  cons:['d_c_car','d_c_personal','d_c_cc'],
+
+
+
+  ainc:['inc_w_self_fix','inc_w_self_var','inc_w_spouse','inc_w_biz','inc_w_side'],
+
+
+
+  pinc:['inc_p_hkrent','inc_p_cnrent','inc_p_commrent','inc_p_div','inc_p_int','inc_p_pension','inc_p_annuity','inc_p_other'],
+
+
+
+  lexp:['exp_l_food','exp_l_util','exp_l_cloth','exp_l_comm','exp_l_travel','exp_l_ent'],
+
+
+
+  edu:['exp_e_tuition','exp_e_extra','exp_e_living'],
+
+
+
+  par:['exp_p_parents'],
+
+
+
+  fexp:['exp_f_mortg','exp_f_carloan','exp_f_ins','exp_f_sav'],
+
+
+
+  veh:['exp_v_fuel','exp_v_carins','exp_v_maint']
+
+
+
+};
+
+
+
+
+
+
+
+function v(id){return parseFloat(document.getElementById(id)?.value)||0;}
+
+
+
+function fmt(n){return Number(n).toLocaleString('zh-CN');}
+
+
+
+function fmtPct(n){return(isNaN(n)||!isFinite(n))?'—':((n*100).toFixed(2)+'%');}
+
+
+
+
+
+
+
+const subCache={};
+
+
+
+function calcSub(grp){
+
+
+
+  const ids=GROUPS[grp];if(!ids)return;
+
+
+
+  const sum=ids.reduce((a,id)=>a+v(id),0);
+
+
+
+  subCache[grp]=sum;
+
+
+
+  const el=document.getElementById('sub_'+grp);if(el)el.textContent=fmt(sum);
+
+
+
+  const st=document.getElementById('st_'+grp);if(st)st.textContent='小计：'+fmt(sum);
+
+
+
+  const totMap={liquid:['bank','mf','sv'],invest:['sec','iprop','alt'],personal:['home','car'],debt:['mortg','cons'],income:['ainc','pinc'],exp:['lexp','edu','par','fexp','veh']};
+
+
+
+  const totIds={liquid:'total_liquid',invest:'total_invest',personal:'total_personal',debt:'total_debt',income:'total_income',exp:'total_exp'};
+
+
+
+  Object.keys(totMap).forEach(tot=>{
+
+
+
+    if(totMap[tot].includes(grp)){
+
+
+
+      const total=totMap[tot].reduce((a,g)=>a+(subCache[g]||0),0);
+
+
+
+      const tel=document.getElementById(totIds[tot]);if(tel)tel.textContent=fmt(total);
+
+
+
+    }
+
+
+
+  });
+
+
+
+}
+
+
+
+function calcTotalPremium(){
+
+
+
+  const ids=['ins_s_life_prem','ins_s_ci_prem','ins_s_med_prem','ins_s_sav_prem','ins_s_acc_prem','ins_p_life_prem','ins_p_ci_prem','ins_p_med_prem','ins_p_sav_prem','ins_k_edu_prem','ins_k_ci_prem','ins_k_med_prem'];
+
+
+
+  const total=ids.reduce((a,id)=>a+v(id),0);
+
+
+
+  const el=document.getElementById('ins_total_prem');if(el)el.textContent=fmt(total)+' 元';
+
+
+
+}
+
+
+
+
+
+
+
+// ── 收集数据 ──
+
+
+
+function collectData(){
+
+
+
+  const cur_sym=document.getElementById('i_cur')?.value||'CNY';
+
+
+
+  const age=parseInt(document.getElementById('i_age')?.value)||0;
+
+
+
+  const getG=g=>(GROUPS[g]||[]).reduce((a,id)=>a+v(id),0);
+
+
+
+  const liquidTotal=['bank','mf','sv'].reduce((a,g)=>a+getG(g),0);
+
+
+
+  const investTotal=['sec','iprop','alt'].reduce((a,g)=>a+getG(g),0);
+
+
+
+  const personalTotal=['home','car'].reduce((a,g)=>a+getG(g),0);
+
+
+
+  const totalAssets=liquidTotal+investTotal+personalTotal;
+
+
+
+  const debtTotal=['mortg','cons'].reduce((a,g)=>a+getG(g),0);
+
+
+
+  const netAssets=totalAssets-debtTotal;
+
+
+
+  const activeInc=getG('ainc'), passiveInc=getG('pinc'), totalInc=activeInc+passiveInc;
+
+
+
+  const livingExp=['lexp','edu','par'].reduce((a,g)=>a+getG(g),0);
+
+
+
+  const finExp=['fexp','veh'].reduce((a,g)=>a+getG(g),0);
+
+
+
+  const totalExp=livingExp+finExp;
+
+
+
+  const netInc=totalInc-totalExp;
+
+
+
+  const annualMortg=v('d_annual_mortg')||getG('fexp');
+
+
+
+  const lifeCover=(v('ins_s_life_amt')+v('ins_p_life_amt'))*10000;
+
+
+
+  const ciCover=(v('ins_s_ci_amt')+v('ins_p_ci_amt')+v('ins_k_ci_amt'))*10000;
+
+
+
+  const premIds=['ins_s_life_prem','ins_s_ci_prem','ins_s_med_prem','ins_s_sav_prem','ins_s_acc_prem','ins_p_life_prem','ins_p_ci_prem','ins_p_med_prem','ins_p_sav_prem','ins_k_edu_prem','ins_k_ci_prem','ins_k_med_prem'];
+
+
+
+  const totalPrem=premIds.reduce((a,id)=>a+v(id),0);
+
+
+
+  const assetCat={
+
+
+
+    '财富保值（现金存款）':getG('bank')+getG('mf'),
+
+
+
+    '财富保值（储蓄保单）':getG('sv'),
+
+
+
+    '财富增值（证券投资）':getG('sec'),
+
+
+
+    '另类投资（投资房产）':getG('iprop'),
+
+
+
+    '另类投资（其他）':getG('alt'),
+
+
+
+    '自用性资产':getG('home')+getG('car')
+
+
+
+  };
+
+
+
+  const remain=Math.max(85-age,1);
+
+
+
+  const kpis={
+
+
+
+    absoluteWR:livingExp>0?netAssets/(livingExp*remain):null,
+
+
+
+    wealthFreeR:livingExp>0?passiveInc/livingExp:null,
+
+
+
+    finAssetR:totalAssets>0?liquidTotal/totalAssets:null,
+
+
+
+    debtR:totalAssets>0?debtTotal/totalAssets:0,
+
+
+
+    emergMths:livingExp>0?(getG('bank')+getG('mf'))/(livingExp/12):null,
+
+
+
+    lifeR:(activeInc+passiveInc*0.5)>0?lifeCover/(activeInc+passiveInc*0.5):null,
+
+
+
+    ciR:activeInc>0?ciCover/activeInc:null,
+
+
+
+    debtBurdenR:totalInc>0?annualMortg/totalInc:null,
+
+
+
+    netSavR:totalInc>0?netInc/totalInc:null,
+
+
+
+    netWorthGR:netAssets>0?netInc/netAssets:null
+
+
+
+  };
+
+
+
+  const details={
+
+    assets:{
+
+      cash_demand:v('a_cash_demand'),cash_fixed:v('a_cash_fixed'),cash_cd:v('a_cash_cd'),cash_usd:v('a_cash_usd'),
+
+      mf_money:v('a_mf_money'),mf_bond:v('a_mf_bond'),mf_bank:v('a_mf_bank'),
+
+      sv_self:v('a_sv_self'),sv_spouse:v('a_sv_spouse'),sv_kid:v('a_sv_kid'),
+
+      sec_ashare:v('a_sec_ashare'),sec_hkshare:v('a_sec_hkshare'),sec_usshare:v('a_sec_usshare'),sec_fund:v('a_sec_fund'),sec_pe:v('a_sec_pe'),sec_iul:v('a_sec_iul'),
+
+      ip_hk:v('a_ip_hk'),ip_cn1:v('a_ip_cn1'),ip_cn2:v('a_ip_cn2'),ip_cn3:v('a_ip_cn3'),ip_oversea:v('a_ip_oversea'),ip_comm:v('a_ip_comm'),ip_parking:v('a_ip_parking'),
+
+      alt_gold:v('a_alt_gold'),alt_crypto:v('a_alt_crypto'),alt_equity:v('a_alt_equity'),alt_art:v('a_alt_art'),
+
+      h_main:v('a_h_main'),h_second:v('a_h_second'),c_car1:v('a_c_car1'),c_car2:v('a_c_car2')
+
+    },
+
+    debts:{
+
+      m_home:v('d_m_home'),m_invest:v('d_m_invest'),m_comm:v('d_m_comm'),
+
+      c_car:v('d_c_car'),c_personal:v('d_c_personal'),c_cc:v('d_c_cc'),
+
+      annual_mortg:v('d_annual_mortg')
+
+    },
+
+    income:{
+
+      w_self_fix:v('inc_w_self_fix'),w_self_var:v('inc_w_self_var'),w_spouse:v('inc_w_spouse'),w_biz:v('inc_w_biz'),w_side:v('inc_w_side'),
+
+      p_hkrent:v('inc_p_hkrent'),p_cnrent:v('inc_p_cnrent'),p_commrent:v('inc_p_commrent'),p_div:v('inc_p_div'),p_int:v('inc_p_int'),p_pension:v('inc_p_pension'),p_annuity:v('inc_p_annuity'),p_other:v('inc_p_other')
+
+    },
+
+    expense:{
+
+      l_food:v('exp_l_food'),l_util:v('exp_l_util'),l_cloth:v('exp_l_cloth'),l_comm:v('exp_l_comm'),l_travel:v('exp_l_travel'),l_ent:v('exp_l_ent'),
+
+      e_tuition:v('exp_e_tuition'),e_extra:v('exp_e_extra'),e_living:v('exp_e_living'),
+
+      p_parents:v('exp_p_parents'),
+
+      f_mortg:v('exp_f_mortg'),f_carloan:v('exp_f_carloan'),f_ins:v('exp_f_ins'),f_sav:v('exp_f_sav'),
+
+      v_fuel:v('exp_v_fuel'),v_carins:v('exp_v_carins'),v_maint:v('exp_v_maint')
+
+    },
+
+    insurance:{
+
+      s_life_amt:v('ins_s_life_amt'),s_life_prem:v('ins_s_life_prem'),
+
+      s_ci_amt:v('ins_s_ci_amt'),s_ci_prem:v('ins_s_ci_prem'),
+
+      s_med_amt:v('ins_s_med_amt'),s_med_prem:v('ins_s_med_prem'),
+
+      s_sav_amt:v('ins_s_sav_amt'),s_sav_prem:v('ins_s_sav_prem'),
+
+      s_acc_amt:v('ins_s_acc_amt'),s_acc_prem:v('ins_s_acc_prem'),
+
+      p_life_amt:v('ins_p_life_amt'),p_life_prem:v('ins_p_life_prem'),
+
+      p_ci_amt:v('ins_p_ci_amt'),p_ci_prem:v('ins_p_ci_prem'),
+
+      p_med_amt:v('ins_p_med_amt'),p_med_prem:v('ins_p_med_prem'),
+
+      p_sav_amt:v('ins_p_sav_amt'),p_sav_prem:v('ins_p_sav_prem'),
+
+      k_edu_amt:v('ins_k_edu_amt'),k_edu_prem:v('ins_k_edu_prem'),
+
+      k_ci_amt:v('ins_k_ci_amt'),k_ci_prem:v('ins_k_ci_prem'),
+
+      k_med_amt:v('ins_k_med_amt'),k_med_prem:v('ins_k_med_prem')
+
+    }
+
+  };
+
+  return{name:document.getElementById('i_name')?.value||'客户',job:document.getElementById('i_job')?.value||'',age,cur_sym,family:document.getElementById('i_family')?.value||'',date:document.getElementById('i_date')?.value||'',risk:document.getElementById('i_risk')?.value||'',goals:document.getElementById('i_goals')?.value||'',liquidTotal,investTotal,personalTotal,totalAssets,debtTotal,netAssets,activeInc,passiveInc,totalInc,livingExp,finExp,totalExp,netInc,lifeCover,ciCover,totalPrem,assetCat,kpis,details,getG};
+
+
+
+}
+
+
+
+
+
+
+
+// ── KPI评级 ──
+
+
+
+function kpiStatus(key,val){
+
+
+
+  if(val===null||isNaN(val)||!isFinite(val))return{cls:'kpi-w',badge:'badge-yw',label:'数据不足'};
+
+
+
+  const ok=(a,b)=>val>=a&&val<=b,hi=a=>val>a,lo=a=>val<a;
+
+
+
+  switch(key){
+
+
+
+    case 'absoluteWR': return hi(1)?{cls:'kpi-ok',badge:'badge-gn',label:'良好'}:{cls:'kpi-bd',badge:'badge-rd',label:'不足'};
+
+
+
+    case 'wealthFreeR': return hi(1)?{cls:'kpi-ok',badge:'badge-gn',label:'已实现'}:val>=0.8?{cls:'kpi-w',badge:'badge-yw',label:'接近'}:{cls:'kpi-bd',badge:'badge-rd',label:'不足'};
+
+
+
+    case 'finAssetR': return ok(0.5,0.75)?{cls:'kpi-ok',badge:'badge-gn',label:'合理'}:lo(0.5)?{cls:'kpi-bd',badge:'badge-rd',label:'偏低'}:{cls:'kpi-w',badge:'badge-yw',label:'偏高'};
+
+
+
+    case 'debtR': return val<=0.5?{cls:'kpi-ok',badge:'badge-gn',label:'健康'}:val<=0.7?{cls:'kpi-w',badge:'badge-yw',label:'偏高'}:{cls:'kpi-bd',badge:'badge-rd',label:'危险'};
+
+
+
+    case 'emergMths': return ok(6,12)?{cls:'kpi-ok',badge:'badge-gn',label:'合理'}:lo(6)?{cls:'kpi-bd',badge:'badge-rd',label:'不足'}:{cls:'kpi-w',badge:'badge-yw',label:'偏高'};
+
+
+
+    case 'lifeR': return ok(10,30)?{cls:'kpi-ok',badge:'badge-gn',label:'合理'}:lo(10)?{cls:'kpi-bd',badge:'badge-rd',label:'不足'}:{cls:'kpi-w',badge:'badge-yw',label:'偏高'};
+
+
+
+    case 'ciR': return ok(3,5)?{cls:'kpi-ok',badge:'badge-gn',label:'合理'}:lo(3)?{cls:'kpi-bd',badge:'badge-rd',label:'不足'}:{cls:'kpi-w',badge:'badge-yw',label:'偏高'};
+
+
+
+    case 'debtBurdenR': return val<=0.4?{cls:'kpi-ok',badge:'badge-gn',label:'健康'}:val<=0.5?{cls:'kpi-w',badge:'badge-yw',label:'偏高'}:{cls:'kpi-bd',badge:'badge-rd',label:'危险'};
+
+
+
+    case 'netSavR': return ok(0.3,0.6)?{cls:'kpi-ok',badge:'badge-gn',label:'良好'}:lo(0.3)?{cls:'kpi-bd',badge:'badge-rd',label:'偏低'}:{cls:'kpi-w',badge:'badge-yw',label:'偏高'};
+
+
+
+    case 'netWorthGR': return ok(0.05,0.1)?{cls:'kpi-ok',badge:'badge-gn',label:'良好'}:lo(0.05)?{cls:'kpi-bd',badge:'badge-rd',label:'偏低'}:{cls:'kpi-w',badge:'badge-yw',label:'偏高'};
+
+
+
+    default:return{cls:'kpi-w',badge:'badge-yw',label:'—'};
+
+
+
+  }
+
+
+
+}
+
+
+
+function kpiAnalysis(key,val,d){
+
+
+
+  if(val===null||isNaN(val)||!isFinite(val))return'请补充相关数据后重新生成。';
+
+
+
+  const pct=(val*100).toFixed(1)+'%';
+
+
+
+  switch(key){
+
+
+
+    case 'absoluteWR':return val>=1?`净资产是未来${85-d.age}年生活支出总量的${val.toFixed(1)}倍，财富基础稳固。`:`净资产尚不足以覆盖未来${85-d.age}年生活支出，建议加速积累。`;
+
+
+
+    case 'wealthFreeR':return val>=1?'被动收入已完全覆盖生活支出，恭喜实现财富自由！':val>=0.8?`被动收入覆盖生活支出${pct}，距财富自由仅一步之遥！`:`被动收入仅覆盖生活支出${pct}，建议增加投资性收入来源。`;
+
+
+
+    case 'finAssetR':return val<0.5?`流动金融资产仅占总资产${pct}，低于50%标准，建议适当提高流动性。`:`流动资产占比${pct}，处于合理区间。`;
+
+
+
+    case 'debtR':return val===0?'家庭无负债，财务安全，可考虑适度善用财务杠杆提升效率。':`家庭负债率${pct}，${val<=0.5?'处于健康范围。':'建议控制负债总量。'}`;
+
+
+
+    case 'emergMths':return val>=6&&val<=12?`应急储备${val.toFixed(0)}个月，充裕合理。`:val<6?`应急储备仅${val.toFixed(0)}个月，建议提升至6-12个月。`:`应急储备${val.toFixed(0)}个月，现金留存偏多，可考虑更高效配置。`;
+
+
+
+    case 'lifeR':return val<10?`寿险保额为年收入${val.toFixed(1)}倍，保障不足，建议提高至10-30倍。`:`寿险保额为年收入${val.toFixed(1)}倍，家庭保障充足。`;
+
+
+
+    case 'ciR':return val<3?`重疾保额仅为年收入${pct}，建议提升至300%-500%。`:`重疾保额为年收入${pct}，保障水平良好。`;
+
+
+
+    case 'debtBurdenR':return `年还款额占收入${pct}，${val<=0.4?'还款压力适中，财务稳健。':'还款压力偏大，建议减少负债或提高收入。'}`;
+
+
+
+    case 'netSavR':return `净储蓄率${pct}，${val>=0.3&&val<=0.6?'储蓄率良好，收支平衡健康。':val<0.3?'储蓄率偏低，建议优化支出结构。':'储蓄率较高，可将部分结余投入增值资产。'}`;
+
+
+
+    case 'netWorthGR':return `净值年增长率${pct}，${val>=0.05?'资产增值态势良好。':'资产增长率偏低，建议优化资产配置以提升回报率。'}`;
+
+
+
+    default:return'';
+
+
+
+  }
+
+
+
+}
+
+
+
+
+
+
+
+const lcData=[{n:'单身期',r:'18-30岁',ic:'👤'},{n:'形成期',r:'25-35岁',ic:'👫'},{n:'成长期',r:'30-55岁',ic:'👨‍👩‍👧'},{n:'成熟期',r:'50-65岁',ic:'🏠'},{n:'养老期',r:'60-100岁',ic:'🌅'}];
+
+
+
+const lcSummary=['处于财务起步期，重点：建立应急储备、获取基本保障、开始养老储蓄，避免过度消费。','家庭初建期，经济压力最大，重点：完善保险保障体系，控制负债，建立子女教育专项储蓄。','财富积累黄金期，重点：子女教育基金规划、投资组合多元化、完善养老储备、保险充足达标。','临近退休，重点：确保养老金充足，逐步清偿所有债务，适当降低风险资产比例，规划财富传承。','养老生活期，重点：医疗险为首位，维持稳定被动收入覆盖支出，控制支出节奏，享受生活。'];
+
+
+
+function getLcIdx(age){if(age<25)return 0;if(age<35)return 1;if(age<55)return 2;if(age<65)return 3;return 4;}
+
+
+
+
+
+
+
+// ── 报告样式 ──
+
+
+
+function injectReportCss(){
+
+
+
+  if(document.getElementById('report-css'))return;
+
+
+
+  const s=document.createElement('style');
+
+
+
+  s.id='report-css';
+
+
+
+  s.textContent=`.rs{background:#fff;border-radius:14px;padding:24px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+
+
+
+.rs h2{color:var(--p);font-size:1.1rem;margin-bottom:18px;padding-bottom:9px;border-bottom:2px solid var(--bd);display:flex;align-items:center;gap:6px}
+
+
+
+.rt{width:100%;border-collapse:collapse;font-size:.88rem}
+
+
+
+.rt th{background:var(--p);color:#fff;padding:9px 12px;text-align:left;font-weight:700}
+
+
+
+.rt td{padding:8px 12px;border-bottom:1px solid var(--bd)}
+
+
+
+.rt tr:nth-child(even) td{background:rgba(74,111,165,.04)}
+
+
+
+.rt .tr td{background:rgba(74,111,165,.1);font-weight:700;color:var(--p)}
+
+
+
+.rt .sr td{background:rgba(216,167,177,.1);font-weight:700}
+
+
+
+.rt .gr td{background:linear-gradient(90deg,rgba(74,111,165,.12),rgba(216,167,177,.08));font-weight:700}
+
+
+
+.kgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+
+
+
+@media(max-width:640px){.kgrid{grid-template-columns:1fr 1fr}}
+
+
+
+.kc{background:var(--bg);border-radius:11px;padding:14px;text-align:center;border:1.5px solid var(--bd)}
+
+
+
+.kc .kn{font-size:.75rem;color:var(--gr);margin-bottom:5px;line-height:1.4}
+
+
+
+.kc .kv{font-size:1.35rem;font-weight:700;margin-bottom:3px}
+
+
+
+.kc .kr{font-size:.7rem;color:var(--gr)}
+
+
+
+.kc .ka{font-size:.72rem;line-height:1.4;margin-top:5px;text-align:left;color:var(--tx)}
+
+
+
+.kpi-ok{color:var(--gn)}.kpi-w{color:var(--yw)}.kpi-bd{color:var(--rd)}
+
+
+
+.badge-gn{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:700;background:rgba(39,174,96,.15);color:var(--gn)}
+
+
+
+.badge-rd{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:700;background:rgba(231,76,60,.15);color:var(--rd)}
+
+
+
+.badge-yw{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:700;background:rgba(243,156,18,.15);color:var(--yw)}
+
+
+
+.sum-box{background:linear-gradient(135deg,var(--p),#3a5f95);color:#fff;border-radius:14px;padding:22px;margin-bottom:20px}
+
+
+
+.sum-box h2{color:#fff;margin-bottom:14px}
+
+
+
+.sng{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+
+
+
+@media(max-width:600px){.sng{grid-template-columns:1fr 1fr}}
+
+
+
+.sni{background:rgba(255,255,255,.15);border-radius:9px;padding:11px;text-align:center}
+
+
+
+.sni .snl{font-size:.74rem;opacity:.85;margin-bottom:3px}.sni .snv{font-size:1.25rem;font-weight:700}
+
+
+
+.lc-row{display:flex;justify-content:center;margin:8px 0 18px;gap:0}
+
+
+
+.lci{flex:1;text-align:center;padding:10px 2px;position:relative}
+
+
+
+.lci:not(:last-child)::after{content:"→";position:absolute;right:-5px;top:42%;color:var(--bd);font-size:1rem}
+
+
+
+.lcc{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 5px;font-size:1.4rem;border:2.5px solid var(--bd)}
+
+
+
+.lci.active .lcc{border-color:var(--a);background:var(--a);color:#fff}
+
+
+
+.lci .lcl{font-size:.73rem;font-weight:700}.lci .lca{font-size:.66rem;color:var(--gr)}
+
+
+
+.act-item{display:flex;gap:10px;align-items:flex-start;padding:11px;background:var(--bg);border-radius:9px;margin-bottom:7px}
+
+
+
+.act-num{background:var(--p);color:#fff;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;font-size:.8rem}
+
+
+
+.cht-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:16px}
+
+
+
+@media(max-width:580px){.cht-row{grid-template-columns:1fr}}
+
+
+
+.cht-box{background:var(--bg);border-radius:10px;padding:14px}
+
+
+
+.cht-box h3{font-size:.85rem;color:var(--p);margin-bottom:10px;text-align:center}
+
+
+
+@media print{.step-nav,.save-bar,.navrow,button{display:none!important}.panel{display:block!important}.rs{break-inside:avoid}}`;
+
+
+
+  document.head.appendChild(s);
+
+
+
+}
+
+
+
+
+
+
+
+// ── 主报告生成函数 ──
+
+
+
+function genReport(){
+
+
+
+  const d=collectData();
+
+
+
+  injectReportCss();
+
+
+
+  Object.values(charts).forEach(c=>{try{c.destroy();}catch(e){}});
+
+
+
+  charts={};
+
+
+
+  const cur=d.cur_sym;
+
+
+
+  const lcIdx=getLcIdx(d.age);
+
+
+
+
+
+
+
+  const nameMap={bank:'银行存款',mf:'货币基金&国债',sv:'储蓄型保单',sec:'证券投资',iprop:'投资性房产',alt:'另类投资',home:'自住房产',car:'自用车辆',mortg:'房产抵押贷款',cons:'汽车/消费贷款'};
+
+
+
+  const subLabels={
+
+
+
+    a_cash_demand:'活期存款',a_cash_fixed:'定期存款',a_cash_cd:'大额存单',a_cash_usd:'外币存款',
+
+
+
+    a_mf_money:'货币基金',a_mf_bond:'国债（短期）',a_mf_bank:'银行理财（短期）',
+
+
+
+    a_sv_self:'储蓄保单（本人）',a_sv_spouse:'储蓄保单（配偶）',a_sv_kid:'子女教育保单',
+
+
+
+    a_sec_ashare:'A股股票',a_sec_hkshare:'港股股票',a_sec_usshare:'美股/海外股票',a_sec_fund:'公募基金',a_sec_pe:'私募基金',a_sec_iul:'投连险',
+
+
+
+    a_ip_hk:'香港投资房产',a_ip_cn1:'内地投资房（第1套）',a_ip_cn2:'内地投资房（第2套）',a_ip_cn3:'内地投资房（第3套及以上）',a_ip_oversea:'海外房产',a_ip_comm:'商铺/办公/厂房',a_ip_parking:'车位（投资）',
+
+
+
+    a_alt_gold:'黄金/贵金属',a_alt_crypto:'虚拟货币',a_alt_equity:'股权/公司股份',a_alt_art:'收藏品/艺术品',
+
+
+
+    a_h_main:'自住主房',a_h_second:'自住第二套',a_c_car1:'自用车辆（第1辆）',a_c_car2:'自用车辆（第2辆）',
+
+
+
+    d_m_home:'自住房按揭余额',d_m_invest:'投资房抵押余额',d_m_comm:'商业物业贷款余额',d_c_car:'车贷余额',d_c_personal:'信用/个人贷款',d_c_cc:'信用卡欠款'
+
+
+
+  };
+
+
+
+  const incLabels={inc_w_self_fix:'本人工资（固定）',inc_w_self_var:'本人奖金/佣金',inc_w_spouse:'配偶工资/薪酬',inc_w_biz:'经营/生意收入',inc_w_side:'兼职/自由职业',inc_p_hkrent:'香港房产租金',inc_p_cnrent:'内地房产租金',inc_p_commrent:'商业物业租金',inc_p_div:'股票股息/基金分红',inc_p_int:'存款/债券利息',inc_p_pension:'社保/退休金',inc_p_annuity:'商业年金',inc_p_other:'其他被动收入'};
+
+
+
+  const expLabels={exp_l_food:'家庭伙食/生活用品',exp_l_util:'水电煤/物业费',exp_l_cloth:'服装/美容',exp_l_rent:'房租',exp_l_comm:'交通',exp_l_travel:'旅游度假',exp_l_ent:'娱乐/社交/餐饮',exp_e_tuition:'子女学费/托育费',exp_e_extra:'课外补习/兴趣班',exp_e_living:'子女日常生活费',exp_p_parents:'赡养父母',exp_f_mortg:'房贷月供×12',exp_f_carloan:'车贷月供×12',exp_f_ins:'人寿/重疾险保费',exp_f_sav:'储蓄/教育险保费',exp_v_fuel:'加油/充电费',exp_v_carins:'车辆保险',exp_v_maint:'维修保养'};
+
+
+
+
+
+
+
+  const kpiDefs=[
+
+
+
+    {key:'absoluteWR',name:'绝对财富率',formula:'净资产÷(生活支出×余年)',range:'>100%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'},
+
+
+
+    {key:'wealthFreeR',name:'财富自由率',formula:'被动收入÷生活支出',range:'>100%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'},
+
+
+
+    {key:'finAssetR',name:'金融资产率',formula:'流动资产÷总资产',range:'50%-75%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'},
+
+
+
+    {key:'debtR',name:'家庭负债率',formula:'总负债÷总资产',range:'0%-50%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'},
+
+
+
+    {key:'emergMths',name:'应急能力值',formula:'活期存款÷月均支出',range:'6-12个月',fmtV:v=>v!==null&&isFinite(v)?(v.toFixed(0)+'个月'):'—'},
+
+
+
+    {key:'lifeR',name:'寿险覆盖率',formula:'寿险保额÷年总收入',range:'10-30倍',fmtV:v=>v!==null&&isFinite(v)?(v.toFixed(1)+'倍'):'—'},
+
+
+
+    {key:'ciR',name:'重疾储备率',formula:'重疾保额÷年主动收入',range:'300%-500%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(0)+'%'):'—'},
+
+
+
+    {key:'debtBurdenR',name:'财务负担率',formula:'年还款÷年总收入',range:'20%-40%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'},
+
+
+
+    {key:'netSavR',name:'净储蓄率',formula:'年净结余÷年总收入',range:'30%-60%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'},
+
+
+
+    {key:'netWorthGR',name:'净值增长率',formula:'年净结余÷净资产',range:'5%-10%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'}
+
+
+
+  ];
+
+
+
+
+
+
+
+  let html='';
+
+
+
+
+
+
+
+  // ── 封面摘要 ──
+
+
+
+  html+=`<div class="sum-box">
+
+
+
+    <h2>📋 ${d.name} 家庭财务规划报告</h2>
+
+
+
+    <p style="opacity:.85;font-size:.88rem;margin-bottom:12px">${d.job?d.job+' · ':''}${d.age}岁 · ${d.family} · ${d.date||'—'} · 风险承受度：${d.risk}</p>
+
+
+
+    ${d.goals?`<p style="opacity:.85;font-size:.83rem;margin-bottom:14px">📌 财务目标：${d.goals.split('\n').join(' | ')}</p>`:''}
+
+
+
+    <div class="sng">
+
+
+
+      <div class="sni"><div class="snl">总资产</div><div class="snv">${cur} ${fmt(d.totalAssets)}</div></div>
+
+
+
+      <div class="sni"><div class="snl">净资产</div><div class="snv">${cur} ${fmt(d.netAssets)}</div></div>
+
+
+
+      <div class="sni"><div class="snl">年度总收入</div><div class="snv">${cur} ${fmt(d.totalInc)}</div></div>
+
+
+
+      <div class="sni"><div class="snl">年度总支出</div><div class="snv">${cur} ${fmt(d.totalExp)}</div></div>
+
+
+
+      <div class="sni"><div class="snl">年净结余</div><div class="snv" style="color:${d.netInc>=0?'#a8e6c0':'#ffb3b3'}">${cur} ${fmt(d.netInc)}</div></div>
+
+
+
+      <div class="sni"><div class="snl">总负债</div><div class="snv">${cur} ${fmt(d.debtTotal)}</div></div>
+
+
+
+    </div>
+
+
+
+  </div>`;
+
+
+
+
+
+
+
+  // ── 一、资产负债表 ──
+
+
+
+  const makeAssetRows=(grpKeys,totLabel,totVal)=>{
+
+
+
+    let rows='';
+
+
+
+    grpKeys.forEach(grp=>{
+
+
+
+      const ids=GROUPS[grp];
+
+
+
+      const grpSum=ids.reduce((a,id)=>a+v(id),0);
+
+
+
+      if(grpSum===0)return;
+
+
+
+      rows+=`<tr class="sr"><td colspan="2">${nameMap[grp]||grp}</td><td style="text-align:right">${fmt(grpSum)}</td><td style="text-align:right">${d.totalAssets>0?fmtPct(grpSum/d.totalAssets):'—'}</td></tr>`;
+
+
+
+    });
+
+
+
+    rows+=`<tr class="tr"><td colspan="2">${totLabel}</td><td style="text-align:right;font-size:1rem">${fmt(totVal)}</td><td style="text-align:right">${d.totalAssets>0?fmtPct(totVal/d.totalAssets):'—'}</td></tr>`;
+
+
+
+    return rows;
+
+
+
+  };
+
+
+
+  html+=`<div class="rs"><h2>📊 一、家庭资产负债表</h2>
+
+
+
+    <table class="rt"><thead><tr><th>资产类别</th><th style="text-align:right">金额（${cur}）</th><th style="text-align:right">占总资产比</th></tr></thead>
+
+
+
+    <tbody>${makeAssetRows(['bank','mf','sv'],'✅ 流动性资产合计',d.liquidTotal)}
+
+
+
+    ${makeAssetRows(['sec','iprop','alt'],'✅ 投资性资产合计',d.investTotal)}
+
+
+
+    ${makeAssetRows(['home','car'],'✅ 自用性资产合计',d.personalTotal)}
+
+
+
+    <tr class="gr"><td colspan="2" style="font-size:.95rem">💎 总资产合计</td><td style="text-align:right;font-size:1rem">${fmt(d.totalAssets)}</td><td style="text-align:right">100%</td></tr>
+
+
+
+    </tbody></table><br>
+
+
+
+    <table class="rt"><thead><tr><th>负债类别</th><th style="text-align:right">金额（${cur}）</th><th style="text-align:right">占总资产比</th></tr></thead><tbody>`;
+
+
+
+  const debtGrpMap={mortg:'房产抵押贷款',cons:'汽车/消费贷款'};
+
+
+
+  let hasDebt=false;
+
+
+
+  ['mortg','cons'].forEach(grp=>{const gs=GROUPS[grp].reduce((a,id)=>a+v(id),0);if(gs>0){html+=`<tr class="sr"><td>${debtGrpMap[grp]}</td><td style="text-align:right">${fmt(gs)}</td><td style="text-align:right">${d.totalAssets>0?fmtPct(gs/d.totalAssets):'—'}</td></tr>`;hasDebt=true;}});
+
+
+
+  if(!hasDebt)html+=`<tr><td colspan="3" style="text-align:center;color:var(--gr)">暂无负债记录</td></tr>`;
+
+
+
+  html+=`<tr class="tr"><td colspan="2">📍 总负债合计</td><td style="text-align:right">${fmt(d.debtTotal)}</td><td style="text-align:right">${d.totalAssets>0?fmtPct(d.debtTotal/d.totalAssets):'—'}</td></tr>
+
+
+
+    <tr class="gr"><td colspan="2" style="font-size:.95rem">💚 净资产（总资产 - 总负债）</td><td style="text-align:right;font-size:1rem">${fmt(d.netAssets)}</td><td style="text-align:right">${d.totalAssets>0?fmtPct(d.netAssets/d.totalAssets):'—'}</td></tr>
+
+
+
+    </tbody></table></div>`;
+
+
+
+
+
+
+
+  // ── 二、现金流表（小计版）──
+
+
+
+  html+=`<div class="rs"><h2>💳 二、家庭现金流及收支表</h2>
+
+
+
+    <table class="rt"><thead><tr><th>收入类别</th><th style="text-align:right">年度金额（${cur}）</th><th style="text-align:right">占总收入比</th></tr></thead><tbody>`;
+
+
+
+  [{grp:'ainc',label:'主动收入（工资/经营）'},{grp:'pinc',label:'被动收入（租金/投资）'}].forEach(({grp,label})=>{
+
+
+
+    const gs=GROUPS[grp].reduce((a,id)=>a+v(id),0);
+
+
+
+    if(gs>0) html+=`<tr class="sr"><td>${label}</td><td style="text-align:right">${fmt(gs)}</td><td style="text-align:right">${d.totalInc>0?fmtPct(gs/d.totalInc):'—'}</td></tr>`;
+
+
+
+  });
+
+
+
+  html+=`<tr class="tr"><td>✅ 年度收入总计</td><td style="text-align:right">${fmt(d.totalInc)}</td><td style="text-align:right">100%</td></tr></tbody></table><br>
+
+
+
+    <table class="rt"><thead><tr><th>支出类别</th><th style="text-align:right">年度金额（${cur}）</th><th style="text-align:right">占总支出比</th></tr></thead><tbody>`;
+
+
+
+  [{grp:'lexp',l:'生活支出'},{grp:'edu',l:'子女教育'},{grp:'par',l:'赡养父母'},{grp:'fexp',l:'财务支出（还款/保费）'},{grp:'veh',l:'汽车费用'}].forEach(({grp,l})=>{
+
+
+
+    const gs=GROUPS[grp].reduce((a,id)=>a+v(id),0);
+
+
+
+    if(gs>0) html+=`<tr class="sr"><td>${l}</td><td style="text-align:right">${fmt(gs)}</td><td style="text-align:right">${d.totalExp>0?fmtPct(gs/d.totalExp):'—'}</td></tr>`;
+
+
+
+  });
+
+
+
+  html+=`<tr class="tr"><td>📍 年度支出总计</td><td style="text-align:right">${fmt(d.totalExp)}</td><td style="text-align:right">100%</td></tr>
+
+
+
+    <tr class="gr"><td>💰 年净结余（收入 - 支出）</td><td style="text-align:right;font-size:1rem;color:${d.netInc>=0?'var(--gn)':'var(--rd)'}">${fmt(d.netInc)}</td><td style="text-align:right">${d.totalInc>0?fmtPct(d.netInc/d.totalInc):'—'}</td></tr>
+
+
+
+    </tbody></table></div>`;
+
+
+
+
+
+
+
+  // ── 三、资产分类图表 ──
+
+
+
+  const catEntries=Object.entries(d.assetCat).filter(([k,val])=>val>0);
+
+
+
+  const catTotal=Object.values(d.assetCat).reduce((a,b)=>a+b,0)||1;
+
+
+
+  html+=`<div class="rs"><h2>📈 三、资产分类及分布</h2>
+
+
+
+    <div class="cht-row">
+
+
+
+      <div class="cht-box"><h3>资产类型分布</h3><canvas id="cPie" height="240"></canvas></div>
+
+
+
+      <div class="cht-box"><h3>流动 / 投资 / 自用 对比</h3><canvas id="cBar" height="240"></canvas></div>
+
+
+
+    </div>
+
+
+
+    <table class="rt"><thead><tr><th>资产类别</th><th style="text-align:right">金额（${cur}）</th><th style="text-align:right">占比</th></tr></thead><tbody>`;
+
+
+
+  catEntries.forEach(([k,val])=>html+=`<tr><td>${k}</td><td style="text-align:right">${fmt(val)}</td><td style="text-align:right">${fmtPct(val/catTotal)}</td></tr>`);
+
+
+
+  html+=`<tr class="tr"><td>合计</td><td style="text-align:right">${fmt(catTotal)}</td><td style="text-align:right">100%</td></tr></tbody></table>
+
+
+
+    <div style="margin-top:12px;padding:12px;background:rgba(74,111,165,.06);border-radius:9px;font-size:.85rem;line-height:1.7">
+
+
+
+      <strong style="color:var(--p)">📌 资产配置诊断：</strong>
+
+
+
+      ${(d.investTotal+d.personalTotal)/d.totalAssets>0.85?'资产高度集中于不动产，建议适当分散至金融资产，提升流动性与收益稳定性。':'资产配置基本合理，建议持续关注各类资产占比，保持流动性与收益平衡。'}
+
+
+
+    </div></div>`;
+
+
+
+
+
+
+
+  // ── 四、保险保单 ──
+
+
+
+  if(d.totalPrem>0||(d.lifeCover>0)||(d.ciCover>0)){
+
+
+
+  html+=`<div class="rs"><h2>🛡️ 四、保险保单检视</h2>`;
+
+
+
+  const insMembers=[
+
+
+
+    {label:'本人',keys:{life:{a:'ins_s_life_amt',p:'ins_s_life_prem',y:'ins_s_life_yr'},ci:{a:'ins_s_ci_amt',p:'ins_s_ci_prem',y:'ins_s_ci_yr'},med:{a:'ins_s_med_amt',p:'ins_s_med_prem',y:'ins_s_med_yr'},sav:{a:'ins_s_sav_amt',p:'ins_s_sav_prem',y:'ins_s_sav_yr'},acc:{a:'ins_s_acc_amt',p:'ins_s_acc_prem',y:'ins_s_acc_yr'},social:'ins_s_social'}},
+
+
+
+    {label:'配偶',keys:{life:{a:'ins_p_life_amt',p:'ins_p_life_prem',y:'ins_p_life_yr'},ci:{a:'ins_p_ci_amt',p:'ins_p_ci_prem',y:'ins_p_ci_yr'},med:{a:'ins_p_med_amt',p:'ins_p_med_prem',y:'ins_p_med_yr'},sav:{a:'ins_p_sav_amt',p:'ins_p_sav_prem',y:'ins_p_sav_yr'},social:'ins_p_social'}},
+
+
+
+    {label:'子女',keys:{edu:{a:'ins_k_edu_amt',p:'ins_k_edu_prem',y:'ins_k_edu_yr'},ci:{a:'ins_k_ci_amt',p:'ins_k_ci_prem',y:'ins_k_ci_yr'},med:{a:'ins_k_med_amt',p:'ins_k_med_prem',y:'ins_k_med_yr'}}}
+
+
+
+  ];
+
+
+
+  const tlbl={life:'人寿险',ci:'重疾险',med:'医疗险',sav:'储蓄/养老险',acc:'意外险',edu:'教育储蓄险'};
+
+
+
+  insMembers.forEach(m=>{
+
+
+
+    const mp=Object.keys(m.keys).filter(k=>k!=='social').reduce((a,k)=>a+(v(m.keys[k].p)||0),0);
+
+
+
+    const mAmt=Object.keys(m.keys).filter(k=>k!=='social').reduce((a,k)=>a+(v(m.keys[k].a)||0),0);
+
+
+
+    if(mp===0&&mAmt===0)return;
+
+
+
+    html+=`<div style="margin-bottom:18px"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><strong style="color:var(--p)">${m.label}</strong><span style="font-size:.8rem;color:var(--gr)">年保费：${cur} ${fmt(mp)}</span></div>
+
+
+
+    <table class="rt"><thead><tr><th>保险类型</th><th style="text-align:right">保额</th><th style="text-align:right">年保费</th><th>缴费年期</th><th>状态</th></tr></thead><tbody>`;
+
+
+
+    Object.keys(m.keys).forEach(k=>{
+
+
+
+      if(k==='social'){const sv=document.getElementById(m.keys.social)?.value||'';html+=`<tr><td>社保</td><td colspan="2" style="text-align:center">—</td><td>—</td><td><span class="${sv==='有'?'badge-gn':'badge-yw'}">${sv}</span></td></tr>`;}
+
+
+
+      else{const amt=v(m.keys[k].a),prem=v(m.keys[k].p),yr=document.getElementById(m.keys[k].y)?.value||'';
+
+
+
+        if(amt===0&&prem===0)return;
+
+
+
+        html+=`<tr><td>${tlbl[k]||k}</td><td style="text-align:right">${amt>0?amt.toFixed(2)+'万':'—'}</td><td style="text-align:right">${prem>0?fmt(prem):'—'}</td><td>${yr||'—'}</td><td><span class="badge-gn">已配置</span></td></tr>`;}
+
+
+
+    });
+
+
+
+    html+=`</tbody></table></div>`;
+
+
+
+  });
+
+
+
+  html+=`<div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(74,111,165,.07);border-radius:8px;font-weight:700">
+
+
+
+    <span style="color:var(--p)">🛡️ 家庭年保费合计</span><span style="color:var(--p)">${cur} ${fmt(d.totalPrem)}</span></div>`;
+
+
+
+  if(d.lifeCover===0||d.ciCover===0||(d.kpis.lifeR!==null&&d.kpis.lifeR<10&&d.lifeCover>0)||(d.kpis.ciR!==null&&d.kpis.ciR<3&&d.ciCover>0)){
+
+
+
+    html+=`<div style="margin-top:10px;padding:11px;background:rgba(231,76,60,.05);border-radius:8px;font-size:.85rem;line-height:1.8;border-left:3px solid var(--rd)">`;
+
+
+
+    if(d.lifeCover===0)html+=`⚠️ <strong>人寿险：</strong>尚未配置，建议保额不低于年总收入10倍。<br>`;
+
+
+
+    if(d.ciCover===0)html+=`⚠️ <strong>重疾险：</strong>尚未配置，建议保额达到年主动收入300%-500%。<br>`;
+
+
+
+    if(d.kpis.lifeR!==null&&d.kpis.lifeR<10&&d.lifeCover>0)html+=`⚠️ <strong>寿险保额不足：</strong>当前为年收入${d.kpis.lifeR.toFixed(1)}倍，建议提升至10-30倍。<br>`;
+
+
+
+    if(d.kpis.ciR!==null&&d.kpis.ciR<3&&d.ciCover>0)html+=`⚠️ <strong>重疾保额不足：</strong>当前为年收入${(d.kpis.ciR*100).toFixed(0)}%，建议提升至300%-500%。<br>`;
+
+
+
+    html+=`</div>`;
+
+
+
+  }
+
+
+
+  html+=`</div>`;
+
+
+
+  }
+
+
+
+
+
+
+
+  // ── 五、生命周期 ──
+
+
+
+  html+=`<div class="rs"><h2>🌱 五、家庭生命周期分析</h2><div class="lc-row">`;
+
+
+
+  lcData.forEach((lc,i)=>html+=`<div class="lci${i===lcIdx?' active':''}"><div class="lcc">${lc.ic}</div><div class="lcl">${lc.n}</div><div class="lca">${lc.r}</div></div>`);
+
+
+
+  html+=`</div><div style="padding:14px;background:linear-gradient(135deg,rgba(74,111,165,.07),rgba(216,167,177,.07));border-radius:11px">
+
+
+
+    <strong style="color:var(--p)">📍 当前阶段：${lcData[lcIdx].n}（${lcData[lcIdx].r}）</strong>
+
+
+
+    <p style="margin-top:7px;font-size:.88rem;line-height:1.7">${lcSummary[lcIdx]}</p>
+
+
+
+  </div></div>`;
+
+
+
+
+
+
+
+  // ── 六、KPI绩效指标 ──
+
+
+
+  html+=`<div class="rs"><h2>📐 六、家庭财务绩效指标分析</h2><div class="kgrid">`;
+
+
+
+  kpiDefs.forEach(def=>{
+
+
+
+    const val=d.kpis[def.key];const st=kpiStatus(def.key,val);
+
+
+
+    html+=`<div class="kc"><div class="kn">${def.name}</div><div class="kv ${st.cls}">${def.fmtV(val)}</div><div class="kr">合理范围：${def.range}</div><div class="ka">${kpiAnalysis(def.key,val,d)}</div></div>`;
+
+
+
+  });
+
+
+
+  html+=`</div></div>`;
+
+
+
+
+
+
+
+  // ── 七、诊断建议 ──
+
+
+
+  const issues=[],sugg=[];
+
+
+
+  if(d.kpis.finAssetR!==null&&d.kpis.finAssetR<0.5){issues.push('流动金融资产比例偏低（'+fmtPct(d.kpis.finAssetR)+'），低于50%标准，资产灵活性不足');sugg.push({c:'提升流动资产',cur:fmtPct(d.kpis.finAssetR),tgt:'50%-75%',act:'增加活期存款、货币基金及短期债券配置'});}
+
+
+
+  if(d.kpis.wealthFreeR!==null&&d.kpis.wealthFreeR<1){issues.push('被动收入（'+fmt(d.passiveInc)+'）未完全覆盖生活支出（'+fmt(d.livingExp)+'），距财富自由仍有差距');sugg.push({c:'提升被动收入',cur:fmtPct(d.kpis.wealthFreeR),tgt:'≥100%',act:'增加投资性资产，提升租金、股息等被动收入'});}
+
+
+
+  if(d.kpis.lifeR!==null&&d.kpis.lifeR<10){issues.push('寿险保额（'+(d.lifeCover/10000).toFixed(0)+'万）仅为年收入'+d.kpis.lifeR.toFixed(1)+'倍，家庭保障不足');sugg.push({c:'提高寿险保障',cur:d.kpis.lifeR.toFixed(1)+'倍',tgt:'10-30倍',act:'增加定期寿险或终身寿险保额至年收入10倍以上'});}
+
+
+
+  if(d.kpis.ciR!==null&&d.kpis.ciR<3){issues.push('重疾险保额（'+(d.ciCover/10000).toFixed(0)+'万）不足年收入3倍，个人健康风险敞口大');sugg.push({c:'提高重疾保障',cur:fmtPct(d.kpis.ciR),tgt:'300%-500%',act:'补充重疾险保额至年主动收入3-5倍'});}
+
+
+
+  if(d.kpis.emergMths!==null&&d.kpis.emergMths<6){issues.push('应急储备金不足6个月生活支出，抗风险能力偏弱');sugg.push({c:'补足应急储备',cur:d.kpis.emergMths.toFixed(0)+'个月',tgt:'6-12个月',act:'优先将活期存款提升至6个月月支出水平'});}
+
+
+
+  if(d.kpis.netWorthGR!==null&&d.kpis.netWorthGR<0.05){issues.push('净资产年增长率偏低（'+fmtPct(d.kpis.netWorthGR)+'），财富增值效率有待提升');sugg.push({c:'提高资产回报率',cur:fmtPct(d.kpis.netWorthGR),tgt:'5%-10%',act:'优化资产配置，增加收益型资产比例'});}
+
+
+
+  html+=`<div class="rs"><h2>🔍 七、资产配置诊断及优化建议</h2>`;
+
+
+
+  if(issues.length>0){
+
+
+
+    html+=`<div style="margin-bottom:14px"><strong style="color:var(--rd)">⚠️ 诊断发现以下问题：</strong><ul style="margin-top:8px;padding-left:18px">`;
+
+
+
+    issues.forEach(iss=>html+=`<li style="margin-bottom:6px;font-size:.88rem;line-height:1.6">${iss}</li>`);
+
+
+
+    html+=`</ul></div><strong style="color:var(--p)">✅ 优化建议：</strong>
+
+
+
+    <table class="rt" style="margin-top:8px"><thead><tr><th>优化方向</th><th>当前水平</th><th>建议目标</th><th>具体行动</th></tr></thead><tbody>`;
+
+
+
+    sugg.forEach(s=>html+=`<tr><td><strong>${s.c}</strong></td><td style="color:var(--rd)">${s.cur}</td><td style="color:var(--gn)">${s.tgt}</td><td style="font-size:.83rem">${s.act}</td></tr>`);
+
+
+
+    html+=`</tbody></table>`;
+
+
+
+  }else{html+=`<div style="padding:14px;background:rgba(39,174,96,.07);border-radius:10px;border-left:3px solid var(--gn)"><strong style="color:var(--gn)">✅ 整体财务状况良好！</strong>各项指标均在合理范围，继续保持良好的财务习惯。</div>`;}
+
+
+
+  html+=`</div>`;
+
+
+
+
+
+
+
+  // ── 八、行动计划 ──
+
+  // 统一优先级标准（与顾问后台一致）
+  const actItems=[];
+
+  // 应急备用金
+  if(d.kpis.emergMths!==null&&d.kpis.emergMths<3)
+    actItems.push({p:'urgent',icon:'🚨',cat:'应急备用金',a:'应急备用金严重不足（当前'+d.kpis.emergMths.toFixed(1)+'个月），需立即补足至6个月月支出（约'+fmt(Math.ceil(d.livingExp/2*6))+'元），存入活期或货币基金',t:'1个月内'});
+  else if(d.kpis.emergMths!==null&&d.kpis.emergMths<6)
+    actItems.push({p:'high',icon:'⚠️',cat:'应急备用金',a:'应急备用金不足（当前'+d.kpis.emergMths.toFixed(1)+'个月），需补足至6个月月支出，差额约'+fmt(Math.max(0,(6-d.kpis.emergMths)*d.livingExp/12))+'元',t:'3个月内'});
+  else if(d.kpis.emergMths!==null)
+    actItems.push({p:'ok',icon:'✅',cat:'应急备用金',a:'应急备用金充足（'+d.kpis.emergMths.toFixed(1)+'个月），达标',t:''});
+
+  // 寿险
+  if(d.kpis.lifeR!==null&&d.kpis.lifeR<5)
+    actItems.push({p:'urgent',icon:'🚨',cat:'寿险保障',a:'寿险严重不足（当前'+d.kpis.lifeR.toFixed(1)+'x，标准≥10x），需立即补充定期寿险，建议保额不低于'+fmt(d.totalInc*10)+'元',t:'1个月内'});
+  else if(d.kpis.lifeR!==null&&d.kpis.lifeR<10)
+    actItems.push({p:'high',icon:'⚠️',cat:'寿险保障',a:'寿险保障不足（当前'+d.kpis.lifeR.toFixed(1)+'x，标准≥10x），建议补充定期寿险至年收入10倍',t:'2个月内'});
+  else if(d.kpis.lifeR!==null)
+    actItems.push({p:'ok',icon:'✅',cat:'寿险保障',a:'寿险保障充足（'+d.kpis.lifeR.toFixed(1)+'x），达标',t:''});
+
+  // 重疾
+  if(d.kpis.ciR!==null&&d.kpis.ciR<2)
+    actItems.push({p:'urgent',icon:'🚨',cat:'重疾保障',a:'重疾保障严重不足（当前'+d.kpis.ciR.toFixed(1)+'x，标准≥5x），需立即补充重疾险，建议保额'+fmt(d.totalInc*5)+'元',t:'1个月内'});
+  else if(d.kpis.ciR!==null&&d.kpis.ciR<5)
+    actItems.push({p:'high',icon:'⚠️',cat:'重疾保障',a:'重疾保障不足（当前'+d.kpis.ciR.toFixed(1)+'x，标准≥5x），建议补充重疾保障至年收入300%-500%',t:'2个月内'});
+  else if(d.kpis.ciR!==null)
+    actItems.push({p:'ok',icon:'✅',cat:'重疾保障',a:'重疾保障充足（'+d.kpis.ciR.toFixed(1)+'x），达标',t:''});
+
+  // 债务
+  if(d.kpis.debtR!==null&&d.kpis.debtR>0.5)
+    actItems.push({p:'urgent',icon:'🚨',cat:'债务管理',a:'债务收入比过高（'+(d.kpis.debtR*100).toFixed(0)+'%，警戒线36%），需制定还款优先计划，优先清还高息负债（信用卡、个人贷款）',t:'立即执行'});
+  else if(d.kpis.debtR!==null&&d.kpis.debtR>0.36)
+    actItems.push({p:'high',icon:'⚠️',cat:'债务管理',a:'债务收入比偏高（'+(d.kpis.debtR*100).toFixed(0)+'%），建议制定还款计划，逐步降低至36%以下',t:'3-6个月'});
+  else if(d.kpis.debtR!==null&&d.kpis.debtR>0)
+    actItems.push({p:'ok',icon:'✅',cat:'债务管理',a:'债务收入比健康（'+(d.kpis.debtR*100).toFixed(0)+'%），达标',t:''});
+
+  // 储蓄率
+  if(d.kpis.netSavR!==null&&d.kpis.netSavR<0.05)
+    actItems.push({p:'urgent',icon:'🚨',cat:'储蓄计划',a:'年度储蓄率极低（'+(d.kpis.netSavR*100).toFixed(0)+'%），需立即审视支出结构，建立强制储蓄，目标每月自动转存收入的10%',t:'本月起执行'});
+  else if(d.kpis.netSavR!==null&&d.kpis.netSavR<0.2)
+    actItems.push({p:'high',icon:'⚠️',cat:'储蓄计划',a:'年度储蓄率偏低（'+(d.kpis.netSavR*100).toFixed(0)+'%，目标≥20%），建议审视非必要支出，设置自动储蓄转账',t:'1个月内'});
+  else if(d.kpis.netSavR!==null)
+    actItems.push({p:'ok',icon:'✅',cat:'储蓄计划',a:'年度储蓄率良好（'+(d.kpis.netSavR*100).toFixed(0)+'%），达标',t:''});
+
+  // 金融资产比
+  if(d.kpis.finAssetR!==null&&d.kpis.finAssetR<0.3)
+    actItems.push({p:'medium',icon:'📋',cat:'资产结构',a:'金融资产占比偏低（'+(d.kpis.finAssetR*100).toFixed(0)+'%，目标≥30%），资产过度集中于实物资产，建议逐步提高金融资产比例',t:'3-6个月'});
+
+  // 财富自由
+  if(d.kpis.wealthFreeR!==null&&d.kpis.wealthFreeR<0.3)
+    actItems.push({p:'medium',icon:'📋',cat:'被动收入',a:'财富自由指数极低（'+d.kpis.wealthFreeR.toFixed(2)+'），建议规划被动收入来源（储蓄保单、年金、投资物业），长期目标：被动收入≥生活支出',t:'6-12个月'});
+  else if(d.kpis.wealthFreeR!==null&&d.kpis.wealthFreeR<1)
+    actItems.push({p:'medium',icon:'📋',cat:'被动收入',a:'财富自由指数'+d.kpis.wealthFreeR.toFixed(2)+'，继续提升被动收入，目标覆盖100%生活支出',t:'3-6个月'});
+  else if(d.kpis.wealthFreeR!==null&&d.kpis.wealthFreeR>=1)
+    actItems.push({p:'ok',icon:'🌟',cat:'财富自由',a:'财富自由指数达标（'+d.kpis.wealthFreeR.toFixed(2)+'），被动收入已可覆盖生活支出！',t:''});
+
+  // 固定项
+  actItems.push({p:'medium',icon:'📋',cat:'持续追踪',a:'建立投资收益记录表，每季度检视资产净值变动及投资回报率，与理财顾问共同追踪财务进展',t:'持续执行'});
+
+  // 颜色配置
+  const pColor={urgent:'#e74c3c',high:'#e67e22',medium:'#3498db',ok:'#27ae60'};
+  const pBg={urgent:'rgba(231,76,60,0.07)',high:'rgba(230,126,34,0.07)',medium:'rgba(52,152,219,0.07)',ok:'rgba(39,174,96,0.06)'};
+  const pLabel={urgent:'紧急',high:'重要',medium:'建议',ok:'达标'};
+
+  const urgentList=actItems.filter(a=>a.p==='urgent');
+  const highList=actItems.filter(a=>a.p==='high');
+  const mediumList=actItems.filter(a=>a.p==='medium');
+  const okList=actItems.filter(a=>a.p==='ok');
+  const actionList=[...urgentList,...highList,...mediumList];
+  const totalActions=actionList.length;
+
+  html+=`<div class="rs"><h2>🎯 八、行动计划</h2>`;
+  if(totalActions>0)html+=`<div style="margin-bottom:10px;font-size:.78rem;color:var(--gr)">共 ${totalActions} 项待处理事项</div>`;
+
+  actionList.forEach(item=>{
+    html+=`<div style="display:flex;gap:10px;padding:11px 13px;margin-bottom:8px;border-radius:10px;background:${pBg[item.p]};border-left:3px solid ${pColor[item.p]}">
+      <div style="font-size:1.1rem;flex-shrink:0">${item.icon}</div>
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span style="font-size:.62rem;font-weight:700;padding:2px 6px;border-radius:8px;background:${pColor[item.p]};color:#fff">${pLabel[item.p]}</span>
+          <span style="font-size:.7rem;color:var(--gr);font-weight:600">${item.cat}</span>
+        </div>
+        <div style="font-size:.84rem;line-height:1.6;color:var(--tx)">${item.a}</div>
+        ${item.t?`<div style="font-size:.72rem;color:var(--gr);margin-top:3px">⏰ 建议完成时间：${item.t}</div>`:''}
+      </div>
+    </div>`;
+  });
+
+  if(okList.length>0){
+    html+=`<div style="margin-top:8px;padding:10px 14px;background:rgba(39,174,96,0.06);border-radius:10px;border:1px solid rgba(39,174,96,0.18)">
+      <div style="font-size:.73rem;font-weight:700;color:#27ae60;margin-bottom:6px">✅ 已达标项目</div>`;
+    okList.forEach(item=>html+=`<div style="font-size:.77rem;color:var(--gr);padding:2px 0">${item.icon} <strong>${item.cat}</strong>：${item.a}</div>`);
+    html+=`</div>`;
+  }
+
+  html+=`<div style="margin-bottom:16px;background:linear-gradient(90deg,#fff7e6,#fff3d6);border:1.5px solid #f0c060;border-radius:12px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px"><div style="display:flex;align-items:center;gap:10px"><span style="font-size:1.3rem">🤔</span><div><div style="font-size:.9rem;font-weight:700;color:#7a4f00">看不懂报告？专业顾问为您 1对1 解读</div><div style="font-size:.78rem;color:#a07030;margin-top:2px">深入分析您的财务健康状况，制定个性化优化建议 · <strong>¥199 / 次</strong></div></div></div><div style="background:#d4a017;color:#fff;border-radius:50px;padding:8px 18px;font-size:.84rem;font-weight:700;white-space:nowrap">💬 加微信：hamigua221</div></div>`;
+
+  html+=`<div style="margin-top:12px;padding:10px 14px;background:var(--pg);border-radius:8px;font-size:.78rem;color:var(--gr);line-height:1.7">
+    📌 本报告基于您填写的数据自动生成，仅供参考，不构成投资建议。建议每季度更新数据，与理财顾问共同追踪财务进展。
+  </div>
+
+  <div style="margin-top:28px;background:linear-gradient(135deg,#1a3a5c 0%,#2c5f8a 100%);border-radius:16px;padding:28px 24px;text-align:center;color:#fff;position:relative;overflow:hidden">
+    <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.06)"></div>
+    <div style="position:absolute;bottom:-20px;left:-20px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.04)"></div>
+    <div style="font-size:1.4rem;margin-bottom:6px">👩‍💼</div>
+    <div style="font-size:1.05rem;font-weight:700;margin-bottom:6px;letter-spacing:.5px">数据看完了，但数据背后的故事只有你知道</div>
+    <div style="font-size:.88rem;opacity:.88;line-height:1.7;margin-bottom:18px">每个家庭的财务状况都是独一无二的。<br>我提供 <strong style="color:#f0c060">1对1 专业报告解读</strong>，结合您的实际情况，<br>帮您找到最适合家庭的财务优化路径。</div>
+    <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.3);border-radius:50px;padding:10px 22px;font-size:.92rem;font-weight:600">
+      <span style="font-size:1.1rem">💬</span>
+      <span>加微信预约解读（¥199）：<strong style="color:#f0c060;font-size:1rem;letter-spacing:1px">hamigua221</strong></span>
+    </div>
+    <div style="margin-top:12px;font-size:.75rem;opacity:.65">陳秀娟 Janet Chen · 保誠香港 · 持牌保險顧問 IH5039 · MDRT · COT</div>
+  </div></div>`;
+
+  // ── 渲染 & 图表 ──
+
+
+
+  document.getElementById('report_out').innerHTML=html;
+
+
+
+  go(8);
+
+
+
+  setTimeout(()=>{
+
+
+
+    const pieCtx=document.getElementById('cPie');
+
+
+
+    const barCtx=document.getElementById('cBar');
+
+
+
+    if(pieCtx&&catEntries.length>0){
+
+
+
+      charts.pie=new Chart(pieCtx.getContext('2d'),{type:'doughnut',data:{labels:catEntries.map(e=>e[0]),datasets:[{data:catEntries.map(e=>e[1]),backgroundColor:['#4A6FA5','#6CB4A0','#D8A7B1','#C4A882','#8B9DC3','#B5C4D7'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{font:{size:10},padding:8}}}}});
+
+
+
+    }
+
+
+
+    if(barCtx){
+
+
+
+      charts.bar=new Chart(barCtx.getContext('2d'),{type:'bar',data:{labels:['流动性资产','投资性资产','自用性资产','总负债'],datasets:[{label:'金额',data:[d.liquidTotal,d.investTotal,d.personalTotal,d.debtTotal],backgroundColor:['#4A6FA5','#6CB4A0','#D8A7B1','#E74C3C'],borderRadius:6}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(val)=>val>=1e6?(val/1e6).toFixed(1)+'M':val>=1e4?(val/1e4).toFixed(0)+'万':val}}}}});
+
+
+
+    }
+
+
+
+  },150);
+
+
+
+  // 生成报告后显示发送提示
+
+  saveToSupabase(d);
+
+}
+
+
+
+// ── Supabase 配置 ──
+
+const SUPA_URL = 'https://harfpcpncdgsseebfsku.supabase.co';
+
+const SUPA_KEY = 'sb_publishable_XU4HW7YIninAmvzGVbs2GA_ejscsrnu';
+
+
+
+async function saveToSupabase(d) {
+
+  try {
+
+    const payload = {
+
+      client_name:       d.name   || '',
+
+      client_age:        d.age    || null,
+
+      client_job:        d.job    || '',
+
+      family_structure:  d.family || '',
+
+      risk_level:        d.risk   || '',
+
+      goals:             d.goals  || '',
+
+      total_assets:      d.totalAssets     || 0,
+
+      total_liabilities: d.debtTotal       || 0,
+
+      net_assets:        d.netAssets       || 0,
+
+      total_income:      d.totalInc        || 0,
+
+      total_expense:     d.totalExp        || 0,
+
+      net_income:        d.netInc          || 0,
+
+      report_data:       d
+
+    };
+
+    await fetch('https://harfpcpncdgsseebfsku.supabase.co/rest/v1/finance_reports', {
+
+      method: 'POST',
+
+      headers: {
+
+        'Content-Type': 'application/json',
+
+        'apikey': 'sb_publishable_XU4HW7YIninAmvzGVbs2GA_ejscsrnu',
+
+        'Authorization': 'Bearer sb_publishable_XU4HW7YIninAmvzGVbs2GA_ejscsrnu',
+
+        'Prefer': 'return=minimal'
+
+      },
+
+      body: JSON.stringify(payload)
+
+    });
+
+  } catch(e) {
+
+    console.error('Supabase save error:', e);
+
+  }
+
+}
+
+
+
+
+
+
+
+// ── 页面加载 ──
+
+
+
+document.addEventListener('DOMContentLoaded',()=>{
+
+
+
+  document.getElementById('i_date').value=new Date().toISOString().split('T')[0];
+
+
+
+  loadSaved();
+
+
+
+});
+
+
+
+
+
+
+
+</script>
+
+
+
+</body>
+
+
+
+</html</div>
 
 
 
