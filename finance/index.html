@@ -1694,7 +1694,27 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 
 
 
-        <td class="lbl">水电煤气/物业管理费<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">水电煤、物管费</span></td>
+
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">房租<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">月租金</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_rent_m" placeholder="填月支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_l_rent_m','exp_l_rent','m');calcSub('lexp');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_rent" placeholder="填年支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_l_rent','exp_l_rent_m','y');calcSub('lexp');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+        <td class="lbl">水电煤气/物业管理费<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">水电煤、物管费、通讯费</span></td>
 
 
 
@@ -1726,7 +1746,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 
 
 
-        <td class="lbl">交通通讯（不含车贷）<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">手机费、交通、停车</span></td>
+        <td class="lbl">交通（不含车贷）<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">交通费、停车费</span></td>
 
 
 
@@ -1898,7 +1918,22 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 
 
 
-    </tbody>
+    
+      <tr>
+
+
+
+        <td class="lbl">父母的保险<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">为父母缴交的保险费</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_p_parins_m" placeholder="填月支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_p_parins_m','exp_p_parins','m');calcSub('par');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_p_parins" placeholder="填年支出" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_p_parins','exp_p_parins_m','y');calcSub('par');autoSave()"></td>
+
+
+
+      </tr>
+
+</tbody>
 
 
 
@@ -3616,7 +3651,7 @@ function genReport(){
 
 
 
-  const expLabels={exp_l_food:'家庭伙食/生活用品',exp_l_util:'水电煤/物业费',exp_l_cloth:'服装/美容',exp_l_comm:'交通通讯',exp_l_travel:'旅游度假',exp_l_ent:'娱乐/社交/餐饮',exp_e_tuition:'子女学费/托育费',exp_e_extra:'课外补习/兴趣班',exp_e_living:'子女日常生活费',exp_p_parents:'赡养父母',exp_f_mortg:'房贷月供×12',exp_f_carloan:'车贷月供×12',exp_f_ins:'人寿/重疾险保费',exp_f_sav:'储蓄/教育险保费',exp_v_fuel:'加油/充电费',exp_v_carins:'车辆保险',exp_v_maint:'维修保养'};
+  const expLabels={exp_l_food:'家庭伙食/生活用品',exp_l_util:'水电煤/物业费',exp_l_cloth:'服装/美容',exp_l_rent:'房租',exp_l_comm:'交通',exp_l_travel:'旅游度假',exp_l_ent:'娱乐/社交/餐饮',exp_e_tuition:'子女学费/托育费',exp_e_extra:'课外补习/兴趣班',exp_e_living:'子女日常生活费',exp_p_parents:'赡养父母',exp_f_mortg:'房贷月供×12',exp_f_carloan:'车贷月供×12',exp_f_ins:'人寿/重疾险保费',exp_f_sav:'储蓄/教育险保费',exp_v_fuel:'加油/充电费',exp_v_carins:'车辆保险',exp_v_maint:'维修保养'};
 
 
 
