@@ -3032,11 +3032,11 @@ function collectData(){
 
 
 
-  const livingExp=['lexp','edu','par'].reduce((a,g)=>a+getG(g),0);
+  const livingExp=['lexp','edu','par','veh'].reduce((a,g)=>a+getG(g),0);
 
 
 
-  const finExp=['fexp','veh'].reduce((a,g)=>a+getG(g),0);
+  const finExp=['fexp'].reduce((a,g)=>a+getG(g),0);
 
 
 
@@ -3048,7 +3048,7 @@ function collectData(){
 
 
 
-  const annualMortg=v('d_annual_mortg')||getG('fexp');
+  const annualMortg=v('d_annual_mortg')||0;
 
 
 
@@ -3136,7 +3136,7 @@ function collectData(){
 
 
 
-    debtBurdenR:totalInc>0?annualMortg/totalInc:null,
+    debtBurdenR:(totalInc>0&&annualMortg>0)?annualMortg/totalInc:null,
 
 
 
@@ -3362,7 +3362,7 @@ function kpiAnalysis(key,val,d){
 
 
 
-    case 'debtBurdenR':return `年还款额占收入${pct}，${val<=0.4?'还款压力适中，财务稳健。':'还款压力偏大，建议减少负债或提高收入。'}`;
+    case 'debtBurdenR':return val<=0?'家庭当前无贷款还款压力，财务安全性高。':`年还款额占收入${pct}，${val<=0.4?'还款压力适中，财务稳健。':'还款压力偏大，建议减少负债或提高收入。'}`;
 
 
 
@@ -5149,11 +5149,11 @@ function collectData(){
 
 
 
-  const livingExp=['lexp','edu','par'].reduce((a,g)=>a+getG(g),0);
+  const livingExp=['lexp','edu','par','veh'].reduce((a,g)=>a+getG(g),0);
 
 
 
-  const finExp=['fexp','veh'].reduce((a,g)=>a+getG(g),0);
+  const finExp=['fexp'].reduce((a,g)=>a+getG(g),0);
 
 
 
@@ -5165,7 +5165,7 @@ function collectData(){
 
 
 
-  const annualMortg=v('d_annual_mortg')||getG('fexp');
+  const annualMortg=v('d_annual_mortg')||0;
 
 
 
@@ -5253,7 +5253,7 @@ function collectData(){
 
 
 
-    debtBurdenR:totalInc>0?annualMortg/totalInc:null,
+    debtBurdenR:(totalInc>0&&annualMortg>0)?annualMortg/totalInc:null,
 
 
 
@@ -5479,7 +5479,7 @@ function kpiAnalysis(key,val,d){
 
 
 
-    case 'debtBurdenR':return `年还款额占收入${pct}，${val<=0.4?'还款压力适中，财务稳健。':'还款压力偏大，建议减少负债或提高收入。'}`;
+    case 'debtBurdenR':return val<=0?'家庭当前无贷款还款压力，财务安全性高。':`年还款额占收入${pct}，${val<=0.4?'还款压力适中，财务稳健。':'还款压力偏大，建议减少负债或提高收入。'}`;
 
 
 
