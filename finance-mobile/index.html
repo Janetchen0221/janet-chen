@@ -1789,15 +1789,15 @@ function collectData(){
 
   const activeInc=getG('ainc'), passiveInc=getG('pinc'), totalInc=activeInc+passiveInc;
 
-  const livingExp=['lexp','edu','par'].reduce((a,g)=>a+getG(g),0);
+  const livingExp=['lexp','edu','par','veh'].reduce((a,g)=>a+getG(g),0);
 
-  const finExp=['fexp','veh'].reduce((a,g)=>a+getG(g),0);
+  const finExp=['fexp'].reduce((a,g)=>a+getG(g),0);
 
   const totalExp=livingExp+finExp;
 
   const netInc=totalInc-totalExp;
 
-  const annualMortg=v('d_annual_mortg')||getG('fexp');
+  const annualMortg=v('d_annual_mortg')||0;
 
   const lifeCover=(v('ins_s_life_amt')+v('ins_p_life_amt'))*10000;
 
@@ -1841,7 +1841,7 @@ function collectData(){
 
     ciR:activeInc>0?ciCover/activeInc:null,
 
-    debtBurdenR:totalInc>0?annualMortg/totalInc:null,
+    debtBurdenR:(totalInc>0&&annualMortg>0)?annualMortg/totalInc:null,
 
     netSavR:totalInc>0?netInc/totalInc:null,
 
@@ -1954,7 +1954,7 @@ function kpiAnalysis(key,val,d){
 
     case 'ciR':return val<3?`重疾保额仅为年收入${pct}，建议提升至300%-500%。`:`重疾保额为年收入${pct}，保障水平良好。`;
 
-    case 'debtBurdenR':return `年还款额占收入${pct}，${val<=0.4?'还款压力适中，财务稳健。':'还款压力偏大，建议减少负债或提高收入。'}`;
+    case 'debtBurdenR':return val<=0?'家庭当前无贷款还款压力，财务安全性高。':`年还款额占收入${pct}，${val<=0.4?'还款压力适中，财务稳健。':'还款压力偏大，建议减少负债或提高收入。'}`;
 
     case 'netSavR':return `净储蓄率${pct}，${val>=0.3&&val<=0.6?'储蓄率良好，收支平衡健康。':val<0.3?'储蓄率偏低，建议优化支出结构。':'储蓄率较高，可将部分结余投入增值资产。'}`;
 
@@ -2832,15 +2832,15 @@ function collectData(){
 
   const activeInc=getG('ainc'), passiveInc=getG('pinc'), totalInc=activeInc+passiveInc;
 
-  const livingExp=['lexp','edu','par'].reduce((a,g)=>a+getG(g),0);
+  const livingExp=['lexp','edu','par','veh'].reduce((a,g)=>a+getG(g),0);
 
-  const finExp=['fexp','veh'].reduce((a,g)=>a+getG(g),0);
+  const finExp=['fexp'].reduce((a,g)=>a+getG(g),0);
 
   const totalExp=livingExp+finExp;
 
   const netInc=totalInc-totalExp;
 
-  const annualMortg=v('d_annual_mortg')||getG('fexp');
+  const annualMortg=v('d_annual_mortg')||0;
 
   const lifeCover=(v('ins_s_life_amt')+v('ins_p_life_amt'))*10000;
 
@@ -2884,7 +2884,7 @@ function collectData(){
 
     ciR:activeInc>0?ciCover/activeInc:null,
 
-    debtBurdenR:totalInc>0?annualMortg/totalInc:null,
+    debtBurdenR:(totalInc>0&&annualMortg>0)?annualMortg/totalInc:null,
 
     netSavR:totalInc>0?netInc/totalInc:null,
 
@@ -2997,7 +2997,7 @@ function kpiAnalysis(key,val,d){
 
     case 'ciR':return val<3?`重疾保额仅为年收入${pct}，建议提升至300%-500%。`:`重疾保额为年收入${pct}，保障水平良好。`;
 
-    case 'debtBurdenR':return `年还款额占收入${pct}，${val<=0.4?'还款压力适中，财务稳健。':'还款压力偏大，建议减少负债或提高收入。'}`;
+    case 'debtBurdenR':return val<=0?'家庭当前无贷款还款压力，财务安全性高。':`年还款额占收入${pct}，${val<=0.4?'还款压力适中，财务稳健。':'还款压力偏大，建议减少负债或提高收入。'}`;
 
     case 'netSavR':return `净储蓄率${pct}，${val>=0.3&&val<=0.6?'储蓄率良好，收支平衡健康。':val<0.3?'储蓄率偏低，建议优化支出结构。':'储蓄率较高，可将部分结余投入增值资产。'}`;
 
