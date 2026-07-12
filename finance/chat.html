@@ -59,6 +59,11 @@ html,body{height:100%;font-family:"PingFang SC","Microsoft YaHei",Arial,sans-ser
 .ok-card h3{font-size:17px;font-weight:700;color:var(--green);margin-bottom:6px}
 .ok-card p{font-size:13px;color:var(--text2);line-height:1.65}
 .goto-btn{display:inline-block;margin-top:14px;padding:12px 26px;background:var(--accent);color:#fff;border-radius:12px;font-weight:700;font-size:14px;text-decoration:none}
+
+/* back-to-edit button */
+.back-row{display:flex;flex-wrap:wrap;gap:8px;padding-left:44px;margin-top:6px}
+.back-btn{padding:7px 15px;border-radius:20px;border:1.5px solid #e2e8f0;background:#f8fafc;color:#4a5568;font-size:12px;font-weight:600;cursor:pointer;transition:.15s;white-space:nowrap}
+.back-btn:hover{border-color:var(--accent);color:var(--accent);background:#eff6ff}
 </style>
 </head>
 <body>
@@ -226,6 +231,58 @@ function renderOpts(q,cb){
   });
   c.appendChild(wrap);
   scrollBot();
+}
+
+function showBackButtons(upToIdx) {
+  // Remove existing back-row if any
+  const old = document.getElementById('back-row');
+  if (old) old.remove();
+  if (upToIdx <= 0) return;
+  const c = document.getElementById('chat');
+  const wrap = document.createElement('div');
+  wrap.className = 'back-row';
+  wrap.id = 'back-row';
+  // Show last 3 answered questions as back targets
+  const start = Math.max(0, upToIdx - 3);
+  for (let i = start; i < upToIdx; i++) {
+    const q = QS[i];
+    const answered = d[q.key];
+    if (answered === undefined || answered === '') continue;
+    const btn = document.createElement('button');
+    btn.className = 'back-btn';
+    const shortQ = fillQ(q).replace(/[^\u0000-\u00ff]/g,'').trim().slice(0,14);
+    btn.textContent = '← ' + shortQ + '...';
+    btn.dataset.idx = i;
+    btn.onclick = () => backToQ(i);
+    wrap.appendChild(btn);
+  }
+  if (wrap.children.length > 0) c.appendChild(wrap);
+}
+
+async function backToQ(targetIdx) {
+  // Remove back-row
+  const br = document.getElementById('back-row');
+  if (br) br.remove();
+  // Remove opts-wrap if any
+  const ow = document.getElementById('opts-wrap');
+  if (ow) ow.remove();
+  // Clear answers from targetIdx onwards
+  for (let i = targetIdx; i < QS.length; i++) {
+    delete d[QS[i].key];
+  }
+  // Remove chat messages after the targetIdx AI bubble
+  // Count AI messages: first message pair is at position targetIdx
+  const chat = document.getElementById('chat');
+  const allMsgs = Array.from(chat.querySelectorAll('.msg'));
+  // Each Q generates 1 AI bubble + 1 user bubble = 2 msgs before next Q
+  // Count: targetIdx*2 messages to keep (AI + user for each answered Q)
+  const keepCount = targetIdx * 2;
+  while (chat.children.length > keepCount) {
+    chat.removeChild(chat.lastChild);
+  }
+  saveLocal();
+  qIdx = targetIdx;
+  await askQ(targetIdx);
 }
 
 async function askQ(idx){
