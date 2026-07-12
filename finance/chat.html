@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>家庭财务智能问答 | Janet Chen 专属助手</title>
+<style>
+:root{--accent:#3b82f6;--accent-d:#2563eb;--bg:#f0f4f8;--surface:#fff;--border:#e2e8f0;--text:#1a202c;--text2:#4a5568;--text3:#718096;--green:#10b981;--red:#ef4444;--yellow:#f59e0b;--radius:18px}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;font-family:"PingFang SC","Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.6}
+.topbar{position:fixed;top:0;left:0;right:0;height:56px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:100;box-shadow:0 1px 8px rgba(0,0,0,.06)}
+.topbar-logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px}
+.logo-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#8b5cf6);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:700}
+.topbar-switch{font-size:13px;color:var(--accent);text-decoration:none;padding:6px 14px;border:1.5px solid var(--accent);border-radius:20px;transition:.15s;white-space:nowrap}
+.topbar-switch:hover{background:var(--accent);color:#fff}
+.prog-wrap{position:fixed;top:56px;left:0;right:0;background:var(--surface);padding:10px 16px;z-index:99;border-bottom:1px solid var(--border)}
+.prog-label{font-size:12px;color:var(--text3);margin-bottom:6px;display:flex;justify-content:space-between}
+.prog-bar{height:5px;background:#e2e8f0;border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),#8b5cf6);border-radius:99px;transition:width .4s ease}
+.chat-wrap{position:fixed;top:112px;left:0;right:0;bottom:80px;overflow-y:auto;padding:16px 16px 8px;display:flex;flex-direction:column;gap:12px}
+.msg{display:flex;gap:10px;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.msg.ai{align-self:flex-start;max-width:88%}
+.msg.user{align-self:flex-end;flex-direction:row-reverse;max-width:80%}
+.msg-av{width:34px;height:34px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+.msg.ai .msg-av{background:linear-gradient(135deg,#3b82f6,#8b5cf6);color:#fff}
+.msg.user .msg-av{background:#e2e8f0;color:var(--text2)}
+.bubble{padding:11px 15px;border-radius:18px;font-size:14px;line-height:1.65;word-break:break-word}
+.msg.ai .bubble{background:var(--surface);border:1px solid var(--border);border-top-left-radius:4px}
+.msg.user .bubble{background:var(--accent);color:#fff;border-top-right-radius:4px}
+.typing{display:inline-flex;gap:4px;padding:4px 2px}
+.typing span{width:7px;height:7px;border-radius:50%;background:var(--text3);animation:blink 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.2}40%{opacity:1}}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;padding-left:44px}
+.opt-btn{padding:8px 16px;border-radius:20px;border:1.5px solid var(--accent);background:#fff;color:var(--accent);font-size:13px;font-weight:600;cursor:pointer;transition:.15s;white-space:nowrap}
+.opt-btn:hover,.opt-btn.sel{background:var(--accent);color:#fff}
+.input-wrap{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);padding:10px 16px;z-index:100}
+.input-row{display:flex;gap:10px;align-items:center}
+.input-row input{flex:1;padding:11px 16px;border:1.5px solid var(--border);border-radius:24px;font-size:14px;outline:none;font-family:inherit;transition:.15s;background:var(--bg)}
+.input-row input:focus{border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+.input-row input:disabled{opacity:.45;cursor:not-allowed}
+.send-btn{width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;transition:.15s}
+.send-btn:hover{background:var(--accent-d)}
+.send-btn:disabled{background:#c0cfe8;cursor:not-allowed}
+.hint{font-size:11px;color:var(--text3);text-align:center;margin-top:5px}
+.sumcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;margin:4px 0;font-size:13px}
+.sumcard-t{font-weight:700;font-size:14px;margin-bottom:10px}
+.sumrow{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f0f4f8}
+.sumrow:last-child{border-bottom:none}
+.sumrow .v{font-weight:700}
+.sumrow .v.pos{color:var(--green)}.sumrow .v.neg{color:var(--red)}
+.submit-area{padding-left:44px;margin-top:10px}
+.submit-btn{width:100%;padding:14px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);color:#fff;border:none;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;transition:.15s;letter-spacing:.3px}
+.submit-btn:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(59,130,246,.35)}
+.submit-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.ok-card{background:linear-gradient(135deg,#ecfdf5,#eff6ff);border:1.5px solid #6ee7b7;border-radius:16px;padding:20px;text-align:center}
+.ok-icon{font-size:44px;margin-bottom:10px}
+.ok-card h3{font-size:17px;font-weight:700;color:var(--green);margin-bottom:6px}
+.ok-card p{font-size:13px;color:var(--text2);line-height:1.65}
+.goto-btn{display:inline-block;margin-top:14px;padding:12px 26px;background:var(--accent);color:#fff;border-radius:12px;font-weight:700;font-size:14px;text-decoration:none}
+</style>
+</head>
+<body>
+<!-- topbar -->
+<div class="topbar">
+  <div class="topbar-logo">
+    <div class="logo-av">J</div>
+    <div><div style="font-weight:700;font-size:14px">Janet Chen 助手</div><div style="font-size:11px;color:var(--text3)">家庭财务智能问答</div></div>
+  </div>
+  <a href="https://janetchen0221.github.io/janet-chen/finance/" class="topbar-switch">切换表单模式 →</a>
+</div>
+<!-- progress -->
+<div class="prog-wrap">
+  <div class="prog-label"><span id="pt">第 1 步，共 7 步</span><span id="pp">14%</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="pf" style="width:14%"></div></div>
+</div>
+<!-- chat -->
+<div class="chat-wrap" id="chat"></div>
+<!-- input -->
+<div class="input-wrap">
+  <div class="input-row">
+    <input type="text" id="inp" placeholder="请输入您的回答..." autocomplete="off">
+    <button class="send-btn" id="sbtn" onclick="send()">&#10148;</button>
+  </div>
+  <div class="hint">由 Janet Chen 助手提供·数据完全保密</div>
+</div>
+
+<script>
+const SUPA_URL='https://harfpcpncdgsseebfsku.supabase.co';
+const SUPA_KEY='sb_publishable_XU4HW7YIninAmvzGVbs2GA_ejscsrnu';
+const SKEY='hfr_chat_v1';
+let d={},qIdx=0,waiting=false;
+
+const STEPS=[
+  {label:'基本信息',pct:14},
+  {label:'流动资产',pct:28},
+  {label:'投资资产',pct:42},
+  {label:'自用资产',pct:57},
+  {label:'负债',pct:71},
+  {label:'收入',pct:85},
+  {label:'支出',pct:100}
+];
+
+const QS=[
+  // step 0 basic
+  {step:0,key:'name',q:'您好！我是 Janet 的 AI 理财助手 👋 接下来我会用几个简单的问题，帮您梳理家庭财务状况，大约需要 10-15 分钟。请问您的姓名是？',type:'text',placeholder:'例如：Emily'},
+  {step:0,key:'age',q:'您好 ${name}！请问您的年龄是？',type:'number',placeholder:'例如：35',min:18,max:90},
+  {step:0,key:'job',q:'您目前的职业是？',type:'text',placeholder:'例如：企业主管'},
+  {step:0,key:'family',q:'您的家庭结构是？',type:'choice',opts:['单身（1人）','固定伴侣（无子女）','夫妻+1个孩子','夫妻+2个孩子','夫妻+3个孩子','其他']},
+  {step:0,key:'risk',q:'您的风险承受度是？',type:'choice',opts:['保守型—尽量保本','稳健型—平衡收益与风险','积极型—接受较大波动']},
+  {step:0,key:'goals',q:'您目前最主要的财务目标是什么？',type:'text',placeholder:'例如：子女教育、养老规划、提前退休'},
+  // step 1 liquid
+  {step:1,key:'cash_demand',q:'好，资产部分我们慢慢来 💰 首先是流动资产。您的銀行活期存款有多少？（元）',type:'number',placeholder:'没有填 0',min:0},
+  {step:1,key:'cash_fixed',q:'銀行定期存款（元）',type:'number',placeholder:'没有填 0',min:0},
+  {step:1,key:'cash_fund',q:'货币基金 / 债券基金 / 销售汇款（元）',type:'number',placeholder:'没有填 0',min:0},
+  {step:1,key:'sav_policy',q:'储蓄型保单现金价値（本人+配偶+子女合计，元）',type:'number',placeholder:'没有填 0',min:0},
+  // step 2 invest
+  {step:2,key:'securities',q:'接下来是投资资产 📈 股票 / 基金 / 证券账户总市値（元）',type:'number',placeholder:'没有填 0',min:0},
+  {step:2,key:'inv_prop',q:'投资性房产总价値（元）',type:'number',placeholder:'没有填 0',min:0},
+  {step:2,key:'alt',q:'黄金 / 加密货币 / 其他另类投资（元）',type:'number',placeholder:'没有填 0',min:0},
+  // step 3 personal
+  {step:3,key:'home',q:'自用资产 🏠 自住房产估値（元）',type:'number',placeholder:'没有填 0',min:0},
+  {step:3,key:'car',q:'自用车辆估値（元）',type:'number',placeholder:'没有填 0',min:0},
+  // step 4 debt
+  {step:4,key:'mortg',q:'负债方面 📋 扎实了负债才能算出净资产。房贷余额（元）',type:'number',placeholder:'没有填 0',min:0},
+  {step:4,key:'monthly_mortg',q:'每月房贷月供（元/月）',type:'number',placeholder:'没有填 0',min:0},
+  {step:4,key:'car_loan',q:'车贷余额（元）',type:'number',placeholder:'没有填 0',min:0},
+  {step:4,key:'consumer',q:'信用卡 / 消费贷余额（元）',type:'number',placeholder:'没有填 0',min:0},
+  // step 5 income
+  {step:5,key:'inc_self',q:'收入方面 💵 本人工资 / 薪酬（税后，元/年）',type:'number',placeholder:'例如：240000',min:0},
+  {step:5,key:'inc_spouse',q:'配偶收入（元/年）',type:'number',placeholder:'没有填 0',min:0},
+  {step:5,key:'inc_passive',q:'被动收入（租金+股息+利息等合计，元/年）',type:'number',placeholder:'没有填 0',min:0},
+  // step 6 expense
+  {step:6,key:'exp_living',q:'支出方面 🛒 日常生活支出（衣食住行，元/年）',type:'number',placeholder:'例如：120000',min:0},
+  {step:6,key:'exp_edu',q:'子女教育支出（元/年）',type:'number',placeholder:'没有填 0',min:0},
+  {step:6,key:'exp_ins',q:'保险保费合计（元/年）',type:'number',placeholder:'没有填 0',min:0},
+  {step:6,key:'exp_parents',q:'赡养父母支出（元/年）',type:'number',placeholder:'没有填 0',min:0}
+];
+</script>
+
+<script>
+function fmt(n){return Number(n||0).toLocaleString('zh-CN');}
+function scrollBot(){const c=document.getElementById('chat');c.scrollTop=c.scrollHeight;}
+
+function addMsg(type,html,id){
+  const c=document.getElementById('chat');
+  const w=document.createElement('div');
+  w.className='msg '+type;
+  if(id)w.id=id;
+  const av=document.createElement('div');
+  av.className='msg-av';
+  av.textContent=type==='ai'?'J':'我';
+  const b=document.createElement('div');
+  b.className='bubble';
+  b.innerHTML=html;
+  w.appendChild(av);w.appendChild(b);
+  c.appendChild(w);
+  scrollBot();
+  return w;
+}
+
+function showTyping(){
+  return addMsg('ai','<div class="typing"><span></span><span></span><span></span></div>','typing-el');
+}
+function removeTyping(){const el=document.getElementById('typing-el');if(el)el.remove();}
+
+function aiMsg(html,delay=600){
+  return new Promise(res=>{
+    const t=showTyping();
+    setTimeout(()=>{
+      removeTyping();
+      addMsg('ai',html);
+      res();
+    },delay);
+  });
+}
+
+function userMsg(text){
+  addMsg('user',escHtml(text));
+}
+
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function setInput(enabled,placeholder){
+  const inp=document.getElementById('inp');
+  const btn=document.getElementById('sbtn');
+  inp.disabled=!enabled;
+  btn.disabled=!enabled;
+  if(placeholder)inp.placeholder=placeholder;
+  if(enabled)setTimeout(()=>inp.focus(),100);
+}
+
+function updateProgress(stepIdx){
+  const s=STEPS[Math.min(stepIdx,STEPS.length-1)];
+  document.getElementById('pt').textContent='第 '+(stepIdx+1)+' 步，共 7 步';
+  document.getElementById('pp').textContent=s.pct+'%';
+  document.getElementById('pf').style.width=s.pct+'%';
+}
+
+function fillQ(q){
+  let text=q.q;
+  // replace ${name}
+  if(d.name)text=text.replace('${name}',d.name);
+  return text;
+}
+
+function renderOpts(q,cb){
+  const c=document.getElementById('chat');
+  const wrap=document.createElement('div');
+  wrap.className='opts';
+  wrap.id='opts-wrap';
+  q.opts.forEach(opt=>{
+    const btn=document.createElement('button');
+    btn.className='opt-btn';
+    btn.textContent=opt;
+    btn.onclick=()=>{
+      document.querySelectorAll('.opt-btn').forEach(b=>b.classList.remove('sel'));
+      btn.classList.add('sel');
+      setTimeout(()=>{
+        wrap.remove();
+        cb(opt);
+      },200);
+    };
+    wrap.appendChild(btn);
+  });
+  c.appendChild(wrap);
+  scrollBot();
+}
+
+async function askQ(idx){
+  if(idx>=QS.length){await showSummary();return;}
+  const q=QS[idx];
+  updateProgress(q.step);
+  setInput(false,'');
+  await aiMsg(escHtml(fillQ(q)));
+  if(q.type==='choice'){
+    renderOpts(q,async(val)=>{
+      userMsg(val);
+      d[q.key]=val;
+      saveLocal();
+      qIdx=idx+1;
+      await askQ(qIdx);
+    });
+  } else {
+    const ph=q.placeholder||'';
+    setInput(true,ph);
+    document.getElementById('inp').dataset.qidx=idx;
+  }
+}
+
+async function send(){
+  const inp=document.getElementById('inp');
+  const val=inp.value.trim();
+  if(!val)return;
+  const idx=parseInt(inp.dataset.qidx||'0');
+  const q=QS[idx];
+  if(!q)return;
+  if(q.type==='number'){
+    const n=parseFloat(val);
+    if(isNaN(n)||n<(q.min||0)){await aiMsg('请输入有效的数字 &#128516;',400);return;}
+    d[q.key]=n;
+  } else {
+    d[q.key]=val;
+  }
+  userMsg(val);
+  inp.value='';
+  setInput(false,'');
+  saveLocal();
+  qIdx=idx+1;
+  await askQ(qIdx);
+}
+
+document.getElementById('inp').addEventListener('keydown',e=>{if(e.key==='Enter')send();});
+
+function saveLocal(){
+  try{localStorage.setItem(SKEY,JSON.stringify({d,qIdx}));}catch(e){}
+}
+function loadLocal(){
+  try{
+    const s=localStorage.getItem(SKEY);
+    if(s){const p=JSON.parse(s);d=p.d||{};qIdx=p.qIdx||0;return true;}
+  }catch(e){}
+  return false;
+}
+
+async function showSummary(){
+  updateProgress(6);
+  setInput(false,'正在生成报告...');
+  const liq=(d.cash_demand||0)+(d.cash_fixed||0)+(d.cash_fund||0)+(d.sav_policy||0);
+  const inv=(d.securities||0)+(d.inv_prop||0)+(d.alt||0);
+  const per=(d.home||0)+(d.car||0);
+  const totalA=liq+inv+per;
+  const totalL=(d.mortg||0)+(d.car_loan||0)+(d.consumer||0);
+  const netA=totalA-totalL;
+  const totalI=(d.inc_self||0)+(d.inc_spouse||0)+(d.inc_passive||0);
+  const totalE=(d.exp_living||0)+(d.exp_edu||0)+(d.exp_ins||0)+(d.exp_parents||0)+(d.monthly_mortg||0)*12;
+  const netI=totalI-totalE;
+  d._totalA=totalA;d._totalL=totalL;d._netA=netA;
+  d._totalI=totalI;d._totalE=totalE;d._netI=netI;
+  const cls=v=>v>=0?'pos':'neg';
+  const sumHtml=`<div class="sumcard">
+  <div class="sumcard-t">&#128202; 您的财务概览</div>
+  <div class="sumrow"><span class="l">总资产</span><span class="v">${fmt(totalA)} 元</span></div>
+  <div class="sumrow"><span class="l">总负债</span><span class="v ${cls(-totalL)}">${fmt(totalL)} 元</span></div>
+  <div class="sumrow"><span class="l">净资产</span><span class="v ${cls(netA)}">${fmt(netA)} 元</span></div>
+  <div class="sumrow"><span class="l">年收入</span><span class="v">${fmt(totalI)} 元</span></div>
+  <div class="sumrow"><span class="l">年支出</span><span class="v ${cls(-totalE)}">${fmt(totalE)} 元</span></div>
+  <div class="sumrow"><span class="l">年结余</span><span class="v ${cls(netI)}">${fmt(netI)} 元</span></div>
+  <div class="sumrow"><span class="l">月结余</span><span class="v ${cls(netI)}">${fmt(netI/12)} 元</span></div>
+  </div>`;
+  await aiMsg('太棒了！信息收集完毕 ✅ 这是您的初步财务概览：'+sumHtml,800);
+  // submit button
+  const c=document.getElementById('chat');
+  const sa=document.createElement('div');
+  sa.className='submit-area';
+  sa.innerHTML=`<button class="submit-btn" id="submit-btn" onclick="submitReport()">生成我的财务报告 &#10148;</button>`;
+  c.appendChild(sa);
+  scrollBot();
+}
+
+async function submitReport(){
+  const btn=document.getElementById('submit-btn');
+  btn.disabled=true;
+  btn.textContent='提交中...';
+  const payload={
+    client_name:d.name||'',
+    client_age:parseInt(d.age)||null,
+    client_job:d.job||'',
+    family_structure:d.family||'',
+    risk_level:d.risk||'',
+    goals:d.goals||'',
+    total_assets:d._totalA||0,
+    total_liabilities:d._totalL||0,
+    net_assets:d._netA||0,
+    total_income:d._totalI||0,
+    total_expense:d._totalE||0,
+    net_income:d._netI||0,
+    report_data:d
+  };
+  try{
+    const r=await fetch(SUPA_URL+'/rest/v1/finance_reports',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Prefer':'return=minimal'},
+      body:JSON.stringify(payload)
+    });
+    if(r.ok||r.status===201){
+      localStorage.removeItem(SKEY);
+      btn.closest('.submit-area').remove();
+      const okHtml=`<div class="ok-card"><div class="ok-icon">&#127881;</div><h3>报告已生成！</h3><p>${d.name||'您好'}，您的财务信息已安全保存。Janet 会尽快联系您，为您制作专属财务规划报告 &#128522;</p><a href="https://janetchen0221.github.io/janet-chen/finance/" class="goto-btn">查看详细表单 →</a></div>`;
+      addMsg('ai',okHtml);
+      setInput(false,'已完成');
+      scrollBot();
+    } else {
+      throw new Error('status '+r.status);
+    }
+  }catch(e){
+    btn.disabled=false;
+    btn.textContent='重新提交';
+    addMsg('ai','提交时遇到问题，请点击重新提交或联系 Janet 处理 &#128591;');
+  }
+}
+
+// init
+window.addEventListener('DOMContentLoaded', async()=>{
+  const resumed=loadLocal();
+  if(resumed && qIdx>0){
+    setInput(false,'');
+    await aiMsg('欢迎回来 👋 您之前已填写到第 '+(qIdx+1)+' 题，继续吧！',400);
+    await askQ(qIdx);
+  } else {
+    d={}; qIdx=0;
+    await askQ(0);
+  }
+});
+</script>
+</body>
+</html>
