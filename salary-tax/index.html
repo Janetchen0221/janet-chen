@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>棣欐腐钖扛绋呰▓绠楀櫒 2026/27 | 鍏嶇▍椤嶃兓绱€茬▍鐜囥兓MPF鎵ｉ櫎 | Janet Chen</title>
+<meta name="description" content="鍏嶈不棣欐腐钖扛绋呰▓绠楀櫒锛?026/27 瑾茬▍骞村害锛夈€傝几鍏ュ勾鏀跺叆銆佸厤绋呴鍙婃墸闄ら爡鐩紝鑷嫊姣旇純绱€茬▍鐜囪垏妯欐簴绋呯巼锛屽嵆鏅備及绠楁噳绻宠柂淇哥▍銆傜敱鎸佺墝鐞嗚病椤у晱闄崇濞?Janet Chen 鎻愪緵銆? />
+<meta name="keywords" content="棣欐腐钖扛绋?钖扛绋呰▓绠楀櫒,2026/27,鍏嶇▍椤?绱€茬▍鐜?妯欐簴绋呯巼,寮风閲?MPF鎵ｉ櫎,绋呮瀵笡,鐞嗚病椤у晱,闄崇濞?Janet Chen" />
+<meta name="author" content="Janet Chen Xiujuan" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://janetchen0221.github.io/janet-chen/salary-tax/" />
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0f0e0c;
+    --bg2: #161410;
+    --surface: #1c1a15;
+    --surface2: #242018;
+    --border: rgba(212,175,55,.18);
+    --border2: rgba(212,175,55,.08);
+    --text: #f0ece4;
+    --text2: #a09880;
+    --gold: #d4af37;
+    --gold2: #f0d060;
+    --gold-dim: rgba(212,175,55,.12);
+    --radius: 18px;
+  }
+  html { font-size: 15px; }
+  body {
+    font-family: "Noto Serif TC", "PingFang HK", "PingFang SC", serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100dvh;
+    line-height: 1.7;
+  }
+  .hero {
+    position: relative; overflow: hidden;
+    padding: 30px 24px 22px; text-align: center; background: var(--bg2);
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
+    width: 700px; height: 500px;
+    background: radial-gradient(ellipse at center, rgba(212,175,55,.10) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block; padding: 5px 18px; border: 1px solid rgba(212,175,55,.45);
+    border-radius: 999px; font-size: .72rem; color: var(--gold); letter-spacing: .12em;
+    text-transform: uppercase; margin-bottom: 10px;
+    font-family: "Cormorant Garamond", serif;
+  }
+  .hero h1 {
+    font-family: "Cormorant Garamond", "Noto Serif TC", serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 700; letter-spacing: .04em;
+    color: var(--text); line-height: 1.2;
+  }
+  .hero-sub { color: var(--text2); margin-top: 8px; font-size: .92rem; }
+  .hero-sub .gold { color: var(--gold); }
+  .back-link { display: inline-block; margin-top: 14px; color: var(--gold); text-decoration: none; font-size: .85rem; }
+  .back-link:hover { color: var(--gold2); }
+
+  .container { max-width: 980px; margin: 0 auto; padding: 28px 20px 60px; }
+
+  .panel {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px; margin-bottom: 20px;
+  }
+  .panel h2 {
+    font-family: "Cormorant Garamond", "Noto Serif TC", serif;
+    font-size: 1.25rem; color: var(--gold); letter-spacing: .03em; margin-bottom: 18px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--border2);
+  }
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: .9rem; color: var(--text2); margin-bottom: 6px; }
+  .field label .hint { color: var(--text2); opacity: .7; font-size: .78rem; }
+  .field input[type=number], .field select {
+    width: 100%; padding: 11px 14px; font-size: 1rem; font-family: inherit;
+    background: var(--bg2); color: var(--text); border: 1px solid var(--border);
+    border-radius: 10px; outline: none; transition: border-color .15s;
+  }
+  .field input:focus, .field select:focus { border-color: var(--gold); }
+  .field .unit { position: relative; }
+  .field .unit::after {
+    content: 'HK$'; position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    color: var(--text2); font-size: .85rem; pointer-events: none;
+  }
+  .field .unit input { padding-right: 52px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
+
+  .check-row {
+    display: flex; align-items: flex-start; gap: 10px; padding: 10px 0;
+    border-bottom: 1px solid var(--border2);
+  }
+  .check-row:last-child { border-bottom: none; }
+  .check-row input[type=checkbox] { margin-top: 4px; width: 17px; height: 17px; accent-color: var(--gold); cursor: pointer; }
+  .check-row .txt { flex: 1; }
+  .check-row .txt .t { font-size: .92rem; color: var(--text); }
+  .check-row .txt .d { font-size: .78rem; color: var(--text2); }
+
+  .btn-row { text-align: center; margin-top: 8px; }
+  .btn-calc {
+    display: inline-block; padding: 14px 48px; font-size: 1.05rem; font-family: inherit;
+    background: linear-gradient(135deg, #d4af37, #b8942a); color: #1a160d; font-weight: 700;
+    border: none; border-radius: 999px; cursor: pointer; letter-spacing: .06em;
+    transition: transform .12s, box-shadow .12s;
+  }
+  .btn-calc:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,175,55,.25); }
+
+  .result { display: none; }
+  .result.show { display: block; }
+  .result-head { text-align: center; margin-bottom: 20px; }
+  .result-tax {
+    font-family: "Cormorant Garamond", serif; font-size: 3rem; font-weight: 700; color: var(--gold2);
+  }
+  .result-tax .unit { font-size: 1.2rem; color: var(--text2); }
+  .result-sub { color: var(--text2); font-size: .88rem; margin-top: 4px; }
+  .breakdown {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 20px 0;
+  }
+  .bd-item {
+    background: var(--bg2); border: 1px solid var(--border2); border-radius: 12px; padding: 14px; text-align: center;
+  }
+  .bd-item .v { font-size: 1.15rem; color: var(--text); font-weight: 600; }
+  .bd-item .l { font-size: .75rem; color: var(--text2); margin-top: 4px; }
+  .method-note {
+    background: var(--gold-dim); border: 1px solid var(--border); border-radius: 12px;
+    padding: 14px 16px; font-size: .85rem; color: var(--text2); line-height: 1.6;
+  }
+  .method-note b { color: var(--gold2); }
+
+  .disclaimer { font-size: .78rem; color: var(--text2); line-height: 1.7; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border2); }
+  .disclaimer a { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">Hong Kong Salaries Tax 路 2026/27</div>
+  <h1>棣欐腐钖扛绋呰▓绠楀櫒</h1>
+  <p class="hero-sub">2026/27 瑾茬▍骞村害锛?026骞?鏈?鏃?鈥?2027骞?鏈?1鏃ワ級<br>鐢辨寔鐗岀悊璨￠¨鍟?<span class="gold">闄崇濞?Janet Chen</span> 鎻愪緵</p>
+  <a class="back-link" href="https://janetchen0221.github.io/janet-chen/">鈫?杩斿洖鍊嬩汉涓婚爜</a>
+</div>
+
+<div class="container">
+
+  <!-- 鏀跺叆 -->
+  <div class="panel">
+    <h2>鈶?鍏ユ伅绺介</h2>
+    <div class="grid2">
+      <div class="field">
+        <label>鍏ㄥ勾鍏ユ伅绺介锛堝勾钖紜鑺辩磪锛嬫触璨肩瓑锛?/label>
+        <div class="unit"><input type="number" id="income" min="0" step="1000" placeholder="渚嬪 480000" /></div>
+      </div>
+      <div class="field">
+        <label>濠氬Щ鐙€娉?/label>
+        <select id="marital">
+          <option value="single">鍠韩</option>
+          <option value="married">宸插锛堥厤鍋剁劇鍏ユ伅锛?/option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- 鍏嶇◣棰?-->
+  <div class="panel">
+    <h2>鈶?鍊嬩汉鍏嶇▍椤?/h2>
+    <div class="grid2">
+      <div class="field">
+        <label>渚涢瀛愬コ鏁哥洰 <span class="hint">锛堟湭婊?8姝诧紡18鈥?5姝插叏鏃ュ埗瀛哥敓锛?/span></label>
+        <input type="number" id="children" min="0" max="20" value="0" />
+      </div>
+      <div class="field">
+        <label>渚涢鐖舵瘝锛忕鐖舵瘝锛?0姝叉垨浠ヤ笂锛夋暩鐩?/label>
+        <input type="number" id="parents60" min="0" max="20" value="0" />
+      </div>
+      <div class="field">
+        <label>渚涢鐖舵瘝锛忕鐖舵瘝锛?5鈥?9姝诧級鏁哥洰</label>
+        <input type="number" id="parents55" min="0" max="20" value="0" />
+      </div>
+      <div class="field">
+        <label>渚涢鍏勫紵濮婂鏁哥洰</label>
+        <input type="number" id="siblings" min="0" max="20" value="0" />
+      </div>
+    </div>
+    <div class="check-row">
+      <input type="checkbox" id="singleParent" />
+      <div class="txt"><div class="t">鍠Κ鍏嶇▍椤?/div><div class="d">闇€鐓ч¨鍙婄洠璀峰瓙濂宠捣灞呯敓娲伙紝涓旇┎骞村害闈炲凡濠?/div></div>
+    </div>
+  </div>
+
+  <!-- 鎵ｉ櫎椤?-->
+  <div class="panel">
+    <h2>鈶?鎵ｉ櫎闋呯洰</h2>
+    <div class="grid2">
+      <div class="field">
+        <label>寮风閲戝挤鍒舵€т緵娆撅紙MPF锛?span class="hint">锛堝叏骞达紝涓婇檺 $18,000锛?/span></label>
+        <div class="unit"><input type="number" id="mpf" min="0" max="18000" step="100" value="0" placeholder="渚嬪 18000" /></div>
+      </div>
+      <div class="field">
+        <label>鑷閱繚淇濊不 <span class="hint">锛堟瘡鍚嶅彈淇濅汉涓婇檺 $8,000锛?/span></label>
+        <div class="unit"><input type="number" id="vhis" min="0" step="100" value="0" /></div>
+      </div>
+      <div class="field">
+        <label>鍚堣硣鏍煎欢鏈熷勾閲戜繚璨伙紡鑷寮风閲戜緵娆?<span class="hint">锛堜笂闄?$60,000锛?/span></label>
+        <div class="unit"><input type="number" id="annuity" min="0" max="60000" step="100" value="0" /></div>
+      </div>
+      <div class="field">
+        <label>灞呮墍璨告鍒╂伅锛堜緵妯撳埄鎭級</label>
+        <div class="unit"><input type="number" id="homeloan" min="0" step="100" value="0" /></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-calc" onclick="calc()">瑷堢畻鎳夌钩绋呮</button>
+    </div>
+  </div>
+
+  <!-- 缁撴灉 -->
+  <div class="panel result" id="result">
+    <div class="result-head">
+      <div class="result-tax"><span id="taxAmount">$0</span></div>
+      <div class="result-sub">浼拌▓鎳夌钩钖扛绋咃紙宸叉墸闄ょ▍娆惧娓涳級</div>
+    </div>
+    <div class="breakdown">
+      <div class="bd-item"><div class="v" id="bd_netincome">$0</div><div class="l">鎳夎绋呭叆鎭椤?/div></div>
+      <div class="bd-item"><div class="v" id="bd_allowance">$0</div><div class="l">鍏嶇▍绺介</div></div>
+      <div class="bd-item"><div class="v" id="bd_deduction">$0</div><div class="l">鎵ｉ櫎绺介</div></div>
+      <div class="bd-item"><div class="v" id="bd_progressive">$0</div><div class="l">绱€茬▍鐜囩▍娆?/div></div>
+      <div class="bd-item"><div class="v" id="bd_standard">$0</div><div class="l">妯欐簴绋呯巼绋呮</div></div>
+      <div class="bd-item"><div class="v" id="bd_reduction">$0</div><div class="l">绋呮瀵笡</div></div>
+    </div>
+    <div class="method-note" id="methodNote"></div>
+  </div>
+
+  <div class="disclaimer">
+    鏈▓绠楀櫒鍍呬緵鍙冭€冿紝浠?2026/27 瑾茬▍骞村害锛?026骞?鏈?鏃ヨ嚦2027骞?鏈?1鏃ワ級鐨勫厤绋呴銆佺▍鐜囧強鎵ｉ櫎涓婇檺浣滀及绠楋紝鏈繀鍙嶆槧鍊嬪垾绱嶇▍浜虹殑瀵﹂殯鎳夌钩绋呮銆傚闅涜绋呬互绋呭嫏灞€鐧煎嚭鐨勮绋呴€氱煡鏇哥偤婧栥€傚闇€鍊嬩汉鍖栫殑绋呭嫏鍙婄悊璨¤鍔冿紝姝¤繋鑱怠闄崇濞?Janet Chen锛?a href="mailto:janet.chen0221@gmail.com">janet.chen0221@gmail.com</a>锛夈€?br>
+    瀹樻柟璩囨枡锛?a href="https://www.ird.gov.hk" target="_blank" rel="noopener">棣欐腐绋呭嫏灞€ IRD</a>
+  </div>
+
+</div>
+
+<script>
+// 鈹€鈹€ 2026/27 瑾茬▍骞村害鏁告摎锛堝凡鏂?2026 骞?5 鏈堢珛娉曢€氶亷锛夆攢鈹€
+const Y = {
+  basicAllowance: 145000,      // 鍩烘湰鍏嶇▍椤?  marriedAllowance: 290000,    // 宸插浜哄＋鍏嶇▍椤?  childAllowance: 140000,      // 姣忓悕瀛愬コ鍏嶇▍椤?  parent60: 55000,             // 渚涢鐖舵瘝/绁栫埗姣?60+) 姣忓悕
+  parent55: 27500,             // 渚涢鐖舵瘝/绁栫埗姣?55-59) 姣忓悕
+  sibling: 37500,              // 渚涢鍏勫紵濮婂 姣忓悕
+  singleParent: 145000,        // 鍠Κ鍏嶇▍椤?  mpfCap: 18000,               // MPF 鎵ｉ櫎涓婇檺
+  vhisCap: 8000,               // 鑷閱繚姣忓悕涓婇檺
+  annuityCap: 60000,           // 寤舵湡骞撮噾/鑷MPF涓婇檺
+  taxReduction: 1500,          // 绋呮瀵笡涓婇檺 (100%)
+  standardRateTier1: 0.15,     // 妯欐簴绋呯巼 棣?00钀?15%
+  standardRateTier2: 0.16,     // 妯欐簴绋呯巼 瓒呴亷500钀?16%
+  standardTierLimit: 5000000,
+  progressive: [
+    [50000, 0.02],
+    [50000, 0.06],
+    [50000, 0.10],
+    [50000, 0.14],
+    [Infinity, 0.17]
+  ]
+};
+
+function num(v) { return isFinite(v) && v > 0 ? v : 0; }
+function fmt(n) { return '$' + Math.round(n).toLocaleString('en-HK'); }
+
+function calcProgressive(net) {
+  let tax = 0, remain = net;
+  for (const [band, rate] of Y.progressive) {
+    const slice = Math.min(remain, band);
+    tax += slice * rate;
+    remain -= slice;
+    if (remain <= 0) break;
+  }
+  return tax;
+}
+
+function calcStandard(incomeAfterDeduction) {
+  // 妯欐簴绋呯巼锛氬叆鎭法椤嶏紙鏀跺叆 鈭?鎵ｉ櫎锛屼笉鎵ｅ厤绋呴锛?  let tax = 0, remain = incomeAfterDeduction;
+  const t1 = Math.min(remain, Y.standardTierLimit);
+  tax += t1 * Y.standardRateTier1;
+  remain -= t1;
+  if (remain > 0) tax += remain * Y.standardRateTier2;
+  return tax;
+}
+
+function calc() {
+  const income = num(parseFloat(document.getElementById('income').value));
+  const marital = document.getElementById('marital').value;
+
+  // 鍏嶇▍椤?  let allowance = marital === 'married' ? Y.marriedAllowance : Y.basicAllowance;
+  const children = num(parseInt(document.getElementById('children').value) || 0);
+  const p60 = num(parseInt(document.getElementById('parents60').value) || 0);
+  const p55 = num(parseInt(document.getElementById('parents55').value) || 0);
+  const siblings = num(parseInt(document.getElementById('siblings').value) || 0);
+  allowance += children * Y.childAllowance;
+  allowance += p60 * Y.parent60;
+  allowance += p55 * Y.parent55;
+  allowance += siblings * Y.sibling;
+  if (document.getElementById('singleParent').checked) allowance += Y.singleParent;
+
+  // 鎵ｉ櫎
+  const mpf = Math.min(num(parseFloat(document.getElementById('mpf').value)), Y.mpfCap);
+  const vhis = Math.min(num(parseFloat(document.getElementById('vhis').value)), Y.vhisCap);
+  const annuity = Math.min(num(parseFloat(document.getElementById('annuity').value)), Y.annuityCap);
+  const homeloan = num(parseFloat(document.getElementById('homeloan').value));
+  const deduction = mpf + vhis + annuity + homeloan;
+
+  // 鎳夎绋呭叆鎭椤?  const net = Math.max(0, income - allowance - deduction);
+
+  // 鍏╃ó瑷堟硶鍙栬純浣?  const taxProg = calcProgressive(net);
+  const taxStd = calcStandard(Math.max(0, income - deduction));
+  let tax = Math.min(taxProg, taxStd);
+
+  // 绋呮瀵笡锛?00%锛屼笂闄愶級
+  let reduction = Math.min(tax, Y.taxReduction);
+  let finalTax = Math.max(0, tax - reduction);
+
+  // 椤ず
+  document.getElementById('taxAmount').textContent = fmt(finalTax);
+  document.getElementById('bd_netincome').textContent = fmt(net);
+  document.getElementById('bd_allowance').textContent = fmt(allowance);
+  document.getElementById('bd_deduction').textContent = fmt(deduction);
+  document.getElementById('bd_progressive').textContent = fmt(taxProg);
+  document.getElementById('bd_standard').textContent = fmt(taxStd);
+  document.getElementById('bd_reduction').textContent = '-' + fmt(reduction);
+
+  const usedMethod = taxProg <= taxStd ? '绱€茬▍鐜? : '妯欐簴绋呯巼';
+  let note = '';
+  if (income === 0) {
+    note = '璜嬭几鍏ュ叏骞村叆鎭附椤嶃€?;
+  } else if (finalTax === 0) {
+    note = '缍撹▓绠楋紝浣犵殑鍏嶇▍椤嶅強鎵ｉ櫎闋呯洰宸茶冻浠ユ姷閵峰叆鎭紝<b>鏈勾搴︽噳绻宠柂淇哥▍鐐?$0</b>锛岀劇闋堢钩绋呫€?;
+  } else {
+    note = '绋呭嫏灞€鏈冭嚜鍕曟帯鐢ㄧ▍娆捐純浣庣殑瑷堟硶锛屾湰鍊嬫鎺＄敤 <b>' + usedMethod + '</b>锛堢疮閫?' + fmt(taxProg) + ' vs 妯欐簴 ' + fmt(taxStd) + '锛夛紝涓﹀凡鎵ｉ櫎 100% 绋呮瀵笡锛堜笂闄?' + fmt(Y.taxReduction) + '锛夈€?;
+  }
+  document.getElementById('methodNote').innerHTML = note;
+
+  document.getElementById('result').classList.add('show');
+  document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+
+</body>
+</html>
