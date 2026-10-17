@@ -86,6 +86,7 @@
     color: var(--text2); font-size: .85rem; pointer-events: none;
   }
   .field .unit input { padding-right: 52px; }
+  .field .note { font-size: .76rem; color: var(--gold); opacity: .85; margin-top: 4px; line-height: 1.5; }
   .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
   @media (max-width: 640px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
@@ -153,6 +154,7 @@
       <div class="field">
         <label>全年入息總額（年薪＋花紅＋津貼等）</label>
         <div class="unit"><input type="number" id="income" min="0" step="1000" placeholder="例如 480000" /></div>
+        <div class="note">入息低於 $145,000（單身基本免稅額）一般毋須繳稅</div>
       </div>
       <div class="field">
         <label>婚姻狀況</label>
@@ -160,6 +162,7 @@
           <option value="single">單身</option>
           <option value="married">已婚（配偶無入息）</option>
         </select>
+        <div class="note">基本免稅額 $145,000；已婚人士免稅額 $290,000</div>
       </div>
     </div>
   </div>
@@ -171,23 +174,27 @@
       <div class="field">
         <label>供養子女數目 <span class="hint">（未滿18歲／18–25歲全日制學生）</span></label>
         <input type="number" id="children" min="0" max="20" value="0" />
+        <div class="note">每名子女免稅額 $140,000（第1至第9名均相同）；出生年度額外多 $140,000</div>
       </div>
       <div class="field">
         <label>供養父母／祖父母（60歲或以上）數目</label>
         <input type="number" id="parents60" min="0" max="20" value="0" />
+        <div class="note">每名免稅額 $55,000；同住另加每名 $55,000</div>
       </div>
       <div class="field">
         <label>供養父母／祖父母（55–59歲）數目</label>
         <input type="number" id="parents55" min="0" max="20" value="0" />
+        <div class="note">每名免稅額 $27,500</div>
       </div>
       <div class="field">
         <label>供養兄弟姊妹數目</label>
         <input type="number" id="siblings" min="0" max="20" value="0" />
+        <div class="note">每名免稅額 $37,500</div>
       </div>
     </div>
     <div class="check-row">
       <input type="checkbox" id="singleParent" />
-      <div class="txt"><div class="t">單親免稅額</div><div class="d">需照顧及監護子女起居生活，且該年度非已婚</div></div>
+      <div class="txt"><div class="t">單親免稅額</div><div class="d">需照顧及監護子女起居生活，且該年度非已婚</div><div class="note" style="margin-top:2px;">免稅額 $145,000</div></div>
     </div>
   </div>
 
@@ -196,24 +203,29 @@
     <h2>③ 扣除項目</h2>
     <div class="grid2">
       <div class="field">
-        <label>強積金強制性供款（MPF）<span class="hint">（全年，上限 $18,000）</span></label>
+        <label>強積金強制性供款（MPF）<span class="hint">（全年）</span></label>
         <div class="unit"><input type="number" id="mpf" min="0" max="18000" step="100" value="0" placeholder="例如 18000" /></div>
+        <div class="note">強制性供款扣除上限 $18,000（每月 $1,500）</div>
       </div>
       <div class="field">
-        <label>自願醫保保費 <span class="hint">（每名受保人上限 $8,000）</span></label>
+        <label>自願醫保保費</label>
         <div class="unit"><input type="number" id="vhis" min="0" step="100" value="0" /></div>
+        <div class="note">每名受保人扣除上限 $8,000</div>
       </div>
       <div class="field">
-        <label>合資格延期年金保費／自願強積金供款 <span class="hint">（上限 $60,000）</span></label>
+        <label>合資格延期年金保費／自願強積金供款</label>
         <div class="unit"><input type="number" id="annuity" min="0" max="60000" step="100" value="0" /></div>
+        <div class="note">兩者合計扣除上限 $60,000</div>
       </div>
       <div class="field">
         <label>居所貸款利息（供樓利息）</label>
         <div class="unit"><input type="number" id="homeloan" min="0" step="100" value="0" /></div>
+        <div class="note">每個物業每年扣除上限 $100,000（扣除期最長 20 年）</div>
       </div>
       <div class="field">
-        <label>認可慈善捐款 <span class="hint">（須不少於 $100，上限為入息 35%）</span></label>
+        <label>認可慈善捐款</label>
         <div class="unit"><input type="number" id="donation" min="0" step="100" value="0" /></div>
+        <div class="note">須不少於 $100；扣除上限為入息（未扣捐款）的 35%</div>
       </div>
     </div>
     <div class="btn-row">
