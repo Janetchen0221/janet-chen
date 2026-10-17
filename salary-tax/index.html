@@ -211,6 +211,10 @@
         <label>居所貸款利息（供樓利息）</label>
         <div class="unit"><input type="number" id="homeloan" min="0" step="100" value="0" /></div>
       </div>
+      <div class="field">
+        <label>認可慈善捐款 <span class="hint">（須不少於 $100，上限為入息 35%）</span></label>
+        <div class="unit"><input type="number" id="donation" min="0" step="100" value="0" /></div>
+      </div>
     </div>
     <div class="btn-row">
       <button class="btn-calc" onclick="calc()">計算應繳稅款</button>
@@ -312,7 +316,12 @@ function calc() {
   const vhis = Math.min(num(parseFloat(document.getElementById('vhis').value)), Y.vhisCap);
   const annuity = Math.min(num(parseFloat(document.getElementById('annuity').value)), Y.annuityCap);
   const homeloan = num(parseFloat(document.getElementById('homeloan').value));
-  const deduction = mpf + vhis + annuity + homeloan;
+  // 認可慈善捐款：須不少於 $100，且上限為入息（未扣捐款）的 35%
+  let donation = num(parseFloat(document.getElementById('donation').value));
+  const donationCap = income * 0.35;
+  if (donation < 100) donation = 0;            // 不足 $100 不可扣
+  if (donation > donationCap) donation = donationCap;  // 不超過入息 35%
+  const deduction = mpf + vhis + annuity + homeloan + donation;
 
   // 應課稅入息實額
   const net = Math.max(0, income - allowance - deduction);
