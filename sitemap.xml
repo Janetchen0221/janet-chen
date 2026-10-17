@@ -45,4 +45,11 @@
     <priority>0.4</priority>
   </url>
 
+  <!-- 薪俸税计算器 / Salary Tax Calculator -->
+  <url>
+    <loc>https://janetchen0221.github.io/janet-chen/salary-tax/</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
