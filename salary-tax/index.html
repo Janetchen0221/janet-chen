@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>棣欐腐钖扛绋呰▓绠楀櫒 2026/27 | 鍏嶇▍椤嶃兓绱€茬▍鐜囥兓MPF鎵ｉ櫎 | Janet Chen</title>
-<meta name="description" content="鍏嶈不棣欐腐钖扛绋呰▓绠楀櫒锛?026/27 瑾茬▍骞村害锛夈€傝几鍏ュ勾鏀跺叆銆佸厤绋呴鍙婃墸闄ら爡鐩紝鑷嫊姣旇純绱€茬▍鐜囪垏妯欐簴绋呯巼锛屽嵆鏅備及绠楁噳绻宠柂淇哥▍銆傜敱鎸佺墝鐞嗚病椤у晱闄崇濞?Janet Chen 鎻愪緵銆? />
-<meta name="keywords" content="棣欐腐钖扛绋?钖扛绋呰▓绠楀櫒,2026/27,鍏嶇▍椤?绱€茬▍鐜?妯欐簴绋呯巼,寮风閲?MPF鎵ｉ櫎,绋呮瀵笡,鐞嗚病椤у晱,闄崇濞?Janet Chen" />
+<title>香港薪俸稅計算器 2026/27 | 免稅額・累進稅率・MPF扣除 | Janet Chen</title>
+<meta name="description" content="免費香港薪俸稅計算器（2026/27 課稅年度）。輸入年收入、免稅額及扣除項目，自動比較累進稅率與標準稅率，即時估算應繳薪俸稅。由持牌理財顧問陳秀娟 Janet Chen 提供。" />
+<meta name="keywords" content="香港薪俸稅,薪俸稅計算器,2026/27,免稅額,累進稅率,標準稅率,強積金,MPF扣除,稅款寬減,理財顧問,陳秀娟,Janet Chen" />
 <meta name="author" content="Janet Chen Xiujuan" />
 <meta name="robots" content="index, follow" />
 <link rel="canonical" href="https://janetchen0221.github.io/janet-chen/salary-tax/" />
@@ -138,121 +138,125 @@
 <body>
 
 <div class="hero">
-  <div class="hero-badge">Hong Kong Salaries Tax 路 2026/27</div>
-  <h1>棣欐腐钖扛绋呰▓绠楀櫒</h1>
-  <p class="hero-sub">2026/27 瑾茬▍骞村害锛?026骞?鏈?鏃?鈥?2027骞?鏈?1鏃ワ級<br>鐢辨寔鐗岀悊璨￠¨鍟?<span class="gold">闄崇濞?Janet Chen</span> 鎻愪緵</p>
-  <a class="back-link" href="https://janetchen0221.github.io/janet-chen/">鈫?杩斿洖鍊嬩汉涓婚爜</a>
+  <div class="hero-badge">Hong Kong Salaries Tax · 2026/27</div>
+  <h1>香港薪俸稅計算器</h1>
+  <p class="hero-sub">2026/27 課稅年度（2026年4月1日 – 2027年3月31日）<br>由持牌理財顧問 <span class="gold">陳秀娟 Janet Chen</span> 提供</p>
+  <a class="back-link" href="https://janetchen0221.github.io/janet-chen/">← 返回個人主頁</a>
 </div>
 
 <div class="container">
 
-  <!-- 鏀跺叆 -->
+  <!-- 收入 -->
   <div class="panel">
-    <h2>鈶?鍏ユ伅绺介</h2>
+    <h2>① 入息總額</h2>
     <div class="grid2">
       <div class="field">
-        <label>鍏ㄥ勾鍏ユ伅绺介锛堝勾钖紜鑺辩磪锛嬫触璨肩瓑锛?/label>
-        <div class="unit"><input type="number" id="income" min="0" step="1000" placeholder="渚嬪 480000" /></div>
+        <label>全年入息總額（年薪＋花紅＋津貼等）</label>
+        <div class="unit"><input type="number" id="income" min="0" step="1000" placeholder="例如 480000" /></div>
       </div>
       <div class="field">
-        <label>濠氬Щ鐙€娉?/label>
+        <label>婚姻狀況</label>
         <select id="marital">
-          <option value="single">鍠韩</option>
-          <option value="married">宸插锛堥厤鍋剁劇鍏ユ伅锛?/option>
+          <option value="single">單身</option>
+          <option value="married">已婚（配偶無入息）</option>
         </select>
       </div>
     </div>
   </div>
 
-  <!-- 鍏嶇◣棰?-->
+  <!-- 免税额 -->
   <div class="panel">
-    <h2>鈶?鍊嬩汉鍏嶇▍椤?/h2>
+    <h2>② 個人免稅額</h2>
     <div class="grid2">
       <div class="field">
-        <label>渚涢瀛愬コ鏁哥洰 <span class="hint">锛堟湭婊?8姝诧紡18鈥?5姝插叏鏃ュ埗瀛哥敓锛?/span></label>
+        <label>供養子女數目 <span class="hint">（未滿18歲／18–25歲全日制學生）</span></label>
         <input type="number" id="children" min="0" max="20" value="0" />
       </div>
       <div class="field">
-        <label>渚涢鐖舵瘝锛忕鐖舵瘝锛?0姝叉垨浠ヤ笂锛夋暩鐩?/label>
+        <label>供養父母／祖父母（60歲或以上）數目</label>
         <input type="number" id="parents60" min="0" max="20" value="0" />
       </div>
       <div class="field">
-        <label>渚涢鐖舵瘝锛忕鐖舵瘝锛?5鈥?9姝诧級鏁哥洰</label>
+        <label>供養父母／祖父母（55–59歲）數目</label>
         <input type="number" id="parents55" min="0" max="20" value="0" />
       </div>
       <div class="field">
-        <label>渚涢鍏勫紵濮婂鏁哥洰</label>
+        <label>供養兄弟姊妹數目</label>
         <input type="number" id="siblings" min="0" max="20" value="0" />
       </div>
     </div>
     <div class="check-row">
       <input type="checkbox" id="singleParent" />
-      <div class="txt"><div class="t">鍠Κ鍏嶇▍椤?/div><div class="d">闇€鐓ч¨鍙婄洠璀峰瓙濂宠捣灞呯敓娲伙紝涓旇┎骞村害闈炲凡濠?/div></div>
+      <div class="txt"><div class="t">單親免稅額</div><div class="d">需照顧及監護子女起居生活，且該年度非已婚</div></div>
     </div>
   </div>
 
-  <!-- 鎵ｉ櫎椤?-->
+  <!-- 扣除项 -->
   <div class="panel">
-    <h2>鈶?鎵ｉ櫎闋呯洰</h2>
+    <h2>③ 扣除項目</h2>
     <div class="grid2">
       <div class="field">
-        <label>寮风閲戝挤鍒舵€т緵娆撅紙MPF锛?span class="hint">锛堝叏骞达紝涓婇檺 $18,000锛?/span></label>
-        <div class="unit"><input type="number" id="mpf" min="0" max="18000" step="100" value="0" placeholder="渚嬪 18000" /></div>
+        <label>強積金強制性供款（MPF）<span class="hint">（全年，上限 $18,000）</span></label>
+        <div class="unit"><input type="number" id="mpf" min="0" max="18000" step="100" value="0" placeholder="例如 18000" /></div>
       </div>
       <div class="field">
-        <label>鑷閱繚淇濊不 <span class="hint">锛堟瘡鍚嶅彈淇濅汉涓婇檺 $8,000锛?/span></label>
+        <label>自願醫保保費 <span class="hint">（每名受保人上限 $8,000）</span></label>
         <div class="unit"><input type="number" id="vhis" min="0" step="100" value="0" /></div>
       </div>
       <div class="field">
-        <label>鍚堣硣鏍煎欢鏈熷勾閲戜繚璨伙紡鑷寮风閲戜緵娆?<span class="hint">锛堜笂闄?$60,000锛?/span></label>
+        <label>合資格延期年金保費／自願強積金供款 <span class="hint">（上限 $60,000）</span></label>
         <div class="unit"><input type="number" id="annuity" min="0" max="60000" step="100" value="0" /></div>
       </div>
       <div class="field">
-        <label>灞呮墍璨告鍒╂伅锛堜緵妯撳埄鎭級</label>
+        <label>居所貸款利息（供樓利息）</label>
         <div class="unit"><input type="number" id="homeloan" min="0" step="100" value="0" /></div>
       </div>
     </div>
     <div class="btn-row">
-      <button class="btn-calc" onclick="calc()">瑷堢畻鎳夌钩绋呮</button>
+      <button class="btn-calc" onclick="calc()">計算應繳稅款</button>
     </div>
   </div>
 
-  <!-- 缁撴灉 -->
+  <!-- 结果 -->
   <div class="panel result" id="result">
     <div class="result-head">
       <div class="result-tax"><span id="taxAmount">$0</span></div>
-      <div class="result-sub">浼拌▓鎳夌钩钖扛绋咃紙宸叉墸闄ょ▍娆惧娓涳級</div>
+      <div class="result-sub">估計應繳薪俸稅（已扣除稅款寬減）</div>
     </div>
     <div class="breakdown">
-      <div class="bd-item"><div class="v" id="bd_netincome">$0</div><div class="l">鎳夎绋呭叆鎭椤?/div></div>
-      <div class="bd-item"><div class="v" id="bd_allowance">$0</div><div class="l">鍏嶇▍绺介</div></div>
-      <div class="bd-item"><div class="v" id="bd_deduction">$0</div><div class="l">鎵ｉ櫎绺介</div></div>
-      <div class="bd-item"><div class="v" id="bd_progressive">$0</div><div class="l">绱€茬▍鐜囩▍娆?/div></div>
-      <div class="bd-item"><div class="v" id="bd_standard">$0</div><div class="l">妯欐簴绋呯巼绋呮</div></div>
-      <div class="bd-item"><div class="v" id="bd_reduction">$0</div><div class="l">绋呮瀵笡</div></div>
+      <div class="bd-item"><div class="v" id="bd_netincome">$0</div><div class="l">應課稅入息實額</div></div>
+      <div class="bd-item"><div class="v" id="bd_allowance">$0</div><div class="l">免稅總額</div></div>
+      <div class="bd-item"><div class="v" id="bd_deduction">$0</div><div class="l">扣除總額</div></div>
+      <div class="bd-item"><div class="v" id="bd_progressive">$0</div><div class="l">累進稅率稅款</div></div>
+      <div class="bd-item"><div class="v" id="bd_standard">$0</div><div class="l">標準稅率稅款</div></div>
+      <div class="bd-item"><div class="v" id="bd_reduction">$0</div><div class="l">稅款寬減</div></div>
     </div>
     <div class="method-note" id="methodNote"></div>
   </div>
 
   <div class="disclaimer">
-    鏈▓绠楀櫒鍍呬緵鍙冭€冿紝浠?2026/27 瑾茬▍骞村害锛?026骞?鏈?鏃ヨ嚦2027骞?鏈?1鏃ワ級鐨勫厤绋呴銆佺▍鐜囧強鎵ｉ櫎涓婇檺浣滀及绠楋紝鏈繀鍙嶆槧鍊嬪垾绱嶇▍浜虹殑瀵﹂殯鎳夌钩绋呮銆傚闅涜绋呬互绋呭嫏灞€鐧煎嚭鐨勮绋呴€氱煡鏇哥偤婧栥€傚闇€鍊嬩汉鍖栫殑绋呭嫏鍙婄悊璨¤鍔冿紝姝¤繋鑱怠闄崇濞?Janet Chen锛?a href="mailto:janet.chen0221@gmail.com">janet.chen0221@gmail.com</a>锛夈€?br>
-    瀹樻柟璩囨枡锛?a href="https://www.ird.gov.hk" target="_blank" rel="noopener">棣欐腐绋呭嫏灞€ IRD</a>
+    本計算器僅供參考，以 2026/27 課稅年度（2026年4月1日至2027年3月31日）的免稅額、稅率及扣除上限作估算，未必反映個別納稅人的實際應繳稅款。實際評稅以稅務局發出的評稅通知書為準。如需個人化的稅務及理財規劃，歡迎聯絡陳秀娟 Janet Chen（<a href="mailto:janet.chen0221@gmail.com">janet.chen0221@gmail.com</a>）。<br>
+    官方資料：<a href="https://www.ird.gov.hk" target="_blank" rel="noopener">香港稅務局 IRD</a>
   </div>
 
 </div>
 
 <script>
-// 鈹€鈹€ 2026/27 瑾茬▍骞村害鏁告摎锛堝凡鏂?2026 骞?5 鏈堢珛娉曢€氶亷锛夆攢鈹€
+// ── 2026/27 課稅年度數據（已於 2026 年 5 月立法通過）──
 const Y = {
-  basicAllowance: 145000,      // 鍩烘湰鍏嶇▍椤?  marriedAllowance: 290000,    // 宸插浜哄＋鍏嶇▍椤?  childAllowance: 140000,      // 姣忓悕瀛愬コ鍏嶇▍椤?  parent60: 55000,             // 渚涢鐖舵瘝/绁栫埗姣?60+) 姣忓悕
-  parent55: 27500,             // 渚涢鐖舵瘝/绁栫埗姣?55-59) 姣忓悕
-  sibling: 37500,              // 渚涢鍏勫紵濮婂 姣忓悕
-  singleParent: 145000,        // 鍠Κ鍏嶇▍椤?  mpfCap: 18000,               // MPF 鎵ｉ櫎涓婇檺
-  vhisCap: 8000,               // 鑷閱繚姣忓悕涓婇檺
-  annuityCap: 60000,           // 寤舵湡骞撮噾/鑷MPF涓婇檺
-  taxReduction: 1500,          // 绋呮瀵笡涓婇檺 (100%)
-  standardRateTier1: 0.15,     // 妯欐簴绋呯巼 棣?00钀?15%
-  standardRateTier2: 0.16,     // 妯欐簴绋呯巼 瓒呴亷500钀?16%
+  basicAllowance: 145000,      // 基本免稅額
+  marriedAllowance: 290000,    // 已婚人士免稅額
+  childAllowance: 140000,      // 每名子女免稅額
+  parent60: 55000,             // 供養父母/祖父母(60+) 每名
+  parent55: 27500,             // 供養父母/祖父母(55-59) 每名
+  sibling: 37500,              // 供養兄弟姊妹 每名
+  singleParent: 145000,        // 單親免稅額
+  mpfCap: 18000,               // MPF 扣除上限
+  vhisCap: 8000,               // 自願醫保每名上限
+  annuityCap: 60000,           // 延期年金/自願MPF上限
+  taxReduction: 1500,          // 稅款寬減上限 (100%)
+  standardRateTier1: 0.15,     // 標準稅率 首500萬 15%
+  standardRateTier2: 0.16,     // 標準稅率 超過500萬 16%
   standardTierLimit: 5000000,
   progressive: [
     [50000, 0.02],
@@ -278,7 +282,8 @@ function calcProgressive(net) {
 }
 
 function calcStandard(incomeAfterDeduction) {
-  // 妯欐簴绋呯巼锛氬叆鎭法椤嶏紙鏀跺叆 鈭?鎵ｉ櫎锛屼笉鎵ｅ厤绋呴锛?  let tax = 0, remain = incomeAfterDeduction;
+  // 標準稅率：入息淨額（收入 − 扣除，不扣免稅額）
+  let tax = 0, remain = incomeAfterDeduction;
   const t1 = Math.min(remain, Y.standardTierLimit);
   tax += t1 * Y.standardRateTier1;
   remain -= t1;
@@ -290,7 +295,8 @@ function calc() {
   const income = num(parseFloat(document.getElementById('income').value));
   const marital = document.getElementById('marital').value;
 
-  // 鍏嶇▍椤?  let allowance = marital === 'married' ? Y.marriedAllowance : Y.basicAllowance;
+  // 免稅額
+  let allowance = marital === 'married' ? Y.marriedAllowance : Y.basicAllowance;
   const children = num(parseInt(document.getElementById('children').value) || 0);
   const p60 = num(parseInt(document.getElementById('parents60').value) || 0);
   const p55 = num(parseInt(document.getElementById('parents55').value) || 0);
@@ -301,24 +307,26 @@ function calc() {
   allowance += siblings * Y.sibling;
   if (document.getElementById('singleParent').checked) allowance += Y.singleParent;
 
-  // 鎵ｉ櫎
+  // 扣除
   const mpf = Math.min(num(parseFloat(document.getElementById('mpf').value)), Y.mpfCap);
   const vhis = Math.min(num(parseFloat(document.getElementById('vhis').value)), Y.vhisCap);
   const annuity = Math.min(num(parseFloat(document.getElementById('annuity').value)), Y.annuityCap);
   const homeloan = num(parseFloat(document.getElementById('homeloan').value));
   const deduction = mpf + vhis + annuity + homeloan;
 
-  // 鎳夎绋呭叆鎭椤?  const net = Math.max(0, income - allowance - deduction);
+  // 應課稅入息實額
+  const net = Math.max(0, income - allowance - deduction);
 
-  // 鍏╃ó瑷堟硶鍙栬純浣?  const taxProg = calcProgressive(net);
+  // 兩種計法取較低
+  const taxProg = calcProgressive(net);
   const taxStd = calcStandard(Math.max(0, income - deduction));
   let tax = Math.min(taxProg, taxStd);
 
-  // 绋呮瀵笡锛?00%锛屼笂闄愶級
+  // 稅款寬減（100%，上限）
   let reduction = Math.min(tax, Y.taxReduction);
   let finalTax = Math.max(0, tax - reduction);
 
-  // 椤ず
+  // 顯示
   document.getElementById('taxAmount').textContent = fmt(finalTax);
   document.getElementById('bd_netincome').textContent = fmt(net);
   document.getElementById('bd_allowance').textContent = fmt(allowance);
@@ -327,14 +335,14 @@ function calc() {
   document.getElementById('bd_standard').textContent = fmt(taxStd);
   document.getElementById('bd_reduction').textContent = '-' + fmt(reduction);
 
-  const usedMethod = taxProg <= taxStd ? '绱€茬▍鐜? : '妯欐簴绋呯巼';
+  const usedMethod = taxProg <= taxStd ? '累進稅率' : '標準稅率';
   let note = '';
   if (income === 0) {
-    note = '璜嬭几鍏ュ叏骞村叆鎭附椤嶃€?;
+    note = '請輸入全年入息總額。';
   } else if (finalTax === 0) {
-    note = '缍撹▓绠楋紝浣犵殑鍏嶇▍椤嶅強鎵ｉ櫎闋呯洰宸茶冻浠ユ姷閵峰叆鎭紝<b>鏈勾搴︽噳绻宠柂淇哥▍鐐?$0</b>锛岀劇闋堢钩绋呫€?;
+    note = '經計算，你的免稅額及扣除項目已足以抵銷入息，<b>本年度應繳薪俸稅為 $0</b>，無須繳稅。';
   } else {
-    note = '绋呭嫏灞€鏈冭嚜鍕曟帯鐢ㄧ▍娆捐純浣庣殑瑷堟硶锛屾湰鍊嬫鎺＄敤 <b>' + usedMethod + '</b>锛堢疮閫?' + fmt(taxProg) + ' vs 妯欐簴 ' + fmt(taxStd) + '锛夛紝涓﹀凡鎵ｉ櫎 100% 绋呮瀵笡锛堜笂闄?' + fmt(Y.taxReduction) + '锛夈€?;
+    note = '稅務局會自動採用稅款較低的計法，本個案採用 <b>' + usedMethod + '</b>（累進 ' + fmt(taxProg) + ' vs 標準 ' + fmt(taxStd) + '），並已扣除 100% 稅款寬減（上限 ' + fmt(Y.taxReduction) + '）。';
   }
   document.getElementById('methodNote').innerHTML = note;
 
