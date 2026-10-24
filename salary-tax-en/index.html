@@ -134,6 +134,9 @@
 
   .disclaimer { font-size: .78rem; color: var(--text2); line-height: 1.7; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border2); }
   .disclaimer a { color: var(--gold); }
+  .lang-switch { position: fixed; top: 16px; right: 18px; z-index: 9999; }
+  .lang-switch a { display: inline-block; padding: 7px 16px; border: 1.5px solid var(--gold); color: var(--gold); border-radius: 999px; text-decoration: none; font-size: .82rem; letter-spacing: .06em; background: rgba(15,14,12,.72); backdrop-filter: blur(6px); transition: background .15s, color .15s; }
+  .lang-switch a:hover { background: var(--gold); color: #0f0e0c; }
 </style>
 <script type="application/ld+json">
 {
@@ -152,12 +155,13 @@
 </head>
 <body>
 
+<div class="lang-switch"><a href="https://janetchen0221.github.io/janet-chen/salary-tax/">中文</a></div>
+
 <div class="hero">
   <div class="hero-badge">Hong Kong Salaries Tax · 2026/27</div>
   <h1>Hong Kong Salaries Tax Calculator</h1>
   <p class="hero-sub">Year of Assessment 2026/27 (1 April 2026 – 31 March 2027)<br>For reference only; actual assessment is subject to the Inland Revenue Department</p>
   <a class="back-link" href="https://janetchen0221.github.io/janet-chen/">← Back to Home</a>
-  &nbsp;·&nbsp; <a class="back-link" href="https://janetchen0221.github.io/janet-chen/salary-tax/">中文</a>
 </div>
 
 <div class="container">
