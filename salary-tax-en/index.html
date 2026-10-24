@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hong Kong Salaries Tax Calculator 2026/27 | Allowances · Progressive Rates · MPF Deductions | Janet Chen</title>
+<meta name="description" content="Free Hong Kong Salaries Tax calculator (2026/27 year of assessment). Enter your annual income, allowances and deductions to automatically compare progressive and standard rates and estimate your tax payable. For reference only; actual assessment is subject to the Inland Revenue Department." />
+<meta name="keywords" content="Hong Kong salaries tax,salaries tax calculator,2026/27,allowances,progressive rate,standard rate,MPF,MPF deduction,tax reduction" />
+<meta name="author" content="Janet Chen Xiujuan" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://janetchen0221.github.io/janet-chen/salary-tax-en/" />
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0f0e0c;
+    --bg2: #161410;
+    --surface: #1c1a15;
+    --surface2: #242018;
+    --border: rgba(212,175,55,.18);
+    --border2: rgba(212,175,55,.08);
+    --text: #f0ece4;
+    --text2: #a09880;
+    --gold: #d4af37;
+    --gold2: #f0d060;
+    --gold-dim: rgba(212,175,55,.12);
+    --radius: 18px;
+  }
+  html { font-size: 15px; }
+  body {
+    font-family: "Cormorant Garamond", "Noto Serif TC", "PingFang HK", serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100dvh;
+    line-height: 1.7;
+  }
+  .hero {
+    position: relative; overflow: hidden;
+    padding: 30px 24px 22px; text-align: center; background: var(--bg2);
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
+    width: 700px; height: 500px;
+    background: radial-gradient(ellipse at center, rgba(212,175,55,.10) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block; padding: 5px 18px; border: 1px solid rgba(212,175,55,.45);
+    border-radius: 999px; font-size: .72rem; color: var(--gold); letter-spacing: .12em;
+    text-transform: uppercase; margin-bottom: 10px;
+    font-family: "Cormorant Garamond", serif;
+  }
+  .hero h1 {
+    font-family: "Cormorant Garamond", "Noto Serif TC", serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 700; letter-spacing: .04em;
+    color: var(--text); line-height: 1.2;
+  }
+  .hero-sub { color: var(--text2); margin-top: 8px; font-size: .92rem; }
+  .hero-sub .gold { color: var(--gold); }
+  .back-link { display: inline-block; margin-top: 14px; color: var(--gold); text-decoration: none; font-size: .85rem; }
+  .back-link:hover { color: var(--gold2); }
+
+  .container { max-width: 980px; margin: 0 auto; padding: 28px 20px 60px; }
+
+  .panel {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px; margin-bottom: 20px;
+  }
+  .panel h2 {
+    font-family: "Cormorant Garamond", "Noto Serif TC", serif;
+    font-size: 1.25rem; color: var(--gold); letter-spacing: .03em; margin-bottom: 18px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--border2);
+  }
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: .9rem; color: var(--text2); margin-bottom: 6px; }
+  .field label .hint { color: var(--text2); opacity: .7; font-size: .78rem; }
+  .field input[type=number], .field select {
+    width: 100%; padding: 11px 14px; font-size: 1rem; font-family: inherit;
+    background: var(--bg2); color: var(--text); border: 1px solid var(--border);
+    border-radius: 10px; outline: none; transition: border-color .15s;
+  }
+  .field input:focus, .field select:focus { border-color: var(--gold); }
+  .field .unit { position: relative; }
+  .field .unit::after {
+    content: 'HK$'; position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    color: var(--text2); font-size: .85rem; pointer-events: none;
+  }
+  .field .unit input { padding-right: 52px; }
+  .field .note { font-size: .76rem; color: var(--gold); opacity: .85; margin-top: 4px; line-height: 1.5; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
+
+  .check-row {
+    display: flex; align-items: flex-start; gap: 10px; padding: 10px 0;
+    border-bottom: 1px solid var(--border2);
+  }
+  .check-row:last-child { border-bottom: none; }
+  .check-row input[type=checkbox] { margin-top: 4px; width: 17px; height: 17px; accent-color: var(--gold); cursor: pointer; }
+  .check-row .txt { flex: 1; }
+  .check-row .txt .t { font-size: .92rem; color: var(--text); }
+  .check-row .txt .d { font-size: .78rem; color: var(--text2); }
+
+  .btn-row { text-align: center; margin-top: 8px; }
+  .btn-calc {
+    display: inline-block; padding: 14px 48px; font-size: 1.05rem; font-family: inherit;
+    background: linear-gradient(135deg, #d4af37, #b8942a); color: #1a160d; font-weight: 700;
+    border: none; border-radius: 999px; cursor: pointer; letter-spacing: .06em;
+    transition: transform .12s, box-shadow .12s;
+  }
+  .btn-calc:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,175,55,.25); }
+
+  .result { display: none; }
+  .result.show { display: block; }
+  .result-head { text-align: center; margin-bottom: 20px; }
+  .result-tax {
+    font-family: "Cormorant Garamond", serif; font-size: 3rem; font-weight: 700; color: var(--gold2);
+  }
+  .result-tax .unit { font-size: 1.2rem; color: var(--text2); }
+  .result-sub { color: var(--text2); font-size: .88rem; margin-top: 4px; }
+  .breakdown {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 20px 0;
+  }
+  .bd-item {
+    background: var(--bg2); border: 1px solid var(--border2); border-radius: 12px; padding: 14px; text-align: center;
+  }
+  .bd-item .v { font-size: 1.15rem; color: var(--text); font-weight: 600; }
+  .bd-item .l { font-size: .75rem; color: var(--text2); margin-top: 4px; }
+  .method-note {
+    background: var(--gold-dim); border: 1px solid var(--border); border-radius: 12px;
+    padding: 14px 16px; font-size: .85rem; color: var(--text2); line-height: 1.6;
+  }
+  .method-note b { color: var(--gold2); }
+
+  .disclaimer { font-size: .78rem; color: var(--text2); line-height: 1.7; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border2); }
+  .disclaimer a { color: var(--gold); }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Hong Kong Salaries Tax Calculator",
+  "alternateName": ["香港薪俸稅計算器", "香港薪俸税计算器"],
+  "url": "https://janetchen0221.github.io/janet-chen/salary-tax-en/",
+  "description": "Free Hong Kong Salaries Tax calculator (2026/27 year of assessment). Enter your annual income, allowances and deductions to automatically compare progressive and standard rates and estimate your tax payable.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "inLanguage": ["en", "en-US", "en-HK"],
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "HKD" }
+}
+</script>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">Hong Kong Salaries Tax · 2026/27</div>
+  <h1>Hong Kong Salaries Tax Calculator</h1>
+  <p class="hero-sub">Year of Assessment 2026/27 (1 April 2026 – 31 March 2027)<br>For reference only; actual assessment is subject to the Inland Revenue Department</p>
+  <a class="back-link" href="https://janetchen0221.github.io/janet-chen/">← Back to Home</a>
+</div>
+
+<div class="container">
+
+  <!-- Income -->
+  <div class="panel">
+    <h2>① Income</h2>
+    <div class="grid2">
+      <div class="field">
+        <label>Total annual income (salary + bonus + allowances, etc.)</label>
+        <div class="unit"><input type="number" id="income" min="0" step="1000" placeholder="e.g. 480000" /></div>
+        <div class="note">Income below $145,000 (basic allowance for a single person) is generally not chargeable to tax</div>
+      </div>
+      <div class="field">
+        <label>Marital status</label>
+        <select id="marital">
+          <option value="single">Single</option>
+          <option value="married">Married (spouse has no income)</option>
+        </select>
+        <div class="note">Basic allowance $145,000; married person's allowance $290,000</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Allowances -->
+  <div class="panel">
+    <h2>② Allowances</h2>
+    <div class="grid2">
+      <div class="field">
+        <label>Number of dependent children <span class="hint">(under 18 / full-time students aged 18–25)</span></label>
+        <input type="number" id="children" min="0" max="20" value="0" />
+        <div class="note">Child allowance $140,000 per child (same for the 1st to 9th child); an additional $140,000 in the year of birth</div>
+      </div>
+      <div class="field">
+        <label>Number of dependent parents / grandparents (aged 60 or above)</label>
+        <input type="number" id="parents60" min="0" max="20" value="0" />
+        <div class="note">$55,000 per dependent; an additional $55,000 each if residing with you</div>
+      </div>
+      <div class="field">
+        <label>Number of dependent parents / grandparents (aged 55–59)</label>
+        <input type="number" id="parents55" min="0" max="20" value="0" />
+        <div class="note">$27,500 per dependent</div>
+      </div>
+      <div class="field">
+        <label>Number of dependent brothers / sisters</label>
+        <input type="number" id="siblings" min="0" max="20" value="0" />
+        <div class="note">$37,500 per dependent</div>
+      </div>
+    </div>
+    <div class="check-row">
+      <input type="checkbox" id="singleParent" />
+      <div class="txt"><div class="t">Single parent allowance</div><div class="d">You have the care and custody of a child in the year and are not married during that year</div><div class="note" style="margin-top:2px;">Allowance $145,000</div></div>
+    </div>
+  </div>
+
+  <!-- Deductions -->
+  <div class="panel">
+    <h2>③ Deductions</h2>
+    <div class="grid2">
+      <div class="field">
+        <label>Mandatory MPF contributions <span class="hint">(annual)</span></label>
+        <div class="unit"><input type="number" id="mpf" min="0" max="18000" step="100" value="0" placeholder="e.g. 18000" /></div>
+        <div class="note">Mandatory contributions deduction cap $18,000 ($1,500 per month)</div>
+      </div>
+      <div class="field">
+        <label>Voluntary Health Insurance Scheme (VHIS) premiums</label>
+        <div class="unit"><input type="number" id="vhis" min="0" step="100" value="0" /></div>
+        <div class="note">Deduction cap $8,000 per insured person</div>
+      </div>
+      <div class="field">
+        <label>Qualifying deferred annuity premiums / voluntary MPF contributions</label>
+        <div class="unit"><input type="number" id="annuity" min="0" max="60000" step="100" value="0" /></div>
+        <div class="note">Combined deduction cap $60,000</div>
+      </div>
+      <div class="field">
+        <label>Home loan interest (mortgage interest)</label>
+        <div class="unit"><input type="number" id="homeloan" min="0" step="100" value="0" /></div>
+        <div class="note">Deduction cap $100,000 per property per year (deductible for up to 20 years)</div>
+      </div>
+      <div class="field">
+        <label>Approved charitable donations</label>
+        <div class="unit"><input type="number" id="donation" min="0" step="100" value="0" /></div>
+        <div class="note">Must be at least $100; deductible up to 35% of income (before deducting donations)</div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-calc" onclick="calc()">Calculate Tax</button>
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div class="panel result" id="result">
+    <div class="result-head">
+      <div class="result-tax"><span id="taxAmount">$0</span></div>
+      <div class="result-sub">Estimated salaries tax payable (after tax reduction)</div>
+    </div>
+    <div class="breakdown">
+      <div class="bd-item"><div class="v" id="bd_netincome">$0</div><div class="l">Net chargeable income</div></div>
+      <div class="bd-item"><div class="v" id="bd_allowance">$0</div><div class="l">Total allowances</div></div>
+      <div class="bd-item"><div class="v" id="bd_deduction">$0</div><div class="l">Total deductions</div></div>
+      <div class="bd-item"><div class="v" id="bd_progressive">$0</div><div class="l">Progressive rate tax</div></div>
+      <div class="bd-item"><div class="v" id="bd_standard">$0</div><div class="l">Standard rate tax</div></div>
+      <div class="bd-item"><div class="v" id="bd_reduction">$0</div><div class="l">Tax reduction</div></div>
+    </div>
+    <div class="method-note" id="methodNote"></div>
+  </div>
+
+  <div class="disclaimer">
+    This calculator is for reference only. It estimates tax based on the allowances, rates and deduction caps for the 2026/27 year of assessment (1 April 2026 to 31 March 2027) and may not reflect the actual tax payable by an individual taxpayer. Actual assessment is subject to the Notice of Assessment issued by the Inland Revenue Department. If you have any questions about your personal tax position, please consult a certified tax advisor or accountant, or contact the Inland Revenue Department directly.<br>
+    Official source: <a href="https://www.ird.gov.hk" target="_blank" rel="noopener">Inland Revenue Department (IRD)</a>
+  </div>
+
+</div>
+
+<script>
+// ── 2026/27 Year of Assessment data (enacted May 2026) ──
+const Y = {
+  basicAllowance: 145000,      // Basic allowance
+  marriedAllowance: 290000,    // Married person's allowance
+  childAllowance: 140000,      // Child allowance (per child)
+  parent60: 55000,             // Dependent parent/grandparent (60+) per person
+  parent55: 27500,             // Dependent parent/grandparent (55-59) per person
+  sibling: 37500,              // Dependent brother/sister per person
+  singleParent: 145000,        // Single parent allowance
+  mpfCap: 18000,               // MPF deduction cap
+  vhisCap: 8000,               // VHIS per-person cap
+  annuityCap: 60000,           // Deferred annuity / voluntary MPF cap
+  taxReduction: 1500,          // Tax reduction cap (100%)
+  standardRateTier1: 0.15,     // Standard rate: first $5M 15%
+  standardRateTier2: 0.16,     // Standard rate: above $5M 16%
+  standardTierLimit: 5000000,
+  progressive: [
+    [50000, 0.02],
+    [50000, 0.06],
+    [50000, 0.10],
+    [50000, 0.14],
+    [Infinity, 0.17]
+  ]
+};
+
+function num(v) { return isFinite(v) && v > 0 ? v : 0; }
+function fmt(n) { return '$' + Math.round(n).toLocaleString('en-HK'); }
+
+function calcProgressive(net) {
+  let tax = 0, remain = net;
+  for (const [band, rate] of Y.progressive) {
+    const slice = Math.min(remain, band);
+    tax += slice * rate;
+    remain -= slice;
+    if (remain <= 0) break;
+  }
+  return tax;
+}
+
+function calcStandard(incomeAfterDeduction) {
+  // Standard rate: net income (income − deductions, without allowances)
+  let tax = 0, remain = incomeAfterDeduction;
+  const t1 = Math.min(remain, Y.standardTierLimit);
+  tax += t1 * Y.standardRateTier1;
+  remain -= t1;
+  if (remain > 0) tax += remain * Y.standardRateTier2;
+  return tax;
+}
+
+function calc() {
+  const income = num(parseFloat(document.getElementById('income').value));
+  const marital = document.getElementById('marital').value;
+
+  // Allowances
+  let allowance = marital === 'married' ? Y.marriedAllowance : Y.basicAllowance;
+  const children = num(parseInt(document.getElementById('children').value) || 0);
+  const p60 = num(parseInt(document.getElementById('parents60').value) || 0);
+  const p55 = num(parseInt(document.getElementById('parents55').value) || 0);
+  const siblings = num(parseInt(document.getElementById('siblings').value) || 0);
+  allowance += children * Y.childAllowance;
+  allowance += p60 * Y.parent60;
+  allowance += p55 * Y.parent55;
+  allowance += siblings * Y.sibling;
+  if (document.getElementById('singleParent').checked) allowance += Y.singleParent;
+
+  // Deductions
+  const mpf = Math.min(num(parseFloat(document.getElementById('mpf').value)), Y.mpfCap);
+  const vhis = Math.min(num(parseFloat(document.getElementById('vhis').value)), Y.vhisCap);
+  const annuity = Math.min(num(parseFloat(document.getElementById('annuity').value)), Y.annuityCap);
+  const homeloan = num(parseFloat(document.getElementById('homeloan').value));
+  // Approved charitable donations: at least $100, and capped at 35% of income (before donations)
+  let donation = num(parseFloat(document.getElementById('donation').value));
+  const donationCap = income * 0.35;
+  if (donation < 100) donation = 0;            // below $100 is not deductible
+  if (donation > donationCap) donation = donationCap;  // not exceeding 35% of income
+  const deduction = mpf + vhis + annuity + homeloan + donation;
+
+  // Net chargeable income
+  const net = Math.max(0, income - allowance - deduction);
+
+  // Lower of the two methods
+  const taxProg = calcProgressive(net);
+  const taxStd = calcStandard(Math.max(0, income - deduction));
+  let tax = Math.min(taxProg, taxStd);
+
+  // Tax reduction (100%, capped)
+  let reduction = Math.min(tax, Y.taxReduction);
+  let finalTax = Math.max(0, tax - reduction);
+
+  // Display
+  document.getElementById('taxAmount').textContent = fmt(finalTax);
+  document.getElementById('bd_netincome').textContent = fmt(net);
+  document.getElementById('bd_allowance').textContent = fmt(allowance);
+  document.getElementById('bd_deduction').textContent = fmt(deduction);
+  document.getElementById('bd_progressive').textContent = fmt(taxProg);
+  document.getElementById('bd_standard').textContent = fmt(taxStd);
+  document.getElementById('bd_reduction').textContent = '-' + fmt(reduction);
+
+  const usedMethod = taxProg <= taxStd ? 'progressive rate' : 'standard rate';
+  let note = '';
+  if (income === 0) {
+    note = 'Please enter your total annual income.';
+  } else if (finalTax === 0) {
+    note = 'Based on your inputs, your allowances and deductions are sufficient to offset your income, so <b>your salaries tax payable for this year is $0</b> — no tax is due.';
+  } else {
+    note = 'The Inland Revenue Department automatically applies the method that results in the lower tax. In this case the <b>' + usedMethod + '</b> applies (progressive ' + fmt(taxProg) + ' vs standard ' + fmt(taxStd) + '), after the 100% tax reduction (capped at ' + fmt(Y.taxReduction) + ').';
+  }
+  document.getElementById('methodNote').innerHTML = note;
+
+  document.getElementById('result').classList.add('show');
+  document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+
+</body>
+</html>
