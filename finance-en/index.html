@@ -1,0 +1,6739 @@
+<!DOCTYPE html>
+
+
+
+<html lang="en">
+
+
+
+<head>
+
+
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<!-- SEO Meta -->
+
+<title>Family Finance Report Tool | Free Balance Sheet & Cash Flow Report</title>
+
+<meta name="description" content="Free family finance tool — sort out your assets, liabilities and cash flow in 10 minutes. Auto-generate a balance sheet and cash flow report, spot financial issues and build an improvement plan. Suitable for any individual or family looking to get their finances in order." />
+
+<meta name="keywords" content="family finance, financial planning, balance sheet generator, cash flow analysis, household budget, financial health check, personal finance tool, net worth, family budget, debt management, family finance tool, household budget, balance sheet generator, cash flow report" />
+
+<meta name="author" content="Janet Chen Xiujuan" />
+
+<meta name="robots" content="index, follow" />
+
+<link rel="canonical" href="https://janetchen0221.github.io/janet-chen/finance-en/" />
+
+
+
+<!-- Open Graph -->
+
+<meta property="og:type" content="website" />
+
+<meta property="og:title" content="Family Finance Report Tool | Free Balance Sheet & Cash Flow Report" />
+
+<meta property="og:description" content="Messy finances? Use this free tool to sort out your assets, liabilities and cash flow in 10 minutes, and auto-generate a professional financial report." />
+
+<meta property="og:url" content="https://janetchen0221.github.io/janet-chen/finance-en/" />
+
+<meta property="og:site_name" content="Family Finance Report Tool" />
+
+
+
+<!-- Twitter Card -->
+
+<meta name="twitter:card" content="summary_large_image" />
+
+<meta name="twitter:title" content="Family Finance Report Tool | Free Balance Sheet & Cash Flow Report" />
+
+<meta name="twitter:description" content="Sort out your family finances in 10 minutes — auto-generate a balance sheet and cash flow report." />
+
+
+
+<!-- Schema.org -->
+
+<script type="application/ld+json">
+
+{
+
+  "@context": "https://schema.org",
+
+  "@type": "WebApplication",
+
+  "name": "Family Finance Report Tool",
+
+  "alternateName": ["Family Finance Report Tool", "Family Finance Planning Tool", "Family Financial Planning Report System"],
+
+  "description": "Free online family finance tool that helps families enter income, expenses, assets and liabilities to automatically generate a balance sheet and cash flow report, giving a full picture of household financial health.",
+
+  "url": "https://janetchen0221.github.io/janet-chen/finance-en/",
+
+  "applicationCategory": "FinanceApplication",
+
+  "operatingSystem": "Web Browser",
+
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+
+  "featureList": [
+
+    "Family Income Analysis", "Family Expense Analysis", "Auto-generated Balance Sheet", "Auto-generated Cash Flow Report",
+
+    "Financial Health Score", "Insurance Coverage Review", "Debt Analysis & Optimization", "Report Export",
+
+    "Family balance sheet", "Cash flow analysis", "Household financial health check",
+
+    "One-Click Family Finance Review", "For families with messy finances", "Free Online Finance Tool"
+
+  ],
+
+  "author": {
+
+    "@type": "Person",
+
+    "name": "Janet Chen Xiujuan",
+
+    "jobTitle": "Family Financial Advisor",
+
+    "url": "https://janetchen0221.github.io/janet-chen/"
+
+  },
+
+  "inLanguage": ["en", "en-US"],
+
+  "keywords": "family finance, financial planning, balance sheet, cash flow analysis, household budget, financial health check, family asset management, family finance, household budget, financial planning"
+
+}
+
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+
+
+<style>
+
+
+
+:root{--p:#4A6FA5;--a:#D8A7B1;--bg:#F5F5F0;--tx:#333;--bd:#E0E0E0;--w:#fff;--gn:#27AE60;--rd:#E74C3C;--yw:#F39C12;--gr:#888;--pg:#f0f4fa}
+
+
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+
+
+body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
+
+
+
+.wrap{max-width:980px;margin:0 auto;padding:20px 14px}
+
+
+
+h1{font-size:1.75rem;color:var(--p);text-align:center;margin-bottom:6px}
+
+
+
+.sub{text-align:center;color:var(--gr);margin-bottom:10px;font-size:.88rem}
+
+
+
+.save-bar{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px;padding:9px 18px;background:rgba(39,174,96,.07);border-radius:10px;border:1px solid rgba(39,174,96,.25);flex-wrap:wrap}
+
+
+
+.save-bar .ss{font-size:.8rem;color:var(--gn);flex:1;min-width:160px}
+
+
+
+.sv-btn{padding:5px 14px;background:var(--gn);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:.8rem;font-weight:700}
+
+
+
+.cl-btn{padding:5px 14px;background:#fff;color:var(--rd);border:1.5px solid var(--rd);border-radius:8px;cursor:pointer;font-size:.8rem;font-weight:700}
+
+
+
+.step-nav{display:flex;gap:6px;margin-bottom:22px;overflow-x:auto;padding-bottom:4px;flex-wrap:wrap}
+
+
+
+.snav{flex:none;padding:7px 14px;border-radius:20px;border:2px solid var(--p);background:var(--w);color:var(--p);cursor:pointer;font-size:.78rem;font-weight:700;transition:all .2s}
+
+
+
+.snav.active{background:var(--p);color:#fff}.snav.done{background:var(--a);border-color:var(--a);color:#fff}
+
+
+
+.panel{display:none}.panel.active{display:block}
+
+
+
+.card{background:var(--w);border-radius:14px;padding:20px;margin-bottom:18px;box-shadow:0 2px 10px rgba(0,0,0,.06);border-left:4px solid var(--p)}
+
+
+
+.card h2{color:var(--p);font-size:1.05rem;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+
+
+
+.card .desc{font-size:.78rem;color:var(--gr);margin-bottom:14px;line-height:1.5}
+
+
+
+.fg{display:flex;flex-direction:column;gap:5px}
+
+
+
+.fg label{font-size:.82rem;font-weight:700;color:var(--tx)}
+
+
+
+.fg input,.fg select,.fg textarea{padding:9px 12px;border:1.5px solid var(--bd);border-radius:8px;font-size:.92rem;outline:none;transition:border-color .2s;background:var(--w)}
+
+
+
+.fg input:focus,.fg select:focus{border-color:var(--p)}
+
+
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+
+
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+
+
+
+@media(max-width:620px){.g2{grid-template-columns:1fr}.g3{grid-template-columns:1fr 1fr}}
+
+
+
+.ptbl{width:100%;border-collapse:collapse;margin-bottom:4px}
+
+
+
+.ptbl th{background:var(--pg);color:var(--p);padding:8px 12px;font-size:.8rem;font-weight:700;text-align:left;border-bottom:2px solid var(--bd)}
+
+
+
+.ptbl td{padding:7px 10px;border-bottom:1px solid var(--bd);vertical-align:middle}
+
+
+
+.ptbl tr:hover td{background:var(--pg)}
+
+
+
+.ptbl .lbl{font-size:.87rem;font-weight:500;color:var(--tx);width:38%}
+
+
+
+.ptbl .hint{font-size:.73rem;color:var(--gr);width:28%}
+
+
+
+.ptbl .amt{width:34%}
+
+
+
+.ptbl .amt input{width:100%;padding:6px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff;transition:border-color .2s;text-align:right}
+
+
+
+.ptbl .amt input:focus{border-color:var(--p);background:#fff}
+
+
+
+.ptbl .amt input::placeholder{color:#ccc;font-weight:400;font-size:.82rem}
+
+
+
+.ptbl .amt input.has-val{background:rgba(74,111,165,.06);border-color:var(--p)}
+
+
+
+.sec-hd{background:linear-gradient(90deg,rgba(74,111,165,.12),rgba(216,167,177,.08));border-radius:8px;padding:7px 14px;font-size:.82rem;font-weight:700;color:var(--p);margin:14px 0 4px;display:flex;justify-content:space-between;align-items:center}
+
+
+
+.sec-hd .st{font-size:.8rem;color:var(--p);font-weight:700}
+
+
+
+.subtotal-bar{display:flex;justify-content:flex-end;align-items:center;gap:8px;padding:5px 10px;font-size:.82rem;color:var(--p);font-weight:700;background:rgba(74,111,165,.04);border-radius:0 0 8px 8px;margin-bottom:8px}
+
+
+
+.total-bar{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:linear-gradient(90deg,var(--p),#3a5f95);color:#fff;border-radius:10px;margin-top:10px;font-weight:700;font-size:.95rem}
+
+
+
+.btn-p{padding:11px 28px;background:var(--p);color:#fff;border:none;border-radius:11px;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .2s}
+
+
+
+.btn-p:hover{background:#3a5f95;transform:translateY(-1px)}
+
+
+
+.btn-s{padding:11px 28px;background:var(--a);color:#fff;border:none;border-radius:11px;font-size:.95rem;font-weight:700;cursor:pointer}
+
+
+
+.navrow{display:flex;justify-content:space-between;margin-top:20px;align-items:center}
+
+
+
+/* Remove up/down arrows from all number inputs */
+
+
+
+input[type=number]{-moz-appearance:textfield;appearance:textfield}
+
+
+
+input[type=number]::-webkit-outer-spin-button,
+
+
+
+input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+
+
+
+</style>
+
+
+
+</head>
+
+
+
+<body>
+
+
+
+<div class="wrap">
+
+
+
+<h1>🏠 Family Financial Report</h1>
+
+
+
+<p class="sub">Tailored by your dedicated AI financial advisor · All data is kept strictly confidential — please fill in truthfully</p>
+
+<div style="background:linear-gradient(135deg,#eff6ff,#f5f3ff);border:1.5px solid #c7d2fe;border-radius:14px;padding:14px 18px;margin:12px 0 8px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap"><div style="display:flex;align-items:center;gap:10px"><span style="font-size:22px">🤖</span><div><div style="font-weight:700;font-size:14px;color:#1a202c">Try Smart Q&A Mode</div><div style="font-size:12px;color:#6b7280;margin-top:2px">Answer questions one by one — a friendlier experience</div></div></div><a href="chat.html" style="display:inline-block;padding:9px 20px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);color:#fff;border-radius:20px;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(59,130,246,.3)">Start Q&A →</a></div>
+
+
+
+<div class="save-bar">
+
+
+
+  <span>💾</span>
+
+
+
+  <span class="ss" id="saveStatus">Data is auto-saved locally — closing or refreshing the browser won't lose it</span>
+
+
+
+  <button class="sv-btn" onclick="saveNow()">Save Now</button>
+
+
+
+  <button class="cl-btn" onclick="clearAll()">Clear All Data</button>
+
+
+
+</div>
+
+
+
+<div class="step-nav">
+
+
+
+  <button class="snav active" onclick="go(0)">① Basic Info</button>
+
+
+
+  <button class="snav" onclick="go(1)">② Liquid Assets</button>
+
+
+
+  <button class="snav" onclick="go(2)">③ Personal-Use Assets</button>
+
+
+
+  <button class="snav" onclick="go(3)">④ Investment Assets</button>
+
+
+
+  <button class="snav" onclick="go(4)">⑤ Liabilities</button>
+
+
+
+  <button class="snav" onclick="go(5)">⑥ Income</button>
+
+
+
+  <button class="snav" onclick="go(6)">⑦ Expenses</button>
+
+
+
+  <button class="snav" onclick="go(7)">⑧ Insurance Review</button>
+
+
+
+  <button class="snav" style="background:var(--gn);border-color:var(--gn);color:#fff" onclick="genReport()">📊 Generate Report</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- ① Basic Info -->
+
+
+
+<div class="panel active" id="p0">
+
+
+
+<div class="card">
+
+
+
+  <h2>👤 Personal &amp; Family Information</h2>
+
+
+
+  <p class="desc">Fill in your basic information, shown on the report cover. Items marked * are required。</p>
+
+
+
+  <div class="g2" style="margin-bottom:14px">
+
+
+
+    <div class="fg"><label>Name *</label><input id="i_name" placeholder="e.g. Emily" oninput="autoSave()"></div>
+
+
+
+    <div class="fg"><label>Occupation</label><input id="i_job" placeholder="e.g. Aesthetics instructor" oninput="autoSave()"></div>
+
+
+
+    <div class="fg"><label>Age *</label><input type="number" id="i_age" placeholder="e.g. 44" min="18" max="100" oninput="autoSave()"></div>
+
+
+
+    <div class="fg"><label>Family Structure</label>
+
+
+
+      <select id="i_family" onchange="autoSave()">
+
+
+
+        <option value="1 people">Single (1 person）</option>
+
+
+
+        <option value="2+0">Partner (no children）</option>
+
+
+
+        <option value="2+1" selected>Couple + 1 child</option>
+
+
+
+        <option value="2+2">Couple + 2 children</option>
+
+
+
+        <option value="2+3">Couple + 3 children</option>
+
+
+
+        <option value="Other">Other</option>
+
+
+
+      </select>
+
+
+
+    </div>
+
+
+
+    <div class="fg"><label>Report Date</label><input type="date" id="i_date" oninput="autoSave()"></div>
+
+
+
+    <div class="fg"><label>Primary Currency</label>
+
+
+
+      <select id="i_cur" onchange="autoSave()">
+
+
+
+        <option value="HKD">HKD（HKD）</option>
+
+
+
+        <option value="CNY" selected>CNY（CNY）</option>
+
+
+
+        <option value="USD">USD（USD）</option>
+
+
+
+      </select>
+
+
+
+    </div>
+
+
+
+    <div class="fg"><label>Risk Tolerance</label>
+
+
+
+      <select id="i_risk" onchange="autoSave()">
+
+
+
+        <option value="Low (Conservative)）">Low (Conservative)）</option>
+
+
+
+        <option value="Medium (Balanced)）" selected>Medium (Balanced)）</option>
+
+
+
+        <option value="High (Aggressive)）">High (Aggressive)）</option>
+
+
+
+      </select>
+
+
+
+    </div>
+
+
+
+  </div>
+
+
+
+  <div class="fg"><label>Financial goals (one per line, e.g. ① Children's education planning ② Pension savings ③ Build passive income）</label>
+
+
+
+    <textarea id="i_goals" rows="4" placeholder="Enter your main financial goals......" oninput="autoSave()" style="resize:vertical"></textarea>
+
+
+
+  </div>
+
+
+
+</div>
+
+
+
+<div class="navrow"><span></span><button class="btn-p" onclick="go(1)">Next: Liquid Assets →</button>
+
+  <div class="advisor-hint-bar" style="margin-top:20px;padding:12px 16px;background:linear-gradient(90deg,#fffbf0,#fff7e0);border:1px solid #f0d080;border-radius:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.1rem">💡</span><span style="font-size:.85rem;color:#7a5000;font-weight:600">Not sure how to fill in? A professional advisor can help you <strong>11-on-1 guidance</strong></span></div><span style="font-size:.82rem;background:#d4a017;color:#fff;border-radius:50px;padding:5px 14px;font-weight:700;white-space:nowrap">💬 WeChat: hamigua221</span></div>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- ② Liquid Assets -->
+
+
+
+<div class="panel" id="p1">
+
+
+
+<div class="card">
+
+
+
+  <h2>💰 Liquid Assets</h2>
+
+
+
+  <p class="desc">Cash-like assets that can be quickly converted to cash (usually within 7 days). Leave unknown items blank — the system will skip them automatically。</p>
+
+
+
+
+
+
+
+  <div class="sec-hd">🏦 Bank Deposits <span class="st" id="st_bank">Subtotal：0</span></div>
+
+
+
+  <table class="ptbl">
+
+
+
+    <thead><tr><th>Category</th><th>Notes</th><th>Year-end amount (）</th></tr></thead>
+
+
+
+    <tbody>
+
+
+
+      <tr><td class="lbl">Demand deposits</td><td class="hint">Withdraw anytime, highest flexibility</td><td class="amt"><input type="number" id="a_cash_demand" placeholder="0" oninput="calcSub('bank');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Time deposits</td><td class="hint">1Bank time deposits maturing within 1 year</td><td class="amt"><input type="number" id="a_cash_fixed" placeholder="0" oninput="calcSub('bank');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Certificates of deposit</td><td class="hint">Bank certificates of deposit</td><td class="amt"><input type="number" id="a_cash_cd" placeholder="0" oninput="calcSub('bank');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Foreign currency deposits</td><td class="hint">HKD/USD/other foreign currency deposits (converted to primary currency）</td><td class="amt"><input type="number" id="a_cash_usd" placeholder="0" oninput="calcSub('bank');autoSave()"></td></tr>
+
+
+
+    </tbody>
+
+
+
+  </table>
+
+
+
+  <div class="subtotal-bar">Bank deposits subtotal：<span id="sub_bank" style="font-size:1rem">0</span></div>
+
+
+
+
+
+
+
+  <div class="sec-hd">📊 Money Market Funds &amp; Bonds <span class="st" id="st_mf">Subtotal：0</span></div>
+
+
+
+  <table class="ptbl">
+
+
+
+    <tbody>
+
+
+
+      <tr><td class="lbl">Money market funds</td><td class="hint">Yu'ebao, WeChat Wallet etc.</td><td class="amt"><input type="number" id="a_mf_money" placeholder="0" oninput="calcSub('mf');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Government bonds (short-term）</td><td class="hint">1Government bonds maturing within 1 year</td><td class="amt"><input type="number" id="a_mf_bond" placeholder="0" oninput="calcSub('mf');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Bank wealth management (short-term）</td><td class="hint">3-12-month bank wealth management products</td><td class="amt"><input type="number" id="a_mf_bank" placeholder="0" oninput="calcSub('mf');autoSave()"></td></tr>
+
+
+
+    </tbody>
+
+
+
+  </table>
+
+
+
+  <div class="subtotal-bar">Money market funds & bonds subtotal：<span id="sub_mf" style="font-size:1rem">0</span></div>
+
+
+
+
+
+
+
+  <div class="sec-hd">🔐 Savings policies (with cash value）<span class="st" id="st_sv">Subtotal：0</span></div>
+
+
+
+  <table class="ptbl">
+
+
+
+    <tbody>
+
+
+
+      <tr><td class="lbl">Savings policy (self）</td><td class="hint">Cash value of life/savings policy</td><td class="amt"><input type="number" id="a_sv_self" placeholder="0" oninput="calcSub('sv');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Savings policy (spouse）</td><td class="hint">Cash value of spouse savings policy</td><td class="amt"><input type="number" id="a_sv_spouse" placeholder="0" oninput="calcSub('sv');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Children's education policy</td><td class="hint">Education savings policy for children</td><td class="amt"><input type="number" id="a_sv_kid" placeholder="0" oninput="calcSub('sv');autoSave()"></td></tr>
+
+
+
+    </tbody>
+
+
+
+  </table>
+
+
+
+  <div class="subtotal-bar">Savings policies subtotal：<span id="sub_sv" style="font-size:1rem">0</span></div>
+
+
+
+
+
+
+
+  <div class="total-bar"><span>💰 Total Liquid Assets</span><span id="total_liquid" style="font-size:1.1rem">0</span></div>
+
+
+
+</div>
+
+
+
+<div class="navrow"><button class="btn-s" onclick="go(0)">← Previous</button><button class="btn-p" onclick="go(2)">Next: Investment Assets →</button>
+
+  <div class="advisor-hint-bar" style="margin-top:20px;padding:12px 16px;background:linear-gradient(90deg,#fffbf0,#fff7e0);border:1px solid #f0d080;border-radius:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.1rem">💡</span><span style="font-size:.85rem;color:#7a5000;font-weight:600">Not sure how to fill in? A professional advisor can help you <strong>11-on-1 guidance</strong></span></div><span style="font-size:.82rem;background:#d4a017;color:#fff;border-radius:50px;padding:5px 14px;font-weight:700;white-space:nowrap">💬 WeChat: hamigua221</span></div>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- ③ Personal-Use Assets (now step2) -->
+
+
+
+<div class="panel" id="p2">
+
+
+
+<div class="card">
+
+
+
+  <h2>🏡 Personal-Use Assets</h2>
+
+
+
+  <p class="desc">Physical assets for personal use, including your primary residence and vehicles. Fill in current market value。</p>
+
+
+
+
+
+
+
+  <div class="sec-hd">🏠 Primary Residence <span class="st" id="st_home">Subtotal：0</span></div>
+
+
+
+  <table class="ptbl">
+
+
+
+    <tbody>
+
+
+
+      <tr><td class="lbl">Primary home (market value）</td><td class="hint">Current market value (not purchase price）</td><td class="amt"><input type="number" id="a_h_main" placeholder="0" oninput="calcSub('home');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Second home (vacation/parents）</td><td class="hint">Second home occasionally used</td><td class="amt"><input type="number" id="a_h_second" placeholder="0" oninput="calcSub('home');autoSave()"></td></tr>
+
+
+
+    </tbody>
+
+
+
+  </table>
+
+
+
+  <div class="subtotal-bar">Primary residence subtotal：<span id="sub_home" style="font-size:1rem">0</span></div>
+
+
+
+
+
+
+
+  <div class="sec-hd">🚗 Vehicles <span class="st" id="st_car">Subtotal：0</span></div>
+
+
+
+  <table class="ptbl">
+
+
+
+    <tbody>
+
+
+
+      <tr><td class="lbl">Vehicle 1）</td><td class="hint">Current second-hand market value</td><td class="amt"><input type="number" id="a_c_car1" placeholder="0" oninput="calcSub('car');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Vehicle 2）</td><td class="hint">Current second-hand market value</td><td class="amt"><input type="number" id="a_c_car2" placeholder="0" oninput="calcSub('car');autoSave()"></td></tr>
+
+
+
+    </tbody>
+
+
+
+  </table>
+
+
+
+  <div class="subtotal-bar">Vehicles subtotal：<span id="sub_car" style="font-size:1rem">0</span></div>
+
+
+
+
+
+
+
+  <div class="total-bar"><span>🏡 Total Personal-Use Assets</span><span id="total_personal" style="font-size:1.1rem">0</span></div>
+
+
+
+</div>
+
+
+
+<div class="navrow"><button class="btn-s" onclick="go(1)">← Previous</button><button class="btn-p" onclick="go(3)">Next: Investment Assets →</button>
+
+  <div class="advisor-hint-bar" style="margin-top:20px;padding:12px 16px;background:linear-gradient(90deg,#fffbf0,#fff7e0);border:1px solid #f0d080;border-radius:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.1rem">💡</span><span style="font-size:.85rem;color:#7a5000;font-weight:600">Not sure how to fill in? A professional advisor can help you <strong>11-on-1 guidance</strong></span></div><span style="font-size:.82rem;background:#d4a017;color:#fff;border-radius:50px;padding:5px 14px;font-weight:700;white-space:nowrap">💬 WeChat: hamigua221</span></div>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- ④ Investment Assets (now step3) -->
+
+
+
+<div class="panel" id="p3">
+
+
+
+<div class="card">
+
+
+
+  <h2>📈 Investment Assets</h2>
+
+
+
+  <p class="desc">Assets held for appreciation, including securities and investment property. Fill in current market value。</p>
+
+
+
+
+
+
+
+  <div class="sec-hd">📉 Securities <span class="st" id="st_sec">Subtotal：0</span></div>
+
+
+
+  <table class="ptbl">
+
+
+
+    <tbody>
+
+
+
+      <tr><td class="lbl">AA-share stocks</td><td class="hint">Market value of Shanghai/Shenzhen holdings</td><td class="amt"><input type="number" id="a_sec_ashare" placeholder="0" oninput="calcSub('sec');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">HK stocks</td><td class="hint">Market value of HKEX holdings</td><td class="amt"><input type="number" id="a_sec_hkshare" placeholder="0" oninput="calcSub('sec');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">US/overseas stocks</td><td class="hint">US or other overseas market holdings</td><td class="amt"><input type="number" id="a_sec_usshare" placeholder="0" oninput="calcSub('sec');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Mutual funds</td><td class="hint">Equity/mixed/index funds</td><td class="amt"><input type="number" id="a_sec_fund" placeholder="0" oninput="calcSub('sec');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Private funds</td><td class="hint">Private equity, hedge funds etc.</td><td class="amt"><input type="number" id="a_sec_pe" placeholder="0" oninput="calcSub('sec');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Investment-linked (with dividend）</td><td class="hint">Account value of investment-linked insurance</td><td class="amt"><input type="number" id="a_sec_iul" placeholder="0" oninput="calcSub('sec');autoSave()"></td></tr>
+
+
+
+    </tbody>
+
+
+
+  </table>
+
+
+
+  <div class="subtotal-bar">Securities subtotal：<span id="sub_sec" style="font-size:1rem">0</span></div>
+
+
+
+
+
+
+
+  <div class="sec-hd">🏘️ Investment Property <span class="st" id="st_iprop">Subtotal：0</span></div>
+
+
+
+  <table class="ptbl">
+
+
+
+    <tbody>
+
+
+
+      <tr><td class="lbl">HK investment property</td><td class="hint">Current market value (converted to HKD）</td><td class="amt"><input type="number" id="a_ip_hk" placeholder="0" oninput="calcSub('iprop');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Mainland investment property (1st）</td><td class="hint">Current market value</td><td class="amt"><input type="number" id="a_ip_cn1" placeholder="0" oninput="calcSub('iprop');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Mainland investment property (2nd）</td><td class="hint">Current market value</td><td class="amt"><input type="number" id="a_ip_cn2" placeholder="0" oninput="calcSub('iprop');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Mainland investment property (3rd+）</td><td class="hint">Combined market value of multiple properties</td><td class="amt"><input type="number" id="a_ip_cn3" placeholder="0" oninput="calcSub('iprop');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Overseas property</td><td class="hint">Property value in other countries/regions</td><td class="amt"><input type="number" id="a_ip_oversea" placeholder="0" oninput="calcSub('iprop');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Shop/office/factory</td><td class="hint">Commercial investment property</td><td class="amt"><input type="number" id="a_ip_comm" placeholder="0" oninput="calcSub('iprop');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Parking space (investment）</td><td class="hint">Parking space for rent</td><td class="amt"><input type="number" id="a_ip_parking" placeholder="0" oninput="calcSub('iprop');autoSave()"></td></tr>
+
+
+
+    </tbody>
+
+
+
+  </table>
+
+
+
+  <div class="subtotal-bar">Investment property subtotal：<span id="sub_iprop" style="font-size:1rem">0</span></div>
+
+
+
+
+
+
+
+  <div class="sec-hd">🥇 Alternative Investments <span class="st" id="st_alt">Subtotal：0</span></div>
+
+
+
+  <table class="ptbl">
+
+
+
+    <tbody>
+
+
+
+      <tr><td class="lbl">Gold/precious metals</td><td class="hint">Physical gold, gold ETFs etc.</td><td class="amt"><input type="number" id="a_alt_gold" placeholder="0" oninput="calcSub('alt');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Cryptocurrency</td><td class="hint">Bitcoin, Ethereum etc. (current market value）</td><td class="amt"><input type="number" id="a_alt_crypto" placeholder="0" oninput="calcSub('alt');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Equity/company shares</td><td class="hint">Valuation of private company equity</td><td class="amt"><input type="number" id="a_alt_equity" placeholder="0" oninput="calcSub('alt');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Collectibles/art</td><td class="hint">Paintings, antiques, jewelry etc.</td><td class="amt"><input type="number" id="a_alt_art" placeholder="0" oninput="calcSub('alt');autoSave()"></td></tr>
+
+
+
+    </tbody>
+
+
+
+  </table>
+
+
+
+  <div class="subtotal-bar">Alternative investments subtotal：<span id="sub_alt" style="font-size:1rem">0</span></div>
+
+
+
+
+
+
+
+  <div class="total-bar"><span>📈 Total Investment Assets</span><span id="total_invest" style="font-size:1.1rem">0</span></div>
+
+
+
+</div>
+
+
+
+<div class="navrow"><button class="btn-s" onclick="go(2)">← Previous</button><button class="btn-p" onclick="go(4)">Next: Liabilities →</button>
+
+  <div class="advisor-hint-bar" style="margin-top:20px;padding:12px 16px;background:linear-gradient(90deg,#fffbf0,#fff7e0);border:1px solid #f0d080;border-radius:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.1rem">💡</span><span style="font-size:.85rem;color:#7a5000;font-weight:600">Not sure how to fill in? A professional advisor can help you <strong>11-on-1 guidance</strong></span></div><span style="font-size:.82rem;background:#d4a017;color:#fff;border-radius:50px;padding:5px 14px;font-weight:700;white-space:nowrap">💬 WeChat: hamigua221</span></div>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- ⑤ Liabilities -->
+
+
+
+<div class="panel" id="p4">
+
+
+
+<div class="card">
+
+
+
+  <h2>📋 Family Liabilities</h2>
+
+
+
+  <p class="desc">Fill in current outstanding loan balances. If fully repaid or debt-free, enter 0 or leave blank。</p>
+
+
+
+
+
+
+
+  <div class="sec-hd">🏠 Mortgage Loans <span class="st" id="st_mortg">Subtotal：0</span></div>
+
+
+
+  <table class="ptbl">
+
+
+
+    <tbody>
+
+
+
+      <tr><td class="lbl">Primary home mortgage balance</td><td class="hint">Current outstanding principal</td><td class="amt"><input type="number" id="d_m_home" placeholder="0" oninput="calcSub('mortg');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Investment property mortgage balance</td><td class="hint">Investment property loan balance</td><td class="amt"><input type="number" id="d_m_invest" placeholder="0" oninput="calcSub('mortg');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Commercial property loan balance</td><td class="hint">Shop/office loan balance</td><td class="amt"><input type="number" id="d_m_comm" placeholder="0" oninput="calcSub('mortg');autoSave()"></td></tr>
+
+
+
+    </tbody>
+
+
+
+  </table>
+
+
+
+  <div class="subtotal-bar">Mortgage loans subtotal：<span id="sub_mortg" style="font-size:1rem">0</span></div>
+
+
+
+
+
+
+
+  <div class="sec-hd">🚗 Auto & Consumer Loans <span class="st" id="st_cons">Subtotal：0</span></div>
+
+
+
+  <table class="ptbl">
+
+
+
+    <tbody>
+
+
+
+      <tr><td class="lbl">Auto loan balance</td><td class="hint">Outstanding auto installment amount</td><td class="amt"><input type="number" id="d_c_car" placeholder="0" oninput="calcSub('cons');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Credit/personal loans</td><td class="hint">Bank credit, consumer loans</td><td class="amt"><input type="number" id="d_c_personal" placeholder="0" oninput="calcSub('cons');autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Credit card debt</td><td class="hint">Total outstanding across cards</td><td class="amt"><input type="number" id="d_c_cc" placeholder="0" oninput="calcSub('cons');autoSave()"></td></tr>
+
+
+
+    </tbody>
+
+
+
+  </table>
+
+
+
+  <div class="subtotal-bar">Consumer loans subtotal：<span id="sub_cons" style="font-size:1rem">0</span></div>
+
+
+
+
+
+
+
+  <div class="total-bar"><span>📋 Total Liabilities</span><span id="total_debt" style="font-size:1.1rem">0</span></div>
+
+
+
+
+
+
+
+  <div style="margin-top:14px;padding:14px;background:var(--pg);border-radius:10px">
+
+
+
+    <div style="font-size:.85rem;font-weight:700;color:var(--p);margin-bottom:10px">📝 Monthly repayment details (for debt burden ratio）</div>
+
+
+
+    <div class="g2">
+
+
+
+      <div class="fg">
+
+
+
+        <label>Total monthly repayment (/month）</label>
+
+
+
+        <input type="number" id="d_monthly_mortg" placeholder="e.g. 45000" oninput="calcAnnualMortg();autoSave()">
+
+
+
+        <span style="font-size:.78rem;color:var(--gr);margin-top:3px">Annual repayment (auto-calculated）：<strong id="d_annual_mortg_display" style="color:var(--p)">0</strong></span>
+
+
+
+        <input type="hidden" id="d_annual_mortg" value="0">
+
+
+
+      </div>
+
+
+
+      <div class="fg"><label>Primary mortgage rate（%）</label><input type="number" id="d_rate" placeholder="e.g. 4.25" step="0.01" oninput="autoSave()"></div>
+
+
+
+    </div>
+
+
+
+  </div>
+
+
+
+</div>
+
+
+
+<div class="navrow"><button class="btn-s" onclick="go(3)">← Previous</button><button class="btn-p" onclick="go(5)">Next: Income →</button>
+
+  <div class="advisor-hint-bar" style="margin-top:20px;padding:12px 16px;background:linear-gradient(90deg,#fffbf0,#fff7e0);border:1px solid #f0d080;border-radius:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.1rem">💡</span><span style="font-size:.85rem;color:#7a5000;font-weight:600">Not sure how to fill in? A professional advisor can help you <strong>11-on-1 guidance</strong></span></div><span style="font-size:.82rem;background:#d4a017;color:#fff;border-radius:50px;padding:5px 14px;font-weight:700;white-space:nowrap">💬 WeChat: hamigua221</span></div>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- ⑥ Income -->
+
+
+
+<div class="panel" id="p5">
+
+
+
+<div class="card">
+
+
+
+  <h2>💵 Family Income</h2>
+
+
+
+  <p class="desc">Fill in either monthly or annual income — the system converts automatically (annual = monthly×12）。</p>
+
+
+
+  <div style="display:flex;gap:12px;margin-bottom:10px;font-size:.78rem;color:var(--gr)">
+
+
+
+    <span style="background:rgba(74,111,165,.1);padding:3px 10px;border-radius:6px;color:var(--p);font-weight:700">Blue column: monthly income</span>
+
+
+
+    <span style="background:rgba(216,167,177,.15);padding:3px 10px;border-radius:6px;color:#a06080;font-weight:700">Pink column: annual income</span>
+
+
+
+  </div>
+
+
+
+
+
+
+
+  <div class="sec-hd">💼 Active income (work/business）<span class="st" id="st_ainc">Subtotal：0</span></div>
+
+
+
+  <table class="ptbl">
+
+
+
+    <thead><tr><th style="width:34%">Category</th><th style="width:33%;text-align:right">Monthly income (）</th><th style="width:33%;text-align:right">Annual income (）</th></tr></thead>
+
+
+
+    <tbody>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Your salary (fixed）<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Fixed monthly salary after tax</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_w_self_fix_m" placeholder="Enter monthly income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_w_self_fix_m','inc_w_self_fix','m');calcSub('ainc');autoSave()"></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_w_self_fix" placeholder="Enter annual income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_w_self_fix','inc_w_self_fix_m','y');calcSub('ainc');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Your bonus/commission (variable）<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Annual bonus, performance, commission</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_w_self_var_m" placeholder="Enter monthly income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_w_self_var_m','inc_w_self_var','m');calcSub('ainc');autoSave()"></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_w_self_var" placeholder="Enter annual income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_w_self_var','inc_w_self_var_m','y');calcSub('ainc');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Spouse's salary<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Spouse's monthly salary after tax</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_w_spouse_m" placeholder="Enter monthly income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_w_spouse_m','inc_w_spouse','m');calcSub('ainc');autoSave()"></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_w_spouse" placeholder="Enter annual income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_w_spouse','inc_w_spouse_m','y');calcSub('ainc');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Business income<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Net income from self-employment, stores</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_w_biz_m" placeholder="Enter monthly income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_w_biz_m','inc_w_biz','m');calcSub('ainc');autoSave()"></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_w_biz" placeholder="Enter annual income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_w_biz','inc_w_biz_m','y');calcSub('ainc');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Part-time/freelance income<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Side business, consulting, project income</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_w_side_m" placeholder="Enter monthly income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_w_side_m','inc_w_side','m');calcSub('ainc');autoSave()"></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_w_side" placeholder="Enter annual income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_w_side','inc_w_side_m','y');calcSub('ainc');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+    </tbody>
+
+
+
+  </table>
+
+
+
+  <div class="subtotal-bar">Active income subtotal (annual）：<span id="sub_ainc" style="font-size:1rem">0</span></div>
+
+
+
+
+
+
+
+  <div class="sec-hd">🏦 Passive income (rent/investment/pension）<span class="st" id="st_pinc">Subtotal：0</span></div>
+
+
+
+  <table class="ptbl">
+
+
+
+    <thead><tr><th style="width:34%">Category</th><th style="width:33%;text-align:right">Monthly income (）</th><th style="width:33%;text-align:right">Annual income (）</th></tr></thead>
+
+
+
+    <tbody>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">HK property rental income<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">HKD monthly rent ×12 (converted to primary currency）</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_hkrent_m" placeholder="Enter monthly income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_p_hkrent_m','inc_p_hkrent','m');calcSub('pinc');autoSave()"></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_hkrent" placeholder="Enter annual income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_p_hkrent','inc_p_hkrent_m','y');calcSub('pinc');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Mainland property rental income<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Total annual rent across properties</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_cnrent_m" placeholder="Enter monthly income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_p_cnrent_m','inc_p_cnrent','m');calcSub('pinc');autoSave()"></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_cnrent" placeholder="Enter annual income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_p_cnrent','inc_p_cnrent_m','y');calcSub('pinc');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Commercial property rental income<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Annual rent from shops/parking</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_commrent_m" placeholder="Enter monthly income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_p_commrent_m','inc_p_commrent','m');calcSub('pinc');autoSave()"></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_commrent" placeholder="Enter annual income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_p_commrent','inc_p_commrent_m','y');calcSub('pinc');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Stock dividends/fund distributions<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">AAnnual dividends from A-shares, HK stocks, funds</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_div_m" placeholder="Enter monthly income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_p_div_m','inc_p_div','m');calcSub('pinc');autoSave()"></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_div" placeholder="Enter annual income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_p_div','inc_p_div_m','y');calcSub('pinc');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Deposit/bond interest<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Annual interest on bank deposits, bonds</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_int_m" placeholder="Enter monthly income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_p_int_m','inc_p_int','m');calcSub('pinc');autoSave()"></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_int" placeholder="Enter annual income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_p_int','inc_p_int_m','y');calcSub('pinc');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Social security/pension<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Monthly amount received after retirement</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_pension_m" placeholder="Enter monthly income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_p_pension_m','inc_p_pension','m');calcSub('pinc');autoSave()"></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_pension" placeholder="Enter annual income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_p_pension','inc_p_pension_m','y');calcSub('pinc');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Insurance annuity income<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Monthly commercial annuity payment</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_annuity_m" placeholder="Enter monthly income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_p_annuity_m','inc_p_annuity','m');calcSub('pinc');autoSave()"></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_annuity" placeholder="Enter annual income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_p_annuity','inc_p_annuity_m','y');calcSub('pinc');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Other passive income<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Royalties, licensing fees etc.</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_other_m" placeholder="Enter monthly income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('inc_p_other_m','inc_p_other','m');calcSub('pinc');autoSave()"></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="inc_p_other" placeholder="Enter annual income" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('inc_p_other','inc_p_other_m','y');calcSub('pinc');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+    </tbody>
+
+
+
+  </table>
+
+
+
+  <div class="subtotal-bar">Passive income subtotal (annual）：<span id="sub_pinc" style="font-size:1rem">0</span></div>
+
+
+
+
+
+
+
+  <div class="total-bar"><span>💵 Total Annual Income</span><span id="total_income" style="font-size:1.1rem">0</span></div>
+
+
+
+</div>
+
+
+
+<div class="navrow"><button class="btn-s" onclick="go(4)">← Previous</button><button class="btn-p" onclick="go(6)">Next: Expenses →</button>
+
+  <div class="advisor-hint-bar" style="margin-top:20px;padding:12px 16px;background:linear-gradient(90deg,#fffbf0,#fff7e0);border:1px solid #f0d080;border-radius:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.1rem">💡</span><span style="font-size:.85rem;color:#7a5000;font-weight:600">Not sure how to fill in? A professional advisor can help you <strong>11-on-1 guidance</strong></span></div><span style="font-size:.82rem;background:#d4a017;color:#fff;border-radius:50px;padding:5px 14px;font-weight:700;white-space:nowrap">💬 WeChat: hamigua221</span></div>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- ⑦ Expenses -->
+
+
+
+<div class="panel" id="p6">
+
+
+
+<div class="card">
+
+
+
+  <h2>🛒 Family Expenses</h2>
+
+
+
+  <p class="desc">Fill in either monthly or annual expense — the system converts automatically (annual = monthly×12）。</p>
+
+
+
+  <div style="display:flex;gap:12px;margin-bottom:10px;font-size:.78rem;color:var(--gr)">
+
+
+
+    <span style="background:rgba(74,111,165,.1);padding:3px 10px;border-radius:6px;color:var(--p);font-weight:700">Blue column: monthly expense</span>
+
+
+
+    <span style="background:rgba(216,167,177,.15);padding:3px 10px;border-radius:6px;color:#a06080;font-weight:700">Pink column: annual expense</span>
+
+
+
+  </div>
+
+
+
+
+
+
+
+  <div class="sec-hd">🏠 Living Expenses <span class="st" id="st_lexp">Subtotal：0</span></div>
+
+
+
+  <table class="ptbl">
+
+
+
+    <thead><tr><th style="width:34%">Category</th><th style="width:33%;text-align:right">Monthly expense (）</th><th style="width:33%;text-align:right">Annual expense (）</th></tr></thead>
+
+
+
+    <tbody>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Daily household food/necessities<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Groceries, supermarkets, takeout etc.</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_food_m" placeholder="Enter monthly expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_l_food_m','exp_l_food','m');calcSub('lexp');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_food" placeholder="Enter annual expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_l_food','exp_l_food_m','y');calcSub('lexp');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Rent<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Monthly rent</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_rent_m" placeholder="Enter monthly expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_l_rent_m','exp_l_rent','m');calcSub('lexp');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_rent" placeholder="Enter annual expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_l_rent','exp_l_rent_m','y');calcSub('lexp');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+        <td class="lbl">Utilities/property management<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Utilities, property management, telecom</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_util_m" placeholder="Enter monthly expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_l_util_m','exp_l_util','m');calcSub('lexp');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_util" placeholder="Enter annual expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_l_util','exp_l_util_m','y');calcSub('lexp');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Clothing/beauty<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Clothing and beauty costs</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_cloth_m" placeholder="Enter monthly expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_l_cloth_m','exp_l_cloth','m');calcSub('lexp');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_cloth" placeholder="Enter annual expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_l_cloth','exp_l_cloth_m','y');calcSub('lexp');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Transport (excl. car loan）<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Transport and parking fees</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_comm_m" placeholder="Enter monthly expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_l_comm_m','exp_l_comm','m');calcSub('lexp');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_comm" placeholder="Enter annual expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_l_comm','exp_l_comm_m','y');calcSub('lexp');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Travel/vacation<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Total annual travel spending</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_travel_m" placeholder="Enter monthly expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_l_travel_m','exp_l_travel','m');calcSub('lexp');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_travel" placeholder="Enter annual expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_l_travel','exp_l_travel_m','y');calcSub('lexp');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Entertainment/social/dining<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Dining out, gifts, entertainment</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_ent_m" placeholder="Enter monthly expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_l_ent_m','exp_l_ent','m');calcSub('lexp');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_l_ent" placeholder="Enter annual expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_l_ent','exp_l_ent_m','y');calcSub('lexp');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+    </tbody>
+
+
+
+  </table>
+
+
+
+  <div class="subtotal-bar">Living expenses subtotal (annual）：<span id="sub_lexp" style="font-size:1rem">0</span></div>
+
+
+
+
+
+
+
+  <div class="sec-hd">👨‍👩‍👧 Children's Education <span class="st" id="st_edu">Subtotal：0</span></div>
+
+
+
+  <table class="ptbl">
+
+
+
+    <thead><tr><th style="width:34%">Category</th><th style="width:33%;text-align:right">Monthly expense (）</th><th style="width:33%;text-align:right">Annual expense (）</th></tr></thead>
+
+
+
+    <tbody>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Children's tuition/childcare<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">School tuition</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_e_tuition_m" placeholder="Enter monthly expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_e_tuition_m','exp_e_tuition','m');calcSub('edu');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_e_tuition" placeholder="Enter annual expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_e_tuition','exp_e_tuition_m','y');calcSub('edu');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Tutoring/extracurricular classes<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Tutoring and talent classes</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_e_extra_m" placeholder="Enter monthly expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_e_extra_m','exp_e_extra','m');calcSub('edu');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_e_extra" placeholder="Enter annual expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_e_extra','exp_e_extra_m','y');calcSub('edu');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Children's daily allowance<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Children's living allowance</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_e_living_m" placeholder="Enter monthly expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_e_living_m','exp_e_living','m');calcSub('edu');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_e_living" placeholder="Enter annual expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_e_living','exp_e_living_m','y');calcSub('edu');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+    </tbody>
+
+
+
+  </table>
+
+
+
+  <div class="subtotal-bar">Children's education subtotal (annual）：<span id="sub_edu" style="font-size:1rem">0</span></div>
+
+
+
+
+
+
+
+  <div class="sec-hd">👴 Parent Support <span class="st" id="st_par">Subtotal：0</span></div>
+
+
+
+  <table class="ptbl">
+
+
+
+    <thead><tr><th style="width:34%">Category</th><th style="width:33%;text-align:right">Monthly expense (）</th><th style="width:33%;text-align:right">Annual expense (）</th></tr></thead>
+
+
+
+    <tbody>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Monthly support for parents<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Monthly living allowance to parents</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_p_parents_m" placeholder="Enter monthly expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_p_parents_m','exp_p_parents','m');calcSub('par');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_p_parents" placeholder="Enter annual expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_p_parents','exp_p_parents_m','y');calcSub('par');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+    
+      <tr>
+
+
+
+        <td class="lbl">Parents' insurance<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Insurance premiums paid for parents</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_p_parins_m" placeholder="Enter monthly expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_p_parins_m','exp_p_parins','m');calcSub('par');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_p_parins" placeholder="Enter annual expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_p_parins','exp_p_parins_m','y');calcSub('par');autoSave()"></td>
+
+
+
+      </tr>
+
+</tbody>
+
+
+
+  </table>
+
+
+
+  <div class="subtotal-bar">Parent support subtotal (annual）：<span id="sub_par" style="font-size:1rem">0</span></div>
+
+
+
+
+
+
+
+  <div class="sec-hd">🔒 Financial expenses (repayment &amp; insurance）<span class="st" id="st_fexp">Subtotal：0</span></div>
+
+
+
+  <table class="ptbl">
+
+
+
+    <thead><tr><th style="width:34%">Category</th><th style="width:33%;text-align:right">Monthly expense (）</th><th style="width:33%;text-align:right">Annual expense (）</th></tr></thead>
+
+
+
+    <tbody>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Monthly mortgage payment<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Monthly payment amount</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_f_mortg_m" placeholder="Enter monthly expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_f_mortg_m','exp_f_mortg','m');calcSub('fexp');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_f_mortg" placeholder="Enter annual expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_f_mortg','exp_f_mortg_m','y');calcSub('fexp');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Monthly auto loan payment<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Monthly payment amount</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_f_carloan_m" placeholder="Enter monthly expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_f_carloan_m','exp_f_carloan','m');calcSub('fexp');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_f_carloan" placeholder="Enter annual expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_f_carloan','exp_f_carloan_m','y');calcSub('fexp');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Life/critical illness premiums<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Annual premiums for protection insurance</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_f_ins_m" placeholder="Enter monthly expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_f_ins_m','exp_f_ins','m');calcSub('fexp');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_f_ins" placeholder="Enter annual expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_f_ins','exp_f_ins_m','y');calcSub('fexp');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Annual premiums for savings/education policies<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Annual premiums for savings-type insurance</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_f_sav_m" placeholder="Enter monthly expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_f_sav_m','exp_f_sav','m');calcSub('fexp');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_f_sav" placeholder="Enter annual expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_f_sav','exp_f_sav_m','y');calcSub('fexp');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+    </tbody>
+
+
+
+  </table>
+
+
+
+  <div class="subtotal-bar">Financial expenses subtotal (annual）：<span id="sub_fexp" style="font-size:1rem">0</span></div>
+
+
+
+
+
+
+
+  <div class="sec-hd">🚗 Vehicle Expenses <span class="st" id="st_veh">Subtotal：0</span></div>
+
+
+
+  <table class="ptbl">
+
+
+
+    <thead><tr><th style="width:34%">Category</th><th style="width:33%;text-align:right">Monthly expense (）</th><th style="width:33%;text-align:right">Annual expense (）</th></tr></thead>
+
+
+
+    <tbody>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Fuel/charging<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Annual fuel costs</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_v_fuel_m" placeholder="Enter monthly expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_v_fuel_m','exp_v_fuel','m');calcSub('veh');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_v_fuel" placeholder="Enter annual expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_v_fuel','exp_v_fuel_m','y');calcSub('veh');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Vehicle insurance premium<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Annual vehicle insurance premium</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_v_carins_m" placeholder="Enter monthly expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_v_carins_m','exp_v_carins','m');calcSub('veh');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_v_carins" placeholder="Enter annual expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_v_carins','exp_v_carins_m','y');calcSub('veh');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Maintenance<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Annual maintenance</span></td>
+
+
+
+        <td style="text-align:right;padding:6px 8px"><input type="number" id="exp_v_maint_m" placeholder="Enter monthly expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="syncExp('exp_v_maint_m','exp_v_maint','m');calcSub('veh');autoSave()"></td><td style="text-align:right;padding:6px 8px"><input type="number" id="exp_v_maint" placeholder="Enter annual expense" style="width:100%;text-align:right;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.92rem;font-weight:700;color:#a06080;outline:none;background:#fff8fb" oninput="syncExp('exp_v_maint','exp_v_maint_m','y');calcSub('veh');autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+    </tbody>
+
+
+
+  </table>
+
+
+
+  <div class="subtotal-bar">Vehicle expenses subtotal (annual）：<span id="sub_veh" style="font-size:1rem">0</span></div>
+
+
+
+
+
+
+
+  <div class="total-bar"><span>🛒 Total Annual Expenses</span><span id="total_exp" style="font-size:1.1rem">0</span></div>
+
+
+
+</div>
+
+
+
+<div class="navrow"><button class="btn-s" onclick="go(5)">← Previous</button><button class="btn-p" onclick="go(7)">Next: Insurance Review →</button>
+
+  <div class="advisor-hint-bar" style="margin-top:20px;padding:12px 16px;background:linear-gradient(90deg,#fffbf0,#fff7e0);border:1px solid #f0d080;border-radius:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.1rem">💡</span><span style="font-size:.85rem;color:#7a5000;font-weight:600">Not sure how to fill in? A professional advisor can help you <strong>11-on-1 guidance</strong></span></div><span style="font-size:.82rem;background:#d4a017;color:#fff;border-radius:50px;padding:5px 14px;font-weight:700;white-space:nowrap">💬 WeChat: hamigua221</span></div>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- ⑧ Insurance Review -->
+
+
+
+<div class="panel" id="p7">
+
+
+
+<div class="card">
+
+
+
+  <h2>🛡️ Insurance Review</h2>
+
+
+
+  <p class="desc">Fill in your family members' existing insurance — the system will auto-calculate coverage adequacy。</p>
+
+
+
+
+
+
+
+  <div class="sec-hd">👤 Your Policies</div>
+
+
+
+  <table class="ptbl">
+
+
+
+    <thead><tr><th style="width:24%">Insurance Type</th><th style="width:22%">Coverage (10k）</th><th style="width:32%">Annual premium (）</th><th style="width:22%">Payment term</th></tr></thead>
+
+
+
+    <tbody>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Life Insurance<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Death benefit</span></td>
+
+
+
+        <td class="amt"><input type="number" id="ins_s_life_amt" placeholder="e.g. 100" oninput="autoSave()"></td>
+
+
+
+        <td class="amt"><input type="number" id="ins_s_life_prem" placeholder="0" style="width:100%;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.95rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="calcTotalPremium();autoSave()"></td>
+
+
+
+        <td><input type="text" id="ins_s_life_yr" placeholder="e.g. 20 years" style="padding:6px 8px;border:1.5px solid var(--bd);border-radius:6px;font-size:.82rem;width:80px" oninput="autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Critical Illness<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Critical illness benefit</span></td>
+
+
+
+        <td class="amt"><input type="number" id="ins_s_ci_amt" placeholder="e.g. 100" oninput="autoSave()"></td>
+
+
+
+        <td class="amt"><input type="number" id="ins_s_ci_prem" placeholder="0" style="width:100%;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.95rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="calcTotalPremium();autoSave()"></td>
+
+
+
+        <td><input type="text" id="ins_s_ci_yr" placeholder="e.g. to age 60" style="padding:6px 8px;border:1.5px solid var(--bd);border-radius:6px;font-size:.82rem;width:80px" oninput="autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Medical Insurance<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Hospitalization/surgery reimbursement</span></td>
+
+
+
+        <td class="amt"><input type="number" id="ins_s_med_amt" placeholder="e.g. 100" oninput="autoSave()"></td>
+
+
+
+        <td class="amt"><input type="number" id="ins_s_med_prem" placeholder="0" style="width:100%;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.95rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="calcTotalPremium();autoSave()"></td>
+
+
+
+        <td><input type="text" id="ins_s_med_yr" placeholder="e.g. to age 80" style="padding:6px 8px;border:1.5px solid var(--bd);border-radius:6px;font-size:.82rem;width:80px" oninput="autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Savings/Pension<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Annuity income after retirement</span></td>
+
+
+
+        <td class="amt"><input type="number" id="ins_s_sav_amt" placeholder="e.g. 100" oninput="autoSave()"></td>
+
+
+
+        <td class="amt"><input type="number" id="ins_s_sav_prem" placeholder="0" style="width:100%;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.95rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="calcTotalPremium();autoSave()"></td>
+
+
+
+        <td><input type="text" id="ins_s_sav_yr" placeholder="e.g. 20 years" style="padding:6px 8px;border:1.5px solid var(--bd);border-radius:6px;font-size:.82rem;width:80px" oninput="autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Accident Insurance<br><span style="font-size:.72rem;color:var(--gr);font-weight:400">Accidental death/disability benefit</span></td>
+
+
+
+        <td class="amt"><input type="number" id="ins_s_acc_amt" placeholder="e.g. 100" oninput="autoSave()"></td>
+
+
+
+        <td class="amt"><input type="number" id="ins_s_acc_prem" placeholder="0" style="width:100%;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.95rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="calcTotalPremium();autoSave()"></td>
+
+
+
+        <td><input type="text" id="ins_s_acc_yr" placeholder="e.g. annually renewable" style="padding:6px 8px;border:1.5px solid var(--bd);border-radius:6px;font-size:.82rem;width:80px" oninput="autoSave()"></td>
+
+
+
+      </tr>
+
+
+
+      <tr>
+
+
+
+        <td class="lbl">Social security (self）</td>
+
+
+
+        <td class="amt" colspan="2"><select id="ins_s_social" onchange="autoSave()" style="padding:6px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.88rem;width:100%"><option value="Yes">Yes</option><option value="No">No</option></select></td>
+
+
+
+        <td></td>
+
+
+
+      </tr>
+
+
+
+    </tbody>
+
+
+
+  </table>
+
+
+
+
+
+
+
+  <div class="sec-hd" style="margin-top:18px">👫 Spouse's Policies</div>
+
+
+
+  <table class="ptbl">
+
+
+
+    <thead><tr><th style="width:24%">Insurance Type</th><th style="width:22%">Coverage (10k）</th><th style="width:32%">Annual premium (）</th><th style="width:22%">Payment term</th></tr></thead>
+
+
+
+    <tbody>
+
+
+
+      <tr><td class="lbl">Life Insurance</td><td class="amt"><input type="number" id="ins_p_life_amt" placeholder="e.g. 100" oninput="autoSave()"></td><td class="amt"><input type="number" id="ins_p_life_prem" placeholder="0" style="width:100%;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.95rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="calcTotalPremium();autoSave()"></td><td><input type="text" id="ins_p_life_yr" placeholder="Term" style="padding:6px 8px;border:1.5px solid var(--bd);border-radius:6px;font-size:.82rem;width:80px" oninput="autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Critical Illness</td><td class="amt"><input type="number" id="ins_p_ci_amt" placeholder="e.g. 100" oninput="autoSave()"></td><td class="amt"><input type="number" id="ins_p_ci_prem" placeholder="0" style="width:100%;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.95rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="calcTotalPremium();autoSave()"></td><td><input type="text" id="ins_p_ci_yr" placeholder="Term" style="padding:6px 8px;border:1.5px solid var(--bd);border-radius:6px;font-size:.82rem;width:80px" oninput="autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Medical Insurance</td><td class="amt"><input type="number" id="ins_p_med_amt" placeholder="e.g. 100" oninput="autoSave()"></td><td class="amt"><input type="number" id="ins_p_med_prem" placeholder="0" style="width:100%;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.95rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="calcTotalPremium();autoSave()"></td><td><input type="text" id="ins_p_med_yr" placeholder="Term" style="padding:6px 8px;border:1.5px solid var(--bd);border-radius:6px;font-size:.82rem;width:80px" oninput="autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Savings/Pension</td><td class="amt"><input type="number" id="ins_p_sav_amt" placeholder="e.g. 100" oninput="autoSave()"></td><td class="amt"><input type="number" id="ins_p_sav_prem" placeholder="0" style="width:100%;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.95rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="calcTotalPremium();autoSave()"></td><td><input type="text" id="ins_p_sav_yr" placeholder="Term" style="padding:6px 8px;border:1.5px solid var(--bd);border-radius:6px;font-size:.82rem;width:80px" oninput="autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Social security (spouse）</td><td class="amt" colspan="2"><select id="ins_p_social" onchange="autoSave()" style="padding:6px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.88rem;width:100%"><option value="Yes">Yes</option><option value="No">No</option></select></td><td></td></tr>
+
+
+
+    </tbody>
+
+
+
+  </table>
+
+
+
+
+
+
+
+  <div class="sec-hd" style="margin-top:18px">👶 Children's policies (if applicable）</div>
+
+
+
+  <table class="ptbl">
+
+
+
+    <thead><tr><th style="width:24%">Insurance Type</th><th style="width:22%">Coverage (10k）</th><th style="width:32%">Annual premium (）</th><th style="width:22%">Payment term</th></tr></thead>
+
+
+
+    <tbody>
+
+
+
+      <tr><td class="lbl">Children's education savings</td><td class="amt"><input type="number" id="ins_k_edu_amt" placeholder="e.g. 100" oninput="autoSave()"></td><td class="amt"><input type="number" id="ins_k_edu_prem" placeholder="0" style="width:100%;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.95rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="calcTotalPremium();autoSave()"></td><td><input type="text" id="ins_k_edu_yr" placeholder="Term" style="padding:6px 8px;border:1.5px solid var(--bd);border-radius:6px;font-size:.82rem;width:80px" oninput="autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Children's critical illness</td><td class="amt"><input type="number" id="ins_k_ci_amt" placeholder="e.g. 100" oninput="autoSave()"></td><td class="amt"><input type="number" id="ins_k_ci_prem" placeholder="0" style="width:100%;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.95rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="calcTotalPremium();autoSave()"></td><td><input type="text" id="ins_k_ci_yr" placeholder="Term" style="padding:6px 8px;border:1.5px solid var(--bd);border-radius:6px;font-size:.82rem;width:80px" oninput="autoSave()"></td></tr>
+
+
+
+      <tr><td class="lbl">Children's medical</td><td class="amt"><input type="number" id="ins_k_med_amt" placeholder="e.g. 100" oninput="autoSave()"></td><td class="amt"><input type="number" id="ins_k_med_prem" placeholder="0" style="width:100%;padding:9px 10px;border:1.5px solid var(--bd);border-radius:7px;font-size:.95rem;font-weight:700;color:var(--p);outline:none;background:#fafbff" oninput="calcTotalPremium();autoSave()"></td><td><input type="text" id="ins_k_med_yr" placeholder="Term" style="padding:6px 8px;border:1.5px solid var(--bd);border-radius:6px;font-size:.82rem;width:80px" oninput="autoSave()"></td></tr>
+
+
+
+    </tbody>
+
+
+
+  </table>
+
+
+
+
+
+
+
+  <div style="margin-top:14px;padding:10px 14px;background:rgba(74,111,165,.06);border-radius:8px;font-size:.85rem;font-weight:700;color:var(--p);display:flex;justify-content:space-between">
+
+
+
+    <span>🛡️ Total family annual premium (auto-calculated）</span>
+
+
+
+    <span id="ins_total_prem" style="font-size:1.05rem">0</span>
+
+
+
+  </div>
+
+
+
+</div>
+
+
+
+<div class="navrow"><button class="btn-s" onclick="go(6)">← Previous</button><button class="btn-p" onclick="genReport()" style="background:var(--gn);border-color:var(--gn)">📊 Generate Family Financial Report</button>
+
+  <div class="advisor-hint-bar" style="margin-top:20px;padding:12px 16px;background:linear-gradient(90deg,#fffbf0,#fff7e0);border:1px solid #f0d080;border-radius:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.1rem">💡</span><span style="font-size:.85rem;color:#7a5000;font-weight:600">Not sure how to fill in? A professional advisor can help you <strong>11-on-1 guidance</strong></span></div><span style="font-size:.82rem;background:#d4a017;color:#fff;border-radius:50px;padding:5px 14px;font-weight:700;white-space:nowrap">💬 WeChat: hamigua221</span></div>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Report Panel -->
+
+
+
+<div class="panel" id="p8">
+
+
+
+  <div id="report_out"></div>
+
+
+
+  <button onclick="window.print()" style="position:fixed;bottom:24px;right:24px;padding:13px 22px;background:var(--a);color:#fff;border:none;border-radius:50px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(216,167,177,.5);font-size:.9rem;z-index:100">🖨️ Print / SavePDF</button>
+
+
+
+  <div class="navrow" style="margin-top:0"><button class="btn-s" onclick="go(7)">← Back to Edit</button>
+
+  <span style="font-size:.82rem;background:#d4a017;color:#fff;border-radius:50px;padding:5px 14px;font-weight:700;white-space:nowrap">💬 WeChat: hamigua221</span></div>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+</div><!-- end .wrap -->
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+
+
+
+
+
+
+const SKEY='hfr_v2';
+
+
+
+let autoTimer=null, charts={};
+
+
+
+
+
+
+
+// ── Auto-save ──
+
+
+
+function autoSave(){clearTimeout(autoTimer);autoTimer=setTimeout(saveNow,500);}
+
+
+
+// ── Monthly/annual expense conversion ──
+
+
+
+function syncExp(srcId, dstId, srcType){
+
+
+
+  const src = parseFloat(document.getElementById(srcId)?.value)||0;
+
+
+
+  const dst = document.getElementById(dstId);
+
+
+
+  if(!dst)return;
+
+
+
+  if(srcType==='m'){ dst.value = src>0 ? (src*12).toFixed(0) : ''; }
+
+
+
+  else { dst.value = src>0 ? (src/12).toFixed(0) : ''; }
+
+
+
+}
+
+
+
+
+
+
+
+// ── Monthly repayment -> annual repayment display ──
+
+
+
+function calcAnnualMortg(){
+
+
+
+  const monthly = parseFloat(document.getElementById('d_monthly_mortg')?.value)||0;
+
+
+
+  const annual = monthly * 12;
+
+
+
+  const disp = document.getElementById('d_annual_mortg_display');
+
+
+
+  const hidden = document.getElementById('d_annual_mortg');
+
+
+
+  if(disp) disp.textContent = annual > 0 ? annual.toLocaleString('en-US') + ' CNY' : '0';
+
+
+
+  if(hidden) hidden.value = annual;
+
+
+
+}
+
+
+
+function saveNow(){
+
+
+
+  const data={};
+
+
+
+  document.querySelectorAll('input[id],select[id],textarea[id]').forEach(el=>{if(el.id)data[el.id]=el.value;});
+
+
+
+  localStorage.setItem(SKEY,JSON.stringify(data));
+
+
+
+  const ss=document.getElementById('saveStatus');
+
+
+
+  const now=new Date();
+
+
+
+  const ts=`${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}:${now.getSeconds().toString().padStart(2,'0')}`;
+
+
+
+  if(ss)ss.textContent=`✅ Saved at ${ts} — data won't be lost after closing the browser`;
+
+
+
+}
+
+
+
+function loadSaved(){
+
+
+
+  const raw=localStorage.getItem(SKEY);
+
+
+
+  if(!raw)return;
+
+
+
+  try{
+
+
+
+    const data=JSON.parse(raw);
+
+
+
+    Object.keys(data).forEach(id=>{const el=document.getElementById(id);if(el)el.value=data[id];});
+
+
+
+    ['bank','mf','sv','sec','iprop','alt','home','car','mortg','cons','ainc','pinc','lexp','edu','par','fexp','veh'].forEach(calcSub);
+
+
+
+    calcTotalPremium();
+
+
+
+    calcAnnualMortg();
+
+
+
+    const ss=document.getElementById('saveStatus');
+
+
+
+    if(ss)ss.textContent='✅ Restored your previously saved data — continue filling in';
+
+
+
+  }catch(e){}
+
+
+
+}
+
+
+
+function clearAll(){
+
+
+
+  if(!confirm('Are you sure you want to clear all entered data? This cannot be undone.'))return;
+
+
+
+  localStorage.removeItem(SKEY);
+
+
+
+  document.querySelectorAll('input[id],select[id],textarea[id]').forEach(el=>{if(el.tagName==='SELECT')el.selectedIndex=0;else el.value='';});
+
+
+
+  ['bank','mf','sv','sec','iprop','alt','home','car','mortg','cons','ainc','pinc','lexp','edu','par','fexp','veh'].forEach(calcSub);
+
+
+
+  calcTotalPremium();
+
+
+
+  document.getElementById('saveStatus').textContent='Data cleared — please fill in again';
+
+
+
+}
+
+
+
+
+
+
+
+// ── Step navigation ──
+
+
+
+let curStep=0;
+
+
+
+function go(n){
+
+
+
+  document.querySelectorAll('.panel').forEach((p,i)=>p.classList.toggle('active',i===n));
+
+
+
+  document.querySelectorAll('.snav').forEach((b,i)=>{
+
+
+
+    b.classList.remove('active','done');
+
+
+
+    if(i===n&&i<8)b.classList.add('active');
+
+
+
+    else if(i<n)b.classList.add('done');
+
+
+
+  });
+
+
+
+  curStep=n;window.scrollTo(0,0);saveNow();
+
+
+
+}
+
+
+
+
+
+
+
+// ── Field groups ──
+
+
+
+const GROUPS={
+
+
+
+  bank:['a_cash_demand','a_cash_fixed','a_cash_cd','a_cash_usd'],
+
+
+
+  mf:['a_mf_money','a_mf_bond','a_mf_bank'],
+
+
+
+  sv:['a_sv_self','a_sv_spouse','a_sv_kid'],
+
+
+
+  sec:['a_sec_ashare','a_sec_hkshare','a_sec_usshare','a_sec_fund','a_sec_pe','a_sec_iul'],
+
+
+
+  iprop:['a_ip_hk','a_ip_cn1','a_ip_cn2','a_ip_cn3','a_ip_oversea','a_ip_comm','a_ip_parking'],
+
+
+
+  alt:['a_alt_gold','a_alt_crypto','a_alt_equity','a_alt_art'],
+
+
+
+  home:['a_h_main','a_h_second'],
+
+
+
+  car:['a_c_car1','a_c_car2'],
+
+
+
+  mortg:['d_m_home','d_m_invest','d_m_comm'],
+
+
+
+  cons:['d_c_car','d_c_personal','d_c_cc'],
+
+
+
+  ainc:['inc_w_self_fix','inc_w_self_var','inc_w_spouse','inc_w_biz','inc_w_side'],
+
+
+
+  pinc:['inc_p_hkrent','inc_p_cnrent','inc_p_commrent','inc_p_div','inc_p_int','inc_p_pension','inc_p_annuity','inc_p_other'],
+
+
+
+  lexp:['exp_l_food','exp_l_util','exp_l_cloth','exp_l_comm','exp_l_travel','exp_l_ent'],
+
+
+
+  edu:['exp_e_tuition','exp_e_extra','exp_e_living'],
+
+
+
+  par:['exp_p_parents'],
+
+
+
+  fexp:['exp_f_mortg','exp_f_carloan','exp_f_ins','exp_f_sav'],
+
+
+
+  veh:['exp_v_fuel','exp_v_carins','exp_v_maint']
+
+
+
+};
+
+
+
+
+
+
+
+function v(id){return parseFloat(document.getElementById(id)?.value)||0;}
+
+
+
+function fmt(n){return Number(n).toLocaleString('en-US');}
+
+
+
+function fmtPct(n){return(isNaN(n)||!isFinite(n))?'—':((n*100).toFixed(2)+'%');}
+
+
+
+
+
+
+
+const subCache={};
+
+
+
+function calcSub(grp){
+
+
+
+  const ids=GROUPS[grp];if(!ids)return;
+
+
+
+  const sum=ids.reduce((a,id)=>a+v(id),0);
+
+
+
+  subCache[grp]=sum;
+
+
+
+  const el=document.getElementById('sub_'+grp);if(el)el.textContent=fmt(sum);
+
+
+
+  const st=document.getElementById('st_'+grp);if(st)st.textContent='Subtotal: '+fmt(sum);
+
+
+
+  const totMap={liquid:['bank','mf','sv'],invest:['sec','iprop','alt'],personal:['home','car'],debt:['mortg','cons'],income:['ainc','pinc'],exp:['lexp','edu','par','fexp','veh']};
+
+
+
+  const totIds={liquid:'total_liquid',invest:'total_invest',personal:'total_personal',debt:'total_debt',income:'total_income',exp:'total_exp'};
+
+
+
+  Object.keys(totMap).forEach(tot=>{
+
+
+
+    if(totMap[tot].includes(grp)){
+
+
+
+      const total=totMap[tot].reduce((a,g)=>a+(subCache[g]||0),0);
+
+
+
+      const tel=document.getElementById(totIds[tot]);if(tel)tel.textContent=fmt(total);
+
+
+
+    }
+
+
+
+  });
+
+
+
+}
+
+
+
+function calcTotalPremium(){
+
+
+
+  const ids=['ins_s_life_prem','ins_s_ci_prem','ins_s_med_prem','ins_s_sav_prem','ins_s_acc_prem','ins_p_life_prem','ins_p_ci_prem','ins_p_med_prem','ins_p_sav_prem','ins_k_edu_prem','ins_k_ci_prem','ins_k_med_prem'];
+
+
+
+  const total=ids.reduce((a,id)=>a+v(id),0);
+
+
+
+  const el=document.getElementById('ins_total_prem');if(el)el.textContent=fmt(total)+' CNY';
+
+
+
+}
+
+
+
+
+
+
+
+// ── Collect data ──
+
+
+
+function collectData(){
+
+
+
+  const cur_sym=document.getElementById('i_cur')?.value||'CNY';
+
+
+
+  const age=parseInt(document.getElementById('i_age')?.value)||0;
+
+
+
+  const getG=g=>(GROUPS[g]||[]).reduce((a,id)=>a+v(id),0);
+
+
+
+  const liquidTotal=['bank','mf','sv'].reduce((a,g)=>a+getG(g),0);
+
+
+
+  const investTotal=['sec','iprop','alt'].reduce((a,g)=>a+getG(g),0);
+
+
+
+  const personalTotal=['home','car'].reduce((a,g)=>a+getG(g),0);
+
+
+
+  const totalAssets=liquidTotal+investTotal+personalTotal;
+
+
+
+  const debtTotal=['mortg','cons'].reduce((a,g)=>a+getG(g),0);
+
+
+
+  const netAssets=totalAssets-debtTotal;
+
+
+
+  const activeInc=getG('ainc'), passiveInc=getG('pinc'), totalInc=activeInc+passiveInc;
+
+
+
+  const livingExp=['lexp','edu','par','veh'].reduce((a,g)=>a+getG(g),0);
+
+
+
+  const finExp=['fexp'].reduce((a,g)=>a+getG(g),0);
+
+
+
+  const totalExp=livingExp+finExp;
+
+
+
+  const netInc=totalInc-totalExp;
+
+
+
+  const annualMortg=v('d_annual_mortg')||0;
+
+
+
+  const lifeCover=(v('ins_s_life_amt')+v('ins_p_life_amt'))*10000;
+
+
+
+  const ciCover=(v('ins_s_ci_amt')+v('ins_p_ci_amt')+v('ins_k_ci_amt'))*10000;
+
+
+
+  const premIds=['ins_s_life_prem','ins_s_ci_prem','ins_s_med_prem','ins_s_sav_prem','ins_s_acc_prem','ins_p_life_prem','ins_p_ci_prem','ins_p_med_prem','ins_p_sav_prem','ins_k_edu_prem','ins_k_ci_prem','ins_k_med_prem'];
+
+
+
+  const totalPrem=premIds.reduce((a,id)=>a+v(id),0);
+
+
+
+  const assetCat={
+
+
+
+    'Wealth preservation (cash deposits)':getG('bank')+getG('mf'),
+
+
+
+    'Wealth preservation (savings policies)':getG('sv'),
+
+
+
+    'Wealth growth (securities)':getG('sec'),
+
+
+
+    'Alternative (investment property)':getG('iprop'),
+
+
+
+    'Alternative (others)':getG('alt'),
+
+
+
+    'Personal-Use Assets':getG('home')+getG('car')
+
+
+
+  };
+
+
+
+  const remain=Math.max(85-age,1);
+
+
+
+  const kpis={
+
+
+
+    absoluteWR:livingExp>0?netAssets/(livingExp*remain):null,
+
+
+
+    wealthFreeR:livingExp>0?passiveInc/livingExp:null,
+
+
+
+    finAssetR:totalAssets>0?liquidTotal/totalAssets:null,
+
+
+
+    debtR:totalAssets>0?debtTotal/totalAssets:0,
+
+
+
+    emergMths:livingExp>0?(getG('bank')+getG('mf'))/(livingExp/12):null,
+
+
+
+    lifeR:(activeInc+passiveInc*0.5)>0?lifeCover/(activeInc+passiveInc*0.5):null,
+
+
+
+    ciR:activeInc>0?ciCover/activeInc:null,
+
+
+
+    debtBurdenR:(totalInc>0&&annualMortg>0)?annualMortg/totalInc:null,
+
+
+
+    netSavR:totalInc>0?netInc/totalInc:null,
+
+
+
+    netWorthGR:netAssets>0?netInc/netAssets:null
+
+
+
+  };
+
+
+
+  const details={
+
+    assets:{
+
+      cash_demand:v('a_cash_demand'),cash_fixed:v('a_cash_fixed'),cash_cd:v('a_cash_cd'),cash_usd:v('a_cash_usd'),
+
+      mf_money:v('a_mf_money'),mf_bond:v('a_mf_bond'),mf_bank:v('a_mf_bank'),
+
+      sv_self:v('a_sv_self'),sv_spouse:v('a_sv_spouse'),sv_kid:v('a_sv_kid'),
+
+      sec_ashare:v('a_sec_ashare'),sec_hkshare:v('a_sec_hkshare'),sec_usshare:v('a_sec_usshare'),sec_fund:v('a_sec_fund'),sec_pe:v('a_sec_pe'),sec_iul:v('a_sec_iul'),
+
+      ip_hk:v('a_ip_hk'),ip_cn1:v('a_ip_cn1'),ip_cn2:v('a_ip_cn2'),ip_cn3:v('a_ip_cn3'),ip_oversea:v('a_ip_oversea'),ip_comm:v('a_ip_comm'),ip_parking:v('a_ip_parking'),
+
+      alt_gold:v('a_alt_gold'),alt_crypto:v('a_alt_crypto'),alt_equity:v('a_alt_equity'),alt_art:v('a_alt_art'),
+
+      h_main:v('a_h_main'),h_second:v('a_h_second'),c_car1:v('a_c_car1'),c_car2:v('a_c_car2')
+
+    },
+
+    debts:{
+
+      m_home:v('d_m_home'),m_invest:v('d_m_invest'),m_comm:v('d_m_comm'),
+
+      c_car:v('d_c_car'),c_personal:v('d_c_personal'),c_cc:v('d_c_cc'),
+
+      annual_mortg:v('d_annual_mortg')
+
+    },
+
+    income:{
+
+      w_self_fix:v('inc_w_self_fix'),w_self_var:v('inc_w_self_var'),w_spouse:v('inc_w_spouse'),w_biz:v('inc_w_biz'),w_side:v('inc_w_side'),
+
+      p_hkrent:v('inc_p_hkrent'),p_cnrent:v('inc_p_cnrent'),p_commrent:v('inc_p_commrent'),p_div:v('inc_p_div'),p_int:v('inc_p_int'),p_pension:v('inc_p_pension'),p_annuity:v('inc_p_annuity'),p_other:v('inc_p_other')
+
+    },
+
+    expense:{
+
+      l_food:v('exp_l_food'),l_util:v('exp_l_util'),l_cloth:v('exp_l_cloth'),l_comm:v('exp_l_comm'),l_travel:v('exp_l_travel'),l_ent:v('exp_l_ent'),
+
+      e_tuition:v('exp_e_tuition'),e_extra:v('exp_e_extra'),e_living:v('exp_e_living'),
+
+      p_parents:v('exp_p_parents'),
+
+      f_mortg:v('exp_f_mortg'),f_carloan:v('exp_f_carloan'),f_ins:v('exp_f_ins'),f_sav:v('exp_f_sav'),
+
+      v_fuel:v('exp_v_fuel'),v_carins:v('exp_v_carins'),v_maint:v('exp_v_maint')
+
+    },
+
+    insurance:{
+
+      s_life_amt:v('ins_s_life_amt'),s_life_prem:v('ins_s_life_prem'),
+
+      s_ci_amt:v('ins_s_ci_amt'),s_ci_prem:v('ins_s_ci_prem'),
+
+      s_med_amt:v('ins_s_med_amt'),s_med_prem:v('ins_s_med_prem'),
+
+      s_sav_amt:v('ins_s_sav_amt'),s_sav_prem:v('ins_s_sav_prem'),
+
+      s_acc_amt:v('ins_s_acc_amt'),s_acc_prem:v('ins_s_acc_prem'),
+
+      p_life_amt:v('ins_p_life_amt'),p_life_prem:v('ins_p_life_prem'),
+
+      p_ci_amt:v('ins_p_ci_amt'),p_ci_prem:v('ins_p_ci_prem'),
+
+      p_med_amt:v('ins_p_med_amt'),p_med_prem:v('ins_p_med_prem'),
+
+      p_sav_amt:v('ins_p_sav_amt'),p_sav_prem:v('ins_p_sav_prem'),
+
+      k_edu_amt:v('ins_k_edu_amt'),k_edu_prem:v('ins_k_edu_prem'),
+
+      k_ci_amt:v('ins_k_ci_amt'),k_ci_prem:v('ins_k_ci_prem'),
+
+      k_med_amt:v('ins_k_med_amt'),k_med_prem:v('ins_k_med_prem')
+
+    }
+
+  };
+
+  return{name:document.getElementById('i_name')?.value||'Client',job:document.getElementById('i_job')?.value||'',age,cur_sym,family:document.getElementById('i_family')?.value||'',date:document.getElementById('i_date')?.value||'',risk:document.getElementById('i_risk')?.value||'',goals:document.getElementById('i_goals')?.value||'',liquidTotal,investTotal,personalTotal,totalAssets,debtTotal,netAssets,activeInc,passiveInc,totalInc,livingExp,finExp,totalExp,netInc,lifeCover,ciCover,totalPrem,assetCat,kpis,details,getG};
+
+
+
+}
+
+
+
+
+
+
+
+// ── KPI rating ──
+
+
+
+function kpiStatus(key,val){
+
+
+
+  if(val===null||isNaN(val)||!isFinite(val))return{cls:'kpi-w',badge:'badge-yw',label:'Insufficient data'};
+
+
+
+  const ok=(a,b)=>val>=a&&val<=b,hi=a=>val>a,lo=a=>val<a;
+
+
+
+  switch(key){
+
+
+
+    case 'absoluteWR': return hi(1)?{cls:'kpi-ok',badge:'badge-gn',label:'Good'}:{cls:'kpi-bd',badge:'badge-rd',label:'Insufficient'};
+
+
+
+    case 'wealthFreeR': return hi(1)?{cls:'kpi-ok',badge:'badge-gn',label:'Achieved'}:val>=0.8?{cls:'kpi-w',badge:'badge-yw',label:'Close'}:{cls:'kpi-bd',badge:'badge-rd',label:'Insufficient'};
+
+
+
+    case 'finAssetR': return ok(0.5,0.75)?{cls:'kpi-ok',badge:'badge-gn',label:'Reasonable'}:lo(0.5)?{cls:'kpi-bd',badge:'badge-rd',label:'Low'}:{cls:'kpi-w',badge:'badge-yw',label:'High'};
+
+
+
+    case 'debtR': return val<=0.5?{cls:'kpi-ok',badge:'badge-gn',label:'Healthy'}:val<=0.7?{cls:'kpi-w',badge:'badge-yw',label:'High'}:{cls:'kpi-bd',badge:'badge-rd',label:'Risky'};
+
+
+
+    case 'emergMths': return ok(6,12)?{cls:'kpi-ok',badge:'badge-gn',label:'Reasonable'}:lo(6)?{cls:'kpi-bd',badge:'badge-rd',label:'Insufficient'}:{cls:'kpi-w',badge:'badge-yw',label:'High'};
+
+
+
+    case 'lifeR': return ok(10,30)?{cls:'kpi-ok',badge:'badge-gn',label:'Reasonable'}:lo(10)?{cls:'kpi-bd',badge:'badge-rd',label:'Insufficient'}:{cls:'kpi-w',badge:'badge-yw',label:'High'};
+
+
+
+    case 'ciR': return ok(3,5)?{cls:'kpi-ok',badge:'badge-gn',label:'Reasonable'}:lo(3)?{cls:'kpi-bd',badge:'badge-rd',label:'Insufficient'}:{cls:'kpi-w',badge:'badge-yw',label:'High'};
+
+
+
+    case 'debtBurdenR': return val<=0.4?{cls:'kpi-ok',badge:'badge-gn',label:'Healthy'}:val<=0.5?{cls:'kpi-w',badge:'badge-yw',label:'High'}:{cls:'kpi-bd',badge:'badge-rd',label:'Risky'};
+
+
+
+    case 'netSavR': return ok(0.3,0.6)?{cls:'kpi-ok',badge:'badge-gn',label:'Good'}:lo(0.3)?{cls:'kpi-bd',badge:'badge-rd',label:'Low'}:{cls:'kpi-w',badge:'badge-yw',label:'High'};
+
+
+
+    case 'netWorthGR': return ok(0.05,0.1)?{cls:'kpi-ok',badge:'badge-gn',label:'Good'}:lo(0.05)?{cls:'kpi-bd',badge:'badge-rd',label:'Low'}:{cls:'kpi-w',badge:'badge-yw',label:'High'};
+
+
+
+    default:return{cls:'kpi-w',badge:'badge-yw',label:'—'};
+
+
+
+  }
+
+
+
+}
+
+
+
+function kpiAnalysis(key,val,d){
+
+
+
+  if(val===null||isNaN(val)||!isFinite(val))return'Please fill in the relevant data and regenerate.';
+
+
+
+  const pct=(val*100).toFixed(1)+'%';
+
+
+
+  switch(key){
+
+
+
+    case 'absoluteWR':return val>=1?`Net assets equal ${val.toFixed(1)}× the total living expenses for the next ${85-d.age} years — a solid wealth foundation.`:`Net assets cannot yet cover living expenses for the next ${85-d.age} years — consider accelerating accumulation.`;
+
+
+
+    case 'wealthFreeR':return val>=1?'Passive income fully covers living expenses — congratulations on financial freedom!':val>=0.8?`Passive income covers ${pct} of living expenses — just one step from financial freedom!`:`Passive income only covers ${pct} of living expenses — consider adding investment income sources.`;
+
+
+
+    case 'finAssetR':return val<0.5?`Liquid financial assets are only ${pct} of total assets, below the 50% standard — consider improving liquidity.`:`Liquid assets are ${pct}, within a reasonable range.`;
+
+
+
+    case 'debtR':return val===0?'Debt-free household, financially secure — consider using moderate financial leverage to improve efficiency.':`Debt ratio ${pct}, ${val<=0.5?'within a healthy range.':'consider controlling total debt.'}`;
+
+
+
+    case 'emergMths':return val>=6&&val<=12?`Emergency fund of ${val.toFixed(0)} months — ample and reasonable.`:val<6?`Emergency fund is only ${val.toFixed(0)} months — consider raising to 6-12 months.`:`Emergency fund of ${val.toFixed(0)} months — slightly too much cash, consider more efficient allocation.`;
+
+
+
+    case 'lifeR':return val<10?`Life coverage is ${val.toFixed(1)}× annual income — insufficient, consider raising to 10-30×.`:`Life coverage is ${val.toFixed(1)}× annual income — adequate family protection.`;
+
+
+
+    case 'ciR':return val<3?`Critical illness coverage is only ${pct} of annual income — consider raising to 300%-500%.`:`Critical illness coverage is ${pct} of annual income — good protection level.`;
+
+
+
+    case 'debtBurdenR':return val<=0?'No current loan repayment pressure — high financial security.':`Annual repayments are ${pct} of income, ${val<=0.4?'moderate pressure, financially sound.':'high pressure — consider reducing debt or raising income.'}`;
+
+
+
+    case 'netSavR':return `Net savings rate ${pct}, ${val>=0.3&&val<=0.6?'good savings rate, healthy budget balance.':val<0.3?'low savings rate — consider optimizing spending.':'high savings rate — consider investing part of the surplus.'}`;
+
+
+
+    case 'netWorthGR':return `Annual net worth growth ${pct}, ${val>=0.05?'healthy asset appreciation.':'low asset growth — consider optimizing allocation.'}`;
+
+
+
+    default:return'';
+
+
+
+  }
+
+
+
+}
+
+
+
+
+
+
+
+const lcData=[{n:'Single',r:'18-30',ic:'👤'},{n:'Forming',r:'25-35',ic:'👫'},{n:'Growing',r:'30-55',ic:'👨‍👩‍👧'},{n:'Mature',r:'50-65',ic:'🏠'},{n:'Retirement',r:'60-100',ic:'🌅'}];
+
+
+
+const lcSummary=['Early financial stage — focus: build emergency fund, obtain basic protection, start retirement savings, avoid overspending.','Newly formed family, peak financial pressure — focus: complete insurance coverage, control debt, build dedicated children\'s education savings.','Golden wealth accumulation period — focus: children\'s education fund planning, portfolio diversification, complete retirement savings, adequate insurance.','Approaching retirement — focus: ensure sufficient pension, gradually pay off all debt, reduce risky asset allocation, plan wealth transfer.','Retirement living stage — focus: medical insurance first, maintain stable passive income to cover expenses, control spending pace, enjoy life.'];
+
+
+
+function getLcIdx(age){if(age<25)return 0;if(age<35)return 1;if(age<55)return 2;if(age<65)return 3;return 4;}
+
+
+
+
+
+
+
+// ── Report styles ──
+
+
+
+function injectReportCss(){
+
+
+
+  if(document.getElementById('report-css'))return;
+
+
+
+  const s=document.createElement('style');
+
+
+
+  s.id='report-css';
+
+
+
+  s.textContent=`.rs{background:#fff;border-radius:14px;padding:24px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+
+
+
+.rs h2{color:var(--p);font-size:1.1rem;margin-bottom:18px;padding-bottom:9px;border-bottom:2px solid var(--bd);display:flex;align-items:center;gap:6px}
+
+
+
+.rt{width:100%;border-collapse:collapse;font-size:.88rem}
+
+
+
+.rt th{background:var(--p);color:#fff;padding:9px 12px;text-align:left;font-weight:700}
+
+
+
+.rt td{padding:8px 12px;border-bottom:1px solid var(--bd)}
+
+
+
+.rt tr:nth-child(even) td{background:rgba(74,111,165,.04)}
+
+
+
+.rt .tr td{background:rgba(74,111,165,.1);font-weight:700;color:var(--p)}
+
+
+
+.rt .sr td{background:rgba(216,167,177,.1);font-weight:700}
+
+
+
+.rt .gr td{background:linear-gradient(90deg,rgba(74,111,165,.12),rgba(216,167,177,.08));font-weight:700}
+
+
+
+.kgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+
+
+
+@media(max-width:640px){.kgrid{grid-template-columns:1fr 1fr}}
+
+
+
+.kc{background:var(--bg);border-radius:11px;padding:14px;text-align:center;border:1.5px solid var(--bd)}
+
+
+
+.kc .kn{font-size:.75rem;color:var(--gr);margin-bottom:5px;line-height:1.4}
+
+
+
+.kc .kv{font-size:1.35rem;font-weight:700;margin-bottom:3px}
+
+
+
+.kc .kr{font-size:.7rem;color:var(--gr)}
+
+
+
+.kc .ka{font-size:.72rem;line-height:1.4;margin-top:5px;text-align:left;color:var(--tx)}
+
+
+
+.kpi-ok{color:var(--gn)}.kpi-w{color:var(--yw)}.kpi-bd{color:var(--rd)}
+
+
+
+.badge-gn{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:700;background:rgba(39,174,96,.15);color:var(--gn)}
+
+
+
+.badge-rd{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:700;background:rgba(231,76,60,.15);color:var(--rd)}
+
+
+
+.badge-yw{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:700;background:rgba(243,156,18,.15);color:var(--yw)}
+
+
+
+.sum-box{background:linear-gradient(135deg,var(--p),#3a5f95);color:#fff;border-radius:14px;padding:22px;margin-bottom:20px}
+
+
+
+.sum-box h2{color:#fff;margin-bottom:14px}
+
+
+
+.sng{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+
+
+
+@media(max-width:600px){.sng{grid-template-columns:1fr 1fr}}
+
+
+
+.sni{background:rgba(255,255,255,.15);border-radius:9px;padding:11px;text-align:center}
+
+
+
+.sni .snl{font-size:.74rem;opacity:.85;margin-bottom:3px}.sni .snv{font-size:1.25rem;font-weight:700}
+
+
+
+.lc-row{display:flex;justify-content:center;margin:8px 0 18px;gap:0}
+
+
+
+.lci{flex:1;text-align:center;padding:10px 2px;position:relative}
+
+
+
+.lci:not(:last-child)::after{content:"→";position:absolute;right:-5px;top:42%;color:var(--bd);font-size:1rem}
+
+
+
+.lcc{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 5px;font-size:1.4rem;border:2.5px solid var(--bd)}
+
+
+
+.lci.active .lcc{border-color:var(--a);background:var(--a);color:#fff}
+
+
+
+.lci .lcl{font-size:.73rem;font-weight:700}.lci .lca{font-size:.66rem;color:var(--gr)}
+
+
+
+.act-item{display:flex;gap:10px;align-items:flex-start;padding:11px;background:var(--bg);border-radius:9px;margin-bottom:7px}
+
+
+
+.act-num{background:var(--p);color:#fff;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;font-size:.8rem}
+
+
+
+.cht-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:16px}
+
+
+
+@media(max-width:580px){.cht-row{grid-template-columns:1fr}}
+
+
+
+.cht-box{background:var(--bg);border-radius:10px;padding:14px}
+
+
+
+.cht-box h3{font-size:.85rem;color:var(--p);margin-bottom:10px;text-align:center}
+
+
+
+@media print{.step-nav,.save-bar,.navrow,button{display:none!important}.panel{display:block!important}.rs{break-inside:avoid}}`;
+
+
+
+  document.head.appendChild(s);
+
+
+
+}
+
+
+
+
+
+
+
+// ── Main report generation function ──
+
+
+
+function genReport(){
+
+
+
+  const d=collectData();
+
+
+
+  injectReportCss();
+
+
+
+  Object.values(charts).forEach(c=>{try{c.destroy();}catch(e){}});
+
+
+
+  charts={};
+
+
+
+  const cur=d.cur_sym;
+
+
+
+  const lcIdx=getLcIdx(d.age);
+
+
+
+
+
+
+
+  const nameMap={bank:'Bank Deposits',mf:'Money Funds & Bonds',sv:'Savings Policies',sec:'Securities',iprop:'Investment Property',alt:'Alternative Investments',home:'Primary Residence',car:'Vehicles',mortg:'Mortgage Loans',cons:'Auto/Consumer Loans'};
+
+
+
+  const subLabels={
+
+
+
+    a_cash_demand:'Demand deposits',a_cash_fixed:'Time deposits',a_cash_cd:'Certificates of deposit',a_cash_usd:'Foreign currency deposits',
+
+
+
+    a_mf_money:'Money market funds',a_mf_bond:'Government bonds (short-term)',a_mf_bank:'Bank wealth management (short-term)',
+
+
+
+    a_sv_self:'Savings policy (self)',a_sv_spouse:'Savings policy (spouse)',a_sv_kid:'Children\'s education policy',
+
+
+
+    a_sec_ashare:'A-share stocks',a_sec_hkshare:'HK stocks',a_sec_usshare:'US/overseas stocks',a_sec_fund:'Mutual funds',a_sec_pe:'Private funds',a_sec_iul:'Investment-linked',
+
+
+
+    a_ip_hk:'HK investment property',a_ip_cn1:'Mainland property (1st)',a_ip_cn2:'Mainland property (2nd)',a_ip_cn3:'Mainland property (3rd+)',a_ip_oversea:'Overseas property',a_ip_comm:'Shop/office/factory',a_ip_parking:'Parking space (investment)',
+
+
+
+    a_alt_gold:'Gold/precious metals',a_alt_crypto:'Cryptocurrency',a_alt_equity:'Equity/company shares',a_alt_art:'Collectibles/art',
+
+
+
+    a_h_main:'Primary home',a_h_second:'Second home',a_c_car1:'Vehicle 1',a_c_car2:'Vehicle 2',
+
+
+
+    d_m_home:'Primary home mortgage balance',d_m_invest:'Investment property mortgage balance',d_m_comm:'Commercial property loan balance',d_c_car:'Auto loan balance',d_c_personal:'Credit/personal loans',d_c_cc:'Credit card debt'
+
+
+
+  };
+
+
+
+  const incLabels={inc_w_self_fix:'Your salary (fixed)',inc_w_self_var:'Your bonus/commission',inc_w_spouse:'Spouse\'s salary',inc_w_biz:'Business income',inc_w_side:'Part-time/freelance',inc_p_hkrent:'HK property rental',inc_p_cnrent:'Mainland property rental',inc_p_commrent:'Commercial property rental',inc_p_div:'Stock dividends/fund distributions',inc_p_int:'Deposit/bond interest',inc_p_pension:'Social security/pension',inc_p_annuity:'Commercial annuity',inc_p_other:'Other passive income'};
+
+
+
+  const expLabels={exp_l_food:'Household food/necessities',exp_l_util:'Utilities/property management',exp_l_cloth:'Clothing/beauty',exp_l_rent:'Rent',exp_l_comm:'Transport',exp_l_travel:'Travel/vacation',exp_l_ent:'Entertainment/social/dining',exp_e_tuition:'Children\'s tuition/childcare',exp_e_extra:'Tutoring/extracurricular',exp_e_living:'Children\'s daily allowance',exp_p_parents:'Parent Support',exp_f_mortg:'Monthly mortgage ×12',exp_f_carloan:'Monthly auto loan ×12',exp_f_ins:'Life/CI premiums',exp_f_sav:'Savings/education premiums',exp_v_fuel:'Fuel/charging',exp_v_carins:'Vehicle insurance',exp_v_maint:'Maintenance'};
+
+
+
+
+
+
+
+  const kpiDefs=[
+
+
+
+    {key:'absoluteWR',name:'Absolute Wealth Ratio',formula:'Net assets ÷ (living expense × remaining years)',range:'>100%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'},
+
+
+
+    {key:'wealthFreeR',name:'Financial Freedom Ratio',formula:'Passive income ÷ living expense',range:'>100%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'},
+
+
+
+    {key:'finAssetR',name:'Financial Asset Ratio',formula:'Liquid assets ÷ total assets',range:'50%-75%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'},
+
+
+
+    {key:'debtR',name:'Debt Ratio',formula:'Total liabilities ÷ total assets',range:'0%-50%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'},
+
+
+
+    {key:'emergMths',name:'Emergency Fund',formula:'Demand deposits ÷ avg monthly expense',range:'6-12 months',fmtV:v=>v!==null&&isFinite(v)?(v.toFixed(0)+' months'):'—'},
+
+
+
+    {key:'lifeR',name:'Life Coverage Ratio',formula:'Life coverage ÷ total annual income',range:'10-30x',fmtV:v=>v!==null&&isFinite(v)?(v.toFixed(1)+'x'):'—'},
+
+
+
+    {key:'ciR',name:'Critical Illness Ratio',formula:'CI coverage ÷ annual active income',range:'300%-500%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(0)+'%'):'—'},
+
+
+
+    {key:'debtBurdenR',name:'Debt Burden Ratio',formula:'Annual repayment ÷ total annual income',range:'20%-40%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'},
+
+
+
+    {key:'netSavR',name:'Net Savings Rate',formula:'Annual net surplus ÷ total annual income',range:'30%-60%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'},
+
+
+
+    {key:'netWorthGR',name:'Net Worth Growth Rate',formula:'Annual net surplus ÷ net assets',range:'5%-10%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'}
+
+
+
+  ];
+
+
+
+
+
+
+
+  let html='';
+
+
+
+
+
+
+
+  // ── Cover summary ──
+
+
+
+  html+=`<div class="sum-box">
+
+
+
+    <h2>📋 ${d.name} Family Financial Planning Report</h2>
+
+
+
+    <p style="opacity:.85;font-size:.88rem;margin-bottom:12px">${d.job?d.job+' · ':''}${d.age}yrs · ${d.family} · ${d.date||'—'} · Risk tolerance: ${d.risk}</p>
+
+
+
+    ${d.goals?`<p style="opacity:.85;font-size:.83rem;margin-bottom:14px">📌 Financial goals: ${d.goals.split('\n').join(' | ')}</p>`:''}
+
+
+
+    <div class="sng">
+
+
+
+      <div class="sni"><div class="snl">Total Assets</div><div class="snv">${cur} ${fmt(d.totalAssets)}</div></div>
+
+
+
+      <div class="sni"><div class="snl">Net Assets</div><div class="snv">${cur} ${fmt(d.netAssets)}</div></div>
+
+
+
+      <div class="sni"><div class="snl">Total Annual Income</div><div class="snv">${cur} ${fmt(d.totalInc)}</div></div>
+
+
+
+      <div class="sni"><div class="snl">Total Annual Expenses</div><div class="snv">${cur} ${fmt(d.totalExp)}</div></div>
+
+
+
+      <div class="sni"><div class="snl">Annual Net Surplus</div><div class="snv" style="color:${d.netInc>=0?'#a8e6c0':'#ffb3b3'}">${cur} ${fmt(d.netInc)}</div></div>
+
+
+
+      <div class="sni"><div class="snl">Total Liabilities</div><div class="snv">${cur} ${fmt(d.debtTotal)}</div></div>
+
+
+
+    </div>
+
+
+
+  </div>`;
+
+
+
+
+
+
+
+  // ── I. Balance sheet ──
+
+
+
+  const makeAssetRows=(grpKeys,totLabel,totVal)=>{
+
+
+
+    let rows='';
+
+
+
+    grpKeys.forEach(grp=>{
+
+
+
+      const ids=GROUPS[grp];
+
+
+
+      const grpSum=ids.reduce((a,id)=>a+v(id),0);
+
+
+
+      if(grpSum===0)return;
+
+
+
+      rows+=`<tr class="sr"><td colspan="2">${nameMap[grp]||grp}</td><td style="text-align:right">${fmt(grpSum)}</td><td style="text-align:right">${d.totalAssets>0?fmtPct(grpSum/d.totalAssets):'—'}</td></tr>`;
+
+
+
+    });
+
+
+
+    rows+=`<tr class="tr"><td colspan="2">${totLabel}</td><td style="text-align:right;font-size:1rem">${fmt(totVal)}</td><td style="text-align:right">${d.totalAssets>0?fmtPct(totVal/d.totalAssets):'—'}</td></tr>`;
+
+
+
+    return rows;
+
+
+
+  };
+
+
+
+  html+=`<div class="rs"><h2>📊 I. Family Balance Sheet</h2>
+
+
+
+    <table class="rt"><thead><tr><th>Asset Category</th><th style="text-align:right">Amount (${cur})</th><th style="text-align:right">% of Total Assets</th></tr></thead>
+
+
+
+    <tbody>${makeAssetRows(['bank','mf','sv'],'✅ Total Liquid Assets',d.liquidTotal)}
+
+
+
+    ${makeAssetRows(['sec','iprop','alt'],'✅ Total Investment Assets',d.investTotal)}
+
+
+
+    ${makeAssetRows(['home','car'],'✅ Total Personal-Use Assets',d.personalTotal)}
+
+
+
+    <tr class="gr"><td colspan="2" style="font-size:.95rem">💎 Total Assets</td><td style="text-align:right;font-size:1rem">${fmt(d.totalAssets)}</td><td style="text-align:right">100%</td></tr>
+
+
+
+    </tbody></table><br>
+
+
+
+    <table class="rt"><thead><tr><th>Liability Category</th><th style="text-align:right">Amount (${cur})</th><th style="text-align:right">% of Total Assets</th></tr></thead><tbody>`;
+
+
+
+  const debtGrpMap={mortg:'Mortgage Loans',cons:'Auto/consumer loans'};
+
+
+
+  let hasDebt=false;
+
+
+
+  ['mortg','cons'].forEach(grp=>{const gs=GROUPS[grp].reduce((a,id)=>a+v(id),0);if(gs>0){html+=`<tr class="sr"><td>${debtGrpMap[grp]}</td><td style="text-align:right">${fmt(gs)}</td><td style="text-align:right">${d.totalAssets>0?fmtPct(gs/d.totalAssets):'—'}</td></tr>`;hasDebt=true;}});
+
+
+
+  if(!hasDebt)html+=`<tr><td colspan="3" style="text-align:center;color:var(--gr)">No liability records</td></tr>`;
+
+
+
+  html+=`<tr class="tr"><td colspan="2">📍 Total Liabilities</td><td style="text-align:right">${fmt(d.debtTotal)}</td><td style="text-align:right">${d.totalAssets>0?fmtPct(d.debtTotal/d.totalAssets):'—'}</td></tr>
+
+
+
+    <tr class="gr"><td colspan="2" style="font-size:.95rem">💚 Net Assets (Total Assets - Total Liabilities)</td><td style="text-align:right;font-size:1rem">${fmt(d.netAssets)}</td><td style="text-align:right">${d.totalAssets>0?fmtPct(d.netAssets/d.totalAssets):'—'}</td></tr>
+
+
+
+    </tbody></table></div>`;
+
+
+
+
+
+
+
+  // ── II. Cash flow statement (subtotal version) ──
+
+
+
+  html+=`<div class="rs"><h2>💳 II. Family Cash Flow & Income-Expense Statement</h2>
+
+
+
+    <table class="rt"><thead><tr><th>Income Category</th><th style="text-align:right">Annual amount (${cur})</th><th style="text-align:right">% of Total Income</th></tr></thead><tbody>`;
+
+
+
+  [{grp:'ainc',label:'Active income (salary/business)'},{grp:'pinc',label:'Passive income (rent/investment)'}].forEach(({grp,label})=>{
+
+
+
+    const gs=GROUPS[grp].reduce((a,id)=>a+v(id),0);
+
+
+
+    if(gs>0) html+=`<tr class="sr"><td>${label}</td><td style="text-align:right">${fmt(gs)}</td><td style="text-align:right">${d.totalInc>0?fmtPct(gs/d.totalInc):'—'}</td></tr>`;
+
+
+
+  });
+
+
+
+  html+=`<tr class="tr"><td>✅ Total Annual Income</td><td style="text-align:right">${fmt(d.totalInc)}</td><td style="text-align:right">100%</td></tr></tbody></table><br>
+
+
+
+    <table class="rt"><thead><tr><th>Expense Category</th><th style="text-align:right">Annual amount (${cur})</th><th style="text-align:right">% of Total Expenses</th></tr></thead><tbody>`;
+
+
+
+  [{grp:'lexp',l:'Living Expenses'},{grp:'edu',l:'Children\'s Education'},{grp:'par',l:'Parent Support'},{grp:'fexp',l:'Financial expenses (repayment/premiums)'},{grp:'veh',l:'Vehicle Expenses'}].forEach(({grp,l})=>{
+
+
+
+    const gs=GROUPS[grp].reduce((a,id)=>a+v(id),0);
+
+
+
+    if(gs>0) html+=`<tr class="sr"><td>${l}</td><td style="text-align:right">${fmt(gs)}</td><td style="text-align:right">${d.totalExp>0?fmtPct(gs/d.totalExp):'—'}</td></tr>`;
+
+
+
+  });
+
+
+
+  html+=`<tr class="tr"><td>📍 Total Annual Expenses</td><td style="text-align:right">${fmt(d.totalExp)}</td><td style="text-align:right">100%</td></tr>
+
+
+
+    <tr class="gr"><td>💰 Annual Net Surplus (Income - Expenses)</td><td style="text-align:right;font-size:1rem;color:${d.netInc>=0?'var(--gn)':'var(--rd)'}">${fmt(d.netInc)}</td><td style="text-align:right">${d.totalInc>0?fmtPct(d.netInc/d.totalInc):'—'}</td></tr>
+
+
+
+    </tbody></table></div>`;
+
+
+
+
+
+
+
+  // ── III. Asset classification charts ──
+
+
+
+  const catEntries=Object.entries(d.assetCat).filter(([k,val])=>val>0);
+
+
+
+  const catTotal=Object.values(d.assetCat).reduce((a,b)=>a+b,0)||1;
+
+
+
+  html+=`<div class="rs"><h2>📈 III. Asset Classification & Distribution</h2>
+
+
+
+    <div class="cht-row">
+
+
+
+      <div class="cht-box"><h3>Asset Type Distribution</h3><canvas id="cPie" height="240"></canvas></div>
+
+
+
+      <div class="cht-box"><h3>Liquid / Investment / Personal-Use Comparison</h3><canvas id="cBar" height="240"></canvas></div>
+
+
+
+    </div>
+
+
+
+    <table class="rt"><thead><tr><th>Asset Category</th><th style="text-align:right">Amount (${cur})</th><th style="text-align:right">Share</th></tr></thead><tbody>`;
+
+
+
+  catEntries.forEach(([k,val])=>html+=`<tr><td>${k}</td><td style="text-align:right">${fmt(val)}</td><td style="text-align:right">${fmtPct(val/catTotal)}</td></tr>`);
+
+
+
+  html+=`<tr class="tr"><td>Total</td><td style="text-align:right">${fmt(catTotal)}</td><td style="text-align:right">100%</td></tr></tbody></table>
+
+
+
+    <div style="margin-top:12px;padding:12px;background:rgba(74,111,165,.06);border-radius:9px;font-size:.85rem;line-height:1.7">
+
+
+
+      <strong style="color:var(--p)">📌 Asset Allocation Diagnosis:</strong>
+
+
+
+      ${(d.investTotal+d.personalTotal)/d.totalAssets>0.85?'Assets are heavily concentrated in real estate — consider diversifying into financial assets to improve liquidity and return stability.':'Asset allocation is basically reasonable — keep monitoring the share of each asset type to maintain liquidity and return balance.'}
+
+
+
+    </div></div>`;
+
+
+
+
+
+
+
+  // ── IV. Insurance policies ──
+
+
+
+  if(d.totalPrem>0||(d.lifeCover>0)||(d.ciCover>0)){
+
+
+
+  html+=`<div class="rs"><h2>🛡️ IV. Insurance Policy Review</h2>`;
+
+
+
+  const insMembers=[
+
+
+
+    {label:'Self',keys:{life:{a:'ins_s_life_amt',p:'ins_s_life_prem',y:'ins_s_life_yr'},ci:{a:'ins_s_ci_amt',p:'ins_s_ci_prem',y:'ins_s_ci_yr'},med:{a:'ins_s_med_amt',p:'ins_s_med_prem',y:'ins_s_med_yr'},sav:{a:'ins_s_sav_amt',p:'ins_s_sav_prem',y:'ins_s_sav_yr'},acc:{a:'ins_s_acc_amt',p:'ins_s_acc_prem',y:'ins_s_acc_yr'},social:'ins_s_social'}},
+
+
+
+    {label:'Spouse',keys:{life:{a:'ins_p_life_amt',p:'ins_p_life_prem',y:'ins_p_life_yr'},ci:{a:'ins_p_ci_amt',p:'ins_p_ci_prem',y:'ins_p_ci_yr'},med:{a:'ins_p_med_amt',p:'ins_p_med_prem',y:'ins_p_med_yr'},sav:{a:'ins_p_sav_amt',p:'ins_p_sav_prem',y:'ins_p_sav_yr'},social:'ins_p_social'}},
+
+
+
+    {label:'Children',keys:{edu:{a:'ins_k_edu_amt',p:'ins_k_edu_prem',y:'ins_k_edu_yr'},ci:{a:'ins_k_ci_amt',p:'ins_k_ci_prem',y:'ins_k_ci_yr'},med:{a:'ins_k_med_amt',p:'ins_k_med_prem',y:'ins_k_med_yr'}}}
+
+
+
+  ];
+
+
+
+  const tlbl={life:'Life Insurance',ci:'Critical Illness',med:'Medical Insurance',sav:'Savings/Pension',acc:'Accident Insurance',edu:'Education Savings'};
+
+
+
+  insMembers.forEach(m=>{
+
+
+
+    const mp=Object.keys(m.keys).filter(k=>k!=='social').reduce((a,k)=>a+(v(m.keys[k].p)||0),0);
+
+
+
+    const mAmt=Object.keys(m.keys).filter(k=>k!=='social').reduce((a,k)=>a+(v(m.keys[k].a)||0),0);
+
+
+
+    if(mp===0&&mAmt===0)return;
+
+
+
+    html+=`<div style="margin-bottom:18px"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><strong style="color:var(--p)">${m.label}</strong><span style="font-size:.8rem;color:var(--gr)">Annual Premium：${cur} ${fmt(mp)}</span></div>
+
+
+
+    <table class="rt"><thead><tr><th>Insurance Type</th><th style="text-align:right">Coverage</th><th style="text-align:right">Annual Premium</th><th>Payment term</th><th>Status</th></tr></thead><tbody>`;
+
+
+
+    Object.keys(m.keys).forEach(k=>{
+
+
+
+      if(k==='social'){const sv=document.getElementById(m.keys.social)?.value||'';html+=`<tr><td>Social Security</td><td colspan="2" style="text-align:center">—</td><td>—</td><td><span class="${sv==='Yes'?'badge-gn':'badge-yw'}">${sv}</span></td></tr>`;}
+
+
+
+      else{const amt=v(m.keys[k].a),prem=v(m.keys[k].p),yr=document.getElementById(m.keys[k].y)?.value||'';
+
+
+
+        if(amt===0&&prem===0)return;
+
+
+
+        html+=`<tr><td>${tlbl[k]||k}</td><td style="text-align:right">${amt>0?amt.toFixed(2)+'0k':'—'}</td><td style="text-align:right">${prem>0?fmt(prem):'—'}</td><td>${yr||'—'}</td><td><span class="badge-gn">Configured</span></td></tr>`;}
+
+
+
+    });
+
+
+
+    html+=`</tbody></table></div>`;
+
+
+
+  });
+
+
+
+  html+=`<div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(74,111,165,.07);border-radius:8px;font-weight:700">
+
+
+
+    <span style="color:var(--p)">🛡️ Total Family Annual Premium</span><span style="color:var(--p)">${cur} ${fmt(d.totalPrem)}</span></div>`;
+
+
+
+  if(d.lifeCover===0||d.ciCover===0||(d.kpis.lifeR!==null&&d.kpis.lifeR<10&&d.lifeCover>0)||(d.kpis.ciR!==null&&d.kpis.ciR<3&&d.ciCover>0)){
+
+
+
+    html+=`<div style="margin-top:10px;padding:11px;background:rgba(231,76,60,.05);border-radius:8px;font-size:.85rem;line-height:1.8;border-left:3px solid var(--rd)">`;
+
+
+
+    if(d.lifeCover===0)html+=`⚠️ <strong>Life insurance:</strong> not yet configured — recommended coverage of at least 10× total annual income.<br>`;
+
+
+
+    if(d.ciCover===0)html+=`⚠️ <strong>Critical illness:</strong> not yet configured — recommended coverage of 300%-500% of annual active income.<br>`;
+
+
+
+    if(d.kpis.lifeR!==null&&d.kpis.lifeR<10&&d.lifeCover>0)html+=`⚠️ <strong>Insufficient life coverage:</strong> currently ${d.kpis.lifeR.toFixed(1)}× annual income — recommend raising to 10-30×.<br>`;
+
+
+
+    if(d.kpis.ciR!==null&&d.kpis.ciR<3&&d.ciCover>0)html+=`⚠️ <strong>Insufficient CI coverage:</strong> currently ${(d.kpis.ciR*100).toFixed(0)}% of annual income — recommend raising to 300%-500%.<br>`;
+
+
+
+    html+=`</div>`;
+
+
+
+  }
+
+
+
+  html+=`</div>`;
+
+
+
+  }
+
+
+
+
+
+
+
+  // ── V. Life cycle ──
+
+
+
+  html+=`<div class="rs"><h2>🌱 V. Family Life Cycle Analysis</h2><div class="lc-row">`;
+
+
+
+  lcData.forEach((lc,i)=>html+=`<div class="lci${i===lcIdx?' active':''}"><div class="lcc">${lc.ic}</div><div class="lcl">${lc.n}</div><div class="lca">${lc.r}</div></div>`);
+
+
+
+  html+=`</div><div style="padding:14px;background:linear-gradient(135deg,rgba(74,111,165,.07),rgba(216,167,177,.07));border-radius:11px">
+
+
+
+    <strong style="color:var(--p)">📍 Current stage: ${lcData[lcIdx].n} (${lcData[lcIdx].r})</strong>
+
+
+
+    <p style="margin-top:7px;font-size:.88rem;line-height:1.7">${lcSummary[lcIdx]}</p>
+
+
+
+  </div></div>`;
+
+
+
+
+
+
+
+  // ── VI. KPI performance indicators ──
+
+
+
+  html+=`<div class="rs"><h2>📐 VI. Family Financial Performance Indicators</h2><div class="kgrid">`;
+
+
+
+  kpiDefs.forEach(def=>{
+
+
+
+    const val=d.kpis[def.key];const st=kpiStatus(def.key,val);
+
+
+
+    html+=`<div class="kc"><div class="kn">${def.name}</div><div class="kv ${st.cls}">${def.fmtV(val)}</div><div class="kr">Reasonable range: ${def.range}</div><div class="ka">${kpiAnalysis(def.key,val,d)}</div></div>`;
+
+
+
+  });
+
+
+
+  html+=`</div></div>`;
+
+
+
+
+
+
+
+  // ── VII. Diagnosis & suggestions ──
+
+
+
+  const issues=[],sugg=[];
+
+
+
+  if(d.kpis.finAssetR!==null&&d.kpis.finAssetR<0.5){issues.push('Liquid financial asset ratio is low ('+fmtPct(d.kpis.finAssetR)+'), below the 50% standard — insufficient asset flexibility');sugg.push({c:'Improve liquidity',cur:fmtPct(d.kpis.finAssetR),tgt:'50%-75%',act:'Add demand deposits, money funds and short-term bonds'});}
+
+
+
+  if(d.kpis.wealthFreeR!==null&&d.kpis.wealthFreeR<1){issues.push('Passive income ('+fmt(d.passiveInc)+') does not fully cover living expenses ('+fmt(d.livingExp)+') — still a gap to financial freedom');sugg.push({c:'Increase passive income',cur:fmtPct(d.kpis.wealthFreeR),tgt:'≥100%',act:'Add investment assets to boost passive income such as rent and dividends'});}
+
+
+
+  if(d.kpis.lifeR!==null&&d.kpis.lifeR<10){issues.push('Life coverage ('+(d.lifeCover/10000).toFixed(0)+'0k) is only '+d.kpis.lifeR.toFixed(1)+'× annual income — insufficient family protection');sugg.push({c:'Increase life coverage',cur:d.kpis.lifeR.toFixed(1)+'x',tgt:'10-30x',act:'Increase term or whole life coverage to over 10× annual income'});}
+
+
+
+  if(d.kpis.ciR!==null&&d.kpis.ciR<3){issues.push('CI coverage ('+(d.ciCover/10000).toFixed(0)+'0k) is less than 3× annual income — large personal health risk exposure');sugg.push({c:'Increase CI coverage',cur:fmtPct(d.kpis.ciR),tgt:'300%-500%',act:'Top up CI coverage to 3-5× annual active income'});}
+
+
+
+  if(d.kpis.emergMths!==null&&d.kpis.emergMths<6){issues.push('Emergency fund is less than 6 months of living expenses — weak risk resilience');sugg.push({c:'Top up emergency fund',cur:d.kpis.emergMths.toFixed(0)+' months',tgt:'6-12 months',act:'Prioritize raising demand deposits to 6 months of monthly expenses'});}
+
+
+
+  if(d.kpis.netWorthGR!==null&&d.kpis.netWorthGR<0.05){issues.push('Net worth growth rate is low ('+fmtPct(d.kpis.netWorthGR)+') — wealth growth efficiency needs improvement');sugg.push({c:'Improve asset returns',cur:fmtPct(d.kpis.netWorthGR),tgt:'5%-10%',act:'Optimize asset allocation and increase income-generating assets'});}
+
+
+
+  html+=`<div class="rs"><h2>🔍 VII. Asset Allocation Diagnosis & Optimization</h2>`;
+
+
+
+  if(issues.length>0){
+
+
+
+    html+=`<div style="margin-bottom:14px"><strong style="color:var(--rd)">⚠️ Diagnosis found the following issues:</strong><ul style="margin-top:8px;padding-left:18px">`;
+
+
+
+    issues.forEach(iss=>html+=`<li style="margin-bottom:6px;font-size:.88rem;line-height:1.6">${iss}</li>`);
+
+
+
+    html+=`</ul></div><strong style="color:var(--p)">✅ Optimization suggestions:</strong>
+
+
+
+    <table class="rt" style="margin-top:8px"><thead><tr><th>Optimization Area</th><th>Current Level</th><th>Target</th><th>Action</th></tr></thead><tbody>`;
+
+
+
+    sugg.forEach(s=>html+=`<tr><td><strong>${s.c}</strong></td><td style="color:var(--rd)">${s.cur}</td><td style="color:var(--gn)">${s.tgt}</td><td style="font-size:.83rem">${s.act}</td></tr>`);
+
+
+
+    html+=`</tbody></table>`;
+
+
+
+  }else{html+=`<div style="padding:14px;background:rgba(39,174,96,.07);border-radius:10px;border-left:3px solid var(--gn)"><strong style="color:var(--gn)">✅ Overall financial health is good!</strong>All indicators are within reasonable ranges — keep up the good financial habits.</div>`;}
+
+
+
+  html+=`</div>`;
+
+
+
+
+
+
+
+  // ── VIII. Action plan ──
+
+  // Unified priority standard (consistent with advisor backend)
+  const actItems=[];
+
+  // Emergency fund
+  if(d.kpis.emergMths!==null&&d.kpis.emergMths<3)
+    actItems.push({p:'urgent',icon:'🚨',cat:'Emergency Fund',a:'Emergency fund critically low (currently '+d.kpis.emergMths.toFixed(1)+' months) — top up immediately to 6 months of expenses (about '+fmt(Math.ceil(d.livingExp/2*6))+'), in demand deposits or money funds',t:'Within 1 month'});
+  else if(d.kpis.emergMths!==null&&d.kpis.emergMths<6)
+    actItems.push({p:'high',icon:'⚠️',cat:'Emergency Fund',a:'Emergency fund insufficient (currently '+d.kpis.emergMths.toFixed(1)+' months) — top up to 6 months of expenses, gap about '+fmt(Math.max(0,(6-d.kpis.emergMths)*d.livingExp/12)),t:'Within 3 months'});
+  else if(d.kpis.emergMths!==null)
+    actItems.push({p:'ok',icon:'✅',cat:'Emergency Fund',a:'Emergency fund adequate ('+d.kpis.emergMths.toFixed(1)+' months), on target',t:''});
+
+  // Life insurance
+  if(d.kpis.lifeR!==null&&d.kpis.lifeR<5)
+    actItems.push({p:'urgent',icon:'🚨',cat:'Life Coverage',a:'Life coverage critically low (currently '+d.kpis.lifeR.toFixed(1)+'x, standard ≥10x) — top up term life immediately, recommended coverage of at least '+fmt(d.totalInc*10),t:'Within 1 month'});
+  else if(d.kpis.lifeR!==null&&d.kpis.lifeR<10)
+    actItems.push({p:'high',icon:'⚠️',cat:'Life Coverage',a:'Life coverage insufficient (currently '+d.kpis.lifeR.toFixed(1)+'x, standard ≥10x) — top up term life to 10× annual income',t:'Within 2 months'});
+  else if(d.kpis.lifeR!==null)
+    actItems.push({p:'ok',icon:'✅',cat:'Life Coverage',a:'Life coverage adequate ('+d.kpis.lifeR.toFixed(1)+'x), on target',t:''});
+
+  // Critical illness
+  if(d.kpis.ciR!==null&&d.kpis.ciR<2)
+    actItems.push({p:'urgent',icon:'🚨',cat:'CI Coverage',a:'CI coverage critically low (currently '+d.kpis.ciR.toFixed(1)+'x, standard ≥5x) — top up CI immediately, recommended coverage of '+fmt(d.totalInc*5),t:'Within 1 month'});
+  else if(d.kpis.ciR!==null&&d.kpis.ciR<5)
+    actItems.push({p:'high',icon:'⚠️',cat:'CI Coverage',a:'CI coverage insufficient (currently '+d.kpis.ciR.toFixed(1)+'x, standard ≥5x) — top up to 300%-500% of annual income',t:'Within 2 months'});
+  else if(d.kpis.ciR!==null)
+    actItems.push({p:'ok',icon:'✅',cat:'CI Coverage',a:'CI coverage adequate ('+d.kpis.ciR.toFixed(1)+'x), on target',t:''});
+
+  // Debt
+  if(d.kpis.debtR!==null&&d.kpis.debtR>0.5)
+    actItems.push({p:'urgent',icon:'🚨',cat:'Debt Management',a:'Debt-to-income ratio too high ('+(d.kpis.debtR*100).toFixed(0)+'%, warning line 36%) — create a repayment priority plan, clear high-interest debt first (credit cards, personal loans)',t:'Immediate'});
+  else if(d.kpis.debtR!==null&&d.kpis.debtR>0.36)
+    actItems.push({p:'high',icon:'⚠️',cat:'Debt Management',a:'Debt-to-income ratio high ('+(d.kpis.debtR*100).toFixed(0)+'%) — create a repayment plan and gradually reduce below 36%',t:'3-6 months'});
+  else if(d.kpis.debtR!==null&&d.kpis.debtR>0)
+    actItems.push({p:'ok',icon:'✅',cat:'Debt Management',a:'Debt-to-income ratio healthy ('+(d.kpis.debtR*100).toFixed(0)+'%), on target',t:''});
+
+  // Savings rate
+  if(d.kpis.netSavR!==null&&d.kpis.netSavR<0.05)
+    actItems.push({p:'urgent',icon:'🚨',cat:'Savings Plan',a:'Annual savings rate extremely low ('+(d.kpis.netSavR*100).toFixed(0)+'%) — review spending immediately, set up forced saving targeting 10% of income auto-transferred monthly',t:'Start this month'});
+  else if(d.kpis.netSavR!==null&&d.kpis.netSavR<0.2)
+    actItems.push({p:'high',icon:'⚠️',cat:'Savings Plan',a:'Annual savings rate low ('+(d.kpis.netSavR*100).toFixed(0)+'%, target ≥20%) — review non-essential spending and set up automatic savings transfers',t:'Within 1 month'});
+  else if(d.kpis.netSavR!==null)
+    actItems.push({p:'ok',icon:'✅',cat:'Savings Plan',a:'Annual savings rate good ('+(d.kpis.netSavR*100).toFixed(0)+'%), on target',t:''});
+
+  // Financial asset ratio
+  if(d.kpis.finAssetR!==null&&d.kpis.finAssetR<0.3)
+    actItems.push({p:'medium',icon:'📋',cat:'Asset Structure',a:'Financial asset ratio low ('+(d.kpis.finAssetR*100).toFixed(0)+'%, target ≥30%) — assets over-concentrated in physical assets, gradually increase financial asset share',t:'3-6 months'});
+
+  // Financial freedom
+  if(d.kpis.wealthFreeR!==null&&d.kpis.wealthFreeR<0.3)
+    actItems.push({p:'medium',icon:'📋',cat:'Passive Income',a:'Financial freedom index extremely low ('+d.kpis.wealthFreeR.toFixed(2)+') — plan passive income sources (savings policies, annuities, investment property); long-term goal: passive income ≥ living expenses',t:'6-12 months'});
+  else if(d.kpis.wealthFreeR!==null&&d.kpis.wealthFreeR<1)
+    actItems.push({p:'medium',icon:'📋',cat:'Passive Income',a:'Financial freedom index '+d.kpis.wealthFreeR.toFixed(2)+' — keep increasing passive income, target covering 100% of living expenses',t:'3-6 months'});
+  else if(d.kpis.wealthFreeR!==null&&d.kpis.wealthFreeR>=1)
+    actItems.push({p:'ok',icon:'🌟',cat:'Financial Freedom',a:'Financial freedom index reached ('+d.kpis.wealthFreeR.toFixed(2)+') — passive income now covers living expenses!',t:''});
+
+  // Fixed items
+  actItems.push({p:'medium',icon:'📋',cat:'Ongoing Tracking',a:'Set up an investment return log, review net worth changes and returns quarterly, and track progress with your financial advisor',t:'Ongoing'});
+
+  // Color configuration
+  const pColor={urgent:'#e74c3c',high:'#e67e22',medium:'#3498db',ok:'#27ae60'};
+  const pBg={urgent:'rgba(231,76,60,0.07)',high:'rgba(230,126,34,0.07)',medium:'rgba(52,152,219,0.07)',ok:'rgba(39,174,96,0.06)'};
+  const pLabel={urgent:'Urgent',high:'Important',medium:'Advised',ok:'Achieved'};
+
+  const urgentList=actItems.filter(a=>a.p==='urgent');
+  const highList=actItems.filter(a=>a.p==='high');
+  const mediumList=actItems.filter(a=>a.p==='medium');
+  const okList=actItems.filter(a=>a.p==='ok');
+  const actionList=[...urgentList,...highList,...mediumList];
+  const totalActions=actionList.length;
+
+  html+=`<div class="rs"><h2>🎯 VIII. Action Plan</h2>`;
+  if(totalActions>0)html+=`<div style="margin-bottom:10px;font-size:.78rem;color:var(--gr)">${totalActions} pending action items</div>`;
+
+  actionList.forEach(item=>{
+    html+=`<div style="display:flex;gap:10px;padding:11px 13px;margin-bottom:8px;border-radius:10px;background:${pBg[item.p]};border-left:3px solid ${pColor[item.p]}">
+      <div style="font-size:1.1rem;flex-shrink:0">${item.icon}</div>
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span style="font-size:.62rem;font-weight:700;padding:2px 6px;border-radius:8px;background:${pColor[item.p]};color:#fff">${pLabel[item.p]}</span>
+          <span style="font-size:.7rem;color:var(--gr);font-weight:600">${item.cat}</span>
+        </div>
+        <div style="font-size:.84rem;line-height:1.6;color:var(--tx)">${item.a}</div>
+        ${item.t?`<div style="font-size:.72rem;color:var(--gr);margin-top:3px">⏰ Suggested completion: ${item.t}</div>`:''}
+      </div>
+    </div>`;
+  });
+
+  if(okList.length>0){
+    html+=`<div style="margin-top:8px;padding:10px 14px;background:rgba(39,174,96,0.06);border-radius:10px;border:1px solid rgba(39,174,96,0.18)">
+      <div style="font-size:.73rem;font-weight:700;color:#27ae60;margin-bottom:6px">✅ Achieved Items</div>`;
+    okList.forEach(item=>html+=`<div style="font-size:.77rem;color:var(--gr);padding:2px 0">${item.icon} <strong>${item.cat}</strong>：${item.a}</div>`);
+    html+=`</div>`;
+  }
+
+  html+=`<div style="margin-bottom:16px;background:linear-gradient(90deg,#fff7e6,#fff3d6);border:1.5px solid #f0c060;border-radius:12px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px"><div style="display:flex;align-items:center;gap:10px"><span style="font-size:1.3rem">🤔</span><div><div style="font-size:.9rem;font-weight:700;color:#7a4f00">Can't understand the report? A professional advisor will interpret it 1-on-1</div><div style="font-size:.78rem;color:#a07030;margin-top:2px">In-depth analysis of your financial health with personalized advice · <strong>¥199 / session</strong></div></div></div><div style="background:#d4a017;color:#fff;border-radius:50px;padding:8px 18px;font-size:.84rem;font-weight:700;white-space:nowrap">💬 Add WeChat: hamigua221</div></div>`;
+
+  html+=`<div style="margin-top:12px;padding:10px 14px;background:var(--pg);border-radius:8px;font-size:.78rem;color:var(--gr);line-height:1.7">
+    📌 This report is auto-generated from the data you entered, for reference only and not investment advice. Consider updating your data quarterly and tracking progress with your financial advisor.
+  </div>
+
+  <div style="margin-top:28px;background:linear-gradient(135deg,#1a3a5c 0%,#2c5f8a 100%);border-radius:16px;padding:28px 24px;text-align:center;color:#fff;position:relative;overflow:hidden">
+    <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.06)"></div>
+    <div style="position:absolute;bottom:-20px;left:-20px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.04)"></div>
+    <div style="font-size:1.4rem;margin-bottom:6px">👩‍💼</div>
+    <div style="font-size:1.05rem;font-weight:700;margin-bottom:6px;letter-spacing:.5px">You've seen the data — but only you know the story behind it</div>
+    <div style="font-size:.88rem;opacity:.88;line-height:1.7;margin-bottom:18px">Every family's financial situation is unique.<br>I offer <strong style="color:#f0c060">1-on-1 professional report interpretation</strong>, tailored to your actual situation,<br>to helpyou find the most suitable financial optimization path for your family.</div>
+    <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.3);border-radius:50px;padding:10px 22px;font-size:.92rem;font-weight:600">
+      <span style="font-size:1.1rem">💬</span>
+      <span>Add me on WeChat to book a review (¥199): <strong style="color:#f0c060;font-size:1rem;letter-spacing:1px">hamigua221</strong></span>
+    </div>
+    <div style="margin-top:12px;font-size:.75rem;opacity:.65">Janet Chen · Prudential Hong Kong · Licensed Insurance Advisor IH5039 · MDRT · COT</div>
+  </div></div>`;
+
+  // ── Render & charts ──
+
+
+
+  document.getElementById('report_out').innerHTML=html;
+
+
+
+  go(8);
+
+
+
+  setTimeout(()=>{
+
+
+
+    const pieCtx=document.getElementById('cPie');
+
+
+
+    const barCtx=document.getElementById('cBar');
+
+
+
+    if(pieCtx&&catEntries.length>0){
+
+
+
+      charts.pie=new Chart(pieCtx.getContext('2d'),{type:'doughnut',data:{labels:catEntries.map(e=>e[0]),datasets:[{data:catEntries.map(e=>e[1]),backgroundColor:['#4A6FA5','#6CB4A0','#D8A7B1','#C4A882','#8B9DC3','#B5C4D7'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{font:{size:10},padding:8}}}}});
+
+
+
+    }
+
+
+
+    if(barCtx){
+
+
+
+      charts.bar=new Chart(barCtx.getContext('2d'),{type:'bar',data:{labels:['Liquid Assets','Investment Assets','Personal-Use Assets','Total Liabilities'],datasets:[{label:'Amount',data:[d.liquidTotal,d.investTotal,d.personalTotal,d.debtTotal],backgroundColor:['#4A6FA5','#6CB4A0','#D8A7B1','#E74C3C'],borderRadius:6}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(val)=>val>=1e6?(val/1e6).toFixed(1)+'M':val>=1e4?(val/1e4).toFixed(0)+'0k':val}}}}});
+
+
+
+    }
+
+
+
+  },150);
+
+
+
+  // Show send notice after report generation
+
+  saveToSupabase(d);
+
+}
+
+
+
+// ── Supabase configuration ──
+
+const SUPA_URL = 'https://harfpcpncdgsseebfsku.supabase.co';
+
+const SUPA_KEY = 'sb_publishable_XU4HW7YIninAmvzGVbs2GA_ejscsrnu';
+
+
+
+async function saveToSupabase(d) {
+
+  try {
+
+    const payload = {
+
+      client_name:       d.name   || '',
+
+      client_age:        d.age    || null,
+
+      client_job:        d.job    || '',
+
+      family_structure:  d.family || '',
+
+      risk_level:        d.risk   || '',
+
+      goals:             d.goals  || '',
+
+      total_assets:      d.totalAssets     || 0,
+
+      total_liabilities: d.debtTotal       || 0,
+
+      net_assets:        d.netAssets       || 0,
+
+      total_income:      d.totalInc        || 0,
+
+      total_expense:     d.totalExp        || 0,
+
+      net_income:        d.netInc          || 0,
+
+      report_data:       d
+
+    };
+
+    await fetch('https://harfpcpncdgsseebfsku.supabase.co/rest/v1/finance_reports', {
+
+      method: 'POST',
+
+      headers: {
+
+        'Content-Type': 'application/json',
+
+        'apikey': 'sb_publishable_XU4HW7YIninAmvzGVbs2GA_ejscsrnu',
+
+        'Authorization': 'Bearer sb_publishable_XU4HW7YIninAmvzGVbs2GA_ejscsrnu',
+
+        'Prefer': 'return=minimal'
+
+      },
+
+      body: JSON.stringify(payload)
+
+    });
+
+  } catch(e) {
+
+    console.error('Supabase save error:', e);
+
+  }
+
+}
+
+
+
+
+
+
+
+// ── Page load ──
+
+
+
+document.addEventListener('DOMContentLoaded',()=>{
+
+
+
+  document.getElementById('i_date').value=new Date().toISOString().split('T')[0];
+
+
+
+  loadSaved();
+
+
+
+});
+
+
+
+
+
+
+
+</script>
+
+
+
+</body>
+
+
+
+</html</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+</div><!-- end .wrap -->
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+
+
+
+
+
+
+const SKEY='hfr_v2';
+
+
+
+let autoTimer=null, charts={};
+
+
+
+
+
+
+
+// ── Auto-save ──
+
+
+
+function autoSave(){clearTimeout(autoTimer);autoTimer=setTimeout(saveNow,500);}
+
+
+
+// ── Monthly/annual expense conversion ──
+
+
+
+function syncExp(srcId, dstId, srcType){
+
+
+
+  const src = parseFloat(document.getElementById(srcId)?.value)||0;
+
+
+
+  const dst = document.getElementById(dstId);
+
+
+
+  if(!dst)return;
+
+
+
+  if(srcType==='m'){ dst.value = src>0 ? (src*12).toFixed(0) : ''; }
+
+
+
+  else { dst.value = src>0 ? (src/12).toFixed(0) : ''; }
+
+
+
+}
+
+
+
+
+
+
+
+// ── Monthly repayment -> annual repayment display ──
+
+
+
+function calcAnnualMortg(){
+
+
+
+  const monthly = parseFloat(document.getElementById('d_monthly_mortg')?.value)||0;
+
+
+
+  const annual = monthly * 12;
+
+
+
+  const disp = document.getElementById('d_annual_mortg_display');
+
+
+
+  const hidden = document.getElementById('d_annual_mortg');
+
+
+
+  if(disp) disp.textContent = annual > 0 ? annual.toLocaleString('en-US') + ' CNY' : '0';
+
+
+
+  if(hidden) hidden.value = annual;
+
+
+
+}
+
+
+
+function saveNow(){
+
+
+
+  const data={};
+
+
+
+  document.querySelectorAll('input[id],select[id],textarea[id]').forEach(el=>{if(el.id)data[el.id]=el.value;});
+
+
+
+  localStorage.setItem(SKEY,JSON.stringify(data));
+
+
+
+  const ss=document.getElementById('saveStatus');
+
+
+
+  const now=new Date();
+
+
+
+  const ts=`${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}:${now.getSeconds().toString().padStart(2,'0')}`;
+
+
+
+  if(ss)ss.textContent=`✅ Saved at ${ts} — data won't be lost after closing the browser`;
+
+
+
+}
+
+
+
+function loadSaved(){
+
+
+
+  const raw=localStorage.getItem(SKEY);
+
+
+
+  if(!raw)return;
+
+
+
+  try{
+
+
+
+    const data=JSON.parse(raw);
+
+
+
+    Object.keys(data).forEach(id=>{const el=document.getElementById(id);if(el)el.value=data[id];});
+
+
+
+    ['bank','mf','sv','sec','iprop','alt','home','car','mortg','cons','ainc','pinc','lexp','edu','par','fexp','veh'].forEach(calcSub);
+
+
+
+    calcTotalPremium();
+
+
+
+    calcAnnualMortg();
+
+
+
+    const ss=document.getElementById('saveStatus');
+
+
+
+    if(ss)ss.textContent='✅ Restored your previously saved data — continue filling in';
+
+
+
+  }catch(e){}
+
+
+
+}
+
+
+
+function clearAll(){
+
+
+
+  if(!confirm('Are you sure you want to clear all entered data? This cannot be undone.'))return;
+
+
+
+  localStorage.removeItem(SKEY);
+
+
+
+  document.querySelectorAll('input[id],select[id],textarea[id]').forEach(el=>{if(el.tagName==='SELECT')el.selectedIndex=0;else el.value='';});
+
+
+
+  ['bank','mf','sv','sec','iprop','alt','home','car','mortg','cons','ainc','pinc','lexp','edu','par','fexp','veh'].forEach(calcSub);
+
+
+
+  calcTotalPremium();
+
+
+
+  document.getElementById('saveStatus').textContent='Data cleared — please fill in again';
+
+
+
+}
+
+
+
+
+
+
+
+// ── Step navigation ──
+
+
+
+let curStep=0;
+
+
+
+function go(n){
+
+
+
+  document.querySelectorAll('.panel').forEach((p,i)=>p.classList.toggle('active',i===n));
+
+
+
+  document.querySelectorAll('.snav').forEach((b,i)=>{
+
+
+
+    b.classList.remove('active','done');
+
+
+
+    if(i===n&&i<8)b.classList.add('active');
+
+
+
+    else if(i<n)b.classList.add('done');
+
+
+
+  });
+
+
+
+  curStep=n;window.scrollTo(0,0);saveNow();
+
+
+
+}
+
+
+
+
+
+
+
+// ── Field groups ──
+
+
+
+const GROUPS={
+
+
+
+  bank:['a_cash_demand','a_cash_fixed','a_cash_cd','a_cash_usd'],
+
+
+
+  mf:['a_mf_money','a_mf_bond','a_mf_bank'],
+
+
+
+  sv:['a_sv_self','a_sv_spouse','a_sv_kid'],
+
+
+
+  sec:['a_sec_ashare','a_sec_hkshare','a_sec_usshare','a_sec_fund','a_sec_pe','a_sec_iul'],
+
+
+
+  iprop:['a_ip_hk','a_ip_cn1','a_ip_cn2','a_ip_cn3','a_ip_oversea','a_ip_comm','a_ip_parking'],
+
+
+
+  alt:['a_alt_gold','a_alt_crypto','a_alt_equity','a_alt_art'],
+
+
+
+  home:['a_h_main','a_h_second'],
+
+
+
+  car:['a_c_car1','a_c_car2'],
+
+
+
+  mortg:['d_m_home','d_m_invest','d_m_comm'],
+
+
+
+  cons:['d_c_car','d_c_personal','d_c_cc'],
+
+
+
+  ainc:['inc_w_self_fix','inc_w_self_var','inc_w_spouse','inc_w_biz','inc_w_side'],
+
+
+
+  pinc:['inc_p_hkrent','inc_p_cnrent','inc_p_commrent','inc_p_div','inc_p_int','inc_p_pension','inc_p_annuity','inc_p_other'],
+
+
+
+  lexp:['exp_l_food','exp_l_util','exp_l_cloth','exp_l_comm','exp_l_travel','exp_l_ent'],
+
+
+
+  edu:['exp_e_tuition','exp_e_extra','exp_e_living'],
+
+
+
+  par:['exp_p_parents'],
+
+
+
+  fexp:['exp_f_mortg','exp_f_carloan','exp_f_ins','exp_f_sav'],
+
+
+
+  veh:['exp_v_fuel','exp_v_carins','exp_v_maint']
+
+
+
+};
+
+
+
+
+
+
+
+function v(id){return parseFloat(document.getElementById(id)?.value)||0;}
+
+
+
+function fmt(n){return Number(n).toLocaleString('en-US');}
+
+
+
+function fmtPct(n){return(isNaN(n)||!isFinite(n))?'—':((n*100).toFixed(2)+'%');}
+
+
+
+
+
+
+
+const subCache={};
+
+
+
+function calcSub(grp){
+
+
+
+  const ids=GROUPS[grp];if(!ids)return;
+
+
+
+  const sum=ids.reduce((a,id)=>a+v(id),0);
+
+
+
+  subCache[grp]=sum;
+
+
+
+  const el=document.getElementById('sub_'+grp);if(el)el.textContent=fmt(sum);
+
+
+
+  const st=document.getElementById('st_'+grp);if(st)st.textContent='Subtotal: '+fmt(sum);
+
+
+
+  const totMap={liquid:['bank','mf','sv'],invest:['sec','iprop','alt'],personal:['home','car'],debt:['mortg','cons'],income:['ainc','pinc'],exp:['lexp','edu','par','fexp','veh']};
+
+
+
+  const totIds={liquid:'total_liquid',invest:'total_invest',personal:'total_personal',debt:'total_debt',income:'total_income',exp:'total_exp'};
+
+
+
+  Object.keys(totMap).forEach(tot=>{
+
+
+
+    if(totMap[tot].includes(grp)){
+
+
+
+      const total=totMap[tot].reduce((a,g)=>a+(subCache[g]||0),0);
+
+
+
+      const tel=document.getElementById(totIds[tot]);if(tel)tel.textContent=fmt(total);
+
+
+
+    }
+
+
+
+  });
+
+
+
+}
+
+
+
+function calcTotalPremium(){
+
+
+
+  const ids=['ins_s_life_prem','ins_s_ci_prem','ins_s_med_prem','ins_s_sav_prem','ins_s_acc_prem','ins_p_life_prem','ins_p_ci_prem','ins_p_med_prem','ins_p_sav_prem','ins_k_edu_prem','ins_k_ci_prem','ins_k_med_prem'];
+
+
+
+  const total=ids.reduce((a,id)=>a+v(id),0);
+
+
+
+  const el=document.getElementById('ins_total_prem');if(el)el.textContent=fmt(total)+' CNY';
+
+
+
+}
+
+
+
+
+
+
+
+// ── Collect data ──
+
+
+
+function collectData(){
+
+
+
+  const cur_sym=document.getElementById('i_cur')?.value||'CNY';
+
+
+
+  const age=parseInt(document.getElementById('i_age')?.value)||0;
+
+
+
+  const getG=g=>(GROUPS[g]||[]).reduce((a,id)=>a+v(id),0);
+
+
+
+  const liquidTotal=['bank','mf','sv'].reduce((a,g)=>a+getG(g),0);
+
+
+
+  const investTotal=['sec','iprop','alt'].reduce((a,g)=>a+getG(g),0);
+
+
+
+  const personalTotal=['home','car'].reduce((a,g)=>a+getG(g),0);
+
+
+
+  const totalAssets=liquidTotal+investTotal+personalTotal;
+
+
+
+  const debtTotal=['mortg','cons'].reduce((a,g)=>a+getG(g),0);
+
+
+
+  const netAssets=totalAssets-debtTotal;
+
+
+
+  const activeInc=getG('ainc'), passiveInc=getG('pinc'), totalInc=activeInc+passiveInc;
+
+
+
+  const livingExp=['lexp','edu','par','veh'].reduce((a,g)=>a+getG(g),0);
+
+
+
+  const finExp=['fexp'].reduce((a,g)=>a+getG(g),0);
+
+
+
+  const totalExp=livingExp+finExp;
+
+
+
+  const netInc=totalInc-totalExp;
+
+
+
+  const annualMortg=v('d_annual_mortg')||0;
+
+
+
+  const lifeCover=(v('ins_s_life_amt')+v('ins_p_life_amt'))*10000;
+
+
+
+  const ciCover=(v('ins_s_ci_amt')+v('ins_p_ci_amt')+v('ins_k_ci_amt'))*10000;
+
+
+
+  const premIds=['ins_s_life_prem','ins_s_ci_prem','ins_s_med_prem','ins_s_sav_prem','ins_s_acc_prem','ins_p_life_prem','ins_p_ci_prem','ins_p_med_prem','ins_p_sav_prem','ins_k_edu_prem','ins_k_ci_prem','ins_k_med_prem'];
+
+
+
+  const totalPrem=premIds.reduce((a,id)=>a+v(id),0);
+
+
+
+  const assetCat={
+
+
+
+    'Wealth preservation (cash deposits)':getG('bank')+getG('mf'),
+
+
+
+    'Wealth preservation (savings policies)':getG('sv'),
+
+
+
+    'Wealth growth (securities)':getG('sec'),
+
+
+
+    'Alternative (investment property)':getG('iprop'),
+
+
+
+    'Alternative (others)':getG('alt'),
+
+
+
+    'Personal-Use Assets':getG('home')+getG('car')
+
+
+
+  };
+
+
+
+  const remain=Math.max(85-age,1);
+
+
+
+  const kpis={
+
+
+
+    absoluteWR:livingExp>0?netAssets/(livingExp*remain):null,
+
+
+
+    wealthFreeR:livingExp>0?passiveInc/livingExp:null,
+
+
+
+    finAssetR:totalAssets>0?liquidTotal/totalAssets:null,
+
+
+
+    debtR:totalAssets>0?debtTotal/totalAssets:0,
+
+
+
+    emergMths:livingExp>0?(getG('bank')+getG('mf'))/(livingExp/12):null,
+
+
+
+    lifeR:(activeInc+passiveInc*0.5)>0?lifeCover/(activeInc+passiveInc*0.5):null,
+
+
+
+    ciR:activeInc>0?ciCover/activeInc:null,
+
+
+
+    debtBurdenR:(totalInc>0&&annualMortg>0)?annualMortg/totalInc:null,
+
+
+
+    netSavR:totalInc>0?netInc/totalInc:null,
+
+
+
+    netWorthGR:netAssets>0?netInc/netAssets:null
+
+
+
+  };
+
+
+
+  const details={
+
+    assets:{
+
+      cash_demand:v('a_cash_demand'),cash_fixed:v('a_cash_fixed'),cash_cd:v('a_cash_cd'),cash_usd:v('a_cash_usd'),
+
+      mf_money:v('a_mf_money'),mf_bond:v('a_mf_bond'),mf_bank:v('a_mf_bank'),
+
+      sv_self:v('a_sv_self'),sv_spouse:v('a_sv_spouse'),sv_kid:v('a_sv_kid'),
+
+      sec_ashare:v('a_sec_ashare'),sec_hkshare:v('a_sec_hkshare'),sec_usshare:v('a_sec_usshare'),sec_fund:v('a_sec_fund'),sec_pe:v('a_sec_pe'),sec_iul:v('a_sec_iul'),
+
+      ip_hk:v('a_ip_hk'),ip_cn1:v('a_ip_cn1'),ip_cn2:v('a_ip_cn2'),ip_cn3:v('a_ip_cn3'),ip_oversea:v('a_ip_oversea'),ip_comm:v('a_ip_comm'),ip_parking:v('a_ip_parking'),
+
+      alt_gold:v('a_alt_gold'),alt_crypto:v('a_alt_crypto'),alt_equity:v('a_alt_equity'),alt_art:v('a_alt_art'),
+
+      h_main:v('a_h_main'),h_second:v('a_h_second'),c_car1:v('a_c_car1'),c_car2:v('a_c_car2')
+
+    },
+
+    debts:{
+
+      m_home:v('d_m_home'),m_invest:v('d_m_invest'),m_comm:v('d_m_comm'),
+
+      c_car:v('d_c_car'),c_personal:v('d_c_personal'),c_cc:v('d_c_cc'),
+
+      annual_mortg:v('d_annual_mortg')
+
+    },
+
+    income:{
+
+      w_self_fix:v('inc_w_self_fix'),w_self_var:v('inc_w_self_var'),w_spouse:v('inc_w_spouse'),w_biz:v('inc_w_biz'),w_side:v('inc_w_side'),
+
+      p_hkrent:v('inc_p_hkrent'),p_cnrent:v('inc_p_cnrent'),p_commrent:v('inc_p_commrent'),p_div:v('inc_p_div'),p_int:v('inc_p_int'),p_pension:v('inc_p_pension'),p_annuity:v('inc_p_annuity'),p_other:v('inc_p_other')
+
+    },
+
+    expense:{
+
+      l_food:v('exp_l_food'),l_util:v('exp_l_util'),l_cloth:v('exp_l_cloth'),l_comm:v('exp_l_comm'),l_travel:v('exp_l_travel'),l_ent:v('exp_l_ent'),
+
+      e_tuition:v('exp_e_tuition'),e_extra:v('exp_e_extra'),e_living:v('exp_e_living'),
+
+      p_parents:v('exp_p_parents'),
+
+      f_mortg:v('exp_f_mortg'),f_carloan:v('exp_f_carloan'),f_ins:v('exp_f_ins'),f_sav:v('exp_f_sav'),
+
+      v_fuel:v('exp_v_fuel'),v_carins:v('exp_v_carins'),v_maint:v('exp_v_maint')
+
+    },
+
+    insurance:{
+
+      s_life_amt:v('ins_s_life_amt'),s_life_prem:v('ins_s_life_prem'),
+
+      s_ci_amt:v('ins_s_ci_amt'),s_ci_prem:v('ins_s_ci_prem'),
+
+      s_med_amt:v('ins_s_med_amt'),s_med_prem:v('ins_s_med_prem'),
+
+      s_sav_amt:v('ins_s_sav_amt'),s_sav_prem:v('ins_s_sav_prem'),
+
+      s_acc_amt:v('ins_s_acc_amt'),s_acc_prem:v('ins_s_acc_prem'),
+
+      p_life_amt:v('ins_p_life_amt'),p_life_prem:v('ins_p_life_prem'),
+
+      p_ci_amt:v('ins_p_ci_amt'),p_ci_prem:v('ins_p_ci_prem'),
+
+      p_med_amt:v('ins_p_med_amt'),p_med_prem:v('ins_p_med_prem'),
+
+      p_sav_amt:v('ins_p_sav_amt'),p_sav_prem:v('ins_p_sav_prem'),
+
+      k_edu_amt:v('ins_k_edu_amt'),k_edu_prem:v('ins_k_edu_prem'),
+
+      k_ci_amt:v('ins_k_ci_amt'),k_ci_prem:v('ins_k_ci_prem'),
+
+      k_med_amt:v('ins_k_med_amt'),k_med_prem:v('ins_k_med_prem')
+
+    }
+
+  };
+
+  return{name:document.getElementById('i_name')?.value||'Client',job:document.getElementById('i_job')?.value||'',age,cur_sym,family:document.getElementById('i_family')?.value||'',date:document.getElementById('i_date')?.value||'',risk:document.getElementById('i_risk')?.value||'',goals:document.getElementById('i_goals')?.value||'',liquidTotal,investTotal,personalTotal,totalAssets,debtTotal,netAssets,activeInc,passiveInc,totalInc,livingExp,finExp,totalExp,netInc,lifeCover,ciCover,totalPrem,assetCat,kpis,details,getG};
+
+
+
+}
+
+
+
+
+
+
+
+// ── KPI rating ──
+
+
+
+function kpiStatus(key,val){
+
+
+
+  if(val===null||isNaN(val)||!isFinite(val))return{cls:'kpi-w',badge:'badge-yw',label:'Insufficient data'};
+
+
+
+  const ok=(a,b)=>val>=a&&val<=b,hi=a=>val>a,lo=a=>val<a;
+
+
+
+  switch(key){
+
+
+
+    case 'absoluteWR': return hi(1)?{cls:'kpi-ok',badge:'badge-gn',label:'Good'}:{cls:'kpi-bd',badge:'badge-rd',label:'Insufficient'};
+
+
+
+    case 'wealthFreeR': return hi(1)?{cls:'kpi-ok',badge:'badge-gn',label:'Achieved'}:val>=0.8?{cls:'kpi-w',badge:'badge-yw',label:'Close'}:{cls:'kpi-bd',badge:'badge-rd',label:'Insufficient'};
+
+
+
+    case 'finAssetR': return ok(0.5,0.75)?{cls:'kpi-ok',badge:'badge-gn',label:'Reasonable'}:lo(0.5)?{cls:'kpi-bd',badge:'badge-rd',label:'Low'}:{cls:'kpi-w',badge:'badge-yw',label:'High'};
+
+
+
+    case 'debtR': return val<=0.5?{cls:'kpi-ok',badge:'badge-gn',label:'Healthy'}:val<=0.7?{cls:'kpi-w',badge:'badge-yw',label:'High'}:{cls:'kpi-bd',badge:'badge-rd',label:'Risky'};
+
+
+
+    case 'emergMths': return ok(6,12)?{cls:'kpi-ok',badge:'badge-gn',label:'Reasonable'}:lo(6)?{cls:'kpi-bd',badge:'badge-rd',label:'Insufficient'}:{cls:'kpi-w',badge:'badge-yw',label:'High'};
+
+
+
+    case 'lifeR': return ok(10,30)?{cls:'kpi-ok',badge:'badge-gn',label:'Reasonable'}:lo(10)?{cls:'kpi-bd',badge:'badge-rd',label:'Insufficient'}:{cls:'kpi-w',badge:'badge-yw',label:'High'};
+
+
+
+    case 'ciR': return ok(3,5)?{cls:'kpi-ok',badge:'badge-gn',label:'Reasonable'}:lo(3)?{cls:'kpi-bd',badge:'badge-rd',label:'Insufficient'}:{cls:'kpi-w',badge:'badge-yw',label:'High'};
+
+
+
+    case 'debtBurdenR': return val<=0.4?{cls:'kpi-ok',badge:'badge-gn',label:'Healthy'}:val<=0.5?{cls:'kpi-w',badge:'badge-yw',label:'High'}:{cls:'kpi-bd',badge:'badge-rd',label:'Risky'};
+
+
+
+    case 'netSavR': return ok(0.3,0.6)?{cls:'kpi-ok',badge:'badge-gn',label:'Good'}:lo(0.3)?{cls:'kpi-bd',badge:'badge-rd',label:'Low'}:{cls:'kpi-w',badge:'badge-yw',label:'High'};
+
+
+
+    case 'netWorthGR': return ok(0.05,0.1)?{cls:'kpi-ok',badge:'badge-gn',label:'Good'}:lo(0.05)?{cls:'kpi-bd',badge:'badge-rd',label:'Low'}:{cls:'kpi-w',badge:'badge-yw',label:'High'};
+
+
+
+    default:return{cls:'kpi-w',badge:'badge-yw',label:'—'};
+
+
+
+  }
+
+
+
+}
+
+
+
+function kpiAnalysis(key,val,d){
+
+
+
+  if(val===null||isNaN(val)||!isFinite(val))return'Please fill in the relevant data and regenerate.';
+
+
+
+  const pct=(val*100).toFixed(1)+'%';
+
+
+
+  switch(key){
+
+
+
+    case 'absoluteWR':return val>=1?`Net assets equal ${val.toFixed(1)}× the total living expenses for the next ${85-d.age} years — a solid wealth foundation.`:`Net assets cannot yet cover living expenses for the next ${85-d.age} years — consider accelerating accumulation.`;
+
+
+
+    case 'wealthFreeR':return val>=1?'Passive income fully covers living expenses — congratulations on financial freedom!':val>=0.8?`Passive income covers ${pct} of living expenses — just one step from financial freedom!`:`Passive income only covers ${pct} of living expenses — consider adding investment income sources.`;
+
+
+
+    case 'finAssetR':return val<0.5?`Liquid financial assets are only ${pct} of total assets, below the 50% standard — consider improving liquidity.`:`Liquid assets are ${pct}, within a reasonable range.`;
+
+
+
+    case 'debtR':return val===0?'Debt-free household, financially secure — consider using moderate financial leverage to improve efficiency.':`Debt ratio ${pct}, ${val<=0.5?'within a healthy range.':'consider controlling total debt.'}`;
+
+
+
+    case 'emergMths':return val>=6&&val<=12?`Emergency fund of ${val.toFixed(0)} months — ample and reasonable.`:val<6?`Emergency fund is only ${val.toFixed(0)} months — consider raising to 6-12 months.`:`Emergency fund of ${val.toFixed(0)} months — slightly too much cash, consider more efficient allocation.`;
+
+
+
+    case 'lifeR':return val<10?`Life coverage is ${val.toFixed(1)}× annual income — insufficient, consider raising to 10-30×.`:`Life coverage is ${val.toFixed(1)}× annual income — adequate family protection.`;
+
+
+
+    case 'ciR':return val<3?`Critical illness coverage is only ${pct} of annual income — consider raising to 300%-500%.`:`Critical illness coverage is ${pct} of annual income — good protection level.`;
+
+
+
+    case 'debtBurdenR':return val<=0?'No current loan repayment pressure — high financial security.':`Annual repayments are ${pct} of income, ${val<=0.4?'moderate pressure, financially sound.':'high pressure — consider reducing debt or raising income.'}`;
+
+
+
+    case 'netSavR':return `Net savings rate ${pct}, ${val>=0.3&&val<=0.6?'good savings rate, healthy budget balance.':val<0.3?'low savings rate — consider optimizing spending.':'high savings rate — consider investing part of the surplus.'}`;
+
+
+
+    case 'netWorthGR':return `Annual net worth growth ${pct}, ${val>=0.05?'healthy asset appreciation.':'low asset growth — consider optimizing allocation.'}`;
+
+
+
+    default:return'';
+
+
+
+  }
+
+
+
+}
+
+
+
+
+
+
+
+const lcData=[{n:'Single',r:'18-30',ic:'👤'},{n:'Forming',r:'25-35',ic:'👫'},{n:'Growing',r:'30-55',ic:'👨‍👩‍👧'},{n:'Mature',r:'50-65',ic:'🏠'},{n:'Retirement',r:'60-100',ic:'🌅'}];
+
+
+
+const lcSummary=['Early financial stage — focus: build emergency fund, obtain basic protection, start retirement savings, avoid overspending.','Newly formed family, peak financial pressure — focus: complete insurance coverage, control debt, build dedicated children\'s education savings.','Golden wealth accumulation period — focus: children\'s education fund planning, portfolio diversification, complete retirement savings, adequate insurance.','Approaching retirement — focus: ensure sufficient pension, gradually pay off all debt, reduce risky asset allocation, plan wealth transfer.','Retirement living stage — focus: medical insurance first, maintain stable passive income to cover expenses, control spending pace, enjoy life.'];
+
+
+
+function getLcIdx(age){if(age<25)return 0;if(age<35)return 1;if(age<55)return 2;if(age<65)return 3;return 4;}
+
+
+
+
+
+
+
+// ── Report styles ──
+
+
+
+function injectReportCss(){
+
+
+
+  if(document.getElementById('report-css'))return;
+
+
+
+  const s=document.createElement('style');
+
+
+
+  s.id='report-css';
+
+
+
+  s.textContent=`.rs{background:#fff;border-radius:14px;padding:24px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+
+
+
+.rs h2{color:var(--p);font-size:1.1rem;margin-bottom:18px;padding-bottom:9px;border-bottom:2px solid var(--bd);display:flex;align-items:center;gap:6px}
+
+
+
+.rt{width:100%;border-collapse:collapse;font-size:.88rem}
+
+
+
+.rt th{background:var(--p);color:#fff;padding:9px 12px;text-align:left;font-weight:700}
+
+
+
+.rt td{padding:8px 12px;border-bottom:1px solid var(--bd)}
+
+
+
+.rt tr:nth-child(even) td{background:rgba(74,111,165,.04)}
+
+
+
+.rt .tr td{background:rgba(74,111,165,.1);font-weight:700;color:var(--p)}
+
+
+
+.rt .sr td{background:rgba(216,167,177,.1);font-weight:700}
+
+
+
+.rt .gr td{background:linear-gradient(90deg,rgba(74,111,165,.12),rgba(216,167,177,.08));font-weight:700}
+
+
+
+.kgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+
+
+
+@media(max-width:640px){.kgrid{grid-template-columns:1fr 1fr}}
+
+
+
+.kc{background:var(--bg);border-radius:11px;padding:14px;text-align:center;border:1.5px solid var(--bd)}
+
+
+
+.kc .kn{font-size:.75rem;color:var(--gr);margin-bottom:5px;line-height:1.4}
+
+
+
+.kc .kv{font-size:1.35rem;font-weight:700;margin-bottom:3px}
+
+
+
+.kc .kr{font-size:.7rem;color:var(--gr)}
+
+
+
+.kc .ka{font-size:.72rem;line-height:1.4;margin-top:5px;text-align:left;color:var(--tx)}
+
+
+
+.kpi-ok{color:var(--gn)}.kpi-w{color:var(--yw)}.kpi-bd{color:var(--rd)}
+
+
+
+.badge-gn{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:700;background:rgba(39,174,96,.15);color:var(--gn)}
+
+
+
+.badge-rd{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:700;background:rgba(231,76,60,.15);color:var(--rd)}
+
+
+
+.badge-yw{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:700;background:rgba(243,156,18,.15);color:var(--yw)}
+
+
+
+.sum-box{background:linear-gradient(135deg,var(--p),#3a5f95);color:#fff;border-radius:14px;padding:22px;margin-bottom:20px}
+
+
+
+.sum-box h2{color:#fff;margin-bottom:14px}
+
+
+
+.sng{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+
+
+
+@media(max-width:600px){.sng{grid-template-columns:1fr 1fr}}
+
+
+
+.sni{background:rgba(255,255,255,.15);border-radius:9px;padding:11px;text-align:center}
+
+
+
+.sni .snl{font-size:.74rem;opacity:.85;margin-bottom:3px}.sni .snv{font-size:1.25rem;font-weight:700}
+
+
+
+.lc-row{display:flex;justify-content:center;margin:8px 0 18px;gap:0}
+
+
+
+.lci{flex:1;text-align:center;padding:10px 2px;position:relative}
+
+
+
+.lci:not(:last-child)::after{content:"→";position:absolute;right:-5px;top:42%;color:var(--bd);font-size:1rem}
+
+
+
+.lcc{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 5px;font-size:1.4rem;border:2.5px solid var(--bd)}
+
+
+
+.lci.active .lcc{border-color:var(--a);background:var(--a);color:#fff}
+
+
+
+.lci .lcl{font-size:.73rem;font-weight:700}.lci .lca{font-size:.66rem;color:var(--gr)}
+
+
+
+.act-item{display:flex;gap:10px;align-items:flex-start;padding:11px;background:var(--bg);border-radius:9px;margin-bottom:7px}
+
+
+
+.act-num{background:var(--p);color:#fff;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;font-size:.8rem}
+
+
+
+.cht-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:16px}
+
+
+
+@media(max-width:580px){.cht-row{grid-template-columns:1fr}}
+
+
+
+.cht-box{background:var(--bg);border-radius:10px;padding:14px}
+
+
+
+.cht-box h3{font-size:.85rem;color:var(--p);margin-bottom:10px;text-align:center}
+
+
+
+@media print{.step-nav,.save-bar,.navrow,button{display:none!important}.panel{display:block!important}.rs{break-inside:avoid}}`;
+
+
+
+  document.head.appendChild(s);
+
+
+
+}
+
+
+
+
+
+
+
+// ── Main report generation function ──
+
+
+
+function genReport(){
+
+
+
+  const d=collectData();
+
+
+
+  injectReportCss();
+
+
+
+  Object.values(charts).forEach(c=>{try{c.destroy();}catch(e){}});
+
+
+
+  charts={};
+
+
+
+  const cur=d.cur_sym;
+
+
+
+  const lcIdx=getLcIdx(d.age);
+
+
+
+
+
+
+
+  const nameMap={bank:'Bank Deposits',mf:'Money Funds & Bonds',sv:'Savings Policies',sec:'Securities',iprop:'Investment Property',alt:'Alternative Investments',home:'Primary Residence',car:'Vehicles',mortg:'Mortgage Loans',cons:'Auto/Consumer Loans'};
+
+
+
+  const subLabels={
+
+
+
+    a_cash_demand:'Demand deposits',a_cash_fixed:'Time deposits',a_cash_cd:'Certificates of deposit',a_cash_usd:'Foreign currency deposits',
+
+
+
+    a_mf_money:'Money market funds',a_mf_bond:'Government bonds (short-term)',a_mf_bank:'Bank wealth management (short-term)',
+
+
+
+    a_sv_self:'Savings policy (self)',a_sv_spouse:'Savings policy (spouse)',a_sv_kid:'Children\'s education policy',
+
+
+
+    a_sec_ashare:'A-share stocks',a_sec_hkshare:'HK stocks',a_sec_usshare:'US/overseas stocks',a_sec_fund:'Mutual funds',a_sec_pe:'Private funds',a_sec_iul:'Investment-linked',
+
+
+
+    a_ip_hk:'HK investment property',a_ip_cn1:'Mainland property (1st)',a_ip_cn2:'Mainland property (2nd)',a_ip_cn3:'Mainland property (3rd+)',a_ip_oversea:'Overseas property',a_ip_comm:'Shop/office/factory',a_ip_parking:'Parking space (investment)',
+
+
+
+    a_alt_gold:'Gold/precious metals',a_alt_crypto:'Cryptocurrency',a_alt_equity:'Equity/company shares',a_alt_art:'Collectibles/art',
+
+
+
+    a_h_main:'Primary home',a_h_second:'Second home',a_c_car1:'Vehicle 1',a_c_car2:'Vehicle 2',
+
+
+
+    d_m_home:'Primary home mortgage balance',d_m_invest:'Investment property mortgage balance',d_m_comm:'Commercial property loan balance',d_c_car:'Auto loan balance',d_c_personal:'Credit/personal loans',d_c_cc:'Credit card debt'
+
+
+
+  };
+
+
+
+  const incLabels={inc_w_self_fix:'Your salary (fixed)',inc_w_self_var:'Your bonus/commission',inc_w_spouse:'Spouse\'s salary',inc_w_biz:'Business income',inc_w_side:'Part-time/freelance',inc_p_hkrent:'HK property rental',inc_p_cnrent:'Mainland property rental',inc_p_commrent:'Commercial property rental',inc_p_div:'Stock dividends/fund distributions',inc_p_int:'Deposit/bond interest',inc_p_pension:'Social security/pension',inc_p_annuity:'Commercial annuity',inc_p_other:'Other passive income'};
+
+
+
+  const expLabels={exp_l_food:'Household food/necessities',exp_l_util:'Utilities/property management',exp_l_cloth:'Clothing/beauty',exp_l_rent:'Rent',exp_l_comm:'Transport',exp_l_travel:'Travel/vacation',exp_l_ent:'Entertainment/social/dining',exp_e_tuition:'Children\'s tuition/childcare',exp_e_extra:'Tutoring/extracurricular',exp_e_living:'Children\'s daily allowance',exp_p_parents:'Parent Support',exp_f_mortg:'Monthly mortgage ×12',exp_f_carloan:'Monthly auto loan ×12',exp_f_ins:'Life/CI premiums',exp_f_sav:'Savings/education premiums',exp_v_fuel:'Fuel/charging',exp_v_carins:'Vehicle insurance',exp_v_maint:'Maintenance'};
+
+
+
+
+
+
+
+  const kpiDefs=[
+
+
+
+    {key:'absoluteWR',name:'Absolute Wealth Ratio',formula:'Net assets ÷ (living expense × remaining years)',range:'>100%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'},
+
+
+
+    {key:'wealthFreeR',name:'Financial Freedom Ratio',formula:'Passive income ÷ living expense',range:'>100%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'},
+
+
+
+    {key:'finAssetR',name:'Financial Asset Ratio',formula:'Liquid assets ÷ total assets',range:'50%-75%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'},
+
+
+
+    {key:'debtR',name:'Debt Ratio',formula:'Total liabilities ÷ total assets',range:'0%-50%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'},
+
+
+
+    {key:'emergMths',name:'Emergency Fund',formula:'Demand deposits ÷ avg monthly expense',range:'6-12 months',fmtV:v=>v!==null&&isFinite(v)?(v.toFixed(0)+' months'):'—'},
+
+
+
+    {key:'lifeR',name:'Life Coverage Ratio',formula:'Life coverage ÷ total annual income',range:'10-30x',fmtV:v=>v!==null&&isFinite(v)?(v.toFixed(1)+'x'):'—'},
+
+
+
+    {key:'ciR',name:'Critical Illness Ratio',formula:'CI coverage ÷ annual active income',range:'300%-500%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(0)+'%'):'—'},
+
+
+
+    {key:'debtBurdenR',name:'Debt Burden Ratio',formula:'Annual repayment ÷ total annual income',range:'20%-40%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'},
+
+
+
+    {key:'netSavR',name:'Net Savings Rate',formula:'Annual net surplus ÷ total annual income',range:'30%-60%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'},
+
+
+
+    {key:'netWorthGR',name:'Net Worth Growth Rate',formula:'Annual net surplus ÷ net assets',range:'5%-10%',fmtV:v=>v!==null&&isFinite(v)?((v*100).toFixed(1)+'%'):'—'}
+
+
+
+  ];
+
+
+
+
+
+
+
+  let html='';
+
+
+
+
+
+
+
+  // ── Cover summary ──
+
+
+
+  html+=`<div class="sum-box">
+
+
+
+    <h2>📋 ${d.name} Family Financial Planning Report</h2>
+
+
+
+    <p style="opacity:.85;font-size:.88rem;margin-bottom:12px">${d.job?d.job+' · ':''}${d.age}yrs · ${d.family} · ${d.date||'—'} · Risk tolerance: ${d.risk}</p>
+
+
+
+    ${d.goals?`<p style="opacity:.85;font-size:.83rem;margin-bottom:14px">📌 Financial goals: ${d.goals.split('\n').join(' | ')}</p>`:''}
+
+
+
+    <div class="sng">
+
+
+
+      <div class="sni"><div class="snl">Total Assets</div><div class="snv">${cur} ${fmt(d.totalAssets)}</div></div>
+
+
+
+      <div class="sni"><div class="snl">Net Assets</div><div class="snv">${cur} ${fmt(d.netAssets)}</div></div>
+
+
+
+      <div class="sni"><div class="snl">Total Annual Income</div><div class="snv">${cur} ${fmt(d.totalInc)}</div></div>
+
+
+
+      <div class="sni"><div class="snl">Total Annual Expenses</div><div class="snv">${cur} ${fmt(d.totalExp)}</div></div>
+
+
+
+      <div class="sni"><div class="snl">Annual Net Surplus</div><div class="snv" style="color:${d.netInc>=0?'#a8e6c0':'#ffb3b3'}">${cur} ${fmt(d.netInc)}</div></div>
+
+
+
+      <div class="sni"><div class="snl">Total Liabilities</div><div class="snv">${cur} ${fmt(d.debtTotal)}</div></div>
+
+
+
+    </div>
+
+
+
+  </div>`;
+
+
+
+
+
+
+
+  // ── I. Balance sheet ──
+
+
+
+  const makeAssetRows=(grpKeys,totLabel,totVal)=>{
+
+
+
+    let rows='';
+
+
+
+    grpKeys.forEach(grp=>{
+
+
+
+      const ids=GROUPS[grp];
+
+
+
+      const grpSum=ids.reduce((a,id)=>a+v(id),0);
+
+
+
+      if(grpSum===0)return;
+
+
+
+      rows+=`<tr class="sr"><td colspan="2">${nameMap[grp]||grp}</td><td style="text-align:right">${fmt(grpSum)}</td><td style="text-align:right">${d.totalAssets>0?fmtPct(grpSum/d.totalAssets):'—'}</td></tr>`;
+
+
+
+    });
+
+
+
+    rows+=`<tr class="tr"><td colspan="2">${totLabel}</td><td style="text-align:right;font-size:1rem">${fmt(totVal)}</td><td style="text-align:right">${d.totalAssets>0?fmtPct(totVal/d.totalAssets):'—'}</td></tr>`;
+
+
+
+    return rows;
+
+
+
+  };
+
+
+
+  html+=`<div class="rs"><h2>📊 I. Family Balance Sheet</h2>
+
+
+
+    <table class="rt"><thead><tr><th>Asset Category</th><th style="text-align:right">Amount (${cur})</th><th style="text-align:right">% of Total Assets</th></tr></thead>
+
+
+
+    <tbody>${makeAssetRows(['bank','mf','sv'],'✅ Total Liquid Assets',d.liquidTotal)}
+
+
+
+    ${makeAssetRows(['sec','iprop','alt'],'✅ Total Investment Assets',d.investTotal)}
+
+
+
+    ${makeAssetRows(['home','car'],'✅ Total Personal-Use Assets',d.personalTotal)}
+
+
+
+    <tr class="gr"><td colspan="2" style="font-size:.95rem">💎 Total Assets</td><td style="text-align:right;font-size:1rem">${fmt(d.totalAssets)}</td><td style="text-align:right">100%</td></tr>
+
+
+
+    </tbody></table><br>
+
+
+
+    <table class="rt"><thead><tr><th>Liability Category</th><th style="text-align:right">Amount (${cur})</th><th style="text-align:right">% of Total Assets</th></tr></thead><tbody>`;
+
+
+
+  const debtGrpMap={mortg:'Mortgage Loans',cons:'Auto/consumer loans'};
+
+
+
+  let hasDebt=false;
+
+
+
+  ['mortg','cons'].forEach(grp=>{const gs=GROUPS[grp].reduce((a,id)=>a+v(id),0);if(gs>0){html+=`<tr class="sr"><td>${debtGrpMap[grp]}</td><td style="text-align:right">${fmt(gs)}</td><td style="text-align:right">${d.totalAssets>0?fmtPct(gs/d.totalAssets):'—'}</td></tr>`;hasDebt=true;}});
+
+
+
+  if(!hasDebt)html+=`<tr><td colspan="3" style="text-align:center;color:var(--gr)">No liability records</td></tr>`;
+
+
+
+  html+=`<tr class="tr"><td colspan="2">📍 Total Liabilities</td><td style="text-align:right">${fmt(d.debtTotal)}</td><td style="text-align:right">${d.totalAssets>0?fmtPct(d.debtTotal/d.totalAssets):'—'}</td></tr>
+
+
+
+    <tr class="gr"><td colspan="2" style="font-size:.95rem">💚 Net Assets (Total Assets - Total Liabilities)</td><td style="text-align:right;font-size:1rem">${fmt(d.netAssets)}</td><td style="text-align:right">${d.totalAssets>0?fmtPct(d.netAssets/d.totalAssets):'—'}</td></tr>
+
+
+
+    </tbody></table></div>`;
+
+
+
+
+
+
+
+  // ── II. Cash flow statement (subtotal version) ──
+
+
+
+  html+=`<div class="rs"><h2>💳 II. Family Cash Flow & Income-Expense Statement</h2>
+
+
+
+    <table class="rt"><thead><tr><th>Income Category</th><th style="text-align:right">Annual amount (${cur})</th><th style="text-align:right">% of Total Income</th></tr></thead><tbody>`;
+
+
+
+  [{grp:'ainc',label:'Active income (salary/business)'},{grp:'pinc',label:'Passive income (rent/investment)'}].forEach(({grp,label})=>{
+
+
+
+    const gs=GROUPS[grp].reduce((a,id)=>a+v(id),0);
+
+
+
+    if(gs>0) html+=`<tr class="sr"><td>${label}</td><td style="text-align:right">${fmt(gs)}</td><td style="text-align:right">${d.totalInc>0?fmtPct(gs/d.totalInc):'—'}</td></tr>`;
+
+
+
+  });
+
+
+
+  html+=`<tr class="tr"><td>✅ Total Annual Income</td><td style="text-align:right">${fmt(d.totalInc)}</td><td style="text-align:right">100%</td></tr></tbody></table><br>
+
+
+
+    <table class="rt"><thead><tr><th>Expense Category</th><th style="text-align:right">Annual amount (${cur})</th><th style="text-align:right">% of Total Expenses</th></tr></thead><tbody>`;
+
+
+
+  [{grp:'lexp',l:'Living Expenses'},{grp:'edu',l:'Children\'s Education'},{grp:'par',l:'Parent Support'},{grp:'fexp',l:'Financial expenses (repayment/premiums)'},{grp:'veh',l:'Vehicle Expenses'}].forEach(({grp,l})=>{
+
+
+
+    const gs=GROUPS[grp].reduce((a,id)=>a+v(id),0);
+
+
+
+    if(gs>0) html+=`<tr class="sr"><td>${l}</td><td style="text-align:right">${fmt(gs)}</td><td style="text-align:right">${d.totalExp>0?fmtPct(gs/d.totalExp):'—'}</td></tr>`;
+
+
+
+  });
+
+
+
+  html+=`<tr class="tr"><td>📍 Total Annual Expenses</td><td style="text-align:right">${fmt(d.totalExp)}</td><td style="text-align:right">100%</td></tr>
+
+
+
+    <tr class="gr"><td>💰 Annual Net Surplus (Income - Expenses)</td><td style="text-align:right;font-size:1rem;color:${d.netInc>=0?'var(--gn)':'var(--rd)'}">${fmt(d.netInc)}</td><td style="text-align:right">${d.totalInc>0?fmtPct(d.netInc/d.totalInc):'—'}</td></tr>
+
+
+
+    </tbody></table></div>`;
+
+
+
+
+
+
+
+  // ── III. Asset classification charts ──
+
+
+
+  const catEntries=Object.entries(d.assetCat).filter(([k,val])=>val>0);
+
+
+
+  const catTotal=Object.values(d.assetCat).reduce((a,b)=>a+b,0)||1;
+
+
+
+  html+=`<div class="rs"><h2>📈 III. Asset Classification & Distribution</h2>
+
+
+
+    <div class="cht-row">
+
+
+
+      <div class="cht-box"><h3>Asset Type Distribution</h3><canvas id="cPie" height="240"></canvas></div>
+
+
+
+      <div class="cht-box"><h3>Liquid / Investment / Personal-Use Comparison</h3><canvas id="cBar" height="240"></canvas></div>
+
+
+
+    </div>
+
+
+
+    <table class="rt"><thead><tr><th>Asset Category</th><th style="text-align:right">Amount (${cur})</th><th style="text-align:right">Share</th></tr></thead><tbody>`;
+
+
+
+  catEntries.forEach(([k,val])=>html+=`<tr><td>${k}</td><td style="text-align:right">${fmt(val)}</td><td style="text-align:right">${fmtPct(val/catTotal)}</td></tr>`);
+
+
+
+  html+=`<tr class="tr"><td>Total</td><td style="text-align:right">${fmt(catTotal)}</td><td style="text-align:right">100%</td></tr></tbody></table>
+
+
+
+    <div style="margin-top:12px;padding:12px;background:rgba(74,111,165,.06);border-radius:9px;font-size:.85rem;line-height:1.7">
+
+
+
+      <strong style="color:var(--p)">📌 Asset Allocation Diagnosis:</strong>
+
+
+
+      ${(d.investTotal+d.personalTotal)/d.totalAssets>0.85?'Assets are heavily concentrated in real estate — consider diversifying into financial assets to improve liquidity and return stability.':'Asset allocation is basically reasonable — keep monitoring the share of each asset type to maintain liquidity and return balance.'}
+
+
+
+    </div></div>`;
+
+
+
+
+
+
+
+  // ── IV. Insurance policies ──
+
+
+
+  if(d.totalPrem>0||(d.lifeCover>0)||(d.ciCover>0)){
+
+
+
+  html+=`<div class="rs"><h2>🛡️ IV. Insurance Policy Review</h2>`;
+
+
+
+  const insMembers=[
+
+
+
+    {label:'Self',keys:{life:{a:'ins_s_life_amt',p:'ins_s_life_prem',y:'ins_s_life_yr'},ci:{a:'ins_s_ci_amt',p:'ins_s_ci_prem',y:'ins_s_ci_yr'},med:{a:'ins_s_med_amt',p:'ins_s_med_prem',y:'ins_s_med_yr'},sav:{a:'ins_s_sav_amt',p:'ins_s_sav_prem',y:'ins_s_sav_yr'},acc:{a:'ins_s_acc_amt',p:'ins_s_acc_prem',y:'ins_s_acc_yr'},social:'ins_s_social'}},
+
+
+
+    {label:'Spouse',keys:{life:{a:'ins_p_life_amt',p:'ins_p_life_prem',y:'ins_p_life_yr'},ci:{a:'ins_p_ci_amt',p:'ins_p_ci_prem',y:'ins_p_ci_yr'},med:{a:'ins_p_med_amt',p:'ins_p_med_prem',y:'ins_p_med_yr'},sav:{a:'ins_p_sav_amt',p:'ins_p_sav_prem',y:'ins_p_sav_yr'},social:'ins_p_social'}},
+
+
+
+    {label:'Children',keys:{edu:{a:'ins_k_edu_amt',p:'ins_k_edu_prem',y:'ins_k_edu_yr'},ci:{a:'ins_k_ci_amt',p:'ins_k_ci_prem',y:'ins_k_ci_yr'},med:{a:'ins_k_med_amt',p:'ins_k_med_prem',y:'ins_k_med_yr'}}}
+
+
+
+  ];
+
+
+
+  const tlbl={life:'Life Insurance',ci:'Critical Illness',med:'Medical Insurance',sav:'Savings/Pension',acc:'Accident Insurance',edu:'Education Savings'};
+
+
+
+  insMembers.forEach(m=>{
+
+
+
+    const mp=Object.keys(m.keys).filter(k=>k!=='social').reduce((a,k)=>a+(v(m.keys[k].p)||0),0);
+
+
+
+    const mAmt=Object.keys(m.keys).filter(k=>k!=='social').reduce((a,k)=>a+(v(m.keys[k].a)||0),0);
+
+
+
+    if(mp===0&&mAmt===0)return;
+
+
+
+    html+=`<div style="margin-bottom:18px"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><strong style="color:var(--p)">${m.label}</strong><span style="font-size:.8rem;color:var(--gr)">Annual Premium：${cur} ${fmt(mp)}</span></div>
+
+
+
+    <table class="rt"><thead><tr><th>Insurance Type</th><th style="text-align:right">Coverage</th><th style="text-align:right">Annual Premium</th><th>Payment term</th><th>Status</th></tr></thead><tbody>`;
+
+
+
+    Object.keys(m.keys).forEach(k=>{
+
+
+
+      if(k==='social'){const sv=document.getElementById(m.keys.social)?.value||'';html+=`<tr><td>Social Security</td><td colspan="2" style="text-align:center">—</td><td>—</td><td><span class="${sv==='Yes'?'badge-gn':'badge-yw'}">${sv}</span></td></tr>`;}
+
+
+
+      else{const amt=v(m.keys[k].a),prem=v(m.keys[k].p),yr=document.getElementById(m.keys[k].y)?.value||'';
+
+
+
+        if(amt===0&&prem===0)return;
+
+
+
+        html+=`<tr><td>${tlbl[k]||k}</td><td style="text-align:right">${amt>0?amt.toFixed(2)+'0k':'—'}</td><td style="text-align:right">${prem>0?fmt(prem):'—'}</td><td>${yr||'—'}</td><td><span class="badge-gn">Configured</span></td></tr>`;}
+
+
+
+    });
+
+
+
+    html+=`</tbody></table></div>`;
+
+
+
+  });
+
+
+
+  html+=`<div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(74,111,165,.07);border-radius:8px;font-weight:700">
+
+
+
+    <span style="color:var(--p)">🛡️ Total Family Annual Premium</span><span style="color:var(--p)">${cur} ${fmt(d.totalPrem)}</span></div>`;
+
+
+
+  if(d.lifeCover===0||d.ciCover===0||(d.kpis.lifeR!==null&&d.kpis.lifeR<10&&d.lifeCover>0)||(d.kpis.ciR!==null&&d.kpis.ciR<3&&d.ciCover>0)){
+
+
+
+    html+=`<div style="margin-top:10px;padding:11px;background:rgba(231,76,60,.05);border-radius:8px;font-size:.85rem;line-height:1.8;border-left:3px solid var(--rd)">`;
+
+
+
+    if(d.lifeCover===0)html+=`⚠️ <strong>Life insurance:</strong> not yet configured — recommended coverage of at least 10× total annual income.<br>`;
+
+
+
+    if(d.ciCover===0)html+=`⚠️ <strong>Critical illness:</strong> not yet configured — recommended coverage of 300%-500% of annual active income.<br>`;
+
+
+
+    if(d.kpis.lifeR!==null&&d.kpis.lifeR<10&&d.lifeCover>0)html+=`⚠️ <strong>Insufficient life coverage:</strong> currently ${d.kpis.lifeR.toFixed(1)}× annual income — recommend raising to 10-30×.<br>`;
+
+
+
+    if(d.kpis.ciR!==null&&d.kpis.ciR<3&&d.ciCover>0)html+=`⚠️ <strong>Insufficient CI coverage:</strong> currently ${(d.kpis.ciR*100).toFixed(0)}% of annual income — recommend raising to 300%-500%.<br>`;
+
+
+
+    html+=`</div>`;
+
+
+
+  }
+
+
+
+  html+=`</div>`;
+
+
+
+  }
+
+
+
+
+
+
+
+  // ── V. Life cycle ──
+
+
+
+  html+=`<div class="rs"><h2>🌱 V. Family Life Cycle Analysis</h2><div class="lc-row">`;
+
+
+
+  lcData.forEach((lc,i)=>html+=`<div class="lci${i===lcIdx?' active':''}"><div class="lcc">${lc.ic}</div><div class="lcl">${lc.n}</div><div class="lca">${lc.r}</div></div>`);
+
+
+
+  html+=`</div><div style="padding:14px;background:linear-gradient(135deg,rgba(74,111,165,.07),rgba(216,167,177,.07));border-radius:11px">
+
+
+
+    <strong style="color:var(--p)">📍 Current stage: ${lcData[lcIdx].n} (${lcData[lcIdx].r})</strong>
+
+
+
+    <p style="margin-top:7px;font-size:.88rem;line-height:1.7">${lcSummary[lcIdx]}</p>
+
+
+
+  </div></div>`;
+
+
+
+
+
+
+
+  // ── VI. KPI performance indicators ──
+
+
+
+  html+=`<div class="rs"><h2>📐 VI. Family Financial Performance Indicators</h2><div class="kgrid">`;
+
+
+
+  kpiDefs.forEach(def=>{
+
+
+
+    const val=d.kpis[def.key];const st=kpiStatus(def.key,val);
+
+
+
+    html+=`<div class="kc"><div class="kn">${def.name}</div><div class="kv ${st.cls}">${def.fmtV(val)}</div><div class="kr">Reasonable range: ${def.range}</div><div class="ka">${kpiAnalysis(def.key,val,d)}</div></div>`;
+
+
+
+  });
+
+
+
+  html+=`</div></div>`;
+
+
+
+
+
+
+
+  // ── VII. Diagnosis & suggestions ──
+
+
+
+  const issues=[],sugg=[];
+
+
+
+  if(d.kpis.finAssetR!==null&&d.kpis.finAssetR<0.5){issues.push('Liquid financial asset ratio is low ('+fmtPct(d.kpis.finAssetR)+'), below the 50% standard — insufficient asset flexibility');sugg.push({c:'Improve liquidity',cur:fmtPct(d.kpis.finAssetR),tgt:'50%-75%',act:'Add demand deposits, money funds and short-term bonds'});}
+
+
+
+  if(d.kpis.wealthFreeR!==null&&d.kpis.wealthFreeR<1){issues.push('Passive income ('+fmt(d.passiveInc)+') does not fully cover living expenses ('+fmt(d.livingExp)+') — still a gap to financial freedom');sugg.push({c:'Increase passive income',cur:fmtPct(d.kpis.wealthFreeR),tgt:'≥100%',act:'Add investment assets to boost passive income such as rent and dividends'});}
+
+
+
+  if(d.kpis.lifeR!==null&&d.kpis.lifeR<10){issues.push('Life coverage ('+(d.lifeCover/10000).toFixed(0)+'0k) is only '+d.kpis.lifeR.toFixed(1)+'× annual income — insufficient family protection');sugg.push({c:'Increase life coverage',cur:d.kpis.lifeR.toFixed(1)+'x',tgt:'10-30x',act:'Increase term or whole life coverage to over 10× annual income'});}
+
+
+
+  if(d.kpis.ciR!==null&&d.kpis.ciR<3){issues.push('CI coverage ('+(d.ciCover/10000).toFixed(0)+'0k) is less than 3× annual income — large personal health risk exposure');sugg.push({c:'Increase CI coverage',cur:fmtPct(d.kpis.ciR),tgt:'300%-500%',act:'Top up CI coverage to 3-5× annual active income'});}
+
+
+
+  if(d.kpis.emergMths!==null&&d.kpis.emergMths<6){issues.push('Emergency fund is less than 6 months of living expenses — weak risk resilience');sugg.push({c:'Top up emergency fund',cur:d.kpis.emergMths.toFixed(0)+' months',tgt:'6-12 months',act:'Prioritize raising demand deposits to 6 months of monthly expenses'});}
+
+
+
+  if(d.kpis.netWorthGR!==null&&d.kpis.netWorthGR<0.05){issues.push('Net worth growth rate is low ('+fmtPct(d.kpis.netWorthGR)+') — wealth growth efficiency needs improvement');sugg.push({c:'Improve asset returns',cur:fmtPct(d.kpis.netWorthGR),tgt:'5%-10%',act:'Optimize asset allocation and increase income-generating assets'});}
+
+
+
+  html+=`<div class="rs"><h2>🔍 VII. Asset Allocation Diagnosis & Optimization</h2>`;
+
+
+
+  if(issues.length>0){
+
+
+
+    html+=`<div style="margin-bottom:14px"><strong style="color:var(--rd)">⚠️ Diagnosis found the following issues:</strong><ul style="margin-top:8px;padding-left:18px">`;
+
+
+
+    issues.forEach(iss=>html+=`<li style="margin-bottom:6px;font-size:.88rem;line-height:1.6">${iss}</li>`);
+
+
+
+    html+=`</ul></div><strong style="color:var(--p)">✅ Optimization suggestions:</strong>
+
+
+
+    <table class="rt" style="margin-top:8px"><thead><tr><th>Optimization Area</th><th>Current Level</th><th>Target</th><th>Action</th></tr></thead><tbody>`;
+
+
+
+    sugg.forEach(s=>html+=`<tr><td><strong>${s.c}</strong></td><td style="color:var(--rd)">${s.cur}</td><td style="color:var(--gn)">${s.tgt}</td><td style="font-size:.83rem">${s.act}</td></tr>`);
+
+
+
+    html+=`</tbody></table>`;
+
+
+
+  }else{html+=`<div style="padding:14px;background:rgba(39,174,96,.07);border-radius:10px;border-left:3px solid var(--gn)"><strong style="color:var(--gn)">✅ Overall financial health is good!</strong>All indicators are within reasonable ranges — keep up the good financial habits.</div>`;}
+
+
+
+  html+=`</div>`;
+
+
+
+
+
+
+
+  // ── VIII. Action plan ──
+
+  // Unified priority standard (consistent with advisor backend)
+  const actItems=[];
+
+  // Emergency fund
+  if(d.kpis.emergMths!==null&&d.kpis.emergMths<3)
+    actItems.push({p:'urgent',icon:'🚨',cat:'Emergency Fund',a:'Emergency fund critically low (currently '+d.kpis.emergMths.toFixed(1)+' months) — top up immediately to 6 months of expenses (about '+fmt(Math.ceil(d.livingExp/2*6))+'), in demand deposits or money funds',t:'Within 1 month'});
+  else if(d.kpis.emergMths!==null&&d.kpis.emergMths<6)
+    actItems.push({p:'high',icon:'⚠️',cat:'Emergency Fund',a:'Emergency fund insufficient (currently '+d.kpis.emergMths.toFixed(1)+' months) — top up to 6 months of expenses, gap about '+fmt(Math.max(0,(6-d.kpis.emergMths)*d.livingExp/12)),t:'Within 3 months'});
+  else if(d.kpis.emergMths!==null)
+    actItems.push({p:'ok',icon:'✅',cat:'Emergency Fund',a:'Emergency fund adequate ('+d.kpis.emergMths.toFixed(1)+' months), on target',t:''});
+
+  // Life insurance
+  if(d.kpis.lifeR!==null&&d.kpis.lifeR<5)
+    actItems.push({p:'urgent',icon:'🚨',cat:'Life Coverage',a:'Life coverage critically low (currently '+d.kpis.lifeR.toFixed(1)+'x, standard ≥10x) — top up term life immediately, recommended coverage of at least '+fmt(d.totalInc*10),t:'Within 1 month'});
+  else if(d.kpis.lifeR!==null&&d.kpis.lifeR<10)
+    actItems.push({p:'high',icon:'⚠️',cat:'Life Coverage',a:'Life coverage insufficient (currently '+d.kpis.lifeR.toFixed(1)+'x, standard ≥10x) — top up term life to 10× annual income',t:'Within 2 months'});
+  else if(d.kpis.lifeR!==null)
+    actItems.push({p:'ok',icon:'✅',cat:'Life Coverage',a:'Life coverage adequate ('+d.kpis.lifeR.toFixed(1)+'x), on target',t:''});
+
+  // Critical illness
+  if(d.kpis.ciR!==null&&d.kpis.ciR<2)
+    actItems.push({p:'urgent',icon:'🚨',cat:'CI Coverage',a:'CI coverage critically low (currently '+d.kpis.ciR.toFixed(1)+'x, standard ≥5x) — top up CI immediately, recommended coverage of '+fmt(d.totalInc*5),t:'Within 1 month'});
+  else if(d.kpis.ciR!==null&&d.kpis.ciR<5)
+    actItems.push({p:'high',icon:'⚠️',cat:'CI Coverage',a:'CI coverage insufficient (currently '+d.kpis.ciR.toFixed(1)+'x, standard ≥5x) — top up to 300%-500% of annual income',t:'Within 2 months'});
+  else if(d.kpis.ciR!==null)
+    actItems.push({p:'ok',icon:'✅',cat:'CI Coverage',a:'CI coverage adequate ('+d.kpis.ciR.toFixed(1)+'x), on target',t:''});
+
+  // Debt
+  if(d.kpis.debtR!==null&&d.kpis.debtR>0.5)
+    actItems.push({p:'urgent',icon:'🚨',cat:'Debt Management',a:'Debt-to-income ratio too high ('+(d.kpis.debtR*100).toFixed(0)+'%, warning line 36%) — create a repayment priority plan, clear high-interest debt first (credit cards, personal loans)',t:'Immediate'});
+  else if(d.kpis.debtR!==null&&d.kpis.debtR>0.36)
+    actItems.push({p:'high',icon:'⚠️',cat:'Debt Management',a:'Debt-to-income ratio high ('+(d.kpis.debtR*100).toFixed(0)+'%) — create a repayment plan and gradually reduce below 36%',t:'3-6 months'});
+  else if(d.kpis.debtR!==null&&d.kpis.debtR>0)
+    actItems.push({p:'ok',icon:'✅',cat:'Debt Management',a:'Debt-to-income ratio healthy ('+(d.kpis.debtR*100).toFixed(0)+'%), on target',t:''});
+
+  // Savings rate
+  if(d.kpis.netSavR!==null&&d.kpis.netSavR<0.05)
+    actItems.push({p:'urgent',icon:'🚨',cat:'Savings Plan',a:'Annual savings rate extremely low ('+(d.kpis.netSavR*100).toFixed(0)+'%) — review spending immediately, set up forced saving targeting 10% of income auto-transferred monthly',t:'Start this month'});
+  else if(d.kpis.netSavR!==null&&d.kpis.netSavR<0.2)
+    actItems.push({p:'high',icon:'⚠️',cat:'Savings Plan',a:'Annual savings rate low ('+(d.kpis.netSavR*100).toFixed(0)+'%, target ≥20%) — review non-essential spending and set up automatic savings transfers',t:'Within 1 month'});
+  else if(d.kpis.netSavR!==null)
+    actItems.push({p:'ok',icon:'✅',cat:'Savings Plan',a:'Annual savings rate good ('+(d.kpis.netSavR*100).toFixed(0)+'%), on target',t:''});
+
+  // Financial asset ratio
+  if(d.kpis.finAssetR!==null&&d.kpis.finAssetR<0.3)
+    actItems.push({p:'medium',icon:'📋',cat:'Asset Structure',a:'Financial asset ratio low ('+(d.kpis.finAssetR*100).toFixed(0)+'%, target ≥30%) — assets over-concentrated in physical assets, gradually increase financial asset share',t:'3-6 months'});
+
+  // Financial freedom
+  if(d.kpis.wealthFreeR!==null&&d.kpis.wealthFreeR<0.3)
+    actItems.push({p:'medium',icon:'📋',cat:'Passive Income',a:'Financial freedom index extremely low ('+d.kpis.wealthFreeR.toFixed(2)+') — plan passive income sources (savings policies, annuities, investment property); long-term goal: passive income ≥ living expenses',t:'6-12 months'});
+  else if(d.kpis.wealthFreeR!==null&&d.kpis.wealthFreeR<1)
+    actItems.push({p:'medium',icon:'📋',cat:'Passive Income',a:'Financial freedom index '+d.kpis.wealthFreeR.toFixed(2)+' — keep increasing passive income, target covering 100% of living expenses',t:'3-6 months'});
+  else if(d.kpis.wealthFreeR!==null&&d.kpis.wealthFreeR>=1)
+    actItems.push({p:'ok',icon:'🌟',cat:'Financial Freedom',a:'Financial freedom index reached ('+d.kpis.wealthFreeR.toFixed(2)+') — passive income now covers living expenses!',t:''});
+
+  // Fixed items
+  actItems.push({p:'medium',icon:'📋',cat:'Ongoing Tracking',a:'Set up an investment return log, review net worth changes and returns quarterly, and track progress with your financial advisor',t:'Ongoing'});
+
+  // Color configuration
+  const pColor={urgent:'#e74c3c',high:'#e67e22',medium:'#3498db',ok:'#27ae60'};
+  const pBg={urgent:'rgba(231,76,60,0.07)',high:'rgba(230,126,34,0.07)',medium:'rgba(52,152,219,0.07)',ok:'rgba(39,174,96,0.06)'};
+  const pLabel={urgent:'Urgent',high:'Important',medium:'Advised',ok:'Achieved'};
+
+  const urgentList=actItems.filter(a=>a.p==='urgent');
+  const highList=actItems.filter(a=>a.p==='high');
+  const mediumList=actItems.filter(a=>a.p==='medium');
+  const okList=actItems.filter(a=>a.p==='ok');
+  const actionList=[...urgentList,...highList,...mediumList];
+  const totalActions=actionList.length;
+
+  html+=`<div class="rs"><h2>🎯 VIII. Action Plan</h2>`;
+  if(totalActions>0)html+=`<div style="margin-bottom:10px;font-size:.78rem;color:var(--gr)">${totalActions} pending action items</div>`;
+
+  actionList.forEach(item=>{
+    html+=`<div style="display:flex;gap:10px;padding:11px 13px;margin-bottom:8px;border-radius:10px;background:${pBg[item.p]};border-left:3px solid ${pColor[item.p]}">
+      <div style="font-size:1.1rem;flex-shrink:0">${item.icon}</div>
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span style="font-size:.62rem;font-weight:700;padding:2px 6px;border-radius:8px;background:${pColor[item.p]};color:#fff">${pLabel[item.p]}</span>
+          <span style="font-size:.7rem;color:var(--gr);font-weight:600">${item.cat}</span>
+        </div>
+        <div style="font-size:.84rem;line-height:1.6;color:var(--tx)">${item.a}</div>
+        ${item.t?`<div style="font-size:.72rem;color:var(--gr);margin-top:3px">⏰ Suggested completion: ${item.t}</div>`:''}
+      </div>
+    </div>`;
+  });
+
+  if(okList.length>0){
+    html+=`<div style="margin-top:8px;padding:10px 14px;background:rgba(39,174,96,0.06);border-radius:10px;border:1px solid rgba(39,174,96,0.18)">
+      <div style="font-size:.73rem;font-weight:700;color:#27ae60;margin-bottom:6px">✅ Achieved Items</div>`;
+    okList.forEach(item=>html+=`<div style="font-size:.77rem;color:var(--gr);padding:2px 0">${item.icon} <strong>${item.cat}</strong>：${item.a}</div>`);
+    html+=`</div>`;
+  }
+
+  html+=`<div style="margin-bottom:16px;background:linear-gradient(90deg,#fff7e6,#fff3d6);border:1.5px solid #f0c060;border-radius:12px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px"><div style="display:flex;align-items:center;gap:10px"><span style="font-size:1.3rem">🤔</span><div><div style="font-size:.9rem;font-weight:700;color:#7a4f00">Can't understand the report? A professional advisor will interpret it 1-on-1</div><div style="font-size:.78rem;color:#a07030;margin-top:2px">In-depth analysis of your financial health with personalized advice · <strong>¥199 / session</strong></div></div></div><div style="background:#d4a017;color:#fff;border-radius:50px;padding:8px 18px;font-size:.84rem;font-weight:700;white-space:nowrap">💬 Add WeChat: hamigua221</div></div>`;
+
+  html+=`<div style="margin-top:12px;padding:10px 14px;background:var(--pg);border-radius:8px;font-size:.78rem;color:var(--gr);line-height:1.7">
+    📌 This report is auto-generated from the data you entered, for reference only and not investment advice. Consider updating your data quarterly and tracking progress with your financial advisor.
+  </div>
+
+  <div style="margin-top:28px;background:linear-gradient(135deg,#1a3a5c 0%,#2c5f8a 100%);border-radius:16px;padding:28px 24px;text-align:center;color:#fff;position:relative;overflow:hidden">
+    <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.06)"></div>
+    <div style="position:absolute;bottom:-20px;left:-20px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.04)"></div>
+    <div style="font-size:1.4rem;margin-bottom:6px">👩‍💼</div>
+    <div style="font-size:1.05rem;font-weight:700;margin-bottom:6px;letter-spacing:.5px">You've seen the data — but only you know the story behind it</div>
+    <div style="font-size:.88rem;opacity:.88;line-height:1.7;margin-bottom:18px">Every family's financial situation is unique.<br>I offer <strong style="color:#f0c060">1-on-1 professional report interpretation</strong>, tailored to your actual situation,<br>to helpyou find the most suitable financial optimization path for your family.</div>
+    <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.3);border-radius:50px;padding:10px 22px;font-size:.92rem;font-weight:600">
+      <span style="font-size:1.1rem">💬</span>
+      <span>Add me on WeChat to book a review (¥199): <strong style="color:#f0c060;font-size:1rem;letter-spacing:1px">hamigua221</strong></span>
+    </div>
+    <div style="margin-top:12px;font-size:.75rem;opacity:.65">Janet Chen · Prudential Hong Kong · Licensed Insurance Advisor IH5039 · MDRT · COT</div>
+  </div></div>`;
+
+  // ── Render & charts ──
+
+
+
+  document.getElementById('report_out').innerHTML=html;
+
+
+
+  go(8);
+
+
+
+  setTimeout(()=>{
+
+
+
+    const pieCtx=document.getElementById('cPie');
+
+
+
+    const barCtx=document.getElementById('cBar');
+
+
+
+    if(pieCtx&&catEntries.length>0){
+
+
+
+      charts.pie=new Chart(pieCtx.getContext('2d'),{type:'doughnut',data:{labels:catEntries.map(e=>e[0]),datasets:[{data:catEntries.map(e=>e[1]),backgroundColor:['#4A6FA5','#6CB4A0','#D8A7B1','#C4A882','#8B9DC3','#B5C4D7'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{font:{size:10},padding:8}}}}});
+
+
+
+    }
+
+
+
+    if(barCtx){
+
+
+
+      charts.bar=new Chart(barCtx.getContext('2d'),{type:'bar',data:{labels:['Liquid Assets','Investment Assets','Personal-Use Assets','Total Liabilities'],datasets:[{label:'Amount',data:[d.liquidTotal,d.investTotal,d.personalTotal,d.debtTotal],backgroundColor:['#4A6FA5','#6CB4A0','#D8A7B1','#E74C3C'],borderRadius:6}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(val)=>val>=1e6?(val/1e6).toFixed(1)+'M':val>=1e4?(val/1e4).toFixed(0)+'0k':val}}}}});
+
+
+
+    }
+
+
+
+  },150);
+
+
+
+  // Show send notice after report generation
+
+  saveToSupabase(d);
+
+}
+
+
+
+// ── Supabase configuration ──
+
+const SUPA_URL = 'https://harfpcpncdgsseebfsku.supabase.co';
+
+const SUPA_KEY = 'sb_publishable_XU4HW7YIninAmvzGVbs2GA_ejscsrnu';
+
+
+
+async function saveToSupabase(d) {
+
+  try {
+
+    const payload = {
+
+      client_name:       d.name   || '',
+
+      client_age:        d.age    || null,
+
+      client_job:        d.job    || '',
+
+      family_structure:  d.family || '',
+
+      risk_level:        d.risk   || '',
+
+      goals:             d.goals  || '',
+
+      total_assets:      d.totalAssets     || 0,
+
+      total_liabilities: d.debtTotal       || 0,
+
+      net_assets:        d.netAssets       || 0,
+
+      total_income:      d.totalInc        || 0,
+
+      total_expense:     d.totalExp        || 0,
+
+      net_income:        d.netInc          || 0,
+
+      report_data:       d
+
+    };
+
+    await fetch('https://harfpcpncdgsseebfsku.supabase.co/rest/v1/finance_reports', {
+
+      method: 'POST',
+
+      headers: {
+
+        'Content-Type': 'application/json',
+
+        'apikey': 'sb_publishable_XU4HW7YIninAmvzGVbs2GA_ejscsrnu',
+
+        'Authorization': 'Bearer sb_publishable_XU4HW7YIninAmvzGVbs2GA_ejscsrnu',
+
+        'Prefer': 'return=minimal'
+
+      },
+
+      body: JSON.stringify(payload)
+
+    });
+
+  } catch(e) {
+
+    console.error('Supabase save error:', e);
+
+  }
+
+}
+
+
+
+
+
+
+
+// ── Page load ──
+
+
+
+document.addEventListener('DOMContentLoaded',()=>{
+
+
+
+  document.getElementById('i_date').value=new Date().toISOString().split('T')[0];
+
+
+
+  loadSaved();
+
+
+
+});
+
+
+
+
+
+
+
+</script>
+
+
+
+</body>
+
+
+
+</html>
