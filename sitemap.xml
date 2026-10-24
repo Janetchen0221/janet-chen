@@ -10,6 +10,7 @@
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="zh-HK" href="https://janetchen0221.github.io/janet-chen/"/>
     <xhtml:link rel="alternate" hreflang="zh-CN" href="https://janetchen0221.github.io/janet-chen/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://janetchen0221.github.io/janet-chen/en/"/>
   </url>
 
   <!-- 家庭财务梳理工具（桌面版）/ Family Finance Tool (Desktop) -->
@@ -62,5 +63,14 @@
     <lastmod>2026-10-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+  </url>  <!-- 主页（英文版）/ Homepage (English) -->
+  <url>
+    <loc>https://janetchen0221.github.io/janet-chen/en/</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://janetchen0221.github.io/janet-chen/en/"/>
+    <xhtml:link rel="alternate" hreflang="zh-HK" href="https://janetchen0221.github.io/janet-chen/"/>
   </url>
+
 </urlset>
