@@ -21,6 +21,17 @@
     <xhtml:link rel="alternate" hreflang="zh-CN" href="https://janetchen0221.github.io/janet-chen/finance/"/>
   </url>
 
+  <!-- 家庭财务梳理工具（英文版）/ Family Finance Tool (English) -->
+  <url>
+    <loc>https://janetchen0221.github.io/janet-chen/finance-en/</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://janetchen0221.github.io/janet-chen/finance-en/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://janetchen0221.github.io/janet-chen/finance/"/>
+  </url>
+
+
   <!-- 家庭财务梳理工具（手机版）/ Family Finance Tool (Mobile) -->
   <url>
     <loc>https://janetchen0221.github.io/janet-chen/finance-mobile/</loc>
