@@ -714,8 +714,13 @@
     }
 
     try {
-      // iztro 排盘
-      var chart = iztro.astro.bySolar(year + '-' + pad(month) + '-' + pad(day), hour, gender === 'male', true);
+      // 时辰序号换算：子(0)=23-1时, 丑(1)=1-3时, 寅(2)=3-5时 ... 亥(11)=21-23时
+      // 公式：timeIndex = floor((hour+1)/2) % 12
+      var timeIndex = Math.floor((hour + 1) / 2) % 12;
+      // 性别：iztro 要求中文 '男'/'女'
+      var genderCN = (gender === 'male') ? '男' : '女';
+      // iztro 排盘（阳历 bySolar；语言用 zh-CN 简体，配合页面显示）
+      var chart = iztro.astro.bySolar(year + '-' + pad(month) + '-' + pad(day), timeIndex, genderCN, true, 'zh-CN');
       renderChart(chart, {year:year, month:month, day:day, hour:hour, minute:minute, gender:gender});
       document.getElementById('form-error').style.display = 'none';
     } catch (e) {
