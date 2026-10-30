@@ -742,59 +742,52 @@
 
     // 标题
     var genderTxt = input.gender === 'male' ? '男' : '女';
-    var wuxing = chart.wuxing || '';
+    var wuxing = chart.fiveElementsClass || '';
     document.getElementById('chart-title').textContent =
       '陽曆 ' + input.year + '年' + input.month + '月' + input.day + '日 ' + input.hour + '時 · ' + genderTxt;
     document.getElementById('chart-sub').textContent =
-      '命主：' + (chart.命主 || '') + '　身主：' + (chart.身主 || '') + '　五行局：' + wuxing;
+      '命主：' + (chart.soul || '') + '　身主：' + (chart.body || '') + '　五行局：' + wuxing;
 
-    // 命宫、身宫索引
-    var mingIndex = -1, shenIndex = -1;
-    for (var i = 0; i < palaces.length; i++) {
-      if (palaces[i].isMingGong) mingIndex = i;
-      if (palaces[i].isShenGong) shenIndex = i;
-    }
-
-    // 绘制宫格
+    // 绘制宫格（按 palaces 实际顺序，用 name / isOriginalPalace / isBodyPalace）
     var grid = document.getElementById('palace-grid');
     grid.innerHTML = '';
     for (var p = 0; p < 12; p++) {
       var pal = palaces[p];
       var div = document.createElement('div');
       div.className = 'palace';
-      if (p === mingIndex) div.className += ' ming';
-      if (p === shenIndex) div.className += ' shen';
+      if (pal.isOriginalPalace) div.className += ' ming';
+      if (pal.isBodyPalace) div.className += ' shen';
 
       var flags = '';
-      if (p === mingIndex) flags += '<span class="flag ming">命</span>';
-      if (p === shenIndex) flags += '<span class="flag shen">身</span>';
+      if (pal.isOriginalPalace) flags += '<span class="flag ming">命</span>';
+      if (pal.isBodyPalace) flags += '<span class="flag shen">身</span>';
 
       // 主星
       var starsHtml = '';
-      var mainStars = pal.majorStars || [];
-      mainStars.forEach(function(s){
+      var majorStars = pal.majorStars || [];
+      majorStars.forEach(function(s){
         var cls = isMainStar(s.name) ? 'star-main' : 'star-minor';
-        var sihuaTag = '';
-        if (s.sihua && s.sihua !== '') {
-          var key = s.sihua.replace('化','');
-          sihuaTag = '<span class="sihua ' + (SIHUA_CLASS[key] || 'lu') + '">' + s.sihua + '</span>';
+        var mutagenTag = '';
+        if (s.mutagen && s.mutagen !== '') {
+          var key = s.mutagen;
+          mutagenTag = '<span class="sihua ' + (SIHUA_CLASS[key] || 'lu') + '">' + key + '</span>';
         }
-        starsHtml += '<li class="' + cls + '">' + sihuaTag + escapeHtml(s.name) + '</li>';
+        starsHtml += '<li class="' + cls + '">' + mutagenTag + escapeHtml(s.name) + '</li>';
       });
       // 辅星
       var minorStars = pal.minorStars || [];
       minorStars.forEach(function(s){
-        var sihuaTag = '';
-        if (s.sihua && s.sihua !== '') {
-          var key = s.sihua.replace('化','');
-          sihuaTag = '<span class="sihua ' + (SIHUA_CLASS[key] || 'lu') + '">' + s.sihua + '</span>';
+        var mutagenTag = '';
+        if (s.mutagen && s.mutagen !== '') {
+          var key = s.mutagen;
+          mutagenTag = '<span class="sihua ' + (SIHUA_CLASS[key] || 'lu') + '">' + key + '</span>';
         }
-        starsHtml += '<li class="star-aux">' + sihuaTag + escapeHtml(s.name) + '</li>';
+        starsHtml += '<li class="star-aux">' + mutagenTag + escapeHtml(s.name) + '</li>';
       });
 
       div.innerHTML =
         '<div class="palace-tag">' +
-          '<span class="palace-name">' + PALACE_NAMES[p] + '</span>' +
+          '<span class="palace-name">' + escapeHtml(pal.name) + '</span>' +
           '<span class="palace-flags">' + flags + '</span>' +
         '</div>' +
         '<div class="palace-branch">' + (pal.heavenlyStem || '') + (pal.earthlyBranch || '') + '</div>' +
@@ -803,7 +796,7 @@
     }
 
     document.getElementById('chart-wrap').style.display = 'block';
-    renderInterp(chart, mingIndex);
+    renderInterp(chart);
   }
 
   function isMainStar(name) {
@@ -819,67 +812,71 @@
   // ═══════════════════════════════════
   // 基础解读
   // ═══════════════════════════════════
-  function renderInterp(chart, mingIndex) {
+  function renderInterp(chart) {
     var palaces = chart.palaces;
     var list = document.getElementById('interp-list');
     list.innerHTML = '';
 
-    // 命宫重点解读
-    var ming = palaces[mingIndex];
-    var mingMain = (ming.majorStars || []).filter(function(s){ return isMainStar(s.name); });
-    var mingAll = (ming.majorStars || []);
-
-    var cards = [];
-
-    // 1. 命宫主星解读
-    if (mingMain.length > 0) {
-      var body = mingMain.map(function(s){
+    // 按宫名查找宫位
+    function findPalace(name) {
+      for (var i = 0; i < palaces.length; i++) {
+        if (palaces[i].name === name) return palaces[i];
+      }
+      return null;
+    }
+    function mainStarsOf(pal) {
+      return (pal.majorStars || []).filter(function(s){ return isMainStar(s.name); });
+    }
+    function meaningHtml(stars) {
+      return stars.map(function(s){
         var meaning = STAR_MEANINGS[s.name] || '';
         return '<strong style="color:#f0ece4;">' + escapeHtml(s.name) + '：</strong>' + meaning;
       }).join('<br>');
-      cards.push({
-        title: '命宮 · 核心性格',
-        stars: mingMain.map(function(s){ return s.name; }).join(' · '),
-        body: body
-      });
-    } else {
-      cards.push({
-        title: '命宮 · 核心性格',
-        stars: '（命宮無主星）',
-        body: '命宮無十四主星（借對宮論），需參看對宮（遷移宮）主星，性格較受環境與他人影響，可塑性高。'
-      });
     }
 
-    // 2. 财帛宫解读（第4宫，索引4）
-    if (palaces[4]) {
-      var cai = palaces[4];
-      var caiMain = (cai.majorStars || []).filter(function(s){ return isMainStar(s.name); });
-      if (caiMain.length > 0) {
-        var body = caiMain.map(function(s){
-          var meaning = STAR_MEANINGS[s.name] || '';
-          return '<strong style="color:#f0ece4;">' + escapeHtml(s.name) + '：</strong>' + meaning;
-        }).join('<br>');
+    var cards = [];
+
+    // 1. 命宫（用 isOriginalPalace 标记）
+    var ming = findPalace('命宫') || findPalace('命宮');
+    if (ming) {
+      var mingMain = mainStarsOf(ming);
+      if (mingMain.length > 0) {
         cards.push({
-          title: '財帛宮 · 理財傾向',
-          stars: caiMain.map(function(s){ return s.name; }).join(' · '),
-          body: body
+          title: '命宮 · 核心性格',
+          stars: mingMain.map(function(s){ return s.name; }).join(' · '),
+          body: meaningHtml(mingMain)
+        });
+      } else {
+        cards.push({
+          title: '命宮 · 核心性格',
+          stars: '（命宮無主星）',
+          body: '命宮無十四主星（借對宮論），需參看對宮（遷移宮）主星，性格較受環境與他人影響，可塑性高。'
         });
       }
     }
 
-    // 3. 官禄宫解读（索引8）
-    if (palaces[8]) {
-      var guan = palaces[8];
-      var guanMain = (guan.majorStars || []).filter(function(s){ return isMainStar(s.name); });
+    // 2. 财帛宫
+    var cai = findPalace('财帛') || findPalace('財帛');
+    if (cai) {
+      var caiMain = mainStarsOf(cai);
+      if (caiMain.length > 0) {
+        cards.push({
+          title: '財帛宮 · 理財傾向',
+          stars: caiMain.map(function(s){ return s.name; }).join(' · '),
+          body: meaningHtml(caiMain)
+        });
+      }
+    }
+
+    // 3. 官禄宫
+    var guan = findPalace('官禄') || findPalace('官祿');
+    if (guan) {
+      var guanMain = mainStarsOf(guan);
       if (guanMain.length > 0) {
-        var body = guanMain.map(function(s){
-          var meaning = STAR_MEANINGS[s.name] || '';
-          return '<strong style="color:#f0ece4;">' + escapeHtml(s.name) + '：</strong>' + meaning;
-        }).join('<br>');
         cards.push({
           title: '官祿宮 · 事業傾向',
           stars: guanMain.map(function(s){ return s.name; }).join(' · '),
-          body: body
+          body: meaningHtml(guanMain)
         });
       }
     }
