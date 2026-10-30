@@ -4,19 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>紫微斗數 · 傳統文化興趣 | Janet Chen</title>
-  <meta name="description" content="紫微斗數傳統文化興趣頁——陳秀娟（Janet Chen）個人對紫微斗數、命理文化的研究與學習，推薦優秀的開源排盤工具與資料。" />
+  <title>紫微斗數排盤 · 傳統文化興趣 | Janet Chen</title>
+  <meta name="description" content="免費紫微斗數排盤工具——輸入出生年月日時，即時生成命盤與基礎解讀。陳秀娟（Janet Chen）個人傳統文化興趣頁。" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://janetchen0221.github.io/janet-chen/ziwei/" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="紫微斗數 · 傳統文化興趣 | Janet Chen" />
-  <meta property="og:description" content="個人興趣頁——紫微斗數、命理文化研究與學習，推薦開源排盤工具與古籍資料。" />
+  <meta property="og:title" content="紫微斗數排盤 · 傳統文化興趣 | Janet Chen" />
+  <meta property="og:description" content="免費紫微斗數排盤工具——輸入出生信息即時生成命盤與基礎解讀。" />
   <meta property="og:url" content="https://janetchen0221.github.io/janet-chen/ziwei/" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- iztro 开源排盘引擎（MIT，纯浏览器计算，无需登录） -->
+  <script src="https://cdn.jsdelivr.net/npm/iztro@2.6.3/dist/iztro.min.js"></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -46,7 +49,6 @@
       line-height: 1.75;
     }
 
-    /* ── Language switch (top-right floating) ── */
     .lang-switch { position: fixed; top: 16px; right: 18px; z-index: 9999; }
     .lang-switch a { display: inline-block; padding: 7px 16px; border: 1.5px solid var(--gold); color: var(--gold); border-radius: 999px; text-decoration: none; font-size: .82rem; letter-spacing: .06em; background: rgba(15,14,12,.72); backdrop-filter: blur(6px); transition: background .15s, color .15s; }
     .lang-switch a:hover { background: var(--gold); color: #0f0e0c; }
@@ -54,7 +56,7 @@
     .hero {
       position: relative;
       overflow: hidden;
-      padding: 56px 24px 34px;
+      padding: 56px 24px 30px;
       text-align: center;
       background: var(--bg2);
     }
@@ -73,7 +75,6 @@
       width: 120px; height: 2px;
       background: linear-gradient(90deg, transparent, var(--gold), transparent);
     }
-
     .hero-badge {
       display: inline-block;
       padding: 5px 18px;
@@ -86,7 +87,6 @@
       margin-bottom: 14px;
       font-family: "Cormorant Garamond", serif;
     }
-
     .hero h1 {
       font-family: "Cormorant Garamond", "Noto Serif TC", serif;
       font-size: clamp(1.7rem, 4vw, 2.6rem);
@@ -117,7 +117,7 @@
     }
 
     .container {
-      max-width: 820px;
+      max-width: 860px;
       margin: 0 auto;
       padding: 0 24px;
     }
@@ -145,13 +145,6 @@
       background: var(--border2);
     }
 
-    .about-text {
-      font-size: .95rem;
-      color: var(--text2);
-      line-height: 1.9;
-    }
-    .about-text p + p { margin-top: 14px; }
-
     .note-box {
       margin-top: 20px;
       background: rgba(212,175,55,.06);
@@ -164,12 +157,238 @@
       line-height: 1.8;
     }
 
-    /* ── Resource cards ── */
-    .res-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
+    /* ── 表单 ── */
+    .form-card {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      padding: 22px 22px;
+      position: relative;
+      overflow: hidden;
     }
+    .form-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+      min-width: 120px;
+    }
+    .form-field label {
+      font-size: .72rem;
+      color: var(--text2);
+      letter-spacing: .06em;
+    }
+    .form-field select, .form-field input {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      padding: 9px 12px;
+      font-size: .9rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color .15s;
+    }
+    .form-field select:focus, .form-field input:focus { border-color: var(--gold); }
+    .form-field select option { background: var(--surface2); }
+
+    .gender-toggle {
+      display: flex;
+      gap: 10px;
+    }
+    .gender-toggle button {
+      flex: 1;
+      padding: 9px 12px;
+      border: 1.5px solid var(--border);
+      background: var(--surface2);
+      color: var(--text2);
+      border-radius: 8px;
+      font-size: .9rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .gender-toggle button.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #0f0e0c;
+      font-weight: 700;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 6px;
+    }
+    .btn-primary, .btn-ghost {
+      padding: 12px 26px;
+      border-radius: 8px;
+      font-size: .9rem;
+      font-family: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: .05em;
+      transition: all .15s;
+    }
+    .btn-primary { background: var(--gold); color: #0f0e0c; border: none; }
+    .btn-primary:hover { background: var(--gold2); }
+    .btn-ghost { background: transparent; border: 1.5px solid var(--border); color: var(--text2); }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+    .form-hint {
+      font-size: .72rem;
+      color: var(--text2);
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+    .form-error {
+      display: none;
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: rgba(220,80,80,.12);
+      border: 1px solid rgba(220,80,80,.4);
+      border-radius: 8px;
+      color: #e8a0a0;
+      font-size: .8rem;
+    }
+
+    /* ── 命盘图 ── */
+    #chart-wrap { display: none; margin-top: 4px; }
+    .chart-meta {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .chart-meta h3 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.4rem;
+      color: var(--gold);
+      letter-spacing: .06em;
+    }
+    .chart-meta p { font-size: .82rem; color: var(--text2); margin-top: 4px; }
+
+    .palace-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    @media (max-width: 560px) {
+      .palace-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .palace {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      padding: 12px 10px;
+      min-height: 150px;
+      position: relative;
+      transition: border-color .15s;
+    }
+    .palace:hover { border-color: var(--border); }
+    .palace.ming { border-color: rgba(212,175,55,.55); box-shadow: 0 0 0 1px rgba(212,175,55,.25) inset; }
+    .palace.shen { border-color: rgba(160,130,60,.5); }
+    .palace-tag {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .palace-name {
+      font-size: .74rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: .04em;
+    }
+    .palace-flags {
+      display: flex;
+      gap: 4px;
+    }
+    .flag {
+      font-size: .58rem;
+      padding: 1px 6px;
+      border-radius: 4px;
+      line-height: 1.5;
+    }
+    .flag.ming { background: var(--gold); color: #0f0e0c; font-weight: 700; }
+    .flag.shen { background: rgba(160,130,60,.3); color: var(--gold2); }
+    .palace-branch {
+      font-size: .68rem;
+      color: var(--text2);
+      letter-spacing: .06em;
+      margin-bottom: 8px;
+    }
+    .star-list { list-style: none; }
+    .star-list li {
+      font-size: .78rem;
+      line-height: 1.7;
+      color: var(--text);
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+    .star-list li .sihua {
+      font-size: .62rem;
+      padding: 0 4px;
+      border-radius: 3px;
+      line-height: 1.5;
+      flex-shrink: 0;
+    }
+    .sihua.lu { background: #2e7d32; color: #fff; }
+    .sihua.quan { background: #6a1b9a; color: #fff; }
+    .sihua.ke { background: #b8860b; color: #fff; }
+    .sihua.ji { background: #c0392b; color: #fff; }
+    .star-main { font-weight: 700; color: var(--gold2); }
+    .star-minor { color: var(--text); }
+    .star-aux { color: var(--text2); font-size: .72rem; }
+
+    /* ── 解读 ── */
+    #interp-wrap { display: none; }
+    .interp-card {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .interp-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; bottom: 0; width: 3px;
+      background: var(--gold);
+      border-radius: 12px 0 0 12px;
+    }
+    .interp-title {
+      font-size: .92rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .interp-stars {
+      font-size: .72rem;
+      color: var(--gold2);
+      margin-bottom: 8px;
+      letter-spacing: .04em;
+    }
+    .interp-body {
+      font-size: .84rem;
+      color: var(--text2);
+      line-height: 1.85;
+    }
+
+    /* ── 资源卡片 ── */
+    .res-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
     .res-card {
       background: var(--surface);
       border: 1px solid var(--border2);
@@ -195,12 +414,7 @@
       color: var(--gold);
       opacity: .55;
     }
-    .res-top {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 10px;
-    }
+    .res-top { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
     .res-icon {
       width: 46px; height: 46px;
       border-radius: 12px;
@@ -210,25 +424,9 @@
       font-size: 1.5rem;
       flex-shrink: 0;
     }
-    .res-name {
-      font-size: 1.02rem;
-      font-weight: 700;
-      color: var(--text);
-      font-family: "Noto Serif TC", serif;
-    }
-    .res-tag {
-      font-size: .66rem;
-      color: var(--gold);
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      font-family: "Cormorant Garamond", serif;
-    }
-    .res-desc {
-      font-size: .82rem;
-      color: var(--text2);
-      line-height: 1.7;
-      padding-right: 20px;
-    }
+    .res-name { font-size: 1.02rem; font-weight: 700; color: var(--text); font-family: "Noto Serif TC", serif; }
+    .res-tag { font-size: .66rem; color: var(--gold); letter-spacing: .08em; text-transform: uppercase; font-family: "Cormorant Garamond", serif; }
+    .res-desc { font-size: .82rem; color: var(--text2); line-height: 1.7; padding-right: 20px; }
 
     footer {
       background: #0a0908;
@@ -257,9 +455,7 @@
     }
     footer .back-home:hover { background: var(--gold); color: #0f0e0c; }
 
-    @media (max-width: 600px) {
-      html { font-size: 16px; }
-    }
+    @media (max-width: 600px) { html { font-size: 16px; } }
   </style>
 </head>
 <body>
@@ -269,63 +465,114 @@
   <div class="hero">
     <div class="hero-badge">Traditional Culture · 個人興趣</div>
     <h1>
-      紫微斗數
-      <span class="en">Zi Wei Dou Shu · 傳統命理文化</span>
+      紫微斗數排盤
+      <span class="en">Zi Wei Dou Shu · 免費即時起盤</span>
     </h1>
     <div class="hero-divider"></div>
-    <p class="hero-sub">這是我的個人興趣角落——在工作之餘，我喜歡研讀紫微斗數與傳統命理文化，也樂於分享我遇到的好工具與好資料。</p>
+    <p class="hero-sub">輸入出生信息，即時生成你的紫微斗數命盤與基礎解讀。全程在瀏覽器本地計算，無需登錄、不上傳任何資料。</p>
   </div>
 
   <div class="container">
 
+    <!-- ── 排盘表单 ── -->
     <div class="section">
-      <div class="section-title">關於這個興趣 · About</div>
-      <div class="about-text">
-        <p>紫微斗數是中國傳統命理學的重要一支，透過出生年、月、日、時排出命盤，觀察十四主星、四化、格局等，是一套相當系統化的傳統智慧體系。</p>
-        <p>我個人喜歡它，是因為它承載了古人的觀察與歸納，也讓我對「人生周期」「環境與人事」的關係多了另一種角度。這部分與我的專業工作（家庭財務規劃）是分開的，純粹是個人興趣與文化學習。</p>
+      <div class="section-title">輸入出生信息 · Birth Info</div>
+      <div class="form-card">
+        <div class="form-row">
+          <div class="form-field">
+            <label>出生年（陽曆）</label>
+            <select id="f-year"></select>
+          </div>
+          <div class="form-field">
+            <label>出生月</label>
+            <select id="f-month"></select>
+          </div>
+          <div class="form-field">
+            <label>出生日</label>
+            <select id="f-day"></select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>出生時辰（時）</label>
+            <select id="f-hour"></select>
+          </div>
+          <div class="form-field">
+            <label>出生分鐘</label>
+            <select id="f-minute"></select>
+          </div>
+          <div class="form-field">
+            <label>性別</label>
+            <div class="gender-toggle" id="f-gender">
+              <button type="button" data-g="male" class="active">男</button>
+              <button type="button" data-g="female">女</button>
+            </div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn-primary" onclick="doChart()">🔮 排　盤</button>
+          <button class="btn-ghost" onclick="resetForm()">清　空</button>
+        </div>
+        <div class="form-error" id="form-error"></div>
+        <div class="form-hint">
+          提示：出生時辰請以「地方標準時間」填寫；若出生於整時前後（如 23:00–00:59），排盤會依「晚子時/早子時」規則處理。此工具為純前端計算，你的出生資料不會被儲存或上傳。
+        </div>
       </div>
       <div class="note-box">
-        ⚠️ <strong>聲明：</strong>本頁內容為個人興趣與傳統文化學習分享，不構成任何投資、保險、醫療或人生決策建議。命理僅供參考，任何重要的人生與財務決定，仍應基於理性分析與專業諮詢。
+        ⚠️ <strong>聲明：</strong>本工具僅供傳統文化學習與娛樂參考，不構成任何投資、保險、醫療或人生決策建議。命理解讀會因人、因流派而有差異，請理性看待。任何重要的人生與財務決定，仍應基於理性分析與專業諮詢。
       </div>
     </div>
 
-    <div class="section">
-      <div class="section-title">推薦工具與資料 · Resources</div>
-      <div class="res-grid">
+    <!-- ── 命盘图 ── -->
+    <div class="section" id="chart-wrap">
+      <div class="section-title">命盤 · Chart</div>
+      <div class="chart-meta">
+        <h3 id="chart-title"></h3>
+        <p id="chart-sub"></p>
+      </div>
+      <div class="palace-grid" id="palace-grid"></div>
+    </div>
 
+    <!-- ── 基础解读 ── -->
+    <div class="section" id="interp-wrap">
+      <div class="section-title">基礎解讀 · Brief Reading</div>
+      <div id="interp-list"></div>
+    </div>
+
+    <!-- ── 资源 ── -->
+    <div class="section">
+      <div class="section-title">延伸資料 · Resources</div>
+      <div class="res-grid">
+        <a class="res-card" href="https://github.com/SylarLong/iztro" target="_blank" rel="noopener">
+          <div class="res-top">
+            <div class="res-icon">💻</div>
+            <div>
+              <div class="res-name">iztro 開源排盤引擎</div>
+              <div class="res-tag">GitHub · MIT · 本頁所用</div>
+            </div>
+          </div>
+          <div class="res-desc">本頁排盤所採用的開源星盤生成庫（MIT 協議），由 SylarLong 開發，純瀏覽器計算。</div>
+        </a>
+        <a class="res-card" href="https://github.com/Renhuai123/ziwei-doushu" target="_blank" rel="noopener">
+          <div class="res-top">
+            <div class="res-icon">📚</div>
+            <div>
+              <div class="res-name">ziwei-doushu 開源項目</div>
+              <div class="res-tag">GitHub · 倪海廈《天紀》體系</div>
+            </div>
+          </div>
+          <div class="res-desc">基於倪海廈《天紀》體系的開源排盤項目，含格局知識庫、古籍原文與命盤數據集，適合深入學習。</div>
+        </a>
         <a class="res-card" href="https://metisziwei.com/" target="_blank" rel="noopener">
           <div class="res-top">
             <div class="res-icon">🔮</div>
             <div>
               <div class="res-name">Metis 紫微斗數排盤</div>
-              <div class="res-tag">Online · 線上排盤</div>
+              <div class="res-tag">Online · 進階體驗</div>
             </div>
           </div>
-          <div class="res-desc">基於倪海廈《天紀》體系的線上排盤平台，可免費排盤、瀏覽命盤。適合想快速體驗紫微斗數排盤的朋友。</div>
+          <div class="res-desc">如需更完整的 AI 解讀與合盤功能，可前往線上平台（需自行註冊）。</div>
         </a>
-
-        <a class="res-card" href="https://github.com/Renhuai123/ziwei-doushu" target="_blank" rel="noopener">
-          <div class="res-top">
-            <div class="res-icon">💻</div>
-            <div>
-              <div class="res-name">ziwei-doushu 開源排盤引擎</div>
-              <div class="res-tag">GitHub · Open Source</div>
-            </div>
-          </div>
-          <div class="res-desc">開源的紫微斗數排盤引擎（TypeScript），含完整排盤算法、四化系統、格局知識庫與古籍原文資料。代碼 MIT、數據 CC BY 4.0，適合開發者或研究者深入學習。</div>
-        </a>
-
-        <a class="res-card" href="https://github.com/Renhuai123/nihai-tianji-corpus" target="_blank" rel="noopener">
-          <div class="res-top">
-            <div class="res-icon">📜</div>
-            <div>
-              <div class="res-name">倪海廈《天紀》語料庫</div>
-              <div class="res-tag">GitHub · Corpus</div>
-            </div>
-          </div>
-          <div class="res-desc">倪海廈《天紀》紫微斗數部分的原話語料，逐條附出處與時間碼，可跳回 B 站原視頻對照學習（限非商業使用）。</div>
-        </a>
-
       </div>
     </div>
 
@@ -336,6 +583,327 @@
     <p style="margin-top:6px;">本頁為個人興趣分享，與專業理財顧問工作無關。</p>
     <a class="back-home" href="https://janetchen0221.github.io/janet-chen/">← 返回主頁</a>
   </footer>
+
+  <script>
+  // ═══════════════════════════════════
+  // 基础数据：十二宫、十四主星、四化等
+  // ═══════════════════════════════════
+
+  // 十二宫位（iztro palaces 顺序）
+  var PALACE_NAMES = ['命宮','兄弟','夫妻','子女','財帛','疾厄','遷移','交友','官祿','田宅','福德','父母'];
+
+  // 主星白话释义（传统命理常识，用于「基础解读」）
+  var STAR_MEANINGS = {
+    '紫微': '帝星，主領導、尊貴、格局。入命者多具威儀與自我要求，適合承擔責任、居於主導位置；格局好則格局高遠，格局弱則易自視過高。',
+    '天機': '主智謀、變動、機巧。入命者思緒敏捷、善於規劃，但也易多慮、心神不寧；一生多變動與選擇。',
+    '太陽': '主光明、熱忱、付出。入命者熱情開朗、樂於助人、有奉獻精神；男命偏貴，女命則辛勞付出較多。',
+    '武曲': '主財星、剛毅、行動。入命者務實、重執行、善理財，性格剛強果決；但易剛硬、較重實際利益。',
+    '天同': '主福氣、隨和、享樂。入命者性情溫和、知足、人緣好，福澤較厚；但有時略顯懶散、進取不足。',
+    '廉貞': '主才藝、多變、情緒。入命者才華多、反應快、交際廣，但也情緒起伏、善惡一念；需自制方能成器。',
+    '天府': '主財庫、穩重、包容。入命者氣度雍容、善守成、理財穩健，為人厚道；但較保守、略欠缺開創。',
+    '太陰': '主陰柔、細膩、田宅。入命者溫和內斂、細心、重視家庭，具美感與生活品味；但易多愁、優柔。',
+    '貪狼': '主慾望、多才、桃花。入命者多才多藝、社交活躍、企圖心強；但慾望重，易沉溺享樂，需節制方能大成。',
+    '巨門': '主口才、是非、暗。入命者口才佳、觀察細、善分析，適合法政、教育、口才相關；但易招惹是非、口舌。',
+    '天相': '主輔佐、公正、協調。入命者性格隨和、善協調、重原則，是良好的輔佐與執行人才；但較少獨當一面。',
+    '天梁': '主庇蔭、長壽、公正。入命者古道熱腸、好為人排解、有長者緣，具庇護他人之德；但易愛面子、固執。',
+    '七殺': '主開創、魄力、剛猛。入命者行動力強、敢衝敢拚、適合開拓與變革；但性急、易衝動，需收斂鋒芒。',
+    '破軍': '主破而後立、變革、冒險。入命者敢作敢為、不喜受拘束、富改革精神；但人生多變動，宜守中求進。'
+  };
+
+  // 四化映射（iztro 会返回 sihua，这里用于显示标签）
+  var SIHUA_LABEL = { '祿':'祿', '權':'權', '科':'科', '忌':'忌' };
+  var SIHUA_CLASS = { '祿':'lu', '權':'quan', '科':'ke', '忌':'ji' };
+
+  // ═══════════════════════════════════
+  // 表单初始化
+  // ═══════════════════════════════════
+  function initForm() {
+    var now = new Date();
+    var cy = now.getFullYear();
+
+    // 年份：1930 ~ 当前年
+    var yearSel = document.getElementById('f-year');
+    for (var y = cy; y >= 1930; y--) {
+      var o = document.createElement('option');
+      o.value = y; o.textContent = y + ' 年';
+      if (y === 1990) o.selected = true;
+      yearSel.appendChild(o);
+    }
+    // 月份
+    var monthSel = document.getElementById('f-month');
+    for (var m = 1; m <= 12; m++) {
+      var mo = document.createElement('option');
+      mo.value = m; mo.textContent = m + ' 月';
+      monthSel.appendChild(mo);
+    }
+    // 日（先按 31 天）
+    fillDays(31);
+    // 时 0-23
+    var hourSel = document.getElementById('f-hour');
+    for (var h = 0; h <= 23; h++) {
+      var ho = document.createElement('option');
+      ho.value = h; ho.textContent = h + ' 時';
+      if (h === 8) ho.selected = true;
+      hourSel.appendChild(ho);
+    }
+    // 分 0-59（步长 5）
+    var minSel = document.getElementById('f-minute');
+    for (var mi = 0; mi < 60; mi += 5) {
+      var mio = document.createElement('option');
+      mio.value = mi; mio.textContent = (mi < 10 ? '0' + mi : mi) + ' 分';
+      minSel.appendChild(mio);
+    }
+    // 年/月联动更新日
+    document.getElementById('f-year').addEventListener('change', updateDays);
+    document.getElementById('f-month').addEventListener('change', updateDays);
+    // 性别切换
+    document.querySelectorAll('#f-gender button').forEach(function(b){
+      b.addEventListener('click', function(){
+        document.querySelectorAll('#f-gender button').forEach(function(x){ x.classList.remove('active'); });
+        b.classList.add('active');
+      });
+    });
+  }
+
+  function updateDays() {
+    var y = parseInt(document.getElementById('f-year').value);
+    var m = parseInt(document.getElementById('f-month').value);
+    var days = new Date(y, m, 0).getDate();
+    fillDays(days);
+  }
+  function fillDays(n) {
+    var daySel = document.getElementById('f-day');
+    var cur = daySel.value;
+    daySel.innerHTML = '';
+    for (var d = 1; d <= n; d++) {
+      var o = document.createElement('option');
+      o.value = d; o.textContent = d + ' 日';
+      if (d === parseInt(cur) || (d === 15 && !cur)) o.selected = true;
+      daySel.appendChild(o);
+    }
+  }
+
+  function resetForm() {
+    document.getElementById('chart-wrap').style.display = 'none';
+    document.getElementById('interp-wrap').style.display = 'none';
+    document.getElementById('form-error').style.display = 'none';
+  }
+  function showError(msg) {
+    var e = document.getElementById('form-error');
+    e.textContent = msg; e.style.display = 'block';
+  }
+
+  // ═══════════════════════════════════
+  // 排盘
+  // ═══════════════════════════════════
+  function doChart() {
+    if (typeof iztro === 'undefined') {
+      showError('排盤引擎尚未載入，請稍候刷新重試。');
+      return;
+    }
+    var year = parseInt(document.getElementById('f-year').value);
+    var month = parseInt(document.getElementById('f-month').value);
+    var day = parseInt(document.getElementById('f-day').value);
+    var hour = parseInt(document.getElementById('f-hour').value);
+    var minute = parseInt(document.getElementById('f-minute').value);
+    var gender = document.querySelector('#f-gender button.active').getAttribute('data-g');
+
+    if (!year || !month || !day) {
+      showError('請填寫完整的出生年月日。');
+      return;
+    }
+
+    try {
+      // iztro 排盘
+      var chart = iztro.astro.bySolar(year + '-' + pad(month) + '-' + pad(day), hour, gender === 'male', true);
+      renderChart(chart, {year:year, month:month, day:day, hour:hour, minute:minute, gender:gender});
+      document.getElementById('form-error').style.display = 'none';
+    } catch (e) {
+      showError('排盤失敗：' + (e && e.message ? e.message : e));
+      console.error(e);
+    }
+  }
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  // ═══════════════════════════════════
+  // 渲染
+  // ═══════════════════════════════════
+  function renderChart(chart, input) {
+    var palaces = chart.palaces;
+    if (!palaces || palaces.length < 12) {
+      showError('排盤結果異常，請重試。');
+      return;
+    }
+
+    // 标题
+    var genderTxt = input.gender === 'male' ? '男' : '女';
+    var wuxing = chart.wuxing || '';
+    document.getElementById('chart-title').textContent =
+      '陽曆 ' + input.year + '年' + input.month + '月' + input.day + '日 ' + input.hour + '時 · ' + genderTxt;
+    document.getElementById('chart-sub').textContent =
+      '命主：' + (chart.命主 || '') + '　身主：' + (chart.身主 || '') + '　五行局：' + wuxing;
+
+    // 命宫、身宫索引
+    var mingIndex = -1, shenIndex = -1;
+    for (var i = 0; i < palaces.length; i++) {
+      if (palaces[i].isMingGong) mingIndex = i;
+      if (palaces[i].isShenGong) shenIndex = i;
+    }
+
+    // 绘制宫格
+    var grid = document.getElementById('palace-grid');
+    grid.innerHTML = '';
+    for (var p = 0; p < 12; p++) {
+      var pal = palaces[p];
+      var div = document.createElement('div');
+      div.className = 'palace';
+      if (p === mingIndex) div.className += ' ming';
+      if (p === shenIndex) div.className += ' shen';
+
+      var flags = '';
+      if (p === mingIndex) flags += '<span class="flag ming">命</span>';
+      if (p === shenIndex) flags += '<span class="flag shen">身</span>';
+
+      // 主星
+      var starsHtml = '';
+      var mainStars = pal.majorStars || [];
+      mainStars.forEach(function(s){
+        var cls = isMainStar(s.name) ? 'star-main' : 'star-minor';
+        var sihuaTag = '';
+        if (s.sihua && s.sihua !== '') {
+          var key = s.sihua.replace('化','');
+          sihuaTag = '<span class="sihua ' + (SIHUA_CLASS[key] || 'lu') + '">' + s.sihua + '</span>';
+        }
+        starsHtml += '<li class="' + cls + '">' + sihuaTag + escapeHtml(s.name) + '</li>';
+      });
+      // 辅星
+      var minorStars = pal.minorStars || [];
+      minorStars.forEach(function(s){
+        var sihuaTag = '';
+        if (s.sihua && s.sihua !== '') {
+          var key = s.sihua.replace('化','');
+          sihuaTag = '<span class="sihua ' + (SIHUA_CLASS[key] || 'lu') + '">' + s.sihua + '</span>';
+        }
+        starsHtml += '<li class="star-aux">' + sihuaTag + escapeHtml(s.name) + '</li>';
+      });
+
+      div.innerHTML =
+        '<div class="palace-tag">' +
+          '<span class="palace-name">' + PALACE_NAMES[p] + '</span>' +
+          '<span class="palace-flags">' + flags + '</span>' +
+        '</div>' +
+        '<div class="palace-branch">' + (pal.heavenlyStem || '') + (pal.earthlyBranch || '') + '</div>' +
+        '<ul class="star-list">' + (starsHtml || '<li class="star-aux">—</li>') + '</ul>';
+      grid.appendChild(div);
+    }
+
+    document.getElementById('chart-wrap').style.display = 'block';
+    renderInterp(chart, mingIndex);
+  }
+
+  function isMainStar(name) {
+    return ['紫微','天機','太陽','武曲','天同','廉貞','天府','太陰','貪狼','巨門','天相','天梁','七殺','破軍'].indexOf(name) >= 0;
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  // ═══════════════════════════════════
+  // 基础解读
+  // ═══════════════════════════════════
+  function renderInterp(chart, mingIndex) {
+    var palaces = chart.palaces;
+    var list = document.getElementById('interp-list');
+    list.innerHTML = '';
+
+    // 命宫重点解读
+    var ming = palaces[mingIndex];
+    var mingMain = (ming.majorStars || []).filter(function(s){ return isMainStar(s.name); });
+    var mingAll = (ming.majorStars || []);
+
+    var cards = [];
+
+    // 1. 命宫主星解读
+    if (mingMain.length > 0) {
+      var body = mingMain.map(function(s){
+        var meaning = STAR_MEANINGS[s.name] || '';
+        return '<strong style="color:#f0ece4;">' + escapeHtml(s.name) + '：</strong>' + meaning;
+      }).join('<br>');
+      cards.push({
+        title: '命宮 · 核心性格',
+        stars: mingMain.map(function(s){ return s.name; }).join(' · '),
+        body: body
+      });
+    } else {
+      cards.push({
+        title: '命宮 · 核心性格',
+        stars: '（命宮無主星）',
+        body: '命宮無十四主星（借對宮論），需參看對宮（遷移宮）主星，性格較受環境與他人影響，可塑性高。'
+      });
+    }
+
+    // 2. 财帛宫解读（第4宫，索引4）
+    if (palaces[4]) {
+      var cai = palaces[4];
+      var caiMain = (cai.majorStars || []).filter(function(s){ return isMainStar(s.name); });
+      if (caiMain.length > 0) {
+        var body = caiMain.map(function(s){
+          var meaning = STAR_MEANINGS[s.name] || '';
+          return '<strong style="color:#f0ece4;">' + escapeHtml(s.name) + '：</strong>' + meaning;
+        }).join('<br>');
+        cards.push({
+          title: '財帛宮 · 理財傾向',
+          stars: caiMain.map(function(s){ return s.name; }).join(' · '),
+          body: body
+        });
+      }
+    }
+
+    // 3. 官禄宫解读（索引8）
+    if (palaces[8]) {
+      var guan = palaces[8];
+      var guanMain = (guan.majorStars || []).filter(function(s){ return isMainStar(s.name); });
+      if (guanMain.length > 0) {
+        var body = guanMain.map(function(s){
+          var meaning = STAR_MEANINGS[s.name] || '';
+          return '<strong style="color:#f0ece4;">' + escapeHtml(s.name) + '：</strong>' + meaning;
+        }).join('<br>');
+        cards.push({
+          title: '官祿宮 · 事業傾向',
+          stars: guanMain.map(function(s){ return s.name; }).join(' · '),
+          body: body
+        });
+      }
+    }
+
+    if (cards.length === 0) {
+      cards.push({ title: '解讀', stars: '', body: '暫無更多解讀內容。' });
+    }
+
+    cards.forEach(function(c){
+      var div = document.createElement('div');
+      div.className = 'interp-card';
+      div.innerHTML =
+        '<div class="interp-title">' + escapeHtml(c.title) + '</div>' +
+        '<div class="interp-stars">' + escapeHtml(c.stars) + '</div>' +
+        '<div class="interp-body">' + c.body + '</div>';
+      list.appendChild(div);
+    });
+
+    document.getElementById('interp-wrap').style.display = 'block';
+
+    // 滚动到图表
+    setTimeout(function(){
+      document.getElementById('chart-wrap').scrollIntoView({ behavior:'smooth', block:'start' });
+    }, 100);
+  }
+
+  // 初始化
+  initForm();
+  </script>
 
 </body>
 </html>
