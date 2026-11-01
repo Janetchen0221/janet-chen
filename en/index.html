@@ -4454,9 +4454,10 @@
 
 
   <style>
-    .lang-switch { position: fixed; top: 16px; right: 18px; z-index: 9999; }
-    .lang-switch a { display: inline-block; padding: 7px 16px; border: 1.5px solid var(--gold); color: var(--gold); border-radius: 999px; text-decoration: none; font-size: .82rem; letter-spacing: .06em; background: rgba(15,14,12,.72); backdrop-filter: blur(6px); transition: background .15s, color .15s; }
+    .lang-switch { position: fixed; top: 16px; right: 18px; z-index: 9999; display: flex; gap: 8px; }
+    .lang-switch a { display: inline-block; padding: 7px 14px; border: 1.5px solid var(--gold); color: var(--gold); border-radius: 999px; text-decoration: none; font-size: .82rem; letter-spacing: .06em; background: rgba(15,14,12,.72); backdrop-filter: blur(6px); transition: background .15s, color .15s; }
     .lang-switch a:hover { background: var(--gold); color: #0f0e0c; }
+    .lang-switch a.active { background: var(--gold); color: #0f0e0c; font-weight: 700; }
   </style>
 
 
@@ -4481,7 +4482,11 @@
 
 
 
-  <div class="lang-switch"><a href="https://janetchen0221.github.io/janet-chen/">中文</a></div>
+  <div class="lang-switch">
+    <a href="https://janetchen0221.github.io/janet-chen/">繁體</a>
+    <a href="https://janetchen0221.github.io/janet-chen/zh-CN/">简体</a>
+    <a href="https://janetchen0221.github.io/janet-chen/en/" class="active">English</a>
+  </div>
 
 
 
