@@ -2105,7 +2105,7 @@ function injectReportCss(){
 
 .cht-box h3{font-size:.85rem;color:var(--p);margin-bottom:10px;text-align:center}
 
-@media print{.step-nav,.save-bar,.navrow,button{display:none!important}.panel{display:block!important}.rs{break-inside:avoid}}`;
+@media print{.step-nav,.save-bar,.navrow,button{display:none!important}.panel{display:none!important}.panel.active{display:block!important}.rs{break-inside:avoid}}`;
 
   document.head.appendChild(s);
 
